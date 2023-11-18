@@ -11,6 +11,7 @@ def run():
     
     while True:
         game_board.display_board()
+        player.move()
         player.draw_player()
         game_board.update_display()
 
