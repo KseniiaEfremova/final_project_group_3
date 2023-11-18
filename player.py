@@ -34,8 +34,8 @@ class Player():
         # check if player going off edge of screen
         if self.rect.left + dx < 0:
             dx = -self.rect.left
-        # if self.rect.right + dx > :
-        #     dx = -self.rect.left
+        if self.rect.right + dx > self.board_instance.res[0]:
+            dx = self.board_instance.res[0] - self.rect.right
             
         # move rectangle
         self.rect.x += dx
