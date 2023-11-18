@@ -8,7 +8,6 @@ class Board():
 		self.frames = frames
 
 	def display_board(self):
-		pygame.init()
 		pygame.display.set_caption(self.name)
 		board = pygame.display.set_mode(self.res)
 		fps = pygame.time.Clock()
