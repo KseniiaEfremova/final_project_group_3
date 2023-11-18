@@ -15,3 +15,4 @@ class Player():
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, self.rect)
+        
