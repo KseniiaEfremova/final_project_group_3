@@ -9,7 +9,7 @@ class Board():
 
 	def display_board(self):
 		pygame.display.set_caption(self.name)
-		board = pygame.display.set_mode(self.res)
+		self.board = pygame.display.set_mode(self.res)
 		fps = pygame.time.Clock()
 		while True:
 			for event in pygame.event.get():
