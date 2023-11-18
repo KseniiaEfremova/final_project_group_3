@@ -19,12 +19,26 @@ class Player():
         self.board_instance.board.blit(self.image, (self.rect.x, self.rect.y - 10))
         #pygame.draw.rect(self.board_instance.board, (255, 255, 255), self.rect, 2)
         
+        
     def move(self):
-        # look for key presses
+        # variable to reset for delta x and delta y
+        dx = 0
+        dy = 0
+        
+        # look for key presses and update dx
         key = pygame.key.get_pressed()
         if key[pygame.K_a] or key[pygame.K_LEFT]:
-            self.rect.x -= 10
+            dx = -10
         if key[pygame.K_d] or key[pygame.K_RIGHT]:
-            self.rect.x += 10
+            dx = 10
+        # check if player going off edge of screen
+        if self.rect.left + dx < 0:
+            dx = -self.rect.left
+        # if self.rect.right + dx > :
+        #     dx = -self.rect.left
+            
+        # move rectangle
+        self.rect.x += dx
+        self.rect.y += dy
             
             

@@ -11,8 +11,9 @@ def run():
     
     while True:
         game_board.display_board()
-        player.move()
+        game_board.draw_background()
         player.draw_player()
+        player.move()
         game_board.update_display()
 
 if __name__ == '__main__':
