@@ -8,6 +8,7 @@ def run():
 	game_board.display_board()
 	error_item = ErrorItem(game_board.res[0])
 	
+	#will add these changes later on
 	#while True:
 		#error_item.fall()
 		#error_item.draw(game_board) 
