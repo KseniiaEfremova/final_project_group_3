@@ -24,7 +24,7 @@ class FallingItem(ABC):
 	@abstractmethod
 	def disappear(self):
 		pass
-
+	
 	@abstractmethod
-    def draw(self, board_instance):
-        pass
+	def draw(self, board_instance):
+		pass
