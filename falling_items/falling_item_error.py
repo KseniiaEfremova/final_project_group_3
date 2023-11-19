@@ -1,7 +1,7 @@
 from abstract_falling_item import FallingItem
 import random
 
-class Error(FallingItem):
+class ErrorItem(FallingItem):
     def __init__(self, board_width):
         super().__init__('Error', 8, 10, -5, 30, 30, 0, 0)
         self.board_width = board_width
