@@ -17,3 +17,6 @@ class ErrorItem(FallingItem):
     def disappear(self):
         return self.y > 600
     
+    def draw(self, board_instance):
+        pygame.draw.rect(board_instance.board, (255, 0, 0), (self.x, self.y, self.width, self.height))
+    
