@@ -17,13 +17,14 @@ class FallingItem(ABC):
 
 	def spawn(self):
 		self.x = random.randint(0, self.board_width - self.width)
-        self.y = 0
+		self.y = 0
 
 	def fall(self):
 		self.y += self.speed
 
 	@abstractmethod
 	def disappear(self):
+		pass
 		
 	def draw(self, board_instance):
 		pygame.draw.rect(board_instance.board, (255, 0, 0), (self.x, self.y, self.width, self.height))
