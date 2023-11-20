@@ -3,7 +3,7 @@ from abc import ABC
 
 
 class FallingItem(ABC):
-	def __init__(self, name, speed, damage, points, width, height, x, y):
+	def __init__(self, name, speed, damage, points, width, height, x, y, board_width):
 		self.name = name
 		self.speed = speed
 		self.damage = damage
@@ -12,19 +12,18 @@ class FallingItem(ABC):
 		self.height = height
 		self.x = x
 		self.y = y
+		self.board_width = board_width
+        self.spawn()
 
-	@abstractmethod
 	def spawn(self):
-		pass
+		self.x = random.randint(0, self.board_width - self.width)
+        self.y = 0
 
-	@abstractmethod
 	def fall(self):
-		pass
+		self.y += self.speed
 
 	@abstractmethod
 	def disappear(self):
-		pass
-	
-	@abstractmethod
+		
 	def draw(self, board_instance):
-		pass
+		pygame.draw.rect(board_instance.board, (255, 0, 0), (self.x, self.y, self.width, self.height))
