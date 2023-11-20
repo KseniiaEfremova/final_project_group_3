@@ -20,25 +20,27 @@ class Player():
         #pygame.draw.rect(self.board_instance.board, (255, 255, 255), self.rect, 2)
         
         
+    def constrain_move_within_board(self, dx, dy):
+        if self.rect.left + dx < 0:
+            dx = -self.rect.left
+        if self.rect.right + dx > self.board_instance.res[0]:
+            dx = self.board_instance.res[0] - self.rect.right
+        return dx, dy
+    
+
     def move(self):
         # variable to reset for delta x and delta y
         dx = 0
-        dy = 0
-        
+        dy = 0     
         # look for key presses and update dx
         key = pygame.key.get_pressed()
         if key[pygame.K_a] or key[pygame.K_LEFT]:
             dx = -10
         if key[pygame.K_d] or key[pygame.K_RIGHT]:
             dx = 10
-        # check if player going off edge of screen
-        if self.rect.left + dx < 0:
-            dx = -self.rect.left
-        if self.rect.right + dx > self.board_instance.res[0]:
-            dx = self.board_instance.res[0] - self.rect.right
-            
+        # constrain move to stop player going off edge of board
+        dx, dy = self.constrain_move_within_board(dx, dy)    
         # move rectangle
         self.rect.x += dx
         self.rect.y += dy
-            
-            
+        
