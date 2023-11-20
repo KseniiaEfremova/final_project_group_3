@@ -5,6 +5,9 @@ class DamageFallingItem(FallingItem):
     def __init__(self, name, speed, points, width, height, x, y, board_width):
         super().__init__(name, speed, 0, points, width, height, x, y, board_width)
     
+    def disappear(self):
+        return self.y > 600
+
 class ErrorItem(DamageFallingItem):
     def __init__(self, board_width):
         super().__init__('Error', 8, 10, -5, 30, 30, 0, 0, board_width)
