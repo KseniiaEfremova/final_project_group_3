@@ -1,12 +1,12 @@
 from board import Board
-
+#import pygame
 
 def run():
 	#pygame.init()
 
 	game_board = Board('arcade catcher', (800, 600), 60)
 	game_board.display_board()
-	#error_item = ErrorItem(game_board.res[0])
+	error_item = ErrorItem(game_board.res[0])
 	
 	#falling_items = [error_item]
 
