@@ -1,21 +1,30 @@
 import pygame
 import sys
 
-class Board():
-	def __init__(self, name, res, frames):
-		self.name = name
-		self.res = res
-		self.frames = frames
+background_image = pygame.image.load("assets/background.jpg")
 
-	def display_board(self):
-		pygame.init()
-		pygame.display.set_caption(self.name)
-		board = pygame.display.set_mode(self.res)
-		fps = pygame.time.Clock()
-		while True:
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					sys.exit()
-			pygame.display.update()
-			fps.tick(self.frames)
+class Board():
+    def __init__(self, name, res, frames):
+        self.name = name
+        self.res = res
+        self.frames = frames
+        self.image = pygame.transform.scale(background_image, (self.res))
+        self.board = pygame.display.set_mode(self.res)
+        
+
+    def display_board(self):
+        pygame.display.set_caption(self.name)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
+
+    def update_display(self):
+        fps = pygame.time.Clock()
+        pygame.display.update()
+        fps.tick(self.frames)
+        
+        
+    def draw_background(self):
+        self.board.blit(self.image, (0, 0))
