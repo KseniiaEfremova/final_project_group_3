@@ -24,6 +24,7 @@ class Board():
         fps = pygame.time.Clock()
         pygame.display.update()
         fps.tick(self.frames)
+        return 'Display updated'
         
         
     def draw_background(self):
