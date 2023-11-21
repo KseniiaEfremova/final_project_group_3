@@ -6,7 +6,6 @@ CREATE TABLE users (
     user_id INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(50) NOT NULL,
-    stats INT DEFAULT 0,
 	PRIMARY KEY(user_id)
 );
 
