@@ -27,6 +27,7 @@ class FallingItem(ABC):
 	@abstractmethod
 	def disappear(self):
 		pass
-		
+	
+	@abstractmethod
 	def draw(self, board_instance):
-		pygame.draw.rect(board_instance.board, (255, 0, 0), (self.x, self.y, self.width, self.height))
+		pass
