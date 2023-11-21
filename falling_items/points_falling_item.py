@@ -1,3 +1,5 @@
+import pygame.draw
+
 from abstract_falling_item import FallingItem
 
 # class for the items that award player with points
@@ -18,19 +20,40 @@ class PointsFallingItem(FallingItem):
 class TickFallingItem(PointsFallingItem):
     def __init__(self, board_width):
         super().__init__(
-            "tick", 5, 0, 1, 0, 0, 0, 0, board_width
+            "tick", 5, 0, 1, 30, 30, 0, 0, board_width
         )
+
+    def disappear(self):  # adding this method to every subclass, so it can be overwritten in the future
+        return self.y > 600
+
+    def draw(self, board_instance):
+        pygame.draw.rect(board_instance.board, (166, 204, 112),
+                         (self.x, self.y, self.width, self.height))
 
 
 class PythonFallingItem(PointsFallingItem):
     def __init__(self, board_width):
         super().__init__(
-            "python", 12, 0, 5, 0, 0, 0, 0, board_width
+            "python", 12, 0, 5, 30, 30, 0, 0, board_width
         )
+
+    def disappear(self):
+        return self.y > 600
+
+    def draw(self, board_instance):
+        pygame.draw.rect(board_instance.board, (47, 111, 55),
+                         (self.x, self.y, self.width, self.height))
 
 
 class RubberDuckFallingItem(PointsFallingItem):
     def __init__(self, board_width):
         super().__init__(
-            "rubber duck", 8, 0, 10, 0, 0, 0, 0, board_width
+            "rubber duck", 8, 0, 10, 30, 30, 0, 0, board_width
         )
+
+    def disappear(self):
+        return self.y > 600
+
+    def draw(self, board_instance):
+        pygame.draw.rect(board_instance.board, (244, 230, 87),
+                         (self.x, self.y, self.width, self.height))
