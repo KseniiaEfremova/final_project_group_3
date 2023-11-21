@@ -17,7 +17,6 @@ class Player():
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x, self.rect.y - 10))
-        #pygame.draw.rect(self.board_instance.board, (255, 255, 255), self.rect, 2)
         
         
     def constrain_move_within_board(self, dx, dy):

@@ -2,7 +2,8 @@ import unittest
 import pygame
 import numpy as np
 from unittest.mock import patch, MagicMock
-from board import Board  # Assuming your class is in a file named "board.py"
+from board import Board
+from player import Player
 
 
 class TestBoard(unittest.TestCase):
@@ -66,6 +67,38 @@ class TestBoard(unittest.TestCase):
 
     def tearDown(self):
         pygame.quit()
+
+
+class TestPlayer(unittest.TestCase):
+    def setUp(self):
+        pygame.init()
+        self.board = pygame.display.set_mode(
+            (800, 600))
+        self.test_board = Board("Test Board", (800, 600), 60)
+
+    def test_player_initialization(self):
+        player = Player(100, 100, self.test_board)
+
+        self.assertEqual(player.rect.center, (100, 100))
+        self.assertEqual(player.width, 100)
+        self.assertEqual(player.height, 90)
+
+    def test_draw_player(self):
+        player = Player(100, 100, self.test_board)
+        player.draw_player()
+        player = pygame.surfarray.array3d(player.image)
+        loaded_player = pygame.image.load("assets/player.png")
+        loaded_player = pygame.transform.scale(loaded_player, (100,100))
+        player_content = pygame.surfarray.array3d(loaded_player)
+        diff = np.abs(player_content - player)
+        total_diff = np.sum(diff)
+        allowable_diff = 0
+
+        self.assertLessEqual(total_diff, allowable_diff)
+
+    def tearDown(self):
+        pygame.quit()
+
 
 
 
