@@ -11,6 +11,7 @@ duck_image = pygame.image.load("assets/duck.png")
 bug_image = pygame.image.load("assets/bug.png")
 error_image = pygame.image.load("assets/error.gif")
 warning_image = pygame.image.load("assets/warning.png")
+
 def run():
     pygame.init()
 
@@ -28,6 +29,9 @@ def run():
         seconds=4)
     short_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=3)
+    timer_seconds = 60
+    start_time = time.time()
+
     while True:
         game_board.display_board()
         game_board.draw_background()
