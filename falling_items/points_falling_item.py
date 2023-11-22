@@ -1,6 +1,7 @@
 from abc import ABC
 from abc import abstractmethod
-import pygame.draw
+import pygame
+import datetime
 from falling_items.abstract_falling_item import FallingItem
 
 
@@ -11,7 +12,7 @@ class PointsFallingItem(FallingItem, ABC):
         )
 
     @abstractmethod
-    def disappear(self):
+    def disappear(self, stop_time):
         pass
 
 
@@ -21,8 +22,9 @@ class TickItem(PointsFallingItem, ABC):
             "tick", 5, 0, 1, 30, 30, 0, 0, board_width
         )
 
-    # def disappear(self):
-    #     return self.y > 600
+    def disappear(self, stop_time):
+        self.y = 700
+        self.kill()
 
     def draw(self, board_instance):
         pygame.draw.rect(board_instance.board, (166, 204, 112),
@@ -35,8 +37,11 @@ class PythonItem(PointsFallingItem, ABC):
             "python", 12, 0, 5, 30, 30, 0, 0, board_width
         )
 
-    def disappear(self):
+    def disappear(self, stop_time):
         self.y = 500
+        if datetime.datetime.utcnow() > stop_time:
+            self.y = 700
+            self.kill()
 
     def draw(self, board_instance):
         pygame.draw.rect(board_instance.board, (47, 111, 55),
@@ -49,8 +54,11 @@ class RubberDuckItem(PointsFallingItem, ABC):
             "rubber duck", 8, 0, 10, 30, 30, 0, 0, board_width
         )
 
-    # def disappear(self):
-    #     return self.y > 600
+    def disappear(self, stop_time):
+        self.y = 500
+        if datetime.datetime.utcnow() > stop_time:
+            self.y = 700
+            self.kill()
 
     def draw(self, board_instance):
         pygame.draw.rect(board_instance.board, (244, 230, 87),

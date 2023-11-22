@@ -1,7 +1,9 @@
 from board import Board
 from player import Player
-from falling_items.points_falling_item import PythonItem
+from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 import pygame
+import datetime
+
 
 
 def run():
@@ -10,14 +12,36 @@ def run():
     game_board = Board('arcade catcher', (800, 600), 60)
     player = Player(800 - 725, 600 - 100, game_board)
     python = PythonItem(game_board)
-    
+    tick = TickItem(game_board)
+    duck = RubberDuckItem(game_board)
+
+    tick_stop = datetime.datetime.utcnow() + datetime.timedelta(
+        seconds=4)
+    python_stop = datetime.datetime.utcnow() + datetime.timedelta(
+        seconds=2)
+    duck_stop = datetime.datetime.utcnow() + datetime.timedelta(
+        seconds=.5)
     while True:
         game_board.display_board()
         game_board.draw_background()
         python.draw(game_board)
+        tick.draw(game_board)
+        duck.draw(game_board)
         python.fall()
+        tick.fall()
+        duck.fall()
         if python.y >= 500:
-            python.disappear()
+            python.y = 500
+            if datetime.datetime.utcnow() > python_stop:
+                python.disappear(python_stop)
+        if tick.y >= 500:
+            tick.y = 500
+            if datetime.datetime.utcnow() > tick_stop:
+                tick.disappear(tick_stop)
+        if duck.y >= 500:
+            duck.y = 500
+            if datetime.datetime.utcnow() > duck_stop:
+                duck.disappear(duck_stop)
         player.draw_player()
         player.move()
         game_board.update_display()
