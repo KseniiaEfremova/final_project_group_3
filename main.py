@@ -8,15 +8,14 @@ import datetime
 
 def run():
     pygame.init()
-
     game_board = Board('Code Quest', (800, 600), 60)
     player = Player(800 - 725, 600 - 100, game_board)
-    python = PythonItem(game_board)
-    tick = TickItem(game_board)
-    duck = RubberDuckItem(game_board)
-    warning = WarningItem(game_board)
-    error = ErrorItem(game_board)
-    bug = BugItem(game_board)
+    python = PythonItem(800, game_board)
+    tick = TickItem(800, game_board)
+    duck = RubberDuckItem(800, game_board)
+    warning = WarningItem(800, game_board)
+    error = ErrorItem(800, game_board)
+    bug = BugItem(800, game_board)
     tick_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=4)
     python_stop = datetime.datetime.utcnow() + datetime.timedelta(

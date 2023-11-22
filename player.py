@@ -26,7 +26,6 @@ class Player():
         if self.rect.right + dx > self.board_instance.res[0]:
             dx = self.board_instance.res[0] - self.rect.right
         return dx, dy
-    
 
     def move(self):
         # variable to reset for delta x and delta y

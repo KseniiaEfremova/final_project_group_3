@@ -1,13 +1,13 @@
 import random
-import pygame
 from abc import abstractmethod
 from abc import ABC
 import pygame
+from board import Board
 
 
 class FallingItem(ABC, pygame.sprite.Sprite):
 	def __init__(self, name, speed, damage, points, width, height, x, y,
-				 board_width):
+				 board_width, board_instance: Board):
 		super().__init__()
 		self.name = name
 		self.speed = speed
@@ -18,6 +18,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.x = x
 		self.y = y
 		self.board_width = board_width
+		self.board_instance = board_instance
 		self.spawn()
 
 	def spawn(self):
