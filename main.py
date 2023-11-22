@@ -5,7 +5,6 @@ import pygame
 import datetime
 
 
-
 def run():
     pygame.init()
 
@@ -14,7 +13,6 @@ def run():
     python = PythonItem(game_board)
     tick = TickItem(game_board)
     duck = RubberDuckItem(game_board)
-
     tick_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=4)
     python_stop = datetime.datetime.utcnow() + datetime.timedelta(
@@ -31,17 +29,11 @@ def run():
         tick.fall()
         duck.fall()
         if python.y >= 500:
-            python.y = 500
-            if datetime.datetime.utcnow() > python_stop:
-                python.disappear(python_stop)
+            python.disappear(python_stop)
         if tick.y >= 500:
-            tick.y = 500
-            if datetime.datetime.utcnow() > tick_stop:
-                tick.disappear(tick_stop)
+            tick.disappear(tick_stop)
         if duck.y >= 500:
-            duck.y = 500
-            if datetime.datetime.utcnow() > duck_stop:
-                duck.disappear(duck_stop)
+            duck.disappear(duck_stop)
         player.draw_player()
         player.move()
         game_board.update_display()

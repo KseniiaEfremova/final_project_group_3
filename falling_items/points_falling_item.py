@@ -23,8 +23,10 @@ class TickItem(PointsFallingItem, ABC):
         )
 
     def disappear(self, stop_time):
-        self.y = 700
-        self.kill()
+        self.y = 500
+        if datetime.datetime.utcnow() > stop_time:
+            self.y = 700
+            self.kill()
 
     def draw(self, board_instance):
         pygame.draw.rect(board_instance.board, (166, 204, 112),
