@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pygame-ce = "*"
 pygame = "*"
+mysql-connector-python = "*"
 
 [dev-packages]
 
