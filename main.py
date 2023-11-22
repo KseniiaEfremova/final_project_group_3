@@ -22,11 +22,11 @@ def run():
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
     long_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=3)
+        seconds=5)
     medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=2)
+        seconds=4)
     short_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=1)
+        seconds=3)
     while True:
         game_board.display_board()
         game_board.draw_background()

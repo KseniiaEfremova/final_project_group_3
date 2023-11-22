@@ -10,6 +10,7 @@ class DamageFallingItem(FallingItem, ABC):
         super().__init__(name, image, speed, points, damage, width, height, x,
                          y, board_instance)
         self.image = pygame.transform.scale(image, (30, 30))
+        self.disappear_start_time = None
 
     def draw(self, board_instance):
         board_instance.board.blit(self.image, (self.x, self.y))
@@ -17,10 +18,18 @@ class DamageFallingItem(FallingItem, ABC):
     def disappear(self, stop_time):
         self.y = 500
         transparent = (0, 0, 0, 0)
-        blow = pygame.transform.scale(self.image, (90, 90))
-        self.board_instance.board.blit(blow,
-                                       (self.x - self.width, self.y -
-                                        self.height))
+        current_time = datetime.datetime.utcnow()
+        elapsed_time = current_time - stop_time
+
+        if elapsed_time <= datetime.timedelta(seconds=3):
+            disappearance_progress = elapsed_time.total_seconds() / 3
+            scaled_width = max(int(self.width + 60 * disappearance_progress), 1)
+            scaled_height = max(int(self.height + 60 * disappearance_progress),
+                                1)
+            blow = pygame.transform.scale(self.image,
+                                          (scaled_width, scaled_height))
+            self.board_instance.board.blit(blow, (
+            self.x - self.width, self.y - self.height))
         if datetime.datetime.utcnow() > stop_time:
             self.image.fill(transparent)
             self.kill()
