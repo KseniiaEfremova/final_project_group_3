@@ -6,6 +6,7 @@ from board import Board
 from player import Player
 
 
+
 class TestBoard(unittest.TestCase):
 
     def setUp(self):
@@ -120,8 +121,4 @@ class TestPlayer(unittest.TestCase):
 
     def tearDown(self):
         pygame.quit()
-
-
-
-
 
