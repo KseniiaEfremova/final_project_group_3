@@ -5,6 +5,8 @@ import pygame
 
 def run():
     pygame.init()
+    timer_seconds = 60
+    start_time = time.time()
 
     game_board = Board('arcade catcher', (800, 600), 60)
     player = Player(800 - 725, 600 - 100, game_board)
