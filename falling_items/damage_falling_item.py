@@ -11,11 +11,13 @@ class DamageFallingItem(FallingItem, ABC):
     
     def disappear(self, stop_time):
         self.y = 500
+        transparent = (0, 0, 0, 0)
+        blow = pygame.transform.scale(self.image, (90, 90))
+        self.board_instance.board.blit(blow,
+                                       (self.x, self.y))
         if datetime.datetime.utcnow() > stop_time:
-            blow = pygame.transform.scale(self.image, (90, 90))
-            self.board_instance.board.blit(blow,
-                                      (self.x, self.y))
             self.y = 700
+            self.image.fill(transparent)
             self.kill()
 
 
