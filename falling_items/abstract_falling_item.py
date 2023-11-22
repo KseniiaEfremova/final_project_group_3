@@ -18,6 +18,8 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.height = height
 		self.x = x
 		self.y = y
+		self.rect = pygame.Rect(0, 0, self.width, self.height)
+		self.rect.center = (x, y)
 		self.board_instance = board_instance
 		self.spawn()
 
@@ -31,7 +33,6 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 	@abstractmethod
 	def disappear(self, stop_time):
 		pass
-	
-	@abstractmethod
+
 	def draw(self, board_instance):
-		pass
+		board_instance.board.blit(self.image, (self.x, self.y))
