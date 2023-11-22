@@ -4,12 +4,13 @@ from utils import get_path_from_root
 
 background_image = pygame.image.load("assets/background.jpg")
 
-class Board():
+
+class Board:
     def __init__(self, name, res, frames):
         self.name = name
         self.res = res
         self.frames = frames
-        self.image = pygame.transform.scale(background_image, (self.res))
+        self.image = pygame.transform.scale(background_image, self.res)
         self.board = pygame.display.set_mode(self.res)
 
     def display_board(self):
