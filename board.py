@@ -1,5 +1,6 @@
 import pygame
 import sys
+from utils import get_path_from_root
 
 background_image = pygame.image.load("assets/background.jpg")
 
