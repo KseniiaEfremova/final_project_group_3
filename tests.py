@@ -146,33 +146,36 @@ class TestDamageFallingItem(unittest.TestCase):
 
 
 class TestErrorItem(unittest.TestCase):
+
     def setUp(self):
-        self.mock_image = MagicMock(spec=pygame.Surface)
+        self.mock_surface = pygame.Surface((30, 30))  # Create a mock surface
         self.mock_board = MockBoard()
 
     def test_error_item(self):
-        error_item = ErrorItem(self.mock_image, self.mock_board)
+        error_item = ErrorItem(self.mock_surface, self.mock_board)
 
         # Add assertions for the expected behavior of ErrorItem
         # For example, check if it initializes correctly and inherits from DamageFallingItem
 
 
 class TestBugItem(unittest.TestCase):
+
     def setUp(self):
-        self.mock_image = MagicMock(spec=pygame.Surface)
+        self.mock_surface = pygame.Surface((30, 30))  # Create a mock surface
         self.mock_board = MockBoard()
 
     def test_bug_item(self):
-        bug_item = BugItem(self.mock_image, self.mock_board)
+        bug_item = BugItem(self.mock_surface, self.mock_board)
 
         # Add assertions for the expected behavior of BugItem
         # For example, check if it initializes correctly and inherits from DamageFallingItem
 
 
 class TestWarningItem(unittest.TestCase):
+
     def setUp(self):
-        self.mock_image = MagicMock(spec=pygame.Surface)
+        self.mock_surface = pygame.Surface((30, 30))  # Create a mock surface
         self.mock_board = MockBoard()
 
     def test_warning_item(self):
-        warning_item = WarningItem(self.mock_image, self.mock_board)
+        warning_item = WarningItem(self.mock_surface, self.mock_board)
