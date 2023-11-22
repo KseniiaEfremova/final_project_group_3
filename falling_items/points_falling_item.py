@@ -1,12 +1,10 @@
-import pygame.draw
+from abc import ABC
 
+import pygame.draw
 from abstract_falling_item import FallingItem
 
-# class for the items that award player with points
-# inheriting from abstract class FallingItem
 
-
-class PointsFallingItem(FallingItem):
+class PointsFallingItem(FallingItem, ABC):
     def __init__(self, name, speed, damage, points, width, height, x, y, board_width):
         super().__init__(
             name, speed, damage, points, width, height, x, y, board_width
@@ -17,7 +15,7 @@ class PointsFallingItem(FallingItem):
 
 
 # subclasses that will make up three different items awarding player with points
-class TickFallingItem(PointsFallingItem):
+class TickItem(PointsFallingItem):
     def __init__(self, board_width):
         super().__init__(
             "tick", 5, 0, 1, 30, 30, 0, 0, board_width
@@ -31,7 +29,7 @@ class TickFallingItem(PointsFallingItem):
                          (self.x, self.y, self.width, self.height))
 
 
-class PythonFallingItem(PointsFallingItem):
+class PythonItem(PointsFallingItem):
     def __init__(self, board_width):
         super().__init__(
             "python", 12, 0, 5, 30, 30, 0, 0, board_width
@@ -45,7 +43,7 @@ class PythonFallingItem(PointsFallingItem):
                          (self.x, self.y, self.width, self.height))
 
 
-class RubberDuckFallingItem(PointsFallingItem):
+class RubberDuckItem(PointsFallingItem):
     def __init__(self, board_width):
         super().__init__(
             "rubber duck", 8, 0, 10, 30, 30, 0, 0, board_width
