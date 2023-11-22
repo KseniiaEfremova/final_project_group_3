@@ -26,8 +26,8 @@ class DamageFallingItem(FallingItem, ABC):
 
             initial_width = self.width
             initial_height = self.height
-            scaled_width = int(initial_width + 90 * disappearance_progress)
-            scaled_height = int(initial_height + 90 * disappearance_progress)
+            scaled_width = int(initial_width + 90 * (1 - disappearance_progress))
+            scaled_height = int(initial_height + 90 * (1 - disappearance_progress))
 
             final_width = max(scaled_width, initial_width)
             final_height = max(scaled_height, initial_height)
