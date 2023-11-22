@@ -14,9 +14,9 @@ def run():
     # python = PythonItem(800, game_board)
     # tick = TickItem(800, game_board)
     # duck = RubberDuckItem(800, game_board)
-    warning = WarningItem(bug_image, 800, game_board)
-    error = ErrorItem(error_image, 800, game_board)
-    bug = BugItem(bug_image, 800, game_board)
+    warning = WarningItem(bug_image, game_board)
+    error = ErrorItem(error_image, game_board)
+    bug = BugItem(bug_image, game_board)
     tick_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=4)
     python_stop = datetime.datetime.utcnow() + datetime.timedelta(

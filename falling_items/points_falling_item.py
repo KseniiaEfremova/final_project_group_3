@@ -5,9 +5,9 @@ from falling_items.abstract_falling_item import FallingItem
 
 
 class PointsFallingItem(FallingItem, ABC):
-    def __init__(self, name, speed, damage, points, width, height, x, y, board_width, board_instance):
+    def __init__(self, name, speed, damage, points, width, height, x, y, board_instance):
         super().__init__(
-            name, speed, damage, points, width, height, x, y, board_width, board_instance
+            name, speed, damage, points, width, height, x, y, board_instance
         )
 
     def disappear(self, stop_time):
@@ -18,9 +18,9 @@ class PointsFallingItem(FallingItem, ABC):
 
 
 class TickItem(PointsFallingItem, ABC):
-    def __init__(self, board_width, board_instance):
+    def __init__(self, board_instance):
         super().__init__(
-            "tick", 5, 0, 1, 30, 30, 0, 0, board_width, board_instance
+            "tick", 5, 0, 1, 30, 30, 0, 0, board_instance
         )
 
     def draw(self, board_instance):
@@ -29,9 +29,9 @@ class TickItem(PointsFallingItem, ABC):
 
 
 class PythonItem(PointsFallingItem, ABC):
-    def __init__(self, board_width, board_instance):
+    def __init__(self, board_instance):
         super().__init__(
-            "python", 12, 0, 5, 30, 30, 0, 0, board_width, board_instance
+            "python", 12, 0, 5, 30, 30, 0, 0, board_instance
         )
 
     def draw(self, board_instance):
@@ -40,9 +40,9 @@ class PythonItem(PointsFallingItem, ABC):
 
 
 class RubberDuckItem(PointsFallingItem, ABC):
-    def __init__(self, board_width, board_instance):
+    def __init__(self, board_instance):
         super().__init__(
-            "rubber duck", 8, 0, 10, 30, 30, 0, 0, board_width, board_instance
+            "rubber duck", 8, 0, 10, 30, 30, 0, 0, board_instance
         )
 
     def draw(self, board_instance):

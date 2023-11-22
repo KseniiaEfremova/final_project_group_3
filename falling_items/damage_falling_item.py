@@ -5,8 +5,8 @@ from falling_items.abstract_falling_item import FallingItem
 
 
 class DamageFallingItem(FallingItem, ABC):
-    def __init__(self, name, image,  speed, points, damage, width, height, x, y, board_width, board_instance):
-        super().__init__(name, image, speed, points, damage, width, height, x, y, board_width, board_instance)
+    def __init__(self, name, image,  speed, points, damage, width, height, x, y, board_instance):
+        super().__init__(name, image, speed, points, damage, width, height, x, y, board_instance)
         self.image = pygame.transform.scale(image, (30, 30))
     
     def disappear(self, stop_time):
@@ -22,8 +22,8 @@ class DamageFallingItem(FallingItem, ABC):
 
 
 class ErrorItem(DamageFallingItem):
-    def __init__(self, image, board_width, board_instance):
-        super().__init__('Error', image,  8, 0,30, 30, 30, 0, 0,  board_width, board_instance)
+    def __init__(self, image, board_instance):
+        super().__init__('Error', image,  8, 0,30, 30, 30, 0, 0, board_instance)
 
     # def disappear(self, stop_time):
     #     pass
@@ -34,8 +34,8 @@ class ErrorItem(DamageFallingItem):
 
 
 class BugItem(DamageFallingItem):
-    def __init__(self, image, board_width, board_instance):
-        super().__init__('Bug', image,  3, 0, 10, 30, 30, 0, 0, board_width, board_instance)
+    def __init__(self, image, board_instance):
+        super().__init__('Bug', image,  3, 0, 10, 30, 30, 0, 0, board_instance)
 
     # def disappear(self, stop_time):
     #     pass
@@ -45,8 +45,8 @@ class BugItem(DamageFallingItem):
 
 
 class WarningItem(DamageFallingItem):
-    def __init__(self, image, board_width, board_instance):
-        super().__init__('Warning', image, 5, 0,5,  30, 30, 0, 0,  board_width, board_instance)
+    def __init__(self, image, board_instance):
+        super().__init__('Warning', image, 5, 0,5,  30, 30, 0, 0, board_instance)
 
     # def disappear(self, stop_time):
     #     pass
