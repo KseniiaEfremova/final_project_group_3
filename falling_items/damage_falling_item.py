@@ -41,7 +41,8 @@ class BugItem(DamageFallingItem):
     #     pass
     
     def draw(self, board_instance):
-        pygame.draw.rect(board_instance.board, (245, 245, 245), (self.x, self.y, self.width, self.height))
+        board_instance.board.blit(self.image, (self.x, self.y))
+        # pygame.draw.rect(board_instance.board, (245, 245, 245), (self.x, self.y, self.width, self.height))
 
 
 class WarningItem(DamageFallingItem):
@@ -52,6 +53,7 @@ class WarningItem(DamageFallingItem):
     #     pass
     
     def draw(self, board_instance):
-        pygame.draw.rect(board_instance.board, (235, 20, 50), (self.x, self.y, self.width, self.height))
+        board_instance.board.blit(self.image, (self.x, self.y))
+        # pygame.draw.rect(board_instance.board, (235, 20, 50), (self.x, self.y, self.width, self.height))
 
     
