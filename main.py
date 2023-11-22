@@ -21,12 +21,12 @@ def run():
     warning = WarningItem(bug_image, game_board)
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
-    tick_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=4)
-    python_stop = datetime.datetime.utcnow() + datetime.timedelta(
+    long_stop = datetime.datetime.utcnow() + datetime.timedelta(
+        seconds=3)
+    medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=2)
-    duck_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=.5)
+    short_stop = datetime.datetime.utcnow() + datetime.timedelta(
+        seconds=1)
     while True:
         game_board.display_board()
         game_board.draw_background()
@@ -43,17 +43,17 @@ def run():
         error.fall()
         bug.fall()
         if python.y >= 500:
-            python.disappear(python_stop)
+            python.disappear(medium_stop)
         if tick.y >= 500:
-            tick.disappear(tick_stop)
+            tick.disappear(short_stop)
         if duck.y >= 500:
-            duck.disappear(duck_stop)
+            duck.disappear(long_stop)
         if warning.y >= 500:
-            warning.disappear(python_stop)
+            warning.disappear(short_stop)
         if error.y >= 500:
-            error.disappear(tick_stop)
+            error.disappear(medium_stop)
         if bug.y >= 500:
-            bug.disappear(duck_stop)
+            bug.disappear(long_stop)
         player.draw_player()
         player.move()
         game_board.update_display()

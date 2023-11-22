@@ -25,17 +25,17 @@ class DamageFallingItem(FallingItem, ABC):
 
 class ErrorItem(DamageFallingItem):
     def __init__(self, image, board_instance):
-        super().__init__('Error', image,  8, 0,30, 30, 30, 0, 0, board_instance)
+        super().__init__('Error', image,  8, 5,10, 30, 30, 0, 0, board_instance)
 
 
 class BugItem(DamageFallingItem):
     def __init__(self, image, board_instance):
-        super().__init__('Bug', image,  3, 0, 10, 30, 30, 0, 0, board_instance)
+        super().__init__('Bug', image,  3, 10, 30, 30, 30, 0, 0, board_instance)
 
 
 class WarningItem(DamageFallingItem):
     def __init__(self, image, board_instance):
-        super().__init__('Warning', image, 5, 0,5,  30, 30, 0, 0, board_instance)
+        super().__init__('Warning', image, 5, 1,5,  30, 30, 0, 0, board_instance)
 
     
 

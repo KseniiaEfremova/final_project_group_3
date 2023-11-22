@@ -3,6 +3,14 @@ from abc import abstractmethod
 from abc import ABC
 import pygame
 from board import Board
+import datetime
+
+long_stop = datetime.datetime.utcnow() + datetime.timedelta(
+	seconds=3)
+medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
+	seconds=2)
+short_stop = datetime.datetime.utcnow() + datetime.timedelta(
+	seconds=1)
 
 
 class FallingItem(ABC, pygame.sprite.Sprite):
@@ -27,12 +35,12 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.x = random.randint(0, 770)
 		self.y = 0
 
-	def fall(self):
-		self.y += self.speed
-
 	@abstractmethod
 	def disappear(self, stop_time):
 		pass
 
+	def fall(self):
+		self.y += self.speed
+
 	def draw(self, board_instance):
-		board_instance.board.blit(self.image, (self.x, self.y))
+		board_instance.board.blit(self.image, (self.x - self.width, self.y - self.height))
