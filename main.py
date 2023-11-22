@@ -59,6 +59,12 @@ def run():
             error.disappear(medium_stop)
         if bug.y >= 500:
             bug.disappear(long_stop)
+
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+        remaining_time = max(timer_seconds - int(elapsed_time), 0)
+        game_board.draw_timer(remaining_time)
+        
         player.draw_player()
         player.move()
         game_board.update_display()
