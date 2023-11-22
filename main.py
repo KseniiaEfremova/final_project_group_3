@@ -18,5 +18,10 @@ def run():
         player.move()
         game_board.update_display()
 
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+        remaining_time = max(timer_seconds - int(elapsed_time), 0)
+        game_board.draw_timer(remaining_time)
+
 if __name__ == '__main__':
     run()
