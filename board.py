@@ -18,7 +18,7 @@ class Board():
     def draw_timer(self, timer):
         timer_rect = pygame.Rect(10, 10, 111, 45)
         pygame.draw.rect(self.board, (255, 255, 255), timer_rect)
-        pygame.draw.rect(self.board, (0, 0, 0), timer_rect, 2)
+        pygame.draw.rect(self.board, (255, 105, 180), timer_rect, 3)
         text = font.render("Time: {}".format(timer), True, (0, 0, 0))
         self.board.blit(text, (20, 20))
     
