@@ -4,6 +4,9 @@ from utils import get_path_from_root
 
 background_image = pygame.image.load("assets/background.jpg")
 
+pygame.font.init()
+font = pygame.font.SysFont('Times New Roman', 24)
+
 class Board():
     def __init__(self, name, res, frames):
         self.name = name

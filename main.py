@@ -4,6 +4,7 @@ from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckIt
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import pygame
 import datetime
+import time
 
 python_image = pygame.image.load("assets/python.png")
 tick_image = pygame.image.load("assets/tick.png")
