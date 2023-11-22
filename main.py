@@ -9,7 +9,7 @@ import datetime
 def run():
     pygame.init()
 
-    game_board = Board('arcade catcher', (800, 600), 60)
+    game_board = Board('Code Quest', (800, 600), 60)
     player = Player(800 - 725, 600 - 100, game_board)
     python = PythonItem(game_board)
     tick = TickItem(game_board)
