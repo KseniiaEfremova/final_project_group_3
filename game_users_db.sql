@@ -10,7 +10,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE game_statistics (
-    statistics_id INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+    statistics_id INTEGER AUTO_INCREMENT,
     user_id INT,
     points INT DEFAULT 0,
     life INT DEFAULT 3, -- Assuming 3 is full life
