@@ -1,7 +1,5 @@
 import pygame
 from board import Board
-from falling_items.DamageFallingItem import DamageFallingItem
-from falling_items.points_falling_item import PointsFallingItem
 
 player_image = pygame.image.load("assets/player.png")
 
@@ -14,10 +12,7 @@ class Player:
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
-        self.damage_item_instance = damage_item_instance
-        self.points_item_instance = points_item_instance
         
-
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
                                                     self.rect.y - 10))
