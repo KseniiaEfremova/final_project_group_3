@@ -43,4 +43,5 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.y += self.speed
 
 	def draw(self, board_instance):
-		board_instance.board.blit(self.image, (self.x - self.width, self.y - self.height))
+		board_instance.board.blit(self.image, (self.x - self.width,
+											   self.y - self.height))
