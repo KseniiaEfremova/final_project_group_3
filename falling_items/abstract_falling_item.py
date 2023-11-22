@@ -6,10 +6,11 @@ from board import Board
 
 
 class FallingItem(ABC, pygame.sprite.Sprite):
-	def __init__(self, name, speed, damage, points, width, height, x, y,
+	def __init__(self, name, image, speed, damage, points, width, height, x, y,
 				 board_width, board_instance: Board):
 		super().__init__()
 		self.name = name
+		self.image = image
 		self.speed = speed
 		self.damage = damage
 		self.points = points
