@@ -18,7 +18,8 @@ class FallingItem(ABC):
 		self.spawn()
 
 	def spawn(self):
-		self.x = random.randint(0, self.board_width - self.width)
+		# self.x = random.randint(0, self.board_width - self.width)
+		self.x = 350
 		self.y = 0
 
 	def fall(self):
