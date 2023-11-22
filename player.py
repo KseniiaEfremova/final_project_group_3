@@ -1,18 +1,22 @@
 import pygame
 from board import Board
+from falling_items.DamageFallingItem import DamageFallingItem
+from falling_items.points_falling_item import PointsFallingItem
 
 # load player image
 player_image = pygame.image.load("assets/player.png")
 
 # Player class
 class Player(): 
-    def __init__(self, x, y, board_instance: Board):
+    def __init__(self, x, y, board_instance: Board, damage_item_instance: DamageFallingItem, points_item_instance: PointsFallingItem):
         self.image = pygame.transform.scale(player_image, (100, 100))
         self.width = 100
         self.height = 90
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
+        self.damage_item_instance = damage_item_instance
+        self.points_item_instance = points_item_instance
         
 
     def draw_player(self):
@@ -44,3 +48,9 @@ class Player():
         self.rect.x += dx
         self.rect.y += dy
         
+    
+    # def falling_item_collision(self):
+    #     if self.rect.colliderect(self.damage_item_instance.rect):
+    #         #will do something here
+    #     elif self.rect.colliderect(self.points_item_instance.rect):
+    #         #will do something here
