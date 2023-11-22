@@ -11,17 +11,14 @@ class Board():
         self.frames = frames
         self.image = pygame.transform.scale(background_image, (self.res))
         self.board = pygame.display.set_mode(self.res)
-<<<<<<< HEAD
-        
+
     def draw_timer(self, timer):
         timer_rect = pygame.Rect(10, 10, 111, 45)
         pygame.draw.rect(self.board, (255, 255, 255), timer_rect)
         pygame.draw.rect(self.board, (0, 0, 0), timer_rect, 2)
         text = font.render("Time: {}".format(timer), True, (0, 0, 0))
         self.board.blit(text, (20, 20))
-=======
->>>>>>> develop
-
+    
     def display_board(self):
         pygame.display.set_caption(self.name)
         for event in pygame.event.get():
