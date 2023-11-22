@@ -14,9 +14,8 @@ class DamageFallingItem(FallingItem, ABC):
         transparent = (0, 0, 0, 0)
         blow = pygame.transform.scale(self.image, (90, 90))
         self.board_instance.board.blit(blow,
-                                       (self.x, self.y))
+                                       (self.x - self.width, self.y - self.height))
         if datetime.datetime.utcnow() > stop_time:
-            self.y = 700
             self.image.fill(transparent)
             self.kill()
 
@@ -30,7 +29,6 @@ class ErrorItem(DamageFallingItem):
     
     def draw(self, board_instance):
         board_instance.board.blit(self.image, (self.x, self.y))
-        # pygame.draw.rect(board_instance.board, (255, 0, 255), (self.x, self.y, self.width, self.height))
 
 
 class BugItem(DamageFallingItem):
@@ -42,7 +40,6 @@ class BugItem(DamageFallingItem):
     
     def draw(self, board_instance):
         board_instance.board.blit(self.image, (self.x, self.y))
-        # pygame.draw.rect(board_instance.board, (245, 245, 245), (self.x, self.y, self.width, self.height))
 
 
 class WarningItem(DamageFallingItem):
@@ -54,6 +51,6 @@ class WarningItem(DamageFallingItem):
     
     def draw(self, board_instance):
         board_instance.board.blit(self.image, (self.x, self.y))
-        # pygame.draw.rect(board_instance.board, (235, 20, 50), (self.x, self.y, self.width, self.height))
+
 
     
