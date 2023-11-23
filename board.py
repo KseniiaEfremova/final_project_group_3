@@ -1,5 +1,6 @@
 import pygame
 import sys
+from utils import get_path_from_root
 
 background_image = pygame.image.load("assets/background.jpg")
 
@@ -10,7 +11,6 @@ class Board():
         self.frames = frames
         self.image = pygame.transform.scale(background_image, (self.res))
         self.board = pygame.display.set_mode(self.res)
-        
 
     def display_board(self):
         pygame.display.set_caption(self.name)
@@ -18,13 +18,11 @@ class Board():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-                
 
     def update_display(self):
         fps = pygame.time.Clock()
         pygame.display.update()
         fps.tick(self.frames)
-        
-        
+
     def draw_background(self):
         self.board.blit(self.image, (0, 0))

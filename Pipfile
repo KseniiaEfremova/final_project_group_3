@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pygame-ce = "*"
 pygame = "*"
+numpy = "*"
 
 [dev-packages]
 
