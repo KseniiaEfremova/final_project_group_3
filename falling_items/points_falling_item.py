@@ -36,5 +36,5 @@ class PythonItem(PointsFallingItem, ABC):
 class RubberDuckItem(PointsFallingItem, ABC):
     def __init__(self, image, board_instance):
         super().__init__(
-            "rubber duck", image, 8, 0, 10, 30, 30, 0, 0, board_instance
+            "rubber duck", image, 8, 10, 0, 30, 30, 0, 0, board_instance
         )
