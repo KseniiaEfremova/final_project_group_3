@@ -32,6 +32,8 @@ class TestWarningItem(unittest.TestCase):
 		loaded_warning = pygame.transform.scale(warning_image, (30, 30))
 		warning_content = pygame.surfarray.array3d(loaded_warning)
 		diff = np.abs(warning_content - warning)
+		print(warning_content)
+		print(warning)
 		total_diff = np.sum(diff)
 		allowable_diff = 0
 
