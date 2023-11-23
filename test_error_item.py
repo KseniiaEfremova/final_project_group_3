@@ -37,6 +37,14 @@ class TestErrorItem(unittest.TestCase):
 
         self.assertLessEqual(total_diff, allowable_diff)
 
+    def test_error_item_spawn(self):
+        error_item = ErrorItem(error_image, self.test_board)
+        self.assertFalse(error_item.x < 0)
+        self.assertFalse(error_item.x == 0)
+        self.assertFalse(error_item.x > 770)
+        self.assertTrue(0 < error_item.x < 770)
+
+
     def test_error_item_fall(self):
         error_item = ErrorItem(error_image, self.test_board)
         error_item.draw(self.test_board)
