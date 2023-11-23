@@ -7,7 +7,7 @@ from falling_items.damage_falling_item import WarningItem
 warning_image = pygame.image.load("assets/warning.png")
 
 
-class TestErrorItem(unittest.TestCase):
+class TestWarningItem(unittest.TestCase):
 
 	def setUp(self):
 		pygame.init()
@@ -25,7 +25,7 @@ class TestErrorItem(unittest.TestCase):
 		self.assertEqual(warning_item.points, 1)
 		self.assertEqual(warning_item.damage, 5)
 
-	def test_error_item_draw(self):
+	def test_warning_item_draw(self):
 		warning_item = WarningItem(warning_image, self.test_board)
 		warning_item.draw(self.test_board)
 		warning = pygame.surfarray.array3d(warning_item.image)
@@ -37,7 +37,7 @@ class TestErrorItem(unittest.TestCase):
 
 		self.assertLessEqual(total_diff, allowable_diff)
 
-	def test_error_item_spawn(self):
+	def test_warning_item_spawn(self):
 		warning_item = WarningItem(warning_image, self.test_board)
 
 		self.assertFalse(warning_item.x < 0)
@@ -45,7 +45,7 @@ class TestErrorItem(unittest.TestCase):
 		self.assertFalse(warning_item.x > 770)
 		self.assertTrue(0 < warning_item.x < 770)
 
-	def test_error_item_fall(self):
+	def test_warning_item_fall(self):
 		warning_item = WarningItem(warning_image, self.test_board)
 		warning_item.draw(self.test_board)
 		warning_item.fall()
