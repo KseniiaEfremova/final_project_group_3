@@ -11,6 +11,8 @@ duck_image = pygame.image.load("assets/duck.png")
 bug_image = pygame.image.load("assets/bug.png")
 error_image = pygame.image.load("assets/error.gif")
 warning_image = pygame.image.load("assets/warning.png")
+
+
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
@@ -27,35 +29,40 @@ def run():
         seconds=4)
     short_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=3)
+
+    falling_items = []
+    level = 0
+
     while True:
         game_board.display_board()
         game_board.draw_background()
-        python.draw(game_board)
-        tick.draw(game_board)
-        duck.draw(game_board)
-        warning.draw(game_board)
-        error.draw(game_board)
-        bug.draw(game_board)
-        python.fall()
-        tick.fall()
-        duck.fall()
-        warning.fall()
-        error.fall()
-        bug.fall()
-        if python.y >= 500:
-            python.disappear(medium_stop)
-        if tick.y >= 500:
-            tick.disappear(short_stop)
-        if duck.y >= 500:
-            duck.disappear(long_stop)
-        if warning.y >= 500:
-            warning.disappear(short_stop)
-        if error.y >= 500:
-            error.disappear(medium_stop)
-        if bug.y >= 500:
-            bug.disappear(long_stop)
         player.draw_player()
         player.move()
+
+        if len(falling_items) == 0:
+            level += 1
+            falling_items = [tick, duck, warning, error, bug, python]
+            falling_items *= level
+        for item in falling_items[:]:
+            item.draw(game_board)
+            item.fall()
+            falling_items.remove(item) # this line makes it glitch 
+
+
+            if python.y >= 500:
+                python.disappear(medium_stop)
+            if tick.y >= 500:
+                tick.disappear(short_stop)
+            if duck.y >= 500:
+                duck.disappear(long_stop)
+            if warning.y >= 500:
+                warning.disappear(short_stop)
+            if error.y >= 500:
+                error.disappear(medium_stop)
+            if bug.y >= 500:
+                bug.disappear(long_stop)
+
+
         game_board.update_display()
 
 
