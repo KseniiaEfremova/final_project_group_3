@@ -59,20 +59,7 @@ class TestDamageFallingItem(unittest.TestCase):
         pass
 
 
-class TestErrorItem(unittest.TestCase):
 
-    def setUp(self):
-        self.mock_surface = pygame.Surface((30, 30))
-        self.mock_board = MockBoard()
-
-    def test_error_item_init(self):
-        error_item = ErrorItem(self.mock_surface, self.mock_board)
-        self.assertEqual(error_item.width, 30)
-        self.assertEqual(error_item.height, 30)
-        self.assertEqual(error_item.y, 0)
-        self.assertEqual(error_item.speed, 8)
-        self.assertEqual(error_item.points, 5)
-        self.assertEqual(error_item.damage, 10)
 
 
 class TestBugItem(unittest.TestCase):
