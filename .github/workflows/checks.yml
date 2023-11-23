@@ -24,4 +24,6 @@ jobs:
 
       - name: Test
         run: |
-          pipenv run python -m unittest tests
+          pipenv run python -m unittest test_board
+          pipenv run python -m unittest test_player
+          pipenv run python -m unittest test_damage_falling_items

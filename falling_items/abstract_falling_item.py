@@ -14,7 +14,7 @@ short_stop = datetime.datetime.utcnow() + datetime.timedelta(
 
 
 class FallingItem(ABC, pygame.sprite.Sprite):
-	def __init__(self, name, image, speed, damage, points, width, height, x, y,
+	def __init__(self, name, image, speed, points, damage, width, height, x, y,
 				board_instance: Board):
 		super().__init__()
 		self.name = name
