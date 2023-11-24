@@ -1,23 +1,30 @@
 from board import Board
 from player import Player
+from stats.life import Life
+from stats.level import Level
+from stats.timer import Timer
+from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/python.png")
+python_image = pygame.image.load("assets/python1.png")
 tick_image = pygame.image.load("assets/tick.png")
-duck_image = pygame.image.load("assets/duck.png")
-bug_image = pygame.image.load("assets/bug.png")
-error_image = pygame.image.load("assets/error.gif")
+duck_image = pygame.image.load("assets/duck5.png")
+bug_image = pygame.image.load("assets/bug1.png")
+error_image = pygame.image.load("assets/error.png")
 warning_image = pygame.image.load("assets/warning.png")
 
 def run():
     pygame.init()
-
     game_board = Board('arcade catcher', (800, 600), 60)
-    player = Player(800 - 725, 600 - 100, game_board)
+    player = Player(800 - 725, 600 - 200, game_board)
+    life = Life(player, game_board)
+    level = Level(player, game_board)
+    timer = Timer(player, game_board)
+    points = Points(player, game_board)
     python = PythonItem(python_image, game_board)
     tick = TickItem(tick_image, game_board)
     duck = RubberDuckItem(duck_image, game_board)
@@ -36,6 +43,9 @@ def run():
     while True:
         game_board.display_board()
         game_board.draw_background()
+        life.draw(game_board)
+        level.draw(game_board)
+        points.draw(game_board)
         python.draw(game_board)
         tick.draw(game_board)
         duck.draw(game_board)
@@ -64,11 +74,12 @@ def run():
         current_time = time.time()
         elapsed_time = current_time - start_time
         remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        game_board.draw_timer(remaining_time)
+        timer.draw(game_board, timer=remaining_time)
         
         player.draw_player()
         player.move()
         game_board.update_display()
+
 
 if __name__ == '__main__':
     run()
