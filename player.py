@@ -55,6 +55,7 @@ class Player:
         
     
     def check_falling_item_collision(self):
+        print(self.python_instance.rect)
         if self.rect.colliderect(self.python_instance.rect):
             self.height = 300
             print("You have hit the Python")
