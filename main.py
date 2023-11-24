@@ -45,7 +45,6 @@ def run():
         game_board.draw_background()
         life.draw(game_board)
         level.draw(game_board)
-
         points.draw(game_board)
         python.draw(game_board)
         tick.draw(game_board)
