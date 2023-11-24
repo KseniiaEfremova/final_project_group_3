@@ -72,5 +72,6 @@ def run():
         player.move()
         game_board.update_display()
 
+
 if __name__ == '__main__':
     run()
