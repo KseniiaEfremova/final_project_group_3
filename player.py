@@ -55,6 +55,7 @@ class Player:
         
     
     def check_falling_item_collision(self):
+        print(self.python_instance.rect)
         if self.rect.colliderect(self.python_instance.rect):
             self.height = 300
             print("You have hit the Python")
@@ -103,7 +104,7 @@ class Player:
             self.bug_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
             print(f"Player Points: {self.points}, Player Damage: {self.damage}")
     
-    # If I get the above working I will try to put it in a list to simplify
+    ## If I get the above working I will try to put it in a list to simplify
     # def check_falling_item_collision(self):
     #     for falling_item in self.falling_items:
     #         if self.rect.colliderect(falling_item.rect):
@@ -116,4 +117,24 @@ class Player:
 
     #             falling_item.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
 
+    #             print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+
+
+## This is not the function it is a Debugging version of the function 
+## checking where the rectangles are
+## when run it only prints rectangles, no collisions seem to happen
+
+    # def check_falling_item_collision(self):
+    #     player_rect = self.rect  # Debugging: Print player's rect coordinates and dimensions
+    #     print(f"Player Rect: {player_rect}")
+
+    #     for falling_item in [self.python_instance, self.tick_instance, self.duck_instance, self.warning_instance, self.error_instance, self.bug_instance]:
+    #         item_rect = falling_item.rect  # Debugging: Print falling item's rect coordinates and dimensions
+    #         print(f"{falling_item.name} Rect: {item_rect}")
+
+    #         if player_rect.colliderect(item_rect):
+    #             print(f"You have hit the {falling_item.name}")
+    #             self.points += falling_item.points
+    #             self.damage += falling_item.damage
+    #             falling_item.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
     #             print(f"Player Points: {self.points}, Player Damage: {self.damage}")
