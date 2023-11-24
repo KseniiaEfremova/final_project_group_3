@@ -4,6 +4,7 @@ from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckIt
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import pygame
 import datetime
+import time
 
 python_image = pygame.image.load("assets/python.png")
 tick_image = pygame.image.load("assets/tick.png")
@@ -11,6 +12,7 @@ duck_image = pygame.image.load("assets/duck.png")
 bug_image = pygame.image.load("assets/bug.png")
 error_image = pygame.image.load("assets/error.gif")
 warning_image = pygame.image.load("assets/warning.png")
+
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
@@ -28,6 +30,9 @@ def run():
         seconds=4)
     short_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=3)
+    timer_seconds = 60
+    start_time = time.time()
+
     while True:
         game_board.display_board()
         game_board.draw_background()
@@ -55,11 +60,16 @@ def run():
             error.disappear(medium_stop)
         if bug.y >= 500:
             bug.disappear(long_stop)
+
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+        remaining_time = max(timer_seconds - int(elapsed_time), 0)
+        game_board.draw_timer(remaining_time)
+        
         player.draw_player()
         player.move()
         player.check_falling_item_collision()
         game_board.update_display()
-
 
 if __name__ == '__main__':
     run()

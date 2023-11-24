@@ -4,6 +4,9 @@ from utils import get_path_from_root
 
 background_image = pygame.image.load("assets/background.jpg")
 
+pygame.font.init()
+font = pygame.font.SysFont('Times New Roman', 24)
+
 class Board():
     def __init__(self, name, res, frames):
         self.name = name
@@ -12,6 +15,13 @@ class Board():
         self.image = pygame.transform.scale(background_image, (self.res))
         self.board = pygame.display.set_mode(self.res)
 
+    def draw_timer(self, timer):
+        timer_rect = pygame.Rect(10, 10, 111, 45)
+        pygame.draw.rect(self.board, (255, 255, 255), timer_rect)
+        pygame.draw.rect(self.board, (255, 105, 180), timer_rect, 3)
+        text = font.render("Time: {}".format(timer), True, (0, 0, 0))
+        self.board.blit(text, (20, 20))
+    
     def display_board(self):
         pygame.display.set_caption(self.name)
         for event in pygame.event.get():
