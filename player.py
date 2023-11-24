@@ -1,12 +1,12 @@
 import pygame
 from board import Board
 
-player_image = pygame.image.load("assets/player.png")
+player_image = pygame.image.load("assets/player_idle.png")
 
 
 class Player:
     def __init__(self, x, y, board_instance: Board):
-        self.image = pygame.transform.scale(player_image, (100, 100))
+        self.image = pygame.transform.scale(player_image, (100, 238))
         self.width = 100
         self.height = 90
         self.rect = pygame.Rect(0, 0, self.width, self.height)

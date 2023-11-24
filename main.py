@@ -6,18 +6,18 @@ import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/python.png")
+python_image = pygame.image.load("assets/python1.png")
 tick_image = pygame.image.load("assets/tick.png")
-duck_image = pygame.image.load("assets/duck.png")
-bug_image = pygame.image.load("assets/bug.png")
-error_image = pygame.image.load("assets/error.gif")
+duck_image = pygame.image.load("assets/duck5.png")
+bug_image = pygame.image.load("assets/bug1.png")
+error_image = pygame.image.load("assets/error.png")
 warning_image = pygame.image.load("assets/warning.png")
 
 def run():
     pygame.init()
 
     game_board = Board('arcade catcher', (800, 600), 60)
-    player = Player(800 - 725, 600 - 100, game_board)
+    player = Player(800 - 725, 600 - 200, game_board)
     python = PythonItem(python_image, game_board)
     tick = TickItem(tick_image, game_board)
     duck = RubberDuckItem(duck_image, game_board)
