@@ -1,5 +1,6 @@
 from board import Board
 from player import Player
+from stats.life import Life
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import pygame
@@ -15,9 +16,9 @@ warning_image = pygame.image.load("assets/warning.png")
 
 def run():
     pygame.init()
-
     game_board = Board('arcade catcher', (800, 600), 60)
     player = Player(800 - 725, 600 - 200, game_board)
+    life = Life(player, game_board, 50, 50)
     python = PythonItem(python_image, game_board)
     tick = TickItem(tick_image, game_board)
     duck = RubberDuckItem(duck_image, game_board)
@@ -36,6 +37,7 @@ def run():
     while True:
         game_board.display_board()
         game_board.draw_background()
+        life.draw(game_board)
         python.draw(game_board)
         tick.draw(game_board)
         duck.draw(game_board)

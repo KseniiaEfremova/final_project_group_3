@@ -35,6 +35,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
+        self.life = 90
+        self.points = 0
+        self.level = 1
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
