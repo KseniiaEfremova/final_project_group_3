@@ -17,7 +17,7 @@ class Level(Stats, ABC):
 		self.current_sprite = self.level
 		self.width = 70
 		self.height = 70
-		self.x = 500
+		self.x = 550
 		self.y = 75
 		self.image = pygame.transform.scale(self.sprites[self.current_sprite],
 											(self.width, self.height))

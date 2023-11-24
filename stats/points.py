@@ -24,4 +24,4 @@ class Points(Stats, ABC):
 		points_rect = pygame.Rect(70, 10, 111, 45)
 		pygame.draw.rect(board_instance.board_surface, (0, 0, 0, 0), points_rect)
 		text = font.render("Points: {}".format(self.points), True, (255, 255, 255))
-		self.board_instance.board.blit(text, (200, 20))
+		self.board_instance.board.blit(text, (170, 20))

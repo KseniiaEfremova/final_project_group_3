@@ -18,10 +18,10 @@ class Life(Stats, ABC):
 		self.sprites.append(pygame.image.load("assets/heart_low.png"))
 		self.sprites.append(pygame.image.load("assets/heart_empty.png"))
 		self.current_sprite = 0
-		self.x_positions = [775, 695, 615]
+		self.x_positions = [775, 705, 635]
 		self.images = []
-		self.width = 70
-		self.height = 70
+		self.width = 60
+		self.height = 60
 		self.y = 75
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 		self.board_instance = board_instance
