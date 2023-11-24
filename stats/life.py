@@ -6,8 +6,8 @@ from board import Board
 
 
 class Life(Stats, ABC):
-	def __init__(self, player_instance: Player, board_instance: Board, width, height):
-		super().__init__(player_instance, board_instance, width, height)
+	def __init__(self, player_instance: Player, board_instance: Board):
+		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.player_instance = player_instance
 		self.lives = self.player_instance.life
@@ -18,10 +18,10 @@ class Life(Stats, ABC):
 		self.sprites.append(pygame.image.load("assets/heart_low.png"))
 		self.sprites.append(pygame.image.load("assets/heart_empty.png"))
 		self.current_sprite = 0
-		self.x_positions = [725, 665, 605]
+		self.x_positions = [775, 695, 615]
 		self.images = []
-		self.width = 50
-		self.height = 50
+		self.width = 70
+		self.height = 70
 		self.y = 75
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 		self.board_instance = board_instance
@@ -57,11 +57,11 @@ class Life(Stats, ABC):
 			second_sprite = 5
 			third_sprite = 5
 		first_image = pygame.transform.scale(self.sprites[first_sprite],
-										   (50, 50))
+										   (self.width, self.height))
 		second_image = pygame.transform.scale(self.sprites[second_sprite],
-									   (50, 50))
+									   (self.width, self.height))
 		third_image = pygame.transform.scale(self.sprites[third_sprite],
-									   (50, 50))
+									   (self.width, self.height))
 		self.images.append(first_image)
 		self.images.append(second_image)
 		self.images.append(third_image)
@@ -70,4 +70,4 @@ class Life(Stats, ABC):
 		self.update()
 		for index, image in enumerate(self.images):
 			x = self.x_positions[index]
-			board_instance.board.blit(image, (x, self.y - self.height))
+			board_instance.board.blit(image, (x - self.height, self.y - self.height))

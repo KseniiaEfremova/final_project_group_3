@@ -6,11 +6,8 @@ from player import Player
 
 
 class Stats(ABC, pygame.sprite.Sprite):
-	def __init__(self, player_instance: Player, board_instance: Board, width, height):
+	def __init__(self, player_instance: Player, board_instance: Board):
 		super().__init__()
-		self.width = width
-		self.height = height
-		self.rect = pygame.Rect(0, 0, self.width, self.height)
 		self.board_instance = board_instance
 		self.player_instance = player_instance
 

@@ -37,7 +37,7 @@ class Player(pygame.sprite.Sprite):
         self.board_instance = board_instance
         self.life = 45
         self.points = 0
-        self.level = 1
+        self.level = 3
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
