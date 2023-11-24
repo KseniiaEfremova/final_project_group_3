@@ -66,7 +66,7 @@ class Life(Stats, ABC):
 		self.images.append(second_image)
 		self.images.append(third_image)
 
-	def draw(self, board_instance):
+	def draw(self, board_instance, **kwargs):
 		self.update()
 		for index, image in enumerate(self.images):
 			x = self.x_positions[index]

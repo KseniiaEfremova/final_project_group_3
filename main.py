@@ -2,6 +2,8 @@ from board import Board
 from player import Player
 from stats.life import Life
 from stats.level import Level
+from stats.timer import Timer
+from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import pygame
@@ -21,6 +23,8 @@ def run():
     player = Player(800 - 725, 600 - 200, game_board)
     life = Life(player, game_board)
     level = Level(player, game_board)
+    timer = Timer(player, game_board)
+    points = Points(player, game_board)
     python = PythonItem(python_image, game_board)
     tick = TickItem(tick_image, game_board)
     duck = RubberDuckItem(duck_image, game_board)
@@ -41,6 +45,8 @@ def run():
         game_board.draw_background()
         life.draw(game_board)
         level.draw(game_board)
+
+        points.draw(game_board)
         python.draw(game_board)
         tick.draw(game_board)
         duck.draw(game_board)
@@ -69,7 +75,7 @@ def run():
         current_time = time.time()
         elapsed_time = current_time - start_time
         remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        game_board.draw_timer(remaining_time)
+        timer.draw(game_board, timer=remaining_time)
         
         player.draw_player()
         player.move()

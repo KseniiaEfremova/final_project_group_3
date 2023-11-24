@@ -16,5 +16,5 @@ class Stats(ABC, pygame.sprite.Sprite):
 		pass
 
 	@abstractmethod
-	def draw(self, board_instance):
+	def draw(self, board_instance, *args, **kwargs):
 		pass

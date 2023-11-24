@@ -30,7 +30,7 @@ class Level(Stats, ABC):
 			print('you won! game is over, wanna play again?')
 			self.current_sprite = 2
 
-	def draw(self, board_instance):
+	def draw(self, board_instance, **kwargs):
 		self.update()
 		board_instance.board.blit(self.image, (self.x - self.width,
 											   self.y - self.height))

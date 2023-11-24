@@ -1,8 +1,6 @@
 import pygame
 from board import Board
 
-player_image = pygame.image.load("assets/player_idle.png")
-
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, board_instance: Board):
@@ -35,9 +33,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
-        self.life = 45
+        self.life = 90
         self.points = 0
-        self.level = 3
+        self.level = 1
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
