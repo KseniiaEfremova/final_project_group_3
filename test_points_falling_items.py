@@ -10,7 +10,7 @@ class MockBoard:
         self.board = MagicMock(spec=pygame.surface.Surface)
 
 
-class TestDamageFallingItem(unittest.TestCase):
+class TestPointsFallingItem(unittest.TestCase):
     pygame.image.load = MagicMock()
     pygame.transform.scale = MagicMock()
 
@@ -23,12 +23,7 @@ class TestDamageFallingItem(unittest.TestCase):
                                  0, self.mock_board)
         stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
         item.disappear(stop_time)
-        disappearance_progress = 0
-        item_width = max(30, int(30 + 90 * (1 - disappearance_progress)))
-        item_height = max(30, int(30 + 90 * (1 - disappearance_progress)))
         self.assertEqual(item.y, 500)
-        self.assertEqual(item_width, 120)
-        self.assertEqual(item_height, 120)
 
     def test_disappear_progress_two_third_left(self):
         item = DamageFallingItem("Test", self.mock_surface, 8, 5, 10, 30, 30, 0,
