@@ -42,6 +42,7 @@ class DamageFallingItem(FallingItem, ABC):
         if datetime.datetime.utcnow() > stop_time:
             self.image.fill(transparent)
             self.kill()
+            self.spawn()
 
 
 class ErrorItem(DamageFallingItem):
