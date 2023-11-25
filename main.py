@@ -1,3 +1,5 @@
+import random
+
 from board import Board
 from player import Player
 from stats.life import Life
@@ -16,6 +18,7 @@ duck_image = pygame.image.load("assets/duck5.png")
 bug_image = pygame.image.load("assets/bug1.png")
 error_image = pygame.image.load("assets/error.png")
 warning_image = pygame.image.load("assets/warning.png")
+
 
 def run():
     pygame.init()
@@ -40,6 +43,13 @@ def run():
 
     timer_seconds = 60
     start_time = time.time()
+
+    # timer for falls
+    timer_event = pygame.USEREVENT + 1
+    interval = 1000
+    pygame.time.set_timer(timer_event, interval)
+    clock = pygame.time.Clock()
+    counter = 0
 
     while True:
         game_board.display_board()
@@ -83,10 +93,19 @@ def run():
         falling_items = pygame.sprite.Group()
         item_list = [tick, duck, warning, error, bug, python]
         timestamps = [i * 2 for i in range(30)]
+        for item in item_list:
+            falling_items.add(item)
 
-        if remaining_time > 0 and remaining_time in timestamps:  # an if for now because a while loop doesn't work
-            for item in item_list:
-                falling_items.add(item)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            elif event.type == timer_event:
+                counter += 1
+                print(f"Hi from timer: {counter}")
+                new_sprite = random.choice(item_list)
+                falling_items.add(new_sprite)
+
+                print(falling_items)
 
         for sprite in falling_items.sprites():
             sprite.draw(game_board)
@@ -94,8 +113,9 @@ def run():
             if sprite.y >= 500:
                 sprite.disappear(long_stop)
 
-            print(falling_items)
-
+        if len(falling_items) >= 6:
+            for item in falling_items:
+                item.kill()
         # pygame.display.flip()
 
 

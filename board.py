@@ -15,10 +15,10 @@ class Board():
     
     def display_board(self):
         pygame.display.set_caption(self.name)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
+        # for event in pygame.event.get():
+        #     if event.type == pygame.QUIT:
+        #         pygame.quit()
+        #         sys.exit()
 
     def update_display(self):
         fps = pygame.time.Clock()
