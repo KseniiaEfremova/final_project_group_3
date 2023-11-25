@@ -4,7 +4,7 @@ import sys
 background_image = pygame.image.load("assets/background.jpg")
 
 
-class Board():
+class Board:
     def __init__(self, name, res, frames):
         self.name = name
         self.res = res
@@ -12,6 +12,7 @@ class Board():
         self.image = pygame.transform.scale(background_image, (self.res))
         self.board = pygame.display.set_mode(self.res)
         self.board_surface = pygame.Surface((self.res[0], self.res[1]))
+        self.pause = False
     
     def display_board(self):
         pygame.display.set_caption(self.name)
@@ -19,6 +20,14 @@ class Board():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    if not self.pause:
+                        self.pause = True
+                        print('paused')
+                    else:
+                        self.pause = False
+                        print('run')
 
     def update_display(self):
         fps = pygame.time.Clock()

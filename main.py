@@ -17,6 +17,7 @@ bug_image = pygame.image.load("assets/bug1.png")
 error_image = pygame.image.load("assets/error.png")
 warning_image = pygame.image.load("assets/warning.png")
 
+
 def run():
     pygame.init()
     game_board = Board('arcade catcher', (800, 600), 60)
