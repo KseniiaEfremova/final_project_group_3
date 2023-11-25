@@ -3,6 +3,7 @@ from player import Player
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import pygame
+import random
 import datetime
 import time
 
@@ -16,7 +17,6 @@ warning_image = pygame.image.load("assets/warning.png")
 
 def run():
     pygame.init()
-
     game_board = Board('arcade catcher', (800, 600), 60)
     player = Player(800 - 725, 600 - 100, game_board)
     python = PythonItem(python_image, game_board)
@@ -32,72 +32,62 @@ def run():
     short_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=3)
 
-    falling_items = []
-    level = 0
     timer_seconds = 60
     start_time = time.time()
 
     while True:
         game_board.display_board()
         game_board.draw_background()
-        python.draw(game_board)
-        tick.draw(game_board)
-        duck.draw(game_board)
-        warning.draw(game_board)
-        error.draw(game_board)
-        bug.draw(game_board)
-        python.fall()
-        tick.fall()
-        duck.fall()
-        warning.fall()
-        error.fall()
-        bug.fall()
-        if python.y >= 500:
-            python.disappear(medium_stop)
-        if tick.y >= 500:
-            tick.disappear(short_stop)
-        if duck.y >= 500:
-            duck.disappear(long_stop)
-        if warning.y >= 500:
-            warning.disappear(short_stop)
-        if error.y >= 500:
-            error.disappear(medium_stop)
-        if bug.y >= 500:
-            bug.disappear(long_stop)
 
         current_time = time.time()
         elapsed_time = current_time - start_time
         remaining_time = max(timer_seconds - int(elapsed_time), 0)
         game_board.draw_timer(remaining_time)
-        
+
         player.draw_player()
         player.move()
 
-        if len(falling_items) == 0:
-            level += 1
-            falling_items = [tick, duck, warning, error, bug, python]
-            falling_items *= level
-        for item in falling_items[:]:
-            item.draw(game_board)
-            item.fall()
-            falling_items.remove(item) # this line makes it glitch 
+        falling_items = pygame.sprite.Group()
+        item_list = [tick, duck, warning, error, bug, python]
 
+        if remaining_time == 58 or remaining_time == 55:  # an if for now because a while loop doesn't work
+            for item in item_list:
+                falling_items.add(item)
+            for sprite in falling_items.sprites():
+                sprite.draw(game_board)
+                sprite.fall()
+            print(falling_items)
 
-            if python.y >= 500:
-                python.disappear(medium_stop)
-            if tick.y >= 500:
-                tick.disappear(short_stop)
-            if duck.y >= 500:
-                duck.disappear(long_stop)
-            if warning.y >= 500:
-                warning.disappear(short_stop)
-            if error.y >= 500:
-                error.disappear(medium_stop)
-            if bug.y >= 500:
-                bug.disappear(long_stop)
+        pygame.display.flip()
 
+        # r = random.randrange(0, 6)
+        # if r == 0:
+        #     python = PythonItem(python_image, game_board)
+        #     falling_items.add(python)
+        #     print("0")
+        # elif r == 1:
+        #     tick = TickItem(tick_image, game_board)
+        #     falling_items.add(tick)
+        #     print("1")
+
+        # warning = WarningItem(warning_image, game_board)
+        # error = ErrorItem(error_image, game_board)
+        # bug = BugItem(bug_image, game_board)
+        # if python.y >= 500:
+        #     python.disappear(medium_stop)
+        # if tick.y >= 500:
+        #     tick.disappear(short_stop)
+        # if duck.y >= 500:
+        #     duck.disappear(long_stop)
+        # if warning.y >= 500:
+        #     warning.disappear(short_stop)
+        # if error.y >= 500:
+        #     error.disappear(medium_stop)
+        # if bug.y >= 500:
+        #     bug.disappear(long_stop)
 
         game_board.update_display()
+
 
 if __name__ == '__main__':
     run()
