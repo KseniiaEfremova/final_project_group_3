@@ -44,7 +44,6 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 	def fall(self):
 		self.y += self.speed
 
-	@Sounds("assets/sounds/bonus_points.wav")
 	def draw(self, board_instance):
 		board_instance.board.blit(self.image, (self.x - self.width,
 											   self.y - self.height))
