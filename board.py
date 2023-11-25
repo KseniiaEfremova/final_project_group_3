@@ -11,7 +11,7 @@ class Board:
         self.frames = frames
         self.image = pygame.transform.scale(background_image, (self.res))
         self.board = pygame.display.set_mode(self.res)
-        self.board_surface = pygame.Surface((self.res[0], self.res[1]))
+        self.board_surface = pygame.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
         self.pause = False
     
     def display_board(self):
