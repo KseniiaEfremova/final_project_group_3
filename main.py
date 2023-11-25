@@ -44,6 +44,7 @@ def run():
     while True:
         game_board.display_board()
         game_board.draw_background()
+        player.draw_player()
         life.draw(game_board)
         level.draw(game_board)
         points.draw(game_board)
@@ -53,33 +54,32 @@ def run():
         warning.draw(game_board)
         error.draw(game_board)
         bug.draw(game_board)
-        python.fall()
-        tick.fall()
-        duck.fall()
-        warning.fall()
-        error.fall()
-        bug.fall()
-        if python.y >= 500:
-            python.disappear(medium_stop)
-        if tick.y >= 500:
-            tick.disappear(short_stop)
-        if duck.y >= 500:
-            duck.disappear(long_stop)
-        if warning.y >= 500:
-            warning.disappear(short_stop)
-        if error.y >= 500:
-            error.disappear(medium_stop)
-        if bug.y >= 500:
-            bug.disappear(long_stop)
+        if not game_board.pause:
+            python.fall()
+            tick.fall()
+            duck.fall()
+            warning.fall()
+            error.fall()
+            bug.fall()
+            if python.y >= 500:
+                python.disappear(medium_stop)
+            if tick.y >= 500:
+                tick.disappear(short_stop)
+            if duck.y >= 500:
+                duck.disappear(long_stop)
+            if warning.y >= 500:
+                warning.disappear(short_stop)
+            if error.y >= 500:
+                error.disappear(medium_stop)
+            if bug.y >= 500:
+                bug.disappear(long_stop)
 
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-        remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        timer.draw(game_board, timer=remaining_time)
-        
-        player.draw_player()
-        player.move()
-        game_board.update_display()
+            current_time = time.time()
+            elapsed_time = current_time - start_time
+            remaining_time = max(timer_seconds - int(elapsed_time), 0)
+            timer.draw(game_board, timer=remaining_time)
+            player.move()
+            game_board.update_display()
 
 
 if __name__ == '__main__':
