@@ -82,7 +82,7 @@ def run():
         
         player.draw_player()
         player.move()
-        # player.check_falling_item_collision()
+        player.check_falling_item_collision()
         game_board.update_display()
 
 
