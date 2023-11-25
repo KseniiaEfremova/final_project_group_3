@@ -40,7 +40,7 @@ class DamageFallingItem(FallingItem, ABC):
 
             self.board_instance.board.blit(blow, (offset_x, offset_y))
         if datetime.datetime.utcnow() > stop_time:
-            self.image.fill(transparent)
+            self.y = 700
             self.kill()
             self.spawn()
 

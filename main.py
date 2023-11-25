@@ -48,7 +48,6 @@ def run():
     timer_event = pygame.USEREVENT + 1
     interval = 1000
     pygame.time.set_timer(timer_event, interval)
-    clock = pygame.time.Clock()
     counter = 0
 
     while True:
