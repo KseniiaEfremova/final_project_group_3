@@ -22,12 +22,8 @@ class Board:
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    if not self.pause:
-                        self.pause = True
-                        print('paused')
-                    else:
-                        self.pause = False
-                        print('run')
+                    self.pause = not self.pause
+
 
     def update_display(self):
         fps = pygame.time.Clock()
