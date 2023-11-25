@@ -44,10 +44,10 @@ def run():
     timer_seconds = 60
     start_time = time.time()
 
-    # timer for falls
-    timer_event = pygame.USEREVENT + 1
+    # timer for making items fall
+    fall_timer = pygame.USEREVENT + 1
     interval = 1000
-    pygame.time.set_timer(timer_event, interval)
+    pygame.time.set_timer(fall_timer, interval)
     counter = 0
 
     while True:
@@ -91,20 +91,19 @@ def run():
 
         falling_items = pygame.sprite.Group()
         item_list = [tick, duck, warning, error, bug, python]
-        timestamps = [i * 2 for i in range(30)]
         for item in item_list:
             falling_items.add(item)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-            elif event.type == timer_event:
+            elif event.type == fall_timer:
                 counter += 1
                 print(f"Hi from timer: {counter}")
                 new_sprite = random.choice(item_list)
                 falling_items.add(new_sprite)
 
-                print(falling_items)
+                print(f"Falling items added to {falling_items}: {new_sprite}")
 
         for sprite in falling_items.sprites():
             sprite.draw(game_board)
@@ -115,8 +114,6 @@ def run():
         if len(falling_items) >= 6:
             for item in falling_items:
                 item.kill()
-        # pygame.display.flip()
-
 
         # if python.y >= 500:
         #     python.disappear(medium_stop)
