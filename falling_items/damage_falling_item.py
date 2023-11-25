@@ -9,7 +9,7 @@ class DamageFallingItem(FallingItem, ABC):
                  board_instance):
         super().__init__(name, image, speed, points, damage, width, height, x,
                          y, board_instance)
-        self.image = pygame.transform.scale(image, (30, 30))
+        self.image = pygame.transform.scale(image, (50, 50))
         self.disappear_start_time = None
 
     def draw(self, board_instance):
@@ -47,19 +47,19 @@ class DamageFallingItem(FallingItem, ABC):
 class ErrorItem(DamageFallingItem):
     def __init__(self, image, board_instance):
         super().__init__('Error', image,  8, 5, 10,
-                         30, 30, 0, 0, board_instance)
+                         50, 50, 0, 0, board_instance)
 
 
 class BugItem(DamageFallingItem):
     def __init__(self, image, board_instance):
         super().__init__('Bug', image,  3, 10, 30,
-                         30, 30, 0, 0, board_instance)
+                         50, 50, 0, 0, board_instance)
 
 
 class WarningItem(DamageFallingItem):
     def __init__(self, image, board_instance):
         super().__init__('Warning', image, 5, 1, 5,
-                         30, 30, 0, 0, board_instance)
+                         50, 50, 0, 0, board_instance)
 
     
 
