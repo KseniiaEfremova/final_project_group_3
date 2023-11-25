@@ -98,39 +98,41 @@ class Player(pygame.sprite.Sprite):
             self.points += self.python_instance.points
             self.damage += self.python_instance.damage
             self.python_instance.rect.topleft = (-100, -100)
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
 
         elif self.rect.colliderect(self.tick_instance.rect):
             print("You have hit the tick")
             self.points += self.tick_instance.points
             self.damage += self.tick_instance.damage
             self.tick_instance.rect.topleft = (-100, -100)
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
         
         elif self.rect.colliderect(self.duck_instance.rect):
             print("You have hit the Duck")
             self.points += self.duck_instance.points
             self.damage += self.duck_instance.damage
             self.duck_instance.rect.topleft = (-100, -100)
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
             
         elif self.rect.colliderect(self.warning_instance.rect):
             print("You have hit the Warning")
             self.points += self.warning_instance.points
             self.damage += self.warning_instance.damage
             self.warning_instance.rect.topleft = (-100, -100)
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
             
         elif self.rect.colliderect(self.error_instance.rect):
             print("You have hit the Error")
             self.points += self.error_instance.points
             self.damage += self.error_instance.damage
             self.error_instance.rect.topleft = (-100, -100)
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
             
         elif self.rect.colliderect(self.bug_instance.rect):
             print("You have hit the Bug")
             self.points += self.bug_instance.points
             self.damage += self.bug_instance.damage
             self.bug_instance.rect.topleft = (-100, -100)
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
+        
+        return self.points, self.damage
