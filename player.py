@@ -8,7 +8,7 @@ import datetime
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, board_instance: Board):
+    def __init__(self, x, y, board_instance: Board, python_instance: PythonItem, tick_instance: TickItem, duck_instance: RubberDuckItem, warning_instance: WarningItem, error_instance: ErrorItem, bug_instance: BugItem):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load("assets/player_idle.png"))
@@ -90,55 +90,55 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += dy
         
     
-    def check_falling_item_collision(self):
-        print(self.python_instance.rect)
-        if self.rect.colliderect(self.python_instance.rect):
-            self.height = 300
-            print("You have hit the Python")
-            self.points += self.python_instance.points
-            self.damage += self.python_instance.damage
-            self.python_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+    # def check_falling_item_collision(self):
+    #     print(self.python_instance.rect)
+    #     if self.rect.colliderect(self.python_instance.rect):
+    #         self.height = 300
+    #         print("You have hit the Python")
+    #         self.points += self.python_instance.points
+    #         self.damage += self.python_instance.damage
+    #         self.python_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
+    #         print(f"Player Points: {self.points}, Player Damage: {self.damage}")
 
-        elif self.rect.colliderect(self.tick_instance.rect):
-            self.height = 300
-            print("You have hit the tick")
-            self.points += self.tick_instance.points
-            self.damage += self.tick_instance.damage
-            self.tick_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+    #     elif self.rect.colliderect(self.tick_instance.rect):
+    #         self.height = 300
+    #         print("You have hit the tick")
+    #         self.points += self.tick_instance.points
+    #         self.damage += self.tick_instance.damage
+    #         self.tick_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
+    #         print(f"Player Points: {self.points}, Player Damage: {self.damage}")
             
-        elif self.rect.colliderect(self.duck_instance.rect):
-            self.height = 300
-            print("You have hit the Duck")
-            self.points += self.duck_instance.points
-            self.damage += self.duck_instance.damage
-            self.duck_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+    #     elif self.rect.colliderect(self.duck_instance.rect):
+    #         self.height = 300
+    #         print("You have hit the Duck")
+    #         self.points += self.duck_instance.points
+    #         self.damage += self.duck_instance.damage
+    #         self.duck_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
+    #         print(f"Player Points: {self.points}, Player Damage: {self.damage}")
             
-        elif self.rect.colliderect(self.warning_instance.rect):
-            self.height = 300
-            print("You have hit the Warning")
-            self.points += self.warning_instance.points
-            self.damage += self.warning_instance.damage
-            self.warning_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+    #     elif self.rect.colliderect(self.warning_instance.rect):
+    #         self.height = 300
+    #         print("You have hit the Warning")
+    #         self.points += self.warning_instance.points
+    #         self.damage += self.warning_instance.damage
+    #         self.warning_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
+    #         print(f"Player Points: {self.points}, Player Damage: {self.damage}")
             
-        elif self.rect.colliderect(self.error_instance.rect):
-            self.height = 300
-            print("You have hit the Error")
-            self.points += self.error_instance.points
-            self.damage += self.error_instance.damage
-            self.error_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+    #     elif self.rect.colliderect(self.error_instance.rect):
+    #         self.height = 300
+    #         print("You have hit the Error")
+    #         self.points += self.error_instance.points
+    #         self.damage += self.error_instance.damage
+    #         self.error_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
+    #         print(f"Player Points: {self.points}, Player Damage: {self.damage}")
             
-        elif self.rect.colliderect(self.bug_instance.rect):
-            self.height = 300
-            print("You have hit the Bug")
-            self.points += self.bug_instance.points
-            self.damage += self.bug_instance.damage
-            self.bug_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
-            print(f"Player Points: {self.points}, Player Damage: {self.damage}")
+    #     elif self.rect.colliderect(self.bug_instance.rect):
+    #         self.height = 300
+    #         print("You have hit the Bug")
+    #         self.points += self.bug_instance.points
+    #         self.damage += self.bug_instance.damage
+    #         self.bug_instance.disappear(datetime.datetime.utcnow() + datetime.timedelta(seconds=3))
+    #         print(f"Player Points: {self.points}, Player Damage: {self.damage}")
     
     ## If I get the above working I will try to put it in a list to simplify
     # def check_falling_item_collision(self):
