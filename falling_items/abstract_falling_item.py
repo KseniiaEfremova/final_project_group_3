@@ -2,8 +2,10 @@ import random
 from abc import abstractmethod
 from abc import ABC
 import pygame
-from board import Board
 import datetime
+from board import Board
+from decorators.sounds import Sounds
+
 
 long_stop = datetime.datetime.utcnow() + datetime.timedelta(
 	seconds=3)
@@ -42,6 +44,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 	def fall(self):
 		self.y += self.speed
 
+	@Sounds("assets/sounds/bonus_points.wav")
 	def draw(self, board_instance):
 		board_instance.board.blit(self.image, (self.x - self.width,
 											   self.y - self.height))
