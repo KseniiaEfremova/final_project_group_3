@@ -6,6 +6,7 @@ from stats.timer import Timer
 from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
+from menu import Menu
 import pygame
 import datetime
 import time
@@ -21,6 +22,7 @@ warning_image = pygame.image.load("assets/warning.png")
 def run():
     pygame.init()
     game_board = Board('arcade catcher', (800, 600), 60)
+    menu = Menu(game_board)
     player = Player(800 - 725, 600 - 200, game_board)
     life = Life(player, game_board)
     level = Level(player, game_board)
@@ -79,6 +81,9 @@ def run():
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
             player.move()
+            game_board.update_display()
+        elif game_board.pause:
+            menu.draw()
             game_board.update_display()
 
 

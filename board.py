@@ -24,11 +24,15 @@ class Board:
                 if event.key == pygame.K_SPACE:
                     self.pause = not self.pause
 
-
     def update_display(self):
         fps = pygame.time.Clock()
         pygame.display.update()
         fps.tick(self.frames)
 
     def draw_background(self):
+        self.board.fill('black')
         self.board.blit(self.image, (0, 0))
+        self.board.blit(self.board_surface, (0, 0))
+
+
+

@@ -27,6 +27,7 @@ class Level(Stats, ABC):
 	def update(self):
 		self.current_sprite = self.level
 		if self.current_sprite > 2:
+			# display winning screen
 			print('you won! game is over, wanna play again?')
 			self.current_sprite = 2
 
