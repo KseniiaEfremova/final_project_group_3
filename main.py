@@ -26,7 +26,7 @@ def run():
     warning = WarningItem(warning_image, game_board)
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
-    player = Player(800 - 725, 600 - 100, game_board, python, tick, duck, warning, error, bug)
+    player = Player(800 - 725, 600 - 200, game_board, python, tick, duck, warning, error, bug)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
