@@ -2,8 +2,10 @@ import random
 from abc import abstractmethod
 from abc import ABC
 import pygame
-from board import Board
 import datetime
+from board import Board
+from decorators.sounds import Sounds
+
 
 long_stop = datetime.datetime.utcnow() + datetime.timedelta(
 	seconds=3)
@@ -33,7 +35,9 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 
 	def spawn(self):
 		self.x = random.randint(0, 770)
-		self.y = random.randint(-100, -10)
+		self.y = 0
+		self.rect.x = self.x
+		self.rect.y = self.y
 
 	@abstractmethod
 	def disappear(self, stop_time):
@@ -41,6 +45,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 
 	def fall(self):
 		self.y += self.speed
+		self.rect.y = self.y
 
 	def draw(self, board_instance):
 		board_instance.board.blit(self.image, (self.x - self.width,

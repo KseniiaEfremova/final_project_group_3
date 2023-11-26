@@ -8,32 +8,33 @@ from stats.timer import Timer
 from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
+from decorators.sounds import Sounds
 import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/python1.png")
-tick_image = pygame.image.load("assets/tick.png")
-duck_image = pygame.image.load("assets/duck5.png")
-bug_image = pygame.image.load("assets/bug1.png")
-error_image = pygame.image.load("assets/error.png")
-warning_image = pygame.image.load("assets/warning.png")
+python_image = pygame.image.load("assets/sprites/python1.png")
+tick_image = pygame.image.load("assets/sprites/tick.png")
+duck_image = pygame.image.load("assets/sprites/duck5.png")
+bug_image = pygame.image.load("assets/sprites/bug1.png")
+error_image = pygame.image.load("assets/sprites/error.png")
+warning_image = pygame.image.load("assets/sprites/warning.png")
 
-
+@Sounds("assets/sounds/soundtrack.mp3", loop=True)
 def run():
     pygame.init()
-    game_board = Board('arcade catcher', (800, 600), 60)
-    player = Player(800 - 725, 600 - 200, game_board)
-    life = Life(player, game_board)
-    level = Level(player, game_board)
-    timer = Timer(player, game_board)
-    points = Points(player, game_board)
+    game_board = Board('Code Quest', (800, 600), 60)
     python = PythonItem(python_image, game_board)
     tick = TickItem(tick_image, game_board)
     duck = RubberDuckItem(duck_image, game_board)
     warning = WarningItem(warning_image, game_board)
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
+    player = Player(800 - 725, 600 - 200, game_board, python, tick, duck, warning, error, bug)
+    life = Life(player, game_board)
+    level = Level(player, game_board)
+    timer = Timer(player, game_board)
+    points = Points(player, game_board)
     long_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=5)
     medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
@@ -128,6 +129,7 @@ def run():
         # if bug.y >= 500:
         #     bug.disappear(long_stop)
 
+        player.check_falling_item_collision()
         game_board.update_display()
 
 
