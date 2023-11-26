@@ -8,9 +8,11 @@ from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckIt
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 from menu.pause_menu import PauseMenu
 from utils import assets_library
+from decorators.sounds import Sounds
 import pygame
 import datetime
 import time
+
 
 python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
 tick_image = pygame.image.load(assets_library['sprites']['tick'])
@@ -20,6 +22,7 @@ error_image = pygame.image.load(assets_library['sprites']['error'])
 warning_image = pygame.image.load(assets_library['sprites']['warning'])
 
 
+@Sounds("assets/sounds/soundtrack.mp3", loop=True)
 def run():
     pygame.init()
     game_board = Board('arcade catcher', (800, 600), 60)
