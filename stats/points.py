@@ -3,9 +3,10 @@ import pygame
 from stats.abstract_stats import Stats
 from player import Player
 from board import Board
+from utils import assets_library
 
 pygame.font.init()
-font = pygame.font.Font('assets/fonts/Kiddy Play.ttf', 40)
+font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 40)
 
 
 class Points(Stats, ABC):
@@ -19,5 +20,5 @@ class Points(Stats, ABC):
 		pass
 
 	def draw(self, board_instance, **kwargs):
-		text = font.render("Points: {}".format(self.points), True, (255, 255, 255))
+		text = font.render(f"Points: {self.points}", True, (255, 255, 255))
 		self.board_instance.board.blit(text, (170, 20))
