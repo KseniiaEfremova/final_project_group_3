@@ -2,8 +2,10 @@ import random
 from abc import abstractmethod
 from abc import ABC
 import pygame
-from board import Board
 import datetime
+from board import Board
+from decorators.sounds import Sounds
+
 
 long_stop = datetime.datetime.utcnow() + datetime.timedelta(
 	seconds=3)
