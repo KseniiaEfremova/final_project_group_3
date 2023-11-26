@@ -22,7 +22,5 @@ class Timer(Stats, ABC):
 	def draw(self, board_instance, **kwargs):
 		timer = kwargs.get('timer', None)
 		if timer is not None:
-			# timer_rect = pygame.Rect(10, 10, 111, 45)
-			# pygame.draw.rect(board_instance.board_surface, (0, 0, 0, 0), timer_rect)
 			text = font.render("Time: {}".format(timer), True, (255, 255, 255))
 			self.board_instance.board.blit(text, (20, 20))
