@@ -3,6 +3,7 @@ import pygame
 from stats.abstract_stats import Stats
 from player import Player
 from board import Board
+from utils import assets_library
 
 
 class Level(Stats, ABC):
@@ -10,9 +11,9 @@ class Level(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.level = self.player_instance.level - 1
-		self.sprites.append(pygame.image.load("assets/sprites/level1.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/level2.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/level3.png"))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level1']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level2']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level3']))
 		self.current_sprite = self.level
 		self.width = 70
 		self.height = 70
