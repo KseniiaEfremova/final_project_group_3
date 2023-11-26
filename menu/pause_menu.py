@@ -3,7 +3,7 @@ from board import Board
 from menu.menu import Menu
 
 pygame.font.init()
-font = pygame.font.Font('assets/Kiddy Play.ttf', 40)
+font = pygame.font.Font('assets/FukuCatch.otf', 60)
 
 
 class PauseMenu(Menu):
@@ -16,4 +16,4 @@ class PauseMenu(Menu):
 		pygame.draw.rect(pause, (135, 135, 135, 150), rect)
 		text = font.render("Game paused", True, (255, 255, 255))
 		self.board_instance.board.blit(pause, (0, 0))
-		self.board_instance.board.blit(text, (325, 275))
+		self.board_instance.board.blit(text, (150, 225))
