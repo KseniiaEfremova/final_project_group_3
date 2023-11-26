@@ -9,7 +9,6 @@ class Life(Stats, ABC):
 	def __init__(self, player_instance: Player, board_instance: Board):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
-		self.player_instance = player_instance
 		self.lives = self.player_instance.life
 		self.sprites.append(pygame.image.load("assets/heart_full.png"))
 		self.sprites.append(pygame.image.load("assets/heart_almost_full.png"))
@@ -24,7 +23,6 @@ class Life(Stats, ABC):
 		self.height = 60
 		self.y = 75
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
-		self.board_instance = board_instance
 
 	def create_image(self, remainder):
 		if 30 >= remainder > 25:
