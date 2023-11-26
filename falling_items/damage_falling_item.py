@@ -17,7 +17,6 @@ class DamageFallingItem(FallingItem, ABC):
     
     def disappear(self, stop_time):
         self.y = 500
-        transparent = (0, 0, 0, 0)
         current_time = datetime.datetime.utcnow()
         elapsed_time = current_time - stop_time
 
@@ -40,7 +39,7 @@ class DamageFallingItem(FallingItem, ABC):
 
             self.board_instance.board.blit(blow, (offset_x, offset_y))
         if datetime.datetime.utcnow() > stop_time:
-            self.y = 700
+            self.y = 500
             self.kill()
             self.spawn()
 

@@ -41,6 +41,7 @@ def run():
         seconds=4)
     short_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=3)
+    stop_list = [long_stop, medium_stop, short_stop]
 
     timer_seconds = 60
     start_time = time.time()
@@ -110,7 +111,7 @@ def run():
             sprite.draw(game_board)
             sprite.fall()
             if sprite.y >= 500:
-                sprite.disappear(long_stop)
+                sprite.disappear(short_stop)
 
         if len(falling_items) >= 6:
             for item in falling_items:
