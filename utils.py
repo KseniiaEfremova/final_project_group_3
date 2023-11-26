@@ -51,7 +51,7 @@ assets_library = {
         },
         'player': {
             'player_left': {
-                'player_left1': 'assets/sprites/player_idle_left',
+                'player_left1': 'assets/sprites/player_idle_left.png',
                 'player_left2': 'assets/sprites/player9.png',
                 'player_left3': 'assets/sprites/player10.png',
                 'player_left4': 'assets/sprites/player11.png',
@@ -62,7 +62,7 @@ assets_library = {
                 'player_left9': 'assets/sprites/player16.png',
             },
             'player_right': {
-                'player_right1': 'assets/sprites/player_idle',
+                'player_right1': 'assets/sprites/player_idle.png',
                 'player_right2': 'assets/sprites/player1.png',
                 'player_right3': 'assets/sprites/player2.png',
                 'player_right4': 'assets/sprites/player3.png',

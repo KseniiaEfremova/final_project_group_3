@@ -1,5 +1,6 @@
 import pygame
 from board import Board
+from utils import assets_library
 
 
 class Player(pygame.sprite.Sprite):
@@ -7,42 +8,42 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player_idle.png"))
+            assets_library['sprites']['player']['player_right']['player_right1']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player1.png"))
+            assets_library['sprites']['player']['player_right']['player_right2']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player2.png"))
+            assets_library['sprites']['player']['player_right']['player_right3']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player3.png"))
+            assets_library['sprites']['player']['player_right']['player_right4']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player4.png"))
+            assets_library['sprites']['player']['player_right']['player_right5']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player5.png"))
+            assets_library['sprites']['player']['player_right']['player_right6']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player6.png"))
+            assets_library['sprites']['player']['player_right']['player_right7']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player7.png"))
+            assets_library['sprites']['player']['player_right']['player_right8']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player8.png"))
+            assets_library['sprites']['player']['player_right']['player_right9']))
         self.sprites_left = []
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player_idle_left.png"))
+            assets_library['sprites']['player']['player_left']['player_left1']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player9.png"))
+            assets_library['sprites']['player']['player_left']['player_left2']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player10.png"))
+            assets_library['sprites']['player']['player_left']['player_left3']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player11.png"))
+            assets_library['sprites']['player']['player_left']['player_left4']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player12.png"))
+            assets_library['sprites']['player']['player_left']['player_left5']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player13.png"))
+            assets_library['sprites']['player']['player_left']['player_left6']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player14.png"))
+            assets_library['sprites']['player']['player_left']['player_left7']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player15.png"))
+            assets_library['sprites']['player']['player_left']['player_left8']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player16.png"))
+            assets_library['sprites']['player']['player_left']['player_left9']))
         self.current_sprite = 0
         self.image = pygame.transform.scale(
             self.sprites_right[self.current_sprite], (100, 238))
