@@ -3,9 +3,10 @@ import pygame
 from stats.abstract_stats import Stats
 from player import Player
 from board import Board
+from utils import assets_library
 
 pygame.font.init()
-font = pygame.font.Font('assets/fonts/Kiddy Play.ttf', 40)
+font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 40)
 
 
 class Timer(Stats, ABC):
@@ -20,5 +21,5 @@ class Timer(Stats, ABC):
 	def draw(self, board_instance, **kwargs):
 		timer = kwargs.get('timer', None)
 		if timer is not None:
-			text = font.render("Time: {}".format(timer), True, (255, 255, 255))
+			text = font.render(f"Time: {timer}", True, (255, 255, 255))
 			self.board_instance.board.blit(text, (20, 20))
