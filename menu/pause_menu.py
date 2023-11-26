@@ -3,7 +3,7 @@ from board import Board
 from menu.menu import Menu
 
 pygame.font.init()
-font = pygame.font.Font('assets/FukuCatch.otf', 60)
+font = pygame.font.Font('assets/fonts/FukuCatch.otf', 60)
 
 
 class PauseMenu(Menu):

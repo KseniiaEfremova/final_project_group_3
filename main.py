@@ -11,12 +11,12 @@ import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/python1.png")
-tick_image = pygame.image.load("assets/tick.png")
-duck_image = pygame.image.load("assets/duck5.png")
-bug_image = pygame.image.load("assets/bug1.png")
-error_image = pygame.image.load("assets/error.png")
-warning_image = pygame.image.load("assets/warning.png")
+python_image = pygame.image.load("assets/sprites/python1.png")
+tick_image = pygame.image.load("assets/sprites/tick.png")
+duck_image = pygame.image.load("assets/sprites/duck5.png")
+bug_image = pygame.image.load("assets/sprites/bug1.png")
+error_image = pygame.image.load("assets/sprites/error.png")
+warning_image = pygame.image.load("assets/sprites/warning.png")
 
 
 def run():

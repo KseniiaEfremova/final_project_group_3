@@ -10,9 +10,9 @@ class Level(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.level = self.player_instance.level - 1
-		self.sprites.append(pygame.image.load("assets/level1.png"))
-		self.sprites.append(pygame.image.load("assets/level2.png"))
-		self.sprites.append(pygame.image.load("assets/level3.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/level1.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/level2.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/level3.png"))
 		self.current_sprite = self.level
 		self.width = 70
 		self.height = 70

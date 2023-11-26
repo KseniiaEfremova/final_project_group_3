@@ -1,7 +1,7 @@
 import pygame
 import sys
 
-background_image = pygame.image.load("assets/background.jpg")
+background_image = pygame.image.load("assets/backgrounds/background.jpg")
 
 
 class Board:

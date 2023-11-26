@@ -10,12 +10,12 @@ class Life(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.lives = self.player_instance.life
-		self.sprites.append(pygame.image.load("assets/heart_full.png"))
-		self.sprites.append(pygame.image.load("assets/heart_almost_full.png"))
-		self.sprites.append(pygame.image.load("assets/heart_medium2.png"))
-		self.sprites.append(pygame.image.load("assets/heart_medium1.png"))
-		self.sprites.append(pygame.image.load("assets/heart_low.png"))
-		self.sprites.append(pygame.image.load("assets/heart_empty.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/heart_full.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/heart_almost_full.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/heart_medium2.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/heart_medium1.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/heart_low.png"))
+		self.sprites.append(pygame.image.load("assets/sprites/heart_empty.png"))
 		self.current_sprite = 0
 		self.x_positions = [775, 705, 635]
 		self.images = []
