@@ -21,18 +21,18 @@ warning_image = pygame.image.load("assets/sprites/warning.png")
 @Sounds("assets/sounds/soundtrack.mp3", loop=True)
 def run():
     pygame.init()
-    game_board = Board('arcade catcher', (800, 600), 60)
-    player = Player(800 - 725, 600 - 200, game_board)
-    life = Life(player, game_board)
-    level = Level(player, game_board)
-    timer = Timer(player, game_board)
-    points = Points(player, game_board)
+    game_board = Board('Code Quest', (800, 600), 60)
     python = PythonItem(python_image, game_board)
     tick = TickItem(tick_image, game_board)
     duck = RubberDuckItem(duck_image, game_board)
     warning = WarningItem(warning_image, game_board)
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
+    player = Player(800 - 725, 600 - 200, game_board, python, tick, duck, warning, error, bug)
+    life = Life(player, game_board)
+    level = Level(player, game_board)
+    timer = Timer(player, game_board)
+    points = Points(player, game_board)
     long_stop = datetime.datetime.utcnow() + datetime.timedelta(
         seconds=5)
     medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
@@ -80,6 +80,7 @@ def run():
         
         player.draw_player()
         player.move()
+        player.check_falling_item_collision()
         game_board.update_display()
 
 
