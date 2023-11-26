@@ -1,15 +1,14 @@
 import pygame
 from board import Board
+from menu.menu import Menu
 
 pygame.font.init()
 font = pygame.font.Font('assets/Kiddy Play.ttf', 40)
 
 
-class PauseMenu:
+class PauseMenu(Menu):
 	def __init__(self, board_instance: Board):
-		self.board_instance = board_instance
-		self.width = board_instance.res[0]
-		self.height = board_instance.res[1]
+		super().__init__(board_instance)
 
 	def draw(self):
 		rect = pygame.Rect(0, 0, self.width, self.height)

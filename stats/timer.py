@@ -11,8 +11,8 @@ font = pygame.font.Font('assets/Kiddy Play.ttf', 40)
 class Timer(Stats, ABC):
 	def __init__(self, player_instance: Player, board_instance: Board):
 		super().__init__(player_instance, board_instance)
-		self.player_instance = player_instance
-		self.board_instance = board_instance
+		# self.player_instance = player_instance
+		# self.board_instance = board_instance
 		self.x = 10
 		self.y = 75
 
