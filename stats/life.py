@@ -3,6 +3,7 @@ import pygame
 from stats.abstract_stats import Stats
 from player import Player
 from board import Board
+from utils import assets_library
 
 
 class Life(Stats, ABC):
@@ -10,12 +11,12 @@ class Life(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.lives = self.player_instance.life
-		self.sprites.append(pygame.image.load("assets/sprites/heart_full.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/heart_almost_full.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/heart_medium2.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/heart_medium1.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/heart_low.png"))
-		self.sprites.append(pygame.image.load("assets/sprites/heart_empty.png"))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart1']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart2']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart3']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart4']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart5']))
+		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart6']))
 		self.current_sprite = 0
 		self.x_positions = [775, 705, 635]
 		self.images = []
