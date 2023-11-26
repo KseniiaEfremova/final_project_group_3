@@ -7,16 +7,17 @@ from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 from menu.pause_menu import PauseMenu
+from utils import assets_library
 import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/sprites/python1.png")
-tick_image = pygame.image.load("assets/sprites/tick.png")
-duck_image = pygame.image.load("assets/sprites/duck5.png")
-bug_image = pygame.image.load("assets/sprites/bug1.png")
-error_image = pygame.image.load("assets/sprites/error.png")
-warning_image = pygame.image.load("assets/sprites/warning.png")
+python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
+tick_image = pygame.image.load(assets_library['sprites']['tick'])
+duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
+bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
+error_image = pygame.image.load(assets_library['sprites']['error'])
+warning_image = pygame.image.load(assets_library['sprites']['warning'])
 
 
 def run():
