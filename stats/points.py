@@ -5,7 +5,7 @@ from player import Player
 from board import Board
 
 pygame.font.init()
-font = pygame.font.Font('assets/Kiddy Play.ttf', 40)
+font = pygame.font.Font('assets/fonts/Kiddy Play.ttf', 40)
 
 
 class Points(Stats, ABC):

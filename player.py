@@ -10,25 +10,43 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, board_instance: Board, python_instance: PythonItem, tick_instance: TickItem, duck_instance: RubberDuckItem, warning_instance: WarningItem, error_instance: ErrorItem, bug_instance: BugItem):        
         super().__init__()
         self.sprites_right = []
-        self.sprites_right.append(pygame.image.load("assets/player_idle.png"))
-        self.sprites_right.append(pygame.image.load("assets/player1.png"))
-        self.sprites_right.append(pygame.image.load("assets/player2.png"))
-        self.sprites_right.append(pygame.image.load("assets/player3.png"))
-        self.sprites_right.append(pygame.image.load("assets/player4.png"))
-        self.sprites_right.append(pygame.image.load("assets/player5.png"))
-        self.sprites_right.append(pygame.image.load("assets/player6.png"))
-        self.sprites_right.append(pygame.image.load("assets/player7.png"))
-        self.sprites_right.append(pygame.image.load("assets/player8.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player_idle.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player1.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player2.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player3.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player4.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player5.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player6.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player7.png"))
+        self.sprites_right.append(pygame.image.load(
+            "assets/sprites/player8.png"))
         self.sprites_left = []
-        self.sprites_left.append(pygame.image.load("assets/player_idle_left.png"))
-        self.sprites_left.append(pygame.image.load("assets/player9.png"))
-        self.sprites_left.append(pygame.image.load("assets/player10.png"))
-        self.sprites_left.append(pygame.image.load("assets/player11.png"))
-        self.sprites_left.append(pygame.image.load("assets/player12.png"))
-        self.sprites_left.append(pygame.image.load("assets/player13.png"))
-        self.sprites_left.append(pygame.image.load("assets/player14.png"))
-        self.sprites_left.append(pygame.image.load("assets/player15.png"))
-        self.sprites_left.append(pygame.image.load("assets/player16.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player_idle_left.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player9.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player10.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player11.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player12.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player13.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player14.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player15.png"))
+        self.sprites_left.append(pygame.image.load(
+            "assets/sprites/player16.png"))
         self.current_sprite = 0
         self.image = pygame.transform.scale(
             self.sprites_right[self.current_sprite], (100, 238))
