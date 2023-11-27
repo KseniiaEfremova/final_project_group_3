@@ -13,12 +13,12 @@ import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/sprites/python1.png")
-tick_image = pygame.image.load("assets/sprites/tick.png")
-duck_image = pygame.image.load("assets/sprites/duck5.png")
-bug_image = pygame.image.load("assets/sprites/bug1.png")
-error_image = pygame.image.load("assets/sprites/error.png")
-warning_image = pygame.image.load("assets/sprites/warning.png")
+# python_image = pygame.image.load("assets/sprites/python1.png")
+# tick_image = pygame.image.load("assets/sprites/tick.png")
+# duck_image = pygame.image.load("assets/sprites/duck5.png")
+# bug_image = pygame.image.load("assets/sprites/bug1.png")
+# error_image = pygame.image.load("assets/sprites/error.png")
+# warning_image = pygame.image.load("assets/sprites/warning.png")
 
 @Sounds("assets/sounds/soundtrack.mp3", loop=True)
 def run():
@@ -35,16 +35,16 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    long_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=5)
-    medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=4)
-    short_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=3)
-    stop_list = [long_stop, medium_stop, short_stop]
+    # long_stop = datetime.datetime.utcnow() + datetime.timedelta(
+    #     seconds=5)
+    # medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
+    #     seconds=4)
+    # short_stop = datetime.datetime.utcnow() + datetime.timedelta(
+    #     seconds=3)
+    # stop_list = [long_stop, medium_stop, short_stop]
 
-    timer_seconds = 60
-    start_time = time.time()
+    # timer_seconds = 60
+    # start_time = time.time()
 
     # timer for making items fall
     fall_timer = pygame.USEREVENT + 1
@@ -83,18 +83,18 @@ def run():
         # if bug.y >= 500:
         #     bug.disappear(long_stop)
 
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-        remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        timer.draw(game_board, timer=remaining_time)
+        # current_time = time.time()
+        # elapsed_time = current_time - start_time
+        # remaining_time = max(timer_seconds - int(elapsed_time), 0)
+        # timer.draw(game_board, timer=remaining_time)
         
         player.draw_player()
         player.move()
 
-        falling_items = pygame.sprite.Group()
-        item_list = [tick, duck, warning, error, bug, python]
-        for item in item_list:
-            falling_items.add(item)
+        # falling_items = pygame.sprite.Group()
+        # item_list = [tick, duck, warning, error, bug, python]
+        # for item in item_list:
+        #     falling_items.add(item)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
