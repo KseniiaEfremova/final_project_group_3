@@ -1,9 +1,8 @@
 import pygame
 from board import Board
+from utils import assets_library
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
-from typing import List
-import datetime
 
 
 class Player(pygame.sprite.Sprite):
@@ -11,42 +10,42 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player_idle.png"))
+            assets_library['sprites']['player']['player_right']['player_right1']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player1.png"))
+            assets_library['sprites']['player']['player_right']['player_right2']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player2.png"))
+            assets_library['sprites']['player']['player_right']['player_right3']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player3.png"))
+            assets_library['sprites']['player']['player_right']['player_right4']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player4.png"))
+            assets_library['sprites']['player']['player_right']['player_right5']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player5.png"))
+            assets_library['sprites']['player']['player_right']['player_right6']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player6.png"))
+            assets_library['sprites']['player']['player_right']['player_right7']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player7.png"))
+            assets_library['sprites']['player']['player_right']['player_right8']))
         self.sprites_right.append(pygame.image.load(
-            "assets/sprites/player8.png"))
+            assets_library['sprites']['player']['player_right']['player_right9']))
         self.sprites_left = []
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player_idle_left.png"))
+            assets_library['sprites']['player']['player_left']['player_left1']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player9.png"))
+            assets_library['sprites']['player']['player_left']['player_left2']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player10.png"))
+            assets_library['sprites']['player']['player_left']['player_left3']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player11.png"))
+            assets_library['sprites']['player']['player_left']['player_left4']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player12.png"))
+            assets_library['sprites']['player']['player_left']['player_left5']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player13.png"))
+            assets_library['sprites']['player']['player_left']['player_left6']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player14.png"))
+            assets_library['sprites']['player']['player_left']['player_left7']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player15.png"))
+            assets_library['sprites']['player']['player_left']['player_left8']))
         self.sprites_left.append(pygame.image.load(
-            "assets/sprites/player16.png"))
+            assets_library['sprites']['player']['player_left']['player_left9']))
         self.current_sprite = 0
         self.image = pygame.transform.scale(
             self.sprites_right[self.current_sprite], (100, 238))
@@ -77,7 +76,6 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right + dx > self.board_instance.res[0]:
             dx = self.board_instance.res[0] - self.rect.right
         return dx, dy
-    
 
     def animate(self, direction):
         self.current_sprite += 1
@@ -91,7 +89,6 @@ class Player(pygame.sprite.Sprite):
             self.image = self.sprites_left[self.current_sprite]
             self.image = pygame.transform.scale(self.sprites_left[self.current_sprite],
                                             (100, 238))
-
 
     def move(self):
         # variable to reset for delta x and delta y
@@ -108,8 +105,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += dx
         self.rect.y += dy
-        
-    
+
     def check_falling_item_collision(self):
         if self.rect.colliderect(self.python_instance.rect):
             print("You have hit the Python")

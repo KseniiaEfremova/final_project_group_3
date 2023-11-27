@@ -6,17 +6,21 @@ from stats.timer import Timer
 from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
+from menu.pause_menu import PauseMenu
+from utils import assets_library
 from decorators.sounds import Sounds
 import pygame
 import datetime
 import time
 
-python_image = pygame.image.load("assets/sprites/python1.png")
-tick_image = pygame.image.load("assets/sprites/tick.png")
-duck_image = pygame.image.load("assets/sprites/duck5.png")
-bug_image = pygame.image.load("assets/sprites/bug1.png")
-error_image = pygame.image.load("assets/sprites/error.png")
-warning_image = pygame.image.load("assets/sprites/warning.png")
+
+python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
+tick_image = pygame.image.load(assets_library['sprites']['tick'])
+duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
+bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
+error_image = pygame.image.load(assets_library['sprites']['error'])
+warning_image = pygame.image.load(assets_library['sprites']['warning'])
+
 
 @Sounds("assets/sounds/soundtrack.mp3", loop=True)
 def run():
@@ -28,6 +32,7 @@ def run():
     warning = WarningItem(warning_image, game_board)
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
+    pause_menu = PauseMenu(game_board)
     player = Player(800 - 725, 600 - 200, game_board, python, tick, duck, warning, error, bug)
     life = Life(player, game_board)
     level = Level(player, game_board)
@@ -45,6 +50,7 @@ def run():
     while True:
         game_board.display_board()
         game_board.draw_background()
+        # player.draw_player()
         life.draw(game_board)
         level.draw(game_board)
         points.draw(game_board)
@@ -54,29 +60,33 @@ def run():
         warning.draw(game_board)
         error.draw(game_board)
         bug.draw(game_board)
-        python.fall()
-        tick.fall()
-        duck.fall()
-        warning.fall()
-        error.fall()
-        bug.fall()
-        if python.y >= 500:
-            python.disappear(medium_stop)
-        if tick.y >= 500:
-            tick.disappear(short_stop)
-        if duck.y >= 500:
-            duck.disappear(long_stop)
-        if warning.y >= 500:
-            warning.disappear(short_stop)
-        if error.y >= 500:
-            error.disappear(medium_stop)
-        if bug.y >= 500:
-            bug.disappear(long_stop)
+        if not game_board.pause:
+            python.fall()
+            tick.fall()
+            duck.fall()
+            warning.fall()
+            error.fall()
+            bug.fall()
+            if python.y >= 500:
+                python.disappear(medium_stop)
+            if tick.y >= 500:
+                tick.disappear(short_stop)
+            if duck.y >= 500:
+                duck.disappear(long_stop)
+            if warning.y >= 500:
+                warning.disappear(short_stop)
+            if error.y >= 500:
+                error.disappear(medium_stop)
+            if bug.y >= 500:
+                bug.disappear(long_stop)
 
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-        remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        timer.draw(game_board, timer=remaining_time)
+            current_time = time.time()
+            elapsed_time = current_time - start_time
+            remaining_time = max(timer_seconds - int(elapsed_time), 0)
+            timer.draw(game_board, timer=remaining_time)
+        elif game_board.pause:
+            pause_menu.draw()
+            game_board.update_display()
         
         player.draw_player()
         player.move()
