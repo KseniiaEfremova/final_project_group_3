@@ -7,6 +7,7 @@ from stats.points import Points
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 from menu.pause_menu import PauseMenu
+from menu.winning_menu import WinningMenu
 from utils import assets_library
 from decorators.sounds import Sounds
 import pygame
@@ -33,6 +34,7 @@ def run():
     error = ErrorItem(error_image, game_board)
     bug = BugItem(bug_image, game_board)
     pause_menu = PauseMenu(game_board)
+    winning_menu = WinningMenu(game_board)
     player = Player(800 - 725, 600 - 200, game_board, python, tick, duck, warning, error, bug)
     life = Life(player, game_board)
     level = Level(player, game_board)
@@ -50,7 +52,6 @@ def run():
     while True:
         game_board.display_board()
         game_board.draw_background()
-        # player.draw_player()
         life.draw(game_board)
         level.draw(game_board)
         points.draw(game_board)
@@ -60,7 +61,8 @@ def run():
         warning.draw(game_board)
         error.draw(game_board)
         bug.draw(game_board)
-        if not game_board.pause:
+        winner = True
+        if not game_board.pause and not winner:
             python.fall()
             tick.fall()
             duck.fall()
@@ -86,6 +88,9 @@ def run():
             timer.draw(game_board, timer=remaining_time)
         elif game_board.pause:
             pause_menu.draw()
+            game_board.update_display()
+        elif winner:
+            winning_menu.draw()
             game_board.update_display()
         
         player.draw_player()

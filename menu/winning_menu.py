@@ -27,15 +27,15 @@ class WinningMenu(Menu):
 				self.new_fireworks = False
 
 			for i in range(len(self.fireworks) - 1):
-				if (self.fireworks[i]['delay'] < self.counter and
-					self.fireworks[i]['burst_y_pos'] < self.fireworks[i]['y_pos']):
-					pygame.draw.rect(self.board_instance.board_surface, self.fireworks[i]['color'],[self.fireworks[i]['x_pos'], self.fireworks[i]['y_pos'], 10, 10],0, 3 )
-					self.fireworks[i]['y_pos'] -= self.fireworks[i]['y_speed']
-				elif self.fireworks[i]['burst_y_pos'] >= self.fireworks[i]['y_pos']:
-					x_start = self.fireworks[i]['x_pos']
-					y_start = self.fireworks[i]['y_pos']
+				if (self.fireworks[i].delay < self.counter and
+					self.fireworks[i].burst_y_pos < self.fireworks[i].y_pos):
+					pygame.draw.rect(self.board_instance.board_surface, self.fireworks[i].color,[self.fireworks[i].x_pos, self.fireworks[i].y_pos, 10, 10],0, 3 )
+					self.fireworks[i].y_pos -= self.fireworks[i].y_speed
+				elif self.fireworks[i].burst_y_pos >= self.fireworks[i].y_pos:
+					x_start = self.fireworks[i].x_pos
+					y_start = self.fireworks[i].y_pos
 					for j in range(len(self.directions)):
-						projectile = Projectile(x_start, y_start, self.directions[j][0] * 5, self.directions[j][1] * 5, self.fireworks[i]['color'])
+						projectile = Projectile(x_start, y_start, self.directions[j][0] * 5, self.directions[j][1] * 5, self.fireworks[i].color)
 						self.projectiles.append(projectile)
 					self.fireworks_to_remove.append(i)
 			self.fireworks_to_remove.sort(reverse=True)
@@ -43,15 +43,14 @@ class WinningMenu(Menu):
 				self.fireworks.remove(self.fireworks[r])
 			self.fireworks_to_remove = []
 			for i in range(len(self.projectiles)):
-				color = self.projectiles[i]['color'][0], self.projectiles[i]['color'][1], self.projectiles[i]['color'][2], self.projectiles[i]['delay'] * 4
+				color = self.projectiles[i].color[0], self.projectiles[i].color[1], self.projectiles[i].color[2], self.projectiles[i].delay * 4
 				pygame.draw.circle(self.board_instance.board_surface, color, (
-					self.projectiles[i]['x_start'], self.projectiles[i]['y_start']), 3)
-				self.projectiles[i]['delay'] -= 1
-				self.projectiles[i]['x_start'] += self.projectiles[i]['direction_x']
-				self.projectiles[i]['y_start'] += self.projectiles[i]['direction_y']
-				self.projectiles[i]['direction_y'] += 0.1
-				if self.projectiles[i]['delay'] < 0 or self.board_instance.res[0] < self.projectiles[i][
-					'x_start'] < -3 or self.board_instance.res[1] < self.projectiles[i]['y_start']:
+					self.projectiles[i].x_start, self.projectiles[i].y_start), 3)
+				self.projectiles[i].delay -= 1
+				self.projectiles[i].x_start += self.projectiles[i].direction_x
+				self.projectiles[i].y_start += self.projectiles[i].direction_y
+				self.projectiles[i].direction_y += 0.1
+				if self.projectiles[i].delay < 0 or self.board_instance.res[0] < self.projectiles[i].x_start < -3 or self.board_instance.res[1] < self.projectiles[i].y_start:
 					self.fireworks_to_remove.append(i)
 				for p in range(len(self.fireworks_to_remove)):
 					self.projectiles.pop(0)
