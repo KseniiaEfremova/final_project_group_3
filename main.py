@@ -48,7 +48,6 @@ def run():
         seconds=3)
     timer_seconds = 60
     start_time = time.time()
-
     while True:
         winner = True
 
@@ -95,7 +94,10 @@ def run():
                 pause_menu.draw()
                 game_board.update_display()
         elif winner:
-            winning_menu.draw()
+            current_time = time.time()
+            elapsed_time = current_time - start_time
+            remaining_time = timer_seconds - int(elapsed_time)
+            winning_menu.draw(counter=remaining_time)
             game_board.update_display()
         
         player.draw_player()
