@@ -1,4 +1,3 @@
-import random
 from falling_items.falling_items_factory import *
 from board import Board
 from player import Player
@@ -11,11 +10,13 @@ import pygame
 import time
 falling = FallingItemsFactory()
 
+
 @Sounds("assets/sounds/soundtrack.mp3", loop=True)
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
-    player = Player(800 - 725, 600 - 200, game_board, falling.python, falling.tick, falling.duck, falling.warning, falling.error, falling.bug)
+    player = Player(800 - 725, 600 - 200, game_board, falling.python, falling.tick,
+                    falling.duck, falling.warning, falling.error, falling.bug)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)

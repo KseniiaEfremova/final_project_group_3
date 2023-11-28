@@ -1,7 +1,6 @@
 from falling_items.damage_falling_item import *
 from falling_items.points_falling_item import *
 from board import *
-from player import Player
 import pygame
 from abc import ABC
 import datetime
@@ -63,11 +62,8 @@ class FallingItemsFactory(ABC, pygame.sprite.Sprite):
                 pygame.quit()
             elif event.type == self.fall_timer:
                 self.counter += 1
-                print(f"Hi from timer: {self.counter}")
                 new_sprite = random.choice(self.item_list)
                 self.falling_items.add(new_sprite)
-
-                print(f"Falling items added to {self.falling_items}: {new_sprite}")
 
     def fall_and_respawn(self):
         for sprite in self.falling_items.sprites():
@@ -103,5 +99,3 @@ class FallingItemsFactory(ABC, pygame.sprite.Sprite):
             self.error.disappear(self.medium_stop)
         if self.bug.y >= 500:
             self.bug.disappear(self.long_stop)
-
-

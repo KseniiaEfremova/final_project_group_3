@@ -1,6 +1,5 @@
 from abc import ABC
 import datetime
-import pygame
 from falling_items.abstract_falling_item import FallingItem
 
 

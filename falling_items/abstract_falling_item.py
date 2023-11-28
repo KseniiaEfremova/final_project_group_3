@@ -35,7 +35,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 
 	def spawn(self):
 		self.x = random.randint(0, 770)
-		self.y = 0
+		self.y = random.randint(-500, -100)
 		self.rect.x = self.x
 		self.rect.y = self.y
 
