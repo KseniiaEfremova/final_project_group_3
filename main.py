@@ -34,12 +34,16 @@ def run():
         player.draw_player()
         life.draw(game_board)
         level.draw(game_board)
+        points.update()
         points.draw(game_board)
         if not game_board.pause:
             current_time = time.time()
             elapsed_time = current_time - start_time
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
+            
+            if remaining_time <= 0:
+                player.check_for_level_up()
         elif game_board.pause:
             pause_menu.draw()
             game_board.update_display()
@@ -52,7 +56,6 @@ def run():
         falling.fall_and_respawn()
 
         player.check_falling_item_collision()
-        player.check_for_level_up(remaining_time)
         game_board.update_display()
 
 

@@ -158,9 +158,11 @@ class Player(pygame.sprite.Sprite):
         return self.points, self.damage
         
 
-    def check_for_level_up(self, remaining_time):
-        if remaining_time <= 0 and self.life > 0:
+    def check_for_level_up(self):
+        if self.life > 0:
             self.level += 1
             self.life = 90 
             print(f"Level Up! You are now at Level {self.level}")
+            pygame.quit()
+            sys.exit()
             
