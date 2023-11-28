@@ -5,10 +5,22 @@ from stats.life import Life
 from stats.level import Level
 from stats.timer import Timer
 from stats.points import Points
+from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
+from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
+from menu.pause_menu import PauseMenu
+from utils import assets_library
 from decorators.sounds import Sounds
 import pygame
 import time
 falling = FallingItemsFactory()
+
+
+python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
+tick_image = pygame.image.load(assets_library['sprites']['tick'])
+duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
+bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
+error_image = pygame.image.load(assets_library['sprites']['error'])
+warning_image = pygame.image.load(assets_library['sprites']['warning'])
 
 
 @Sounds("assets/sounds/soundtrack.mp3", loop=True)
@@ -31,14 +43,18 @@ def run():
     while True:
         game_board.display_board()
         game_board.draw_background()
+        # player.draw_player()
         life.draw(game_board)
         level.draw(game_board)
         points.draw(game_board)
 
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-        remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        timer.draw(game_board, timer=remaining_time)
+            current_time = time.time()
+            elapsed_time = current_time - start_time
+            remaining_time = max(timer_seconds - int(elapsed_time), 0)
+            timer.draw(game_board, timer=remaining_time)
+        elif game_board.pause:
+            pause_menu.draw()
+            game_board.update_display()
         
         player.draw_player()
         player.move()
