@@ -150,9 +150,17 @@ class Player(pygame.sprite.Sprite):
                 self.bug_instance.rect.topleft = (-100, -100)
                 print(f"The Player now has: {self.points} points, and {self.damage} damage")
         else:
+            self.kill()
             print(f"Game Over! You now have {self.life - self.damage} life points left")
             # We can add additional game over logic here, like displaying a game over screen
             pygame.quit()
             sys.exit()
         return self.points, self.damage
         
+
+    def check_for_level_up(self):
+        if self.life > 0:
+            self.level += 1
+            self.life = 90 
+            print(f"Level Up! You are now at Level {self.level}")
+            
