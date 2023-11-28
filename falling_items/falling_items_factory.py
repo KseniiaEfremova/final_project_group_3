@@ -1,5 +1,6 @@
 from falling_items.damage_falling_item import *
 from falling_items.points_falling_item import *
+from utils import assets_library
 from board import *
 import pygame
 from abc import ABC
@@ -32,12 +33,12 @@ class FallingItemsFactory(ABC, pygame.sprite.Sprite):
         self.short_stop = datetime.datetime.utcnow() + datetime.timedelta(
             seconds=3)
 
-        self.python_image = pygame.image.load("assets/sprites/python1.png")
-        self.tick_image = pygame.image.load("assets/sprites/tick.png")
-        self.duck_image = pygame.image.load("assets/sprites/duck5.png")
-        self.bug_image = pygame.image.load("assets/sprites/bug1.png")
-        self.error_image = pygame.image.load("assets/sprites/error.png")
-        self.warning_image = pygame.image.load("assets/sprites/warning.png")
+        self.python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
+        self.tick_image = pygame.image.load(assets_library['sprites']['tick'])
+        self.duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
+        self.bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
+        self.error_image = pygame.image.load(assets_library['sprites']['error'])
+        self.warning_image = pygame.image.load(assets_library['sprites']['warning'])
         self.falling_items = pygame.sprite.Group()
         self.game_board = Board('Code Quest', (800, 600), 60)
         self.python = PythonItem(self.python_image, self.game_board)
