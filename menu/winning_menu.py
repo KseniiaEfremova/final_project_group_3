@@ -20,17 +20,26 @@ class WinningMenu(Menu):
 		self.fireworks_to_remove = []
 
 	def draw(self):
+		rect = pygame.Rect(0, 0, self.width, self.height)
+		win = pygame.Surface((self.width, self.height))
+		pygame.draw.rect(win, (0, 0, 0, 255), rect)
+		text = font.render("Congratulations! you won", True, 'white')
+		# self.board_instance.board.blit(win, (0, 0))
+		# self.board_instance.board.blit(text, (150, 225))
+		# this one works
 		if self.new_fireworks:
 			for _ in range(1, 30):
 				firework = Firework(self.board_instance)
 				self.fireworks.append(firework)
 				self.new_fireworks = False
+				self.counter += 1
 
 			for i in range(len(self.fireworks) - 1):
 				if (self.fireworks[i].delay < self.counter and
 					self.fireworks[i].burst_y_pos < self.fireworks[i].y_pos):
-					pygame.draw.rect(self.board_instance.board_surface, self.fireworks[i].color,[self.fireworks[i].x_pos, self.fireworks[i].y_pos, 10, 10],0, 3 )
+					pygame.draw.rect(win, self.fireworks[i].color, [self.fireworks[i].x_pos, self.fireworks[i].y_pos, 10, 10], 10, 3)
 					self.fireworks[i].y_pos -= self.fireworks[i].y_speed
+
 				elif self.fireworks[i].burst_y_pos >= self.fireworks[i].y_pos:
 					x_start = self.fireworks[i].x_pos
 					y_start = self.fireworks[i].y_pos
@@ -44,7 +53,7 @@ class WinningMenu(Menu):
 			self.fireworks_to_remove = []
 			for i in range(len(self.projectiles)):
 				color = self.projectiles[i].color[0], self.projectiles[i].color[1], self.projectiles[i].color[2], self.projectiles[i].delay * 4
-				pygame.draw.circle(self.board_instance.board_surface, color, (
+				pygame.draw.circle(win, color, (
 					self.projectiles[i].x_start, self.projectiles[i].y_start), 3)
 				self.projectiles[i].delay -= 1
 				self.projectiles[i].x_start += self.projectiles[i].direction_x
@@ -54,15 +63,16 @@ class WinningMenu(Menu):
 					self.fireworks_to_remove.append(i)
 				for p in range(len(self.fireworks_to_remove)):
 					self.projectiles.pop(0)
-				rect = pygame.Rect(0, 0, self.width, self.height)
-				win = pygame.Surface((self.width, self.height),
-									   pygame.SRCALPHA)
-				pygame.draw.rect(win, (255, 255, 255, 255), rect)
-				text = font.render("Congratulations! you won", True, (255, 255, 255))
-				self.board_instance.board.blit(win, (0, 0))
-				self.board_instance.board.blit(text, (150, 225))
+
 
 			if len(self.fireworks) == 0 and len(self.projectiles) == 0:
 				self.counter = 0
 				self.new_fireworks = True
+
+			# rect = pygame.Rect(0, 0, self.width, self.height)
+			# win = pygame.Surface((self.width, self.height))
+			# pygame.draw.rect(win, (0, 0, 0, 255), rect)
+			# text = font.render("Congratulations! you won", True, 'white')
+			self.board_instance.board.blit(win, (0, 0))
+			self.board_instance.board.blit(text, (150, 225))
 

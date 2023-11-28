@@ -50,45 +50,50 @@ def run():
     start_time = time.time()
 
     while True:
-        game_board.display_board()
-        game_board.draw_background()
-        life.draw(game_board)
-        level.draw(game_board)
-        points.draw(game_board)
-        python.draw(game_board)
-        tick.draw(game_board)
-        duck.draw(game_board)
-        warning.draw(game_board)
-        error.draw(game_board)
-        bug.draw(game_board)
         winner = True
-        if not game_board.pause and not winner:
-            python.fall()
-            tick.fall()
-            duck.fall()
-            warning.fall()
-            error.fall()
-            bug.fall()
-            if python.y >= 500:
-                python.disappear(medium_stop)
-            if tick.y >= 500:
-                tick.disappear(short_stop)
-            if duck.y >= 500:
-                duck.disappear(long_stop)
-            if warning.y >= 500:
-                warning.disappear(short_stop)
-            if error.y >= 500:
-                error.disappear(medium_stop)
-            if bug.y >= 500:
-                bug.disappear(long_stop)
 
-            current_time = time.time()
-            elapsed_time = current_time - start_time
-            remaining_time = max(timer_seconds - int(elapsed_time), 0)
-            timer.draw(game_board, timer=remaining_time)
-        elif game_board.pause:
-            pause_menu.draw()
-            game_board.update_display()
+        game_board.display_board()
+
+
+        if not winner:
+            game_board.draw_background()
+            life.draw(game_board)
+            level.draw(game_board)
+            points.draw(game_board)
+            python.draw(game_board)
+            tick.draw(game_board)
+            duck.draw(game_board)
+            warning.draw(game_board)
+            error.draw(game_board)
+            bug.draw(game_board)
+
+            if not game_board.pause:
+                python.fall()
+                tick.fall()
+                duck.fall()
+                warning.fall()
+                error.fall()
+                bug.fall()
+                if python.y >= 500:
+                    python.disappear(medium_stop)
+                if tick.y >= 500:
+                    tick.disappear(short_stop)
+                if duck.y >= 500:
+                    duck.disappear(long_stop)
+                if warning.y >= 500:
+                    warning.disappear(short_stop)
+                if error.y >= 500:
+                    error.disappear(medium_stop)
+                if bug.y >= 500:
+                    bug.disappear(long_stop)
+
+                current_time = time.time()
+                elapsed_time = current_time - start_time
+                remaining_time = max(timer_seconds - int(elapsed_time), 0)
+                timer.draw(game_board, timer=remaining_time)
+            elif game_board.pause:
+                pause_menu.draw()
+                game_board.update_display()
         elif winner:
             winning_menu.draw()
             game_board.update_display()
