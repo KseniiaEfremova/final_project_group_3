@@ -52,8 +52,7 @@ def run():
         falling.fall_and_respawn()
 
         player.check_falling_item_collision()
-        if remaining_time <=0:
-            player.check_for_level_up()
+        player.check_for_level_up(remaining_time)
         game_board.update_display()
 
 
