@@ -1,6 +1,3 @@
-import pygame
-import time
-
 from models.falling_items.falling_items_factory import *
 from board import Board
 from models.player import Player
@@ -20,7 +17,7 @@ def run():
     pause_menu = PauseMenu(game_board)
     # winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
-    player = Player(800 - 725, 600 - 200, game_board, falling.python, falling.tick, falling.duck, falling.warning, falling.error, falling.bug)
+    player = Player(800 - 725, 600 - 200, game_board, falling, falling.python, falling.tick, falling.duck, falling.warning, falling.error, falling.bug)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)

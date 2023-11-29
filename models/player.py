@@ -1,12 +1,12 @@
 import pygame
 from board import Board
 from utils import assets_library
-from models.falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
-from models.falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
+from models.falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem, PointsFallingItem
+from models.falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem, DamageFallingItem
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, board_instance: Board, python_instance: PythonItem, tick_instance: TickItem, duck_instance: RubberDuckItem, warning_instance: WarningItem, error_instance: ErrorItem, bug_instance: BugItem):        
+    def __init__(self, x, y, board_instance: Board, falling_group, python_instance: PythonItem, tick_instance: TickItem, duck_instance: RubberDuckItem, warning_instance: WarningItem, error_instance: ErrorItem, bug_instance: BugItem):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -54,6 +54,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
+        self.falling_group = falling_group
         self.life = 90
         self.points = 0
         self.damage = 0
@@ -106,46 +107,16 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += dy
 
     def check_falling_item_collision(self):
-        if self.rect.colliderect(self.python_instance.rect):
-            print("You have hit the Python")
-            self.points += self.python_instance.points
-            self.damage += self.python_instance.damage
-            self.python_instance.rect.topleft = (-100, -100)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-
-        elif self.rect.colliderect(self.tick_instance.rect):
-            print("You have hit the tick")
-            self.points += self.tick_instance.points
-            self.damage += self.tick_instance.damage
-            self.tick_instance.rect.topleft = (-100, -100)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-        
-        elif self.rect.colliderect(self.duck_instance.rect):
-            print("You have hit the Duck")
-            self.points += self.duck_instance.points
-            self.damage += self.duck_instance.damage
-            self.duck_instance.rect.topleft = (-100, -100)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-            
-        elif self.rect.colliderect(self.warning_instance.rect):
-            print("You have hit the Warning")
-            self.points += self.warning_instance.points
-            self.damage += self.warning_instance.damage
-            self.warning_instance.rect.topleft = (-100, -100)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-            
-        elif self.rect.colliderect(self.error_instance.rect):
-            print("You have hit the Error")
-            self.points += self.error_instance.points
-            self.damage += self.error_instance.damage
-            self.error_instance.rect.topleft = (-100, -100)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-            
-        elif self.rect.colliderect(self.bug_instance.rect):
-            print("You have hit the Bug")
-            self.points += self.bug_instance.points
-            self.damage += self.bug_instance.damage
-            self.bug_instance.rect.topleft = (-100, -100)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-        
+        collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
+        for item in collisions:
+            if isinstance(item, PointsFallingItem):
+                item.rect.topleft = (-100, -100)
+                self.points += item.points
+                self.damage += item.damage
+                print(f"The Player now has: {self.points} points, and {self.damage} damage")
+            if isinstance(item, DamageFallingItem):
+                item.rect.topleft = (-100, -100)
+                self.points -= item.points
+                self.damage += item.damage
+                print(f"The Player now has: {self.points} points, and {self.damage} damage")
         return self.points, self.damage
