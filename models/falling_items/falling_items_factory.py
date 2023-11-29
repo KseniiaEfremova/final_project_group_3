@@ -46,17 +46,10 @@ class FallingItemsFactory(pygame.sprite.Sprite):
 
     def fall_and_respawn(self):
         for sprite in self.falling_items.sprites():
-            sprite.fall()
-            if self.python.y >= 500:
-                self.python.disappear(self.medium_stop)
-            if self.tick.y >= 500:
-                self.tick.disappear(self.short_stop)
-            if self.duck.y >= 500:
-                self.duck.disappear(self.long_stop)
-            if self.warning.y >= 500:
-                self.warning.disappear(self.short_stop)
-            if self.error.y >= 500:
-                self.error.disappear(self.medium_stop)
-            if self.bug.y >= 500:
-                self.bug.disappear(self.long_stop)
+            if isinstance(sprite, TickItem) or isinstance(sprite, WarningItem):
+                sprite.fall(self.short_stop)
+            if isinstance(sprite, PythonItem) or isinstance(sprite, ErrorItem):
+                sprite.fall(self.medium_stop)
+            if isinstance(sprite, RubberDuckItem) or isinstance(sprite, BugItem):
+                sprite.fall(self.short_stop)
 

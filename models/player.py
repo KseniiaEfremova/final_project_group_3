@@ -64,8 +64,7 @@ class Player(pygame.sprite.Sprite):
         self.warning_instance = warning_instance
         self.error_instance = error_instance
         self.bug_instance = bug_instance
-        
-        
+
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
                                                     self.rect.y - 10))
