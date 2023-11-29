@@ -1,8 +1,9 @@
 import pygame
 from board import Board
+from utils import assets_library
 
 pygame.font.init()
-font = pygame.font.Font('assets/fonts/Kiddy Play.ttf', 30)
+font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 
 class TextDrawer:
@@ -11,7 +12,7 @@ class TextDrawer:
         self.board_instance = board_instance
 
     # Draw text in the center of the game board.
-    def draw_text(self, text, text_color, x, y):
+    def draw_text(self, text, text_color, x, y, font):
         img = font.render(text, True, text_color)
         location = img.get_rect()
 
