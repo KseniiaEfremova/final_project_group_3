@@ -1,6 +1,6 @@
 from abc import ABC
 import pygame
-from stats.abstract_stats import Stats
+from models.stats.abstract_stats import Stats
 from models.player import Player
 from board import Board
 from utils import assets_library
@@ -42,6 +42,7 @@ class Life(Stats, ABC):
 
 	def update(self):
 		self.images = []
+		self.lives = self.player_instance.get_lives()
 		damage_remainder = self.lives % 30
 		if self.lives >= 60:
 			first_sprite = 0

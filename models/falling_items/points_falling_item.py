@@ -21,19 +21,19 @@ class PointsFallingItem(FallingItem, ABC):
 class TickItem(PointsFallingItem, ABC):
     def __init__(self, image, board_instance):
         super().__init__(
-            "tick", image, 5, 0, 1, 30, 30, 0, 0, board_instance
+            "tick", image, 5, 0, 1, 50, 50, 0, 0, board_instance
         )
 
 
 class PythonItem(PointsFallingItem, ABC):
     def __init__(self, image, board_instance):
         super().__init__(
-            "python", image, 8, 0, 5, 30, 30, 0, 0, board_instance
+            "python", image, 8, 0, 5, 50, 50, 0, 0, board_instance
         )
 
 
 class RubberDuckItem(PointsFallingItem, ABC):
     def __init__(self, image, board_instance):
         super().__init__(
-            "rubber duck", image, 12, 0, 10, 30, 30, 0, 0, board_instance
+            "rubber duck", image, 12, 0, 10, 50, 50, 0, 0, board_instance
         )

@@ -58,7 +58,6 @@ class Player(pygame.sprite.Sprite):
         self.falling_group = falling_group
         self.life = 90
         self.points = 0
-        self.damage = 0
         self.level = 1
 
     def draw_player(self):
@@ -103,20 +102,28 @@ class Player(pygame.sprite.Sprite):
     @Sounds(assets_library['sounds']['bonus'], loop=False)
     def points_collision(self, item):
         self.points += item.points
-        self.damage += item.damage
+        self.life += item.damage
 
     @Sounds(assets_library['sounds']['damage'], loop=False)
     def damage_collision(self, item):
         self.points -= item.points
-        self.damage += item.damage
+        self.life -= item.damage
 
     def check_falling_item_collision(self):
         collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
         for item in collisions:
             item.rect.topleft = (-100, -100)
+            item.y = 1000
+            item.rect.y = 1000
             if isinstance(item, PointsFallingItem):
                 self.points_collision(item)
             if isinstance(item, DamageFallingItem):
                 self.damage_collision(item)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-        return self.points, self.damage
+            print(f"The Player now has: {self.points} points, and {self.life} left")
+        return self.points, self.life
+
+    def get_lives(self):
+        return self.life
+
+    def get_points(self):
+        return self.points
