@@ -135,6 +135,10 @@ class Player(pygame.sprite.Sprite):
             print(f"Level Up!")
             return self.leveled_up
         
+    def level_up_player(self):
+        self.level += 1
+        return self.level
+        
     def reset_player_stats(self):
         self.rect.center = (800 - 725, 600 - 200,)
         self.life = 90
@@ -143,3 +147,6 @@ class Player(pygame.sprite.Sprite):
         self.leveled_up = False
         self.loser = False
         return self.life, self.points, self.damage, self.leveled_up, self.loser
+
+    def get_level(self):
+        return self.level

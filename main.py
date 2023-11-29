@@ -50,7 +50,7 @@ def run():
             if remaining_time == 0:
                 player.check_for_level_up()
                 if player.leveled_up:
-                    player.level += 1
+                    player.level_up_player()
                     level.display_level_up_image(game_board)
                     start_time = time.time()
                     player.reset_player_stats()
