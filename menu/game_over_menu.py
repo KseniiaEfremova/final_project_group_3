@@ -13,10 +13,12 @@ class GameOverMenu(Menu):
         self.font_game_over = pygame.font.Font('assets/fonts/FukuCatch.otf', 60)
         self.font_play_again_exit = pygame.font.Font('assets/fonts/FukuCatch.otf', 30)
 
-    def draw_button(self, surface, text, font, color, x, y, width, height):
+    def draw_button(self, surface, text, font, color, x, y, width, height, hover=False):
         pygame.draw.rect(surface, color, (x, y, width, height), border_radius=10)
         text_render = font.render(text, True, (255, 255, 255))
         surface.blit(text_render, (x + width // 2 - text_render.get_width() // 2, y + height // 2 - text_render.get_height() // 2))
+
+
 
     def draw(self):
         rect = pygame.Rect(0, 0, self.width, self.height)
@@ -33,14 +35,26 @@ class GameOverMenu(Menu):
         play_again_height = 40
         play_again_x = center_x - play_again_width // 2
         play_again_y = center_y + 16
-        self.draw_button(game_over_menu, "Play Again", self.font_play_again_exit, (255, 192, 203), play_again_x, play_again_y, play_again_width, play_again_height)
+
+        play_again_rect = pygame.Rect(play_again_x, play_again_y, play_again_width, play_again_height)
+        play_again_hovered= play_again_rect.collidepoint(pygame.mouse.get_pos())
+        play_again_color = (255, 192, 203) if not play_again_hovered else (255, 160, 180)
+        self.draw_button(game_over_menu, "Play Again", self.font_play_again_exit, play_again_color, play_again_x,
+                         play_again_y, play_again_width, play_again_height, hover=play_again_hovered)
+        #self.draw_button(game_over_menu, "Play Again", self.font_play_again_exit, (255, 192, 203), play_again_x, play_again_y, play_again_width, play_again_height)
 
 
         exit_width = 250
         exit_height = 40
         exit_x = center_x - exit_width // 2
         exit_y = center_y + 65
-        self.draw_button(game_over_menu, "Exit", self.font_play_again_exit, (255, 192, 203), exit_x, exit_y, exit_width, exit_height)
+        exit_rect = pygame.Rect(exit_x, exit_y, exit_width, exit_height)
+        exit_hovered = exit_rect.collidepoint(pygame.mouse.get_pos())
+        exit_color = (255, 192, 203) if not exit_hovered else (255, 160, 180)
+        self.draw_button(game_over_menu, "Exit", self.font_play_again_exit, exit_color, exit_x, exit_y, exit_width,
+                     exit_height, hover=exit_hovered)
+
+        #self.draw_button(game_over_menu, "Exit", self.font_play_again_exit, (255, 192, 203), exit_x, exit_y, exit_width, exit_height)
 
         self.board_instance.board.blit(game_over_menu, (0, 0))
 
