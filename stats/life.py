@@ -1,7 +1,7 @@
 from abc import ABC
 import pygame
 from stats.abstract_stats import Stats
-from player import Player
+from models.player import Player
 from board import Board
 from utils import assets_library
 

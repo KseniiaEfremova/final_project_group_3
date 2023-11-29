@@ -1,8 +1,8 @@
 import pygame
 from board import Board
 from utils import assets_library
-from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
-from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
+from models.falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
+from models.falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 
 
 class Player(pygame.sprite.Sprite):
