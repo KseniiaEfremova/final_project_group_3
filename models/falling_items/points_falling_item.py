@@ -1,6 +1,6 @@
 from abc import ABC
 import datetime
-from falling_items.abstract_falling_item import FallingItem
+from models.falling_items.abstract_falling_item import FallingItem
 
 
 class PointsFallingItem(FallingItem, ABC):

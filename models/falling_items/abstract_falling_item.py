@@ -4,8 +4,6 @@ from abc import ABC
 import pygame
 import datetime
 from board import Board
-from decorators.sounds import Sounds
-
 
 long_stop = datetime.datetime.utcnow() + datetime.timedelta(
 	seconds=3)
@@ -19,6 +17,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 	def __init__(self, name, image, speed, damage, points, width, height, x, y,
 				board_instance: Board):
 		super().__init__()
+		pygame.sprite.Sprite.__init__(self)
 		self.name = name
 		self.image = image
 		self.speed = speed
@@ -43,9 +42,11 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 	def disappear(self, stop_time):
 		pass
 
-	def fall(self):
+	def fall(self, stop_time):
 		self.y += self.speed
 		self.rect.y = self.y
+		if self.y > 500:
+			self.disappear(stop_time)
 
 	def draw(self, board_instance):
 		board_instance.board.blit(self.image, (self.x - self.width,
