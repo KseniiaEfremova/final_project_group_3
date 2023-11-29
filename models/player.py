@@ -1,6 +1,7 @@
 import pygame
 from board import Board
 from utils import assets_library
+from decorators.sounds import Sounds
 from models.falling_items.points_falling_item import PointsFallingItem
 from models.falling_items.damage_falling_item import DamageFallingItem
 
@@ -99,18 +100,23 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += dx
         self.rect.y += dy
+    @Sounds(assets_library['sounds']['bonus'], loop=False)
+    def points_collision(self, item):
+        self.points += item.points
+        self.damage += item.damage
+
+    @Sounds(assets_library['sounds']['damage'], loop=False)
+    def damage_collision(self, item):
+        self.points -= item.points
+        self.damage += item.damage
 
     def check_falling_item_collision(self):
         collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
         for item in collisions:
+            item.rect.topleft = (-100, -100)
             if isinstance(item, PointsFallingItem):
-                item.rect.topleft = (-100, -100)
-                self.points += item.points
-                self.damage += item.damage
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
+                self.points_collision(item)
             if isinstance(item, DamageFallingItem):
-                item.rect.topleft = (-100, -100)
-                self.points -= item.points
-                self.damage += item.damage
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
+                self.damage_collision(item)
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
         return self.points, self.damage
