@@ -47,8 +47,6 @@ class FallingItemsFactory(pygame.sprite.Sprite):
     def fall_and_respawn(self):
         for sprite in self.falling_items.sprites():
             sprite.fall()
-            print(self.game_board.frames)
-
             if self.python.y >= 500:
                 self.python.disappear(self.medium_stop)
             if self.tick.y >= 500:

@@ -1,3 +1,6 @@
+import pygame
+import time
+
 from models.falling_items.falling_items_factory import *
 from board import Board
 from models.player import Player
@@ -7,11 +10,10 @@ from stats.timer import Timer
 from stats.points import Points
 from menu.pause_menu import PauseMenu
 from decorators.sounds import Sounds
-import pygame
-import time
+from utils import assets_library
 
 
-@Sounds("assets/sounds/soundtrack.mp3", loop=True)
+@Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
