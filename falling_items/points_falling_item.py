@@ -12,8 +12,10 @@ class PointsFallingItem(FallingItem, ABC):
     def disappear(self, stop_time):
         self.y = 500
         if datetime.datetime.utcnow() > stop_time:
-            self.y = 700
+            self.y = 500
+            self.rect.y = 500
             self.kill()
+            self.spawn()
 
 
 class TickItem(PointsFallingItem, ABC):
