@@ -7,7 +7,7 @@ from models.falling_items.damage_falling_item import DamageFallingItem
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, player_level, board_instance: Board, falling_group):
+    def __init__(self, x, y, board_instance: Board, falling_group):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.life = 90
         self.points = 0
         self.damage = 0
-        self.level = player_level
+        self.level = 1
         self.leveled_up = False
         self.loser = False
 
@@ -134,3 +134,12 @@ class Player(pygame.sprite.Sprite):
             self.leveled_up = True
             print(f"Level Up!")
             return self.leveled_up
+        
+    def reset_player_stats(self):
+        self.rect.center = (800 - 725, 600 - 200,)
+        self.life = 90
+        self.points = 0
+        self.damage = 0
+        self.leveled_up = False
+        self.loser = False
+        return self.life, self.points, self.damage, self.leveled_up, self.loser
