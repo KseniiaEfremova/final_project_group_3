@@ -32,6 +32,7 @@ def run():
         game_board.display_board()
         game_board.draw_background()
         player.draw_player()
+        life.update()
         life.draw(game_board)
         level.draw(game_board)
         points.update()
@@ -44,6 +45,9 @@ def run():
             
             if remaining_time <= 0:
                 player.check_for_level_up()
+                if player.leveled_up:
+                    print("This will display a leveled up image when I understand the assets library")
+                    # level.display_level_up_image(game_board)
         elif game_board.pause:
             pause_menu.draw()
             game_board.update_display()

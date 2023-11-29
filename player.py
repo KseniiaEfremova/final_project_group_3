@@ -64,6 +64,7 @@ class Player(pygame.sprite.Sprite):
         self.warning_instance = warning_instance
         self.error_instance = error_instance
         self.bug_instance = bug_instance
+        self.leveled_up = False
         
         
     def draw_player(self):
@@ -161,8 +162,10 @@ class Player(pygame.sprite.Sprite):
     def check_for_level_up(self):
         if self.life > 0:
             self.level += 1
-            self.life = 90 
+            self.life = 90
+            self.leveled_up = True
             print(f"Level Up! You are now at Level {self.level}")
-            pygame.quit()
-            sys.exit()
+            return self.level, self.life
+            # pygame.quit()
+            # sys.exit()
             
