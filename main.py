@@ -6,6 +6,7 @@ from models.stats.level import Level
 from models.stats.timer import Timer
 from models.stats.points import Points
 from menu.pause_menu import PauseMenu
+from menu.winning_menu import WinningMenu
 from decorators.sounds import Sounds
 from utils import assets_library
 
@@ -15,7 +16,7 @@ def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
-    # winning_menu = WinningMenu(game_board)
+    winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
     player = Player(800 - 725, 600 - 200, game_board, falling)
     life = Life(player, game_board)
@@ -25,8 +26,8 @@ def run():
     timer_seconds = 60
     start_time = time.time()
     while True:
-        # winner = True
-        winner = False
+        winner = True
+        # winner = False
         game_board.display_board()
         game_board.draw_background()
         life.draw(game_board)
@@ -50,7 +51,8 @@ def run():
             pause_menu.draw()
             game_board.update_display()
         elif winner:
-            print('you won')
+            winning_menu.draw()
+            game_board.update_display()
             # current_time = time.time()
             # elapsed_time = current_time - start_time
             # remaining_time = timer_seconds - int(elapsed_time)
