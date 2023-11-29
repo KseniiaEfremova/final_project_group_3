@@ -6,6 +6,7 @@ from stats.level import Level
 from stats.timer import Timer
 from stats.points import Points
 from menu.pause_menu import PauseMenu
+from menu.game_over_menu import GameOverMenu
 from decorators.sounds import Sounds
 import pygame
 import time
@@ -16,6 +17,7 @@ def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
+    game_over_menu = GameOverMenu(game_board)
     player = Player(800 - 725, 600 - 200, game_board, falling.python, falling.tick, falling.duck, falling.warning, falling.error, falling.bug)
     life = Life(player, game_board)
     level = Level(player, game_board)
@@ -40,7 +42,14 @@ def run():
             elapsed_time = current_time - start_time
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
+
+            if remaining_time == 0:
+                game_board.pause = True
+
         elif game_board.pause:
+            if remaining_time == 0:
+                game_over_menu.draw()
+        else:
             pause_menu.draw()
             game_board.update_display()
         
