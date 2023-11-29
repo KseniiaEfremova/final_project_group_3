@@ -4,8 +4,6 @@ from board import Board
 pygame.font.init()
 font = pygame.font.Font(None, 34)
 
-objects = []
-
 
 class Button:
     def __init__(self, x, y, width, height, board_instance: Board, buttonText='Button', onclickFunction=None, onePress=False):
@@ -42,7 +40,6 @@ class Button:
         self.buttonRect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.buttonSurf = font.render(buttonText, True, (20, 20, 20))
         self.alreadyPressed = False
-        objects.append(self)
 
     def process(self):
         """
