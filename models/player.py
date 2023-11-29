@@ -1,12 +1,19 @@
 import pygame
 from board import Board
 from utils import assets_library
+<<<<<<< HEAD:player.py
 from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
 from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
 import sys
+=======
+from decorators.sounds import Sounds
+from models.falling_items.points_falling_item import PointsFallingItem
+from models.falling_items.damage_falling_item import DamageFallingItem
+
+>>>>>>> develop:models/player.py
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, board_instance: Board, python_instance: PythonItem, tick_instance: TickItem, duck_instance: RubberDuckItem, warning_instance: WarningItem, error_instance: ErrorItem, bug_instance: BugItem):        
+    def __init__(self, x, y, board_instance: Board, falling_group):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -54,10 +61,12 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
+        self.falling_group = falling_group
         self.life = 90
         self.points = 0
         self.damage = 0
         self.level = 1
+<<<<<<< HEAD:player.py
         self.python_instance = python_instance
         self.tick_instance = tick_instance
         self.duck_instance = duck_instance
@@ -67,6 +76,9 @@ class Player(pygame.sprite.Sprite):
         self.leveled_up = False
         
         
+=======
+
+>>>>>>> develop:models/player.py
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
                                                     self.rect.y - 10))
@@ -106,7 +118,12 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += dx
         self.rect.y += dy
+    @Sounds(assets_library['sounds']['bonus'], loop=False)
+    def points_collision(self, item):
+        self.points += item.points
+        self.damage += item.damage
 
+<<<<<<< HEAD:player.py
     def check_falling_item_collision(self):
         if self.life - self.damage > 0:
             if self.rect.colliderect(self.python_instance.rect):
@@ -156,6 +173,22 @@ class Player(pygame.sprite.Sprite):
             # We can add additional game over logic here, like displaying a game over screen
             pygame.quit()
             sys.exit()
+=======
+    @Sounds(assets_library['sounds']['damage'], loop=False)
+    def damage_collision(self, item):
+        self.points -= item.points
+        self.damage += item.damage
+
+    def check_falling_item_collision(self):
+        collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
+        for item in collisions:
+            item.rect.topleft = (-100, -100)
+            if isinstance(item, PointsFallingItem):
+                self.points_collision(item)
+            if isinstance(item, DamageFallingItem):
+                self.damage_collision(item)
+            print(f"The Player now has: {self.points} points, and {self.damage} damage")
+>>>>>>> develop:models/player.py
         return self.points, self.damage
         
 

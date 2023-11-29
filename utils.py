@@ -16,6 +16,15 @@ assets_library = {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',
         'fuku_catch': 'assets/fonts/FukuCatch.otf'
     },
+    'sounds': {
+        'soundtrack': 'assets/sounds/soundtrack.mp3',
+        'bonus': 'assets/sounds/bonus_points_2.wav',
+        'intro': 'assets/sounds/intro.wav',
+        'level': 'assets/sounds/level_complete',
+        'damage': 'assets/sounds/small_damage.wav',
+        'win': 'assets/sounds/win_applause.wav',
+        'game_over': 'assets/sounds/game_over.wav'
+    },
     'sprites': {
         'bug': {
             'bug1': 'assets/sprites/bug1.png',

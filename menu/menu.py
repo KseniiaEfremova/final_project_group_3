@@ -12,5 +12,5 @@ class Menu(ABC):
 		self.height = board_instance.res[1]
 
 	@abstractmethod
-	def draw(self):
+	def draw(self, **kwargs):
 		pass
