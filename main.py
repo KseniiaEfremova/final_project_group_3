@@ -39,14 +39,13 @@ def run():
         life.draw(game_board)
         level.draw(game_board)
         points.draw(game_board)
-        if not game_board.pause:
+        if not game_board.pause and not game_over:
             current_time = time.time()
             elapsed_time = current_time - start_time
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
 
             if remaining_time == 0:
-                game_board.pause = True
                 game_over = True
 
         if game_over:
