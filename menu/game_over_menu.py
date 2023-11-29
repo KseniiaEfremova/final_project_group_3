@@ -1,7 +1,7 @@
 import pygame
 from board import Board
 from menu.menu import Menu
-import sys
+
 
 pygame.font.init()
 font_game_over = pygame.font.Font('assets/fonts/FukuCatch.otf', 60)
@@ -24,8 +24,8 @@ class GameOverMenu(Menu):
 		center_y = self.height // 2
 
 		game_over_menu.blit(text_game_over, (center_x - text_game_over.get_width() // 2, center_y - 50))
-		game_over_menu.blit(text_play_again, (center_x - text_play_again.get_width() // 2 - 100, center_y + 50))
-		game_over_menu.blit(text_exit, (center_x - text_exit.get_width() // 2 + 100, center_y + 50))
+		game_over_menu.blit(text_play_again, (center_x - text_play_again.get_width() // 2 , center_y + 16))
+		game_over_menu.blit(text_exit, (center_x - text_exit.get_width() // 2 , center_y + 50))
 
 		self.board_instance.board.blit(game_over_menu, (0, 0))
 
