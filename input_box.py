@@ -31,6 +31,8 @@ class InputBox:
         elif event.type == pygame.KEYDOWN and self.active:
             if event.key == pygame.K_BACKSPACE:
                 self.text = self.text[:-1]  # deleting last char
+            elif event.key == pygame.K_RETURN:
+                pass
             else:
                 self.text += event.unicode
 
