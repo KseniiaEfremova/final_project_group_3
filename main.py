@@ -36,7 +36,7 @@ def run():
         player.draw_player()
         falling.create_group()
         falling.draw()
-        if not winner and not game_board.pause:
+        if not winner and not player.loser and not game_board.pause:
             player.move()
             falling.fall_and_respawn()
             player.check_falling_item_collision()
@@ -47,6 +47,12 @@ def run():
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
             game_board.update_display()
+            if remaining_time == 0:
+                player.check_for_level_up()
+                if player.leveled_up:
+                    level.display_level_up_image(game_board)
+                    run()
+                    player.level += 1
         elif game_board.pause:
             pause_menu.draw()
             game_board.update_display()
@@ -57,6 +63,9 @@ def run():
             # remaining_time = timer_seconds - int(elapsed_time)
             # winning_menu.draw(counter=remaining_time)
             # game_board.update_display()
+        elif player.loser:
+            print("You lost!")
+            break
 
 
 if __name__ == '__main__':

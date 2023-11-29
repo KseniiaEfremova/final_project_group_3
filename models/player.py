@@ -1,16 +1,10 @@
 import pygame
 from board import Board
 from utils import assets_library
-<<<<<<< HEAD:player.py
-from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
-from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
-import sys
-=======
 from decorators.sounds import Sounds
 from models.falling_items.points_falling_item import PointsFallingItem
 from models.falling_items.damage_falling_item import DamageFallingItem
 
->>>>>>> develop:models/player.py
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, board_instance: Board, falling_group):
@@ -66,19 +60,9 @@ class Player(pygame.sprite.Sprite):
         self.points = 0
         self.damage = 0
         self.level = 1
-<<<<<<< HEAD:player.py
-        self.python_instance = python_instance
-        self.tick_instance = tick_instance
-        self.duck_instance = duck_instance
-        self.warning_instance = warning_instance
-        self.error_instance = error_instance
-        self.bug_instance = bug_instance
         self.leveled_up = False
-        
-        
-=======
+        self.loser = False
 
->>>>>>> develop:models/player.py
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
                                                     self.rect.y - 10))
@@ -123,73 +107,27 @@ class Player(pygame.sprite.Sprite):
         self.points += item.points
         self.damage += item.damage
 
-<<<<<<< HEAD:player.py
-    def check_falling_item_collision(self):
-        if self.life - self.damage > 0:
-            if self.rect.colliderect(self.python_instance.rect):
-                print("You have hit the Python")
-                self.points += self.python_instance.points
-                self.damage += self.python_instance.damage
-                self.python_instance.rect.topleft = (-100, -100)
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
-
-            elif self.rect.colliderect(self.tick_instance.rect):
-                print("You have hit the tick")
-                self.points += self.tick_instance.points
-                self.damage += self.tick_instance.damage
-                self.tick_instance.rect.topleft = (-100, -100)
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
-            
-            elif self.rect.colliderect(self.duck_instance.rect):
-                print("You have hit the Duck")
-                self.points += self.duck_instance.points
-                self.damage += self.duck_instance.damage
-                self.duck_instance.rect.topleft = (-100, -100)
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
-                
-            elif self.rect.colliderect(self.warning_instance.rect):
-                print("You have hit the Warning")
-                self.points += self.warning_instance.points
-                self.damage += self.warning_instance.damage
-                self.warning_instance.rect.topleft = (-100, -100)
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
-                
-            elif self.rect.colliderect(self.error_instance.rect):
-                print("You have hit the Error")
-                self.points += self.error_instance.points
-                self.damage += self.error_instance.damage
-                self.error_instance.rect.topleft = (-100, -100)
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
-                
-            elif self.rect.colliderect(self.bug_instance.rect):
-                print("You have hit the Bug")
-                self.points += self.bug_instance.points
-                self.damage += self.bug_instance.damage
-                self.bug_instance.rect.topleft = (-100, -100)
-                print(f"The Player now has: {self.points} points, and {self.damage} damage")
-        else:
-            self.kill()
-            print(f"Game Over! You now have {self.life - self.damage} life points left")
-            # We can add additional game over logic here, like displaying a game over screen
-            pygame.quit()
-            sys.exit()
-=======
     @Sounds(assets_library['sounds']['damage'], loop=False)
     def damage_collision(self, item):
         self.points -= item.points
         self.damage += item.damage
 
     def check_falling_item_collision(self):
-        collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
-        for item in collisions:
-            item.rect.topleft = (-100, -100)
-            if isinstance(item, PointsFallingItem):
-                self.points_collision(item)
-            if isinstance(item, DamageFallingItem):
-                self.damage_collision(item)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
->>>>>>> develop:models/player.py
-        return self.points, self.damage
+        if self.life - self.damage > 0:
+            collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
+            for item in collisions:
+                item.rect.topleft = (-100, -100)
+                if isinstance(item, PointsFallingItem):
+                    self.points_collision(item)
+                if isinstance(item, DamageFallingItem):
+                    self.damage_collision(item)
+                print(f"LEVEL {self.level} The Player now has: {self.points} points and {self.damage} damage")
+        else:
+            self.loser = True
+            self.kill()
+            print(f"Game Over! You now have {self.life - self.damage} life points left")
+            # We can add additional game over logic here, like displaying a game over screen
+        return self.points, self.damage, self.loser
         
 
     def check_for_level_up(self):
@@ -198,7 +136,4 @@ class Player(pygame.sprite.Sprite):
             self.life = 90
             self.leveled_up = True
             print(f"Level Up! You are now at Level {self.level}")
-            return self.level, self.life
-            # pygame.quit()
-            # sys.exit()
-            
+            return self.level, self.life, self.leveled_up
