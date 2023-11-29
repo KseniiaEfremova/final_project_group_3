@@ -7,7 +7,7 @@ from models.falling_items.damage_falling_item import DamageFallingItem
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, board_instance: Board, falling_group):
+    def __init__(self, x, y, player_level, board_instance: Board, falling_group):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.life = 90
         self.points = 0
         self.damage = 0
-        self.level = 1
+        self.level = player_level
         self.leveled_up = False
         self.loser = False
 
@@ -124,7 +124,6 @@ class Player(pygame.sprite.Sprite):
                 print(f"LEVEL {self.level} The Player now has: {self.points} points and {self.damage} damage")
         else:
             self.loser = True
-            self.kill()
             print(f"Game Over! You now have {self.life - self.damage} life points left")
             # We can add additional game over logic here, like displaying a game over screen
         return self.points, self.damage, self.loser
@@ -132,8 +131,6 @@ class Player(pygame.sprite.Sprite):
 
     def check_for_level_up(self):
         if self.life > 0:
-            self.level += 1
-            self.life = 90
             self.leveled_up = True
-            print(f"Level Up! You are now at Level {self.level}")
-            return self.level, self.life, self.leveled_up
+            print(f"Level Up!")
+            return self.leveled_up

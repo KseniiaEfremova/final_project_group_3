@@ -9,15 +9,15 @@ from menu.pause_menu import PauseMenu
 from decorators.sounds import Sounds
 from utils import assets_library
 
-
+player_level = 1
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
-def run():
+def run(player_level):
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
     # winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
-    player = Player(800 - 725, 600 - 200, game_board, falling)
+    player = Player(800 - 725, 600 - 200, player_level, game_board, falling)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
@@ -50,9 +50,9 @@ def run():
             if remaining_time == 0:
                 player.check_for_level_up()
                 if player.leveled_up:
+                    player_level += 1
                     level.display_level_up_image(game_board)
-                    run()
-                    player.level += 1
+                    run(player_level)
         elif game_board.pause:
             pause_menu.draw()
             game_board.update_display()
@@ -69,4 +69,4 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    run(player_level)
