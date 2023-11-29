@@ -24,11 +24,13 @@ def run():
     timer = Timer(player, game_board)
     points = Points(player, game_board)
 
-    timer_seconds = 60
+    timer_seconds = 10
     start_time = time.time()
 
     # timer for making items fall
     falling.create_timer()
+
+    game_over = False
 
     while True:
         game_board.display_board()
@@ -45,11 +47,12 @@ def run():
 
             if remaining_time == 0:
                 game_board.pause = True
+                game_over = True
+
+        if game_over:
+            game_over_menu.draw()
 
         elif game_board.pause:
-            if remaining_time == 0:
-                game_over_menu.draw()
-        else:
             pause_menu.draw()
             game_board.update_display()
         
