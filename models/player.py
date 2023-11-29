@@ -1,12 +1,12 @@
 import pygame
 from board import Board
 from utils import assets_library
-from models.falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem, PointsFallingItem
-from models.falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem, DamageFallingItem
+from models.falling_items.points_falling_item import PointsFallingItem
+from models.falling_items.damage_falling_item import DamageFallingItem
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, board_instance: Board, falling_group, python_instance: PythonItem, tick_instance: TickItem, duck_instance: RubberDuckItem, warning_instance: WarningItem, error_instance: ErrorItem, bug_instance: BugItem):
+    def __init__(self, x, y, board_instance: Board, falling_group):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -59,12 +59,6 @@ class Player(pygame.sprite.Sprite):
         self.points = 0
         self.damage = 0
         self.level = 1
-        self.python_instance = python_instance
-        self.tick_instance = tick_instance
-        self.duck_instance = duck_instance
-        self.warning_instance = warning_instance
-        self.error_instance = error_instance
-        self.bug_instance = bug_instance
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
