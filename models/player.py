@@ -60,6 +60,8 @@ class Player(pygame.sprite.Sprite):
         self.points = 0
         self.damage = 0
         self.level = 1
+        self.leveled_up = False
+        self.loser = False
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
@@ -111,12 +113,40 @@ class Player(pygame.sprite.Sprite):
         self.damage += item.damage
 
     def check_falling_item_collision(self):
-        collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
-        for item in collisions:
-            item.rect.topleft = (-100, -100)
-            if isinstance(item, PointsFallingItem):
-                self.points_collision(item)
-            if isinstance(item, DamageFallingItem):
-                self.damage_collision(item)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-        return self.points, self.damage
+        if self.life - self.damage > 0:
+            collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
+            for item in collisions:
+                item.rect.topleft = (-100, -100)
+                if isinstance(item, PointsFallingItem):
+                    self.points_collision(item)
+                if isinstance(item, DamageFallingItem):
+                    self.damage_collision(item)
+                print(f"LEVEL {self.level} The Player now has: {self.points} points and {self.damage} damage")
+        else:
+            self.loser = True
+            print(f"Game Over! You now have {self.life - self.damage} life points left")
+            # We can add additional game over logic here, like displaying a game over screen
+        return self.points, self.damage, self.loser
+        
+
+    def check_for_level_up(self):
+        if self.life > 0:
+            self.leveled_up = True
+            print(f"Level Up!")
+            return self.leveled_up
+        
+    def level_up_player(self):
+        self.level += 1
+        return self.level
+        
+    def reset_player_stats(self):
+        self.rect.center = (800 - 725, 600 - 200,)
+        self.life = 90
+        self.points = 0
+        self.damage = 0
+        self.leveled_up = False
+        self.loser = False
+        return self.life, self.points, self.damage, self.leveled_up, self.loser
+
+    def get_level(self):
+        return self.level
