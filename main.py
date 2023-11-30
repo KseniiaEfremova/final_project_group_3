@@ -39,12 +39,8 @@ def run():
         player.draw_player()
         falling.create_group()
         falling.draw()
-<<<<<<< HEAD
 
-        if not winner and not game_board.pause and not game_board.over:
-=======
-        if not winner and not player.loser and not game_board.pause:
->>>>>>> develop
+        if not winner and not player.loser and not game_board.pause and not game_board.over:
             player.move()
             falling.fall_and_respawn()
             player.check_falling_item_collision()
@@ -54,27 +50,19 @@ def run():
             elapsed_time = current_time - start_time
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
-<<<<<<< HEAD
-            #game_board.update_display()
-
-            if remaining_time == 0:
-                game_board.over = True
-
-
-        if game_board.over:
-            game_over_menu.draw()
-            #game_board.update_display()
-
-=======
             game_board.update_display()
             if remaining_time == 0:
                 player.check_for_level_up()
+                game_board.over = True
                 if player.leveled_up:
                     player.level_up_player()
                     level.display_level_up_image(game_board)
                     start_time = time.time()
                     player.reset_player_stats()
->>>>>>> develop
+            
+        if game_board.over:
+            game_over_menu.draw()
+            
         elif game_board.pause:
             pause_menu.draw()
             #game_board.update_display()
