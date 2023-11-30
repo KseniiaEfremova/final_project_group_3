@@ -12,13 +12,6 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         super().__init__()
         self.timer_seconds = 60
         self.start_time = time.time()
-        self.long_stop = datetime.datetime.utcnow() + datetime.timedelta(
-            seconds=5)
-        self.medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
-            seconds=4)
-        self.short_stop = datetime.datetime.utcnow() + datetime.timedelta(
-            seconds=3)
-        self.stop_list = [self.long_stop, self.medium_stop, self.short_stop]
         self.python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
         self.tick_image = pygame.image.load(assets_library['sprites']['tick'])
         self.duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
@@ -47,9 +40,9 @@ class FallingItemsFactory(pygame.sprite.Sprite):
     def fall_and_respawn(self):
         for sprite in self.falling_items.sprites():
             if isinstance(sprite, TickItem) or isinstance(sprite, WarningItem):
-                sprite.fall(self.short_stop)
+                sprite.fall()
             if isinstance(sprite, PythonItem) or isinstance(sprite, ErrorItem):
-                sprite.fall(self.medium_stop)
+                sprite.fall()
             if isinstance(sprite, RubberDuckItem) or isinstance(sprite, BugItem):
-                sprite.fall(self.short_stop)
+                sprite.fall()
 

@@ -28,15 +28,15 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 
 	def spawn(self):
 		self.x = random.randint(0, 770)
-		self.y = random.randint(-500, -100)
+		self.y = random.randint(-400, -100)
 		self.rect.x = self.x
 		self.rect.y = self.y
 
 	@abstractmethod
-	def disappear(self, stop_time):
+	def disappear(self):
 		pass
 
-	def fall(self, stop_time):
+	def fall(self):
 		self.y += self.speed
 		self.rect.y = self.y
 		if self.y > 500:
