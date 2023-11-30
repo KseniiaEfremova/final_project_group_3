@@ -16,7 +16,7 @@ class PointsFallingItem(FallingItem, ABC):
             self.rect.y = 500
             self.kill()
             self.spawn()
-            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=5)
+            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=4)
 
 
 class TickItem(PointsFallingItem, ABC):

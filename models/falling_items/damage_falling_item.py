@@ -17,7 +17,6 @@ class DamageFallingItem(FallingItem, ABC):
     
     def disappear(self):
         self.y = 500
-        self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=5)
         current_time = datetime.datetime.utcnow()
         elapsed_time = current_time - self.stop_time
 
@@ -42,7 +41,7 @@ class DamageFallingItem(FallingItem, ABC):
         if datetime.datetime.utcnow() > self.stop_time:
             self.kill()
             self.spawn()
-            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=5)
+            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=4)
 
 
 class ErrorItem(DamageFallingItem):
