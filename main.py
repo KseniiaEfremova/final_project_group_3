@@ -11,41 +11,6 @@ from decorators.sounds import Sounds
 from utils import assets_library
 
 
-def game_loop(game_board, life, level, points, player, falling, timer,
-              pause_menu, start_time, timer_seconds):
-    life.draw(game_board)
-    level.draw(game_board)
-    points.draw(game_board)
-    player.draw_player()
-    falling.create_group()
-    falling.draw()
-    if not game_board.pause:
-        player.move()
-        falling.fall_and_respawn()
-        player.check_falling_item_collision()
-
-        # TODO: stop the timer and save the remaining time when paused
-        current_time = time.time()
-        elapsed_time = current_time - start_time
-        remaining_time = max(timer_seconds - int(elapsed_time), 0)
-        timer.draw(game_board, timer=remaining_time)
-        game_board.update_display()
-        if remaining_time == 0:
-            print('Level', player.level)
-            print('winner', player.is_winner)
-            player.check_is_winner()
-            player.check_for_level_up()
-            if player.leveled_up:
-                player.level_up_player()
-                level.display_level_up_image(game_board)
-                start_time = time.time()
-                player.reset_player_stats()
-
-    elif game_board.pause:
-        pause_menu.draw()
-        game_board.update_display()
-
-
 def reset_game(player, falling):
     player.reset_player_stats()
     player.level = 1
