@@ -2,7 +2,7 @@ from abc import abstractmethod
 from abc import ABC
 import pygame
 from board import Board
-from player import Player
+from models.player import Player
 
 
 class Stats(ABC, pygame.sprite.Sprite):

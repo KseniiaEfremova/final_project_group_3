@@ -1,7 +1,7 @@
 from abc import ABC
 import pygame
 import datetime
-from falling_items.abstract_falling_item import FallingItem
+from models.falling_items.abstract_falling_item import FallingItem
 
 
 class DamageFallingItem(FallingItem, ABC):
@@ -39,7 +39,7 @@ class DamageFallingItem(FallingItem, ABC):
 
             self.board_instance.board.blit(blow, (offset_x, offset_y))
         if datetime.datetime.utcnow() > stop_time:
-            self.y = 500
+            # self.y = 500
             self.kill()
             self.spawn()
 
