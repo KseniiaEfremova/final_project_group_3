@@ -19,6 +19,7 @@ class Points(Stats, ABC):
 	def update(self):
 		self.points = self.player_instance.get_points()
 
+
 	def draw(self, board_instance, **kwargs):
 		self.update()
 		text = font.render(f"Points: {self.points}", True, (255, 255, 255))

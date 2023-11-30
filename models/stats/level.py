@@ -26,8 +26,6 @@ class Level(Stats, ABC):
 	def update(self):
 		self.current_sprite = self.player_instance.get_level() - 1
 		if self.current_sprite > 2:
-			# display winning screen
-			print('you won! game is over, wanna play again?')
 			self.current_sprite = 2
 
 	def draw(self, board_instance, **kwargs):
@@ -35,4 +33,10 @@ class Level(Stats, ABC):
 		board_instance.board.blit(self.image, (self.x - self.width,
 											   self.y - self.height))
 
+	def display_level_up_image(self, board_instance):
+		level_up_image = pygame.image.load(assets_library['backgrounds']['level_up'])
+		level_up_image = pygame.transform.scale(level_up_image, (600, 600))
+		board_instance.board.blit(level_up_image, (100, 0))
+		pygame.display.update()
+		pygame.time.delay(2000) 
 
