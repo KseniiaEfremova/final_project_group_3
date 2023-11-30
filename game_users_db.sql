@@ -5,7 +5,7 @@ USE game_users_db;
 CREATE TABLE users (
     user_id INTEGER AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(150) NOT NULL,
 	PRIMARY KEY(user_id)
 );
 
