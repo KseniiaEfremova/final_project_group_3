@@ -59,6 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.life = 90
         self.points = 0
         self.level = 1
+        self.is_winner = True
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
@@ -99,6 +100,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += dx
         self.rect.y += dy
+
     @Sounds(assets_library['sounds']['bonus'], loop=False)
     def points_collision(self, item):
         self.points += item.points
@@ -127,3 +129,12 @@ class Player(pygame.sprite.Sprite):
 
     def get_points(self):
         return self.points
+
+    def get_level(self):
+        return self.level
+
+    def get_is_winner(self):
+        return self.is_winner
+
+    def toggle_is_winner(self):
+        self.is_winner = not self.is_winner

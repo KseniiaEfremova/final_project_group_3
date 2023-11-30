@@ -32,13 +32,13 @@ class Button:
 
         # Colors for different button states
         self.fillColors = {
-            'normal': '#ffffff',
-            'hover': '#666666',
-            'pressed': '#333333',
+            'normal': '#9867c5',
+            'hover': '#be93d4',
+            'pressed': '#7a4988',
         }
         self.buttonSurface = pygame.Surface((self.width, self.height))
         self.buttonRect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.buttonSurf = font.render(buttonText, True, (20, 20, 20))
+        self.buttonSurf = font.render(buttonText, True, (255, 255, 255))
         self.alreadyPressed = False
 
     def process(self):

@@ -1,6 +1,6 @@
-from models.falling_items.falling_items_factory import *
 from board import Board
 from models.player import Player
+from models.falling_items.falling_items_factory import *
 from models.stats.life import Life
 from models.stats.level import Level
 from models.stats.timer import Timer
@@ -9,6 +9,40 @@ from menu.pause_menu import PauseMenu
 from menu.winning_menu import WinningMenu
 from decorators.sounds import Sounds
 from utils import assets_library
+
+
+def game_loop(game_board, life, level, points, player, falling, timer,
+              pause_menu, start_time, timer_seconds):
+    life.draw(game_board)
+    level.draw(game_board)
+    points.draw(game_board)
+    player.draw_player()
+    falling.create_group()
+    falling.draw()
+    if not game_board.pause:
+        player.move()
+        falling.fall_and_respawn()
+        player.check_falling_item_collision()
+
+        # TODO: stop the timer and save the remaining time when paused
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+        remaining_time = max(timer_seconds - int(elapsed_time), 0)
+        timer.draw(game_board, timer=remaining_time)
+        game_board.update_display()
+
+    elif game_board.pause:
+        pause_menu.draw()
+        game_board.update_display()
+
+
+def reset_game(player, falling):
+    player.rect.center = (100, 400)
+    player.life = 90
+    player.points = 0
+    player.level = 1
+    falling.falling_items.empty()
+    player.toggle_is_winner()
 
 
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
@@ -26,38 +60,21 @@ def run():
     timer_seconds = 60
     start_time = time.time()
     while True:
-        winner = True
-        # winner = False
+        is_winner = player.get_is_winner()
+        restart = winning_menu.get_play_again()
         game_board.display_board()
         game_board.draw_background()
-        life.draw(game_board)
-        level.draw(game_board)
-        points.draw(game_board)
-        player.draw_player()
-        falling.create_group()
-        falling.draw()
-        if not winner and not game_board.pause:
-            player.move()
-            falling.fall_and_respawn()
-            player.check_falling_item_collision()
+        if not is_winner:
+            game_loop(game_board, life, level, points, player, falling, timer,
+                      pause_menu, start_time, timer_seconds)
 
-            # TODO: stop the timer and save the remaining time when paused
-            current_time = time.time()
-            elapsed_time = current_time - start_time
-            remaining_time = max(timer_seconds - int(elapsed_time), 0)
-            timer.draw(game_board, timer=remaining_time)
+        elif is_winner and restart:
+            reset_game(player, falling)
             game_board.update_display()
-        elif game_board.pause:
-            pause_menu.draw()
-            game_board.update_display()
-        elif winner:
+
+        else:
             winning_menu.draw()
             game_board.update_display()
-            # current_time = time.time()
-            # elapsed_time = current_time - start_time
-            # remaining_time = timer_seconds - int(elapsed_time)
-            # winning_menu.draw(counter=remaining_time)
-            # game_board.update_display()
 
 
 if __name__ == '__main__':
