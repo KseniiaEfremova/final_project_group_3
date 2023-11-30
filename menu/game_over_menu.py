@@ -1,13 +1,17 @@
 import pygame
 from board import Board
 from menu.menu import Menu
+from models.player import Player
+import sys
+
 
 
 
 class GameOverMenu(Menu):
-    def __init__(self, board_instance: Board):
+    def __init__(self, board_instance: Board, player: Player):
         super().__init__(board_instance)
         pygame.font.init()
+        self.player = player
         self.font_game_over = pygame.font.Font('assets/fonts/FukuCatch.otf', 60)
         self.font_play_again_exit = pygame.font.Font('assets/fonts/FukuCatch.otf', 30)
 
@@ -56,6 +60,26 @@ class GameOverMenu(Menu):
         game_over_image = pygame.image.load('assets/backgrounds/game_over.png')
         game_over_image = pygame.transform.scale(game_over_image, (600, 600))
         board_instance.board.blit(game_over_image, (60, 0))
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                play_again_rect = pygame.Rect(self.width // 2 - 260, self.height // 2 + 200, 250, 40)
+                exit_rect = pygame.Rect(self.width // 2 + 10, self.height // 2 + 200, 250, 40)
+
+                if play_again_rect.collidepoint(x, y):
+                    self.player.reset_player_stats()
+                    self.board_instance.over = False
+                    self.board_instance.pause = False
+                    self.board_instance.display_board()
+                elif exit_rect.collidepoint(x, y):
+                    pygame.quit()
+                    sys.exit()
+
+
+
+
 
 
 

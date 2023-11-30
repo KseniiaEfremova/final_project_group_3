@@ -16,7 +16,6 @@ def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
-    game_over_menu = GameOverMenu(game_board)
     # winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
     player = Player(800 - 725, 600 - 200, game_board, falling)
@@ -24,8 +23,9 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 5
+    timer_seconds = 120
     start_time = time.time()
+    game_over_menu = GameOverMenu(game_board, player)
 
     while True:
         # winner = True
@@ -53,15 +53,19 @@ def run():
             game_board.update_display()
             if remaining_time == 0:
                 player.check_for_level_up()
-                game_board.over = True
+                #game_board.over = True
                 if player.leveled_up:
                     player.level_up_player()
                     level.display_level_up_image(game_board)
                     start_time = time.time()
                     player.reset_player_stats()
+
+            if player.life <= 0:
+                player.loser = True
             
-        if game_board.over:
-            game_over_menu.draw()
+       # if game_board.over:
+       #     game_over_menu.draw()
+       #     game_over_menu.handle_events()
             
         elif game_board.pause:
             pause_menu.draw()
@@ -75,8 +79,10 @@ def run():
             # winning_menu.draw(counter=remaining_time)
             # game_board.update_display()
         elif player.loser:
-            print("You lost!")
-            break
+            game_over_menu.draw()
+            game_over_menu.handle_events()
+            start_time = time.time()
+
 
         game_board.update_display()
 
