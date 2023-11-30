@@ -24,7 +24,7 @@ def run():
     timer = Timer(player, game_board)
     points = Points(player, game_board)
 
-    timer_seconds = 10
+    timer_seconds = 2
     start_time = time.time()
 
     # timer for making items fall
