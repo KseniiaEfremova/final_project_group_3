@@ -14,8 +14,9 @@ from utils import assets_library
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
-    game_over_menu = GameOverMenu(game_board)
+    game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
+    game_over_menu = GameOverMenu(game_board)
     # winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
     player = Player(800 - 725, 600 - 200, game_board, falling)
@@ -23,8 +24,9 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 60
+    timer_seconds = 5
     start_time = time.time()
+
     while True:
         # winner = True
         winner = False
@@ -36,7 +38,8 @@ def run():
         player.draw_player()
         falling.create_group()
         falling.draw()
-        if not winner and not game_board.pause and not game_over:
+
+        if not winner and not game_board.pause and not game_board.over:
             player.move()
             falling.fall_and_respawn()
             player.check_falling_item_collision()
@@ -46,17 +49,20 @@ def run():
             elapsed_time = current_time - start_time
             remaining_time = max(timer_seconds - int(elapsed_time), 0)
             timer.draw(game_board, timer=remaining_time)
-            game_board.update_display()
+            #game_board.update_display()
 
             if remaining_time == 0:
-                game_over = True
-        
-        if game_over:
-            game_over_menu.draw
-            
+                game_board.over = True
+
+
+        if game_board.over:
+            game_over_menu.draw()
+            #game_board.update_display()
+
         elif game_board.pause:
             pause_menu.draw()
-            game_board.update_display()
+            #game_board.update_display()
+
         elif winner:
             print('you won')
             # current_time = time.time()
@@ -65,6 +71,7 @@ def run():
             # winning_menu.draw(counter=remaining_time)
             # game_board.update_display()
 
+        game_board.update_display()
 
 if __name__ == '__main__':
     run()

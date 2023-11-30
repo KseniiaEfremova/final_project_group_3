@@ -18,7 +18,7 @@ class GameOverMenu(Menu):
 
 
     def draw(self):
-        game_over_menu = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        over = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         self.game_over_image(self.board_instance)
 
 
@@ -34,7 +34,7 @@ class GameOverMenu(Menu):
         play_again_rect = pygame.Rect(play_again_x, play_again_y, play_again_width, play_again_height)
         play_again_hovered= play_again_rect.collidepoint(pygame.mouse.get_pos())
         play_again_color = (255, 192, 203) if not play_again_hovered else (255, 160, 180)
-        self.draw_button(game_over_menu, "Play Again", self.font_play_again_exit, play_again_color, play_again_x,
+        self.draw_button(over, "Play Again", self.font_play_again_exit, play_again_color, play_again_x,
                          play_again_y, play_again_width, play_again_height, hover=play_again_hovered)
 
 
@@ -46,11 +46,11 @@ class GameOverMenu(Menu):
         exit_rect = pygame.Rect(exit_x, exit_y, exit_width, exit_height)
         exit_hovered = exit_rect.collidepoint(pygame.mouse.get_pos())
         exit_color = (255, 192, 203) if not exit_hovered else (255, 160, 180)
-        self.draw_button(game_over_menu, "Exit", self.font_play_again_exit, exit_color, exit_x, exit_y, exit_width,
+        self.draw_button(over, "Exit", self.font_play_again_exit, exit_color, exit_x, exit_y, exit_width,
                      exit_height, hover=exit_hovered)
 
 
-        self.board_instance.board.blit(game_over_menu, (0, 0))
+        self.board_instance.board.blit(over, (0, 0))
 
     def game_over_image(self, board_instance):
         game_over_image = pygame.image.load('assets/backgrounds/game_over.png')
