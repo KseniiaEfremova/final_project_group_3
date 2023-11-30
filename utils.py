@@ -10,7 +10,9 @@ assets_library = {
     'backgrounds': {
         'start': 'assets/backgrounds/start.jpg',
         'game_over': 'assets/backgrounds/game_over.png',
-        'main_background': 'assets/backgrounds/background.jpg'
+        'main_background': 'assets/backgrounds/background.jpg',
+        'registration_page': 'assets/backgrounds/registration.png'
+
     },
     'fonts': {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',
