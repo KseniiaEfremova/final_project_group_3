@@ -30,6 +30,8 @@ def game_loop(game_board, life, level, points, player, falling, timer,
         remaining_time = max(timer_seconds - int(elapsed_time), 0)
         timer.draw(game_board, timer=remaining_time)
         game_board.update_display()
+        if remaining_time == 0:
+            player.check_is_winner()
 
     elif game_board.pause:
         pause_menu.draw()

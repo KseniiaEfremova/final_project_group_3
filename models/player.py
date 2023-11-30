@@ -59,7 +59,7 @@ class Player(pygame.sprite.Sprite):
         self.life = 90
         self.points = 0
         self.level = 1
-        self.is_winner = True
+        self.is_winner = False
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
@@ -135,6 +135,12 @@ class Player(pygame.sprite.Sprite):
 
     def get_is_winner(self):
         return self.is_winner
+
+    def check_is_winner(self):
+        print(self.life)
+        print(self.level)
+        if self.life > 0 and self.level == 3:
+            self.toggle_is_winner()
 
     def toggle_is_winner(self):
         self.is_winner = not self.is_winner
