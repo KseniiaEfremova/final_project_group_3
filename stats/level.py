@@ -38,7 +38,6 @@ class Level(Stats, ABC):
 	def display_level_up_image(self, board_instance):
 		level_up_image = pygame.image.load(assets_library['backgrounds']['level_up'])
 		level_up_image = pygame.transform.scale(level_up_image, (600, 600))
-		# board_instance.board.blit(level_up_image, (self.x - self.width, self.y - self.height - 100))
 		board_instance.board.blit(level_up_image, (100, 0))
 		pygame.display.update()
 		pygame.time.delay(2000) 
