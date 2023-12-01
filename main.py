@@ -9,6 +9,7 @@ from menu.pause_menu import PauseMenu
 from menu.winning_menu import WinningMenu
 from decorators.sounds import Sounds
 from utils import assets_library
+from menu.game_over_menu import GameOverMenu
 
 
 def reset_game(player, falling):
@@ -16,6 +17,12 @@ def reset_game(player, falling):
     player.level = 1
     falling.falling_items.empty()
     player.toggle_is_winner()
+
+def reset_game_over(player, falling):
+    player.reset_player_stats()
+    player.level = 1
+    falling.falling_items.empty()
+    return time.time()
 
 
 # @Sounds(assets_library['sounds']['soundtrack'], loop=True)
@@ -30,13 +37,14 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 10
+    timer_seconds = 60
     start_time = time.time()
-    game_over_menu = GameOverMenu(game_board, player)
+    game_over_menu = GameOverMenu(game_board)
 
     while True:
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
+        restart_game_over_menu = game_over_menu.get_restart_game()
         game_board.display_board()
         game_board.draw_background()
 
@@ -47,6 +55,16 @@ def run():
             player.draw_player()
             falling.create_group()
             falling.draw()
+
+            if life.lives <= 0:
+                game_over_menu.draw()
+                game_board.update_display()
+
+                if restart_game_over_menu:
+                    #reset_game_over(player, falling)
+                    start_time = reset_game_over(player, falling)
+                    game_board.update_display()
+
             if not game_board.pause:
                 player.move()
                 falling.fall_and_respawn()
@@ -78,7 +96,6 @@ def run():
         else:
             winning_menu.draw()
             game_board.update_display()
-
 
         game_board.update_display()
 
