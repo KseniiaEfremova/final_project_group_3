@@ -43,6 +43,7 @@ class Life(Stats, ABC):
 	def update(self):
 		self.images = []
 		self.lives = self.player_instance.get_lives()
+		print(self.lives)
 		damage_remainder = self.lives % 30
 		if self.lives >= 60:
 			first_sprite = 0

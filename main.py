@@ -57,8 +57,6 @@ def run():
                 timer.draw(game_board, timer=remaining_time)
                 game_board.update_display()
                 if remaining_time == 0:
-                    print('Level', player.level)
-                    print('winner', player.is_winner)
                     player.check_is_winner()
                     player.check_for_level_up()
                     if player.leveled_up:
