@@ -1,6 +1,6 @@
 import pygame
 from board import Board
-from menu.menu import Menu
+from menus.menu import Menu
 
 pygame.font.init()
 font = pygame.font.Font('assets/fonts/FukuCatch.otf', 60)
