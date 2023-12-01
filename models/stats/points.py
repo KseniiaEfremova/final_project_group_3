@@ -1,6 +1,6 @@
 from abc import ABC
 import pygame
-from stats.abstract_stats import Stats
+from models.stats.abstract_stats import Stats
 from models.player import Player
 from board import Board
 from utils import assets_library
@@ -14,11 +14,13 @@ class Points(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.x = 500
 		self.y = 75
-		self.points = player_instance.points
+		self.points = self.player_instance.get_points()
 
 	def update(self):
-		self.points = self.player_instance.points
+		self.points = self.player_instance.get_points()
+
 
 	def draw(self, board_instance, **kwargs):
+		self.update()
 		text = font.render(f"Points: {self.points}", True, (255, 255, 255))
 		self.board_instance.board.blit(text, (170, 20))

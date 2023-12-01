@@ -3,7 +3,6 @@ import pygame
 import numpy as np
 from unittest.mock import patch, MagicMock
 from board import Board
-from utils import get_path_from_root
 
 
 class TestBoard(unittest.TestCase):
