@@ -25,7 +25,7 @@ class Life(Stats, ABC):
 		self.y = 75
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 
-	def create_image(self, remainder):
+	def pick_image_index(self, remainder):
 		if 30 >= remainder > 25:
 			self.current_sprite = 1
 		elif 25 >= remainder > 17:
@@ -48,15 +48,20 @@ class Life(Stats, ABC):
 		if self.lives >= 60:
 			first_sprite = 0
 			second_sprite = 0
-			third_sprite = self.create_image(damage_remainder)
+			third_sprite = self.pick_image_index(damage_remainder)
 		elif 30 <= self.lives < 60:
 			first_sprite = 0
-			second_sprite = self.create_image(damage_remainder)
+			second_sprite = self.pick_image_index(damage_remainder)
 			third_sprite = 5
-		else:
-			first_sprite = self.create_image(damage_remainder)
+		elif 0 <= self.lives <= 30:
+			first_sprite = self.pick_image_index(damage_remainder)
 			second_sprite = 5
 			third_sprite = 5
+		else:
+			first_sprite = 5
+			second_sprite = 5
+			third_sprite = 5
+
 		first_image = pygame.transform.scale(self.sprites[first_sprite],
 										   (self.width, self.height))
 		second_image = pygame.transform.scale(self.sprites[second_sprite],
