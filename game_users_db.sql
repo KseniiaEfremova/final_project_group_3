@@ -13,7 +13,7 @@ CREATE TABLE game_statistics (
     statistics_id INTEGER AUTO_INCREMENT,
     user_id INT,
     points INT DEFAULT 0,
-    life INT DEFAULT 3, -- Assuming 3 is full life
+    life INT DEFAULT 90, -- Assuming 90 is full life
     level INT DEFAULT 1,
     PRIMARY KEY(statistics_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
