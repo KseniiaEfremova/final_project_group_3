@@ -58,8 +58,11 @@ class Player(pygame.sprite.Sprite):
         self.falling_group = falling_group
         self.life = 90
         self.points = 0
-        self.damage = 0
         self.level = 1
+        self.is_winner = False
+        self.leveled_up = False
+        self.loser = False
+
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
@@ -100,23 +103,68 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += dx
         self.rect.y += dy
+
     @Sounds(assets_library['sounds']['bonus'], loop=False)
     def points_collision(self, item):
         self.points += item.points
-        self.damage += item.damage
+        self.life += item.damage
 
     @Sounds(assets_library['sounds']['damage'], loop=False)
     def damage_collision(self, item):
         self.points -= item.points
-        self.damage += item.damage
+        self.life -= item.damage
 
     def check_falling_item_collision(self):
-        collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
-        for item in collisions:
-            item.rect.topleft = (-100, -100)
-            if isinstance(item, PointsFallingItem):
-                self.points_collision(item)
-            if isinstance(item, DamageFallingItem):
-                self.damage_collision(item)
-            print(f"The Player now has: {self.points} points, and {self.damage} damage")
-        return self.points, self.damage
+        if self.life > 0:
+            collisions = pygame.sprite.spritecollide(self, self.falling_group.falling_items, True)
+            for item in collisions:
+                item.rect.topleft = (-100, -100)
+                item.y = 1000
+                item.rect.y = 1000
+                if isinstance(item, PointsFallingItem):
+                    self.points_collision(item)
+                if isinstance(item, DamageFallingItem):
+                    self.damage_collision(item)
+        else:
+            self.loser = True
+        return self.points, self.loser
+
+    def get_lives(self):
+        return self.life
+
+    def get_points(self):
+        return self.points
+
+    def get_level(self):
+        return self.level
+
+    def get_is_winner(self):
+        return self.is_winner
+
+    def check_is_winner(self):
+        if self.life > 0 and self.level == 3:
+            self.toggle_is_winner()
+        return
+
+    def toggle_is_winner(self):
+        self.is_winner = not self.is_winner
+        return self.is_winner
+
+    def check_for_level_up(self):
+        if self.life > 0:
+            self.leveled_up = True
+            return self.leveled_up
+        
+    def level_up_player(self):
+        self.level += 1
+        return self.level
+        
+    def reset_player_stats(self):
+        self.rect.center = (800 - 725, 600 - 200,)
+        self.life = 90
+        self.points = 0
+        self.leveled_up = False
+        self.loser = False
+        return self.life, self.points, self.leveled_up, self.loser
+
+

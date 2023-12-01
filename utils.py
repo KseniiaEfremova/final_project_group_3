@@ -1,16 +1,10 @@
-import os
-
-
-def get_path_from_root(path_to_file):
-    root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    return f"{root_path}/{path_to_file}"
-
-
 assets_library = {
     'backgrounds': {
         'start': 'assets/backgrounds/start.jpg',
         'game_over': 'assets/backgrounds/game_over.png',
-        'main_background': 'assets/backgrounds/background.jpg'
+        'main_background': 'assets/backgrounds/background.jpg',
+        'win': 'assets/backgrounds/fireworks_win.jpg',
+        'level_up': 'assets/backgrounds/level_up.png'
     },
     'fonts': {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',
@@ -20,9 +14,9 @@ assets_library = {
         'soundtrack': 'assets/sounds/soundtrack.mp3',
         'bonus': 'assets/sounds/bonus_points_2.wav',
         'intro': 'assets/sounds/intro.wav',
-        'level': 'assets/sounds/level_complete',
+        'level': 'assets/sounds/level_complete.wav',
         'damage': 'assets/sounds/small_damage.wav',
-        'win': 'assets/sounds/win_applause.wav',
+        'win': 'assets/sounds/win.mp3',
         'game_over': 'assets/sounds/game_over.wav'
     },
     'sprites': {
@@ -91,3 +85,4 @@ assets_library = {
         'warning': 'assets/sprites/warning.png'
     }
 }
+
