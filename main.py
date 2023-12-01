@@ -22,6 +22,7 @@ def reset_game_over(player, falling):
     player.reset_player_stats()
     player.level = 1
     falling.falling_items.empty()
+    player.points = 0
     return time.time()
 
 
@@ -61,7 +62,6 @@ def run():
                 game_board.update_display()
 
                 if restart_game_over_menu:
-                    #reset_game_over(player, falling)
                     start_time = reset_game_over(player, falling)
                     game_board.update_display()
 
