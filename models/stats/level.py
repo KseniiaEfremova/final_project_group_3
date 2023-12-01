@@ -1,20 +1,20 @@
 from abc import ABC
 import pygame
-from stats.abstract_stats import Stats
+from models.stats.abstract_stats import Stats
 from models.player import Player
 from board import Board
 from utils import assets_library
 
-
+#[<Surface(1008x811x32 SW)>, <Surface(1014x811x32 SW)>, <Surface(1026x811x32 SW)>]
 class Level(Stats, ABC):
 	def __init__(self, player_instance: Player, board_instance: Board):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
-		self.level = self.player_instance.level - 1
+		self.level = self.player_instance.get_level() - 1
 		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level1']))
 		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level2']))
 		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level3']))
-		self.current_sprite = self.level
+		self.current_sprite = self.player_instance.get_level() - 1
 		self.width = 70
 		self.height = 70
 		self.x = 550
@@ -24,14 +24,14 @@ class Level(Stats, ABC):
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 
 	def update(self):
-		self.current_sprite = self.player_instance.get_level()
+		self.current_sprite = self.player_instance.get_level() - 1
 		if self.current_sprite > 2:
-			# display winning screen
-			print('you won! game is over, wanna play again?')
 			self.current_sprite = 2
 
 	def draw(self, board_instance, **kwargs):
 		self.update()
+		self.image = pygame.transform.scale(self.sprites[self.current_sprite],
+											(self.width, self.height))
 		board_instance.board.blit(self.image, (self.x - self.width,
 											   self.y - self.height))
 
