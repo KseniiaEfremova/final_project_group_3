@@ -11,10 +11,11 @@ from decorators.sounds import Sounds
 from utils import assets_library
 
 
-def reset_game(player, falling):
+def reset_game(player, falling, winning_menu):
     player.reset_player_stats()
     player.level = 1
     falling.falling_items.empty()
+    winning_menu.play_again = False
     player.toggle_is_winner()
 
 
@@ -53,8 +54,6 @@ def run():
                 player.move()
                 falling.fall_and_respawn()
                 player.check_falling_item_collision()
-
-                # TODO: stop the timer and save the remaining time when paused
                 current_time = time.time()
                 elapsed_time = current_time - start_time
                 remaining_time = max(timer_seconds - int(elapsed_time), 0)
@@ -70,14 +69,13 @@ def run():
                         player.reset_player_stats()
 
             elif game_board.pause:
-                # pause_menu.draw()
                 if not paused_time:
                     paused_time = time.time()
                     pause_menu.draw()
                     game_board.update_display()
 
         elif is_winner and restart:
-            reset_game(player, falling)
+            reset_game(player, falling, winning_menu)
             game_board.update_display()
 
         else:
