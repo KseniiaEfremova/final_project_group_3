@@ -2,7 +2,7 @@ import unittest
 import pygame
 import numpy as np
 from board import Board
-from falling_items.damage_falling_item import ErrorItem
+from models.falling_items.damage_falling_item import ErrorItem
 
 error_image = pygame.image.load("assets/error.gif")
 

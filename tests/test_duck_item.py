@@ -2,7 +2,7 @@ import unittest
 import pygame
 import numpy as np
 from board import Board
-from falling_items.points_falling_item import RubberDuckItem
+from models.falling_items.points_falling_item import RubberDuckItem
 
 duck_image = pygame.image.load("assets/duck.png")
 

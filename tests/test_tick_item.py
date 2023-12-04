@@ -2,7 +2,7 @@ import unittest
 import pygame
 import numpy as np
 from board import Board
-from falling_items.points_falling_item import TickItem
+from models.falling_items.points_falling_item import TickItem
 
 tick_image = pygame.image.load("assets/tick.png")
 

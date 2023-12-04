@@ -2,7 +2,7 @@ import unittest
 import pygame
 import numpy as np
 from board import Board
-from falling_items.damage_falling_item import WarningItem
+from models.falling_items.damage_falling_item import WarningItem
 
 warning_image = pygame.image.load("assets/warning.png")
 
