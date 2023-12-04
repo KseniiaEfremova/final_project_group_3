@@ -59,7 +59,7 @@ def run():
                 remaining_time = max(timer_seconds - int(elapsed_time), 0)
                 timer.draw(game_board, timer=remaining_time)
                 game_board.update_display()
-                if remaining_time == 0:
+                if remaining_time == 0 and not restart:
                     player.check_is_winner()
                     player.check_for_level_up()
                     if player.leveled_up and player.level < 3:
