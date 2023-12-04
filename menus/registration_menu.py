@@ -1,5 +1,5 @@
 import pygame
-from app import check_username_and_password
+from app import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
 from board import Board
 from button import Button
 from input_box import InputBox
@@ -34,3 +34,32 @@ class RegistrationMenu(Menu):
         self.password_box.draw_box()
         self.submit_btn.process()
         pygame.display.update()
+
+    def process_registration(self):
+        self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
+        self.draw()
+        for event in pygame.event.get():
+            self.username_box.handle_event(event)
+            self.password_box.handle_event(event)
+        if self.submit_btn.alreadyPressed:
+            user_credentials = check_username_and_password(self.username_box.get_user_text(),
+                                                           self.password_box.get_user_text())
+            if user_credentials is None:
+                # TODO: Create a popup window with a warning about invalid username/password
+                pass
+            else:
+                username, password = user_credentials
+                if is_user_exist_in_db(DB_NAME, users_table, username):
+                    # TODO: Create a popup window that this username already exist, chose an another username
+                    pass
+                else:
+                    add_valid_user_data_to_db(username, password)
+
+                    # Finish the registration process
+                    self.registration = False
+                    self.submit_btn.onePress = False
+
+                    # Switch to the main background after registration
+                    background_image = pygame.image.load(assets_library['backgrounds']['main_background'])
+                    self.board_instance.image = pygame.transform.scale(background_image, (800, 600))
+
