@@ -18,7 +18,7 @@ def reset_game(player, falling):
     player.toggle_is_winner()
 
 
-# @Sounds(assets_library['sounds']['soundtrack'], loop=True)
+@Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
@@ -32,6 +32,7 @@ def run():
     points = Points(player, game_board)
     timer_seconds = 10
     start_time = time.time()
+    paused_time = 0
     while True:
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
@@ -46,6 +47,9 @@ def run():
             falling.create_group()
             falling.draw()
             if not game_board.pause:
+                if paused_time:
+                    start_time += time.time() - paused_time
+                    paused_time = 0
                 player.move()
                 falling.fall_and_respawn()
                 player.check_falling_item_collision()
@@ -66,8 +70,11 @@ def run():
                         player.reset_player_stats()
 
             elif game_board.pause:
-                pause_menu.draw()
-                game_board.update_display()
+                # pause_menu.draw()
+                if not paused_time:
+                    paused_time = time.time()
+                    pause_menu.draw()
+                    game_board.update_display()
 
         elif is_winner and restart:
             reset_game(player, falling)
