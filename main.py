@@ -1,4 +1,3 @@
-from app import check_username_and_password, add_valid_user_data_to_db, DB_NAME, users_table, is_user_exist_in_db
 from menus.registration_menu import RegistrationMenu
 from models.falling_items.falling_items_factory import *
 from board import Board
@@ -28,38 +27,8 @@ def run():
 
     registration_menu = RegistrationMenu(game_board)
 
-    # Run the registration process while the registration menu is active
     while registration_menu.registration:
-
-        # Set the background image for the registration menu
-        game_board.image = pygame.transform.scale(registration_menu.background_image, (800, 600))
-        registration_menu.draw()
-        for event in pygame.event.get():
-            registration_menu.username_box.handle_event(event)
-            registration_menu.password_box.handle_event(event)
-
-        # Check if the submit button is pressed
-        if registration_menu.submit_btn.alreadyPressed:
-            user_credentials = check_username_and_password(registration_menu.username_box.get_user_text(),
-                                                           registration_menu.password_box.get_user_text())
-            if user_credentials is None:  # if invalid input
-                # TODO: Create a popup window with a warning about invalid username/password
-                registration_menu.submit_btn.onePress = True
-            else:
-                username, password = user_credentials
-                if is_user_exist_in_db(DB_NAME, users_table, username):
-                    # TODO: Go to the login page
-                    pass
-                else:
-                    add_valid_user_data_to_db(username, password)
-
-                # Finish the registration process
-                registration_menu.registration = False
-                registration_menu.submit_btn.onePress = False
-
-                # Switch to the main background after registration
-                background_image = pygame.image.load(assets_library['backgrounds']['main_background'])
-                game_board.image = pygame.transform.scale(background_image, (800, 600))
+        registration_menu.process_registration()
 
     start_time = time.time()
     while True:
