@@ -1,62 +1,86 @@
 from board import Board
-from player import Player
-from falling_items.points_falling_item import PythonItem, TickItem, RubberDuckItem
-from falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
-import pygame
-import datetime
+from models.player import Player
+from models.falling_items.falling_items_factory import *
+from models.stats.life import Life
+from models.stats.level import Level
+from models.stats.timer import Timer
+from models.stats.points import Points
+from menu.pause_menu import PauseMenu
+from menu.winning_menu import WinningMenu
+from decorators.sounds import Sounds
+from utils import assets_library
 
-python_image = pygame.image.load("assets/python.png")
-tick_image = pygame.image.load("assets/tick.png")
-duck_image = pygame.image.load("assets/duck.png")
-bug_image = pygame.image.load("assets/bug.png")
-error_image = pygame.image.load("assets/error.gif")
-warning_image = pygame.image.load("assets/warning.png")
+
+def reset_game(player, falling, winning_menu):
+    player.reset_player_stats()
+    player.level = 1
+    falling.falling_items.empty()
+    winning_menu.play_again = False
+    player.toggle_is_winner()
+
+
+@Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
-    player = Player(800 - 725, 600 - 100, game_board)
-    python = PythonItem(python_image, game_board)
-    tick = TickItem(tick_image, game_board)
-    duck = RubberDuckItem(duck_image, game_board)
-    warning = WarningItem(warning_image, game_board)
-    error = ErrorItem(error_image, game_board)
-    bug = BugItem(bug_image, game_board)
-    long_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=5)
-    medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=4)
-    short_stop = datetime.datetime.utcnow() + datetime.timedelta(
-        seconds=3)
+    pause_menu = PauseMenu(game_board)
+    winning_menu = WinningMenu(game_board)
+    falling = FallingItemsFactory(game_board)
+    player = Player(800 - 725, 600 - 200, game_board, falling)
+    life = Life(player, game_board)
+    level = Level(player, game_board)
+    timer = Timer(player, game_board)
+    points = Points(player, game_board)
+    timer_seconds = 10
+    start_time = time.time()
+    paused_time = 0
     while True:
+        is_winner = player.get_is_winner()
+        restart = winning_menu.get_play_again()
         game_board.display_board()
         game_board.draw_background()
-        python.draw(game_board)
-        tick.draw(game_board)
-        duck.draw(game_board)
-        warning.draw(game_board)
-        error.draw(game_board)
-        bug.draw(game_board)
-        python.fall()
-        tick.fall()
-        duck.fall()
-        warning.fall()
-        error.fall()
-        bug.fall()
-        if python.y >= 500:
-            python.disappear(medium_stop)
-        if tick.y >= 500:
-            tick.disappear(short_stop)
-        if duck.y >= 500:
-            duck.disappear(long_stop)
-        if warning.y >= 500:
-            warning.disappear(short_stop)
-        if error.y >= 500:
-            error.disappear(medium_stop)
-        if bug.y >= 500:
-            bug.disappear(long_stop)
-        player.draw_player()
-        player.move()
-        game_board.update_display()
+
+        if not is_winner:
+            life.draw(game_board)
+            level.draw(game_board)
+            points.draw(game_board)
+            player.draw_player()
+            falling.create_group()
+            falling.draw()
+            if not game_board.pause:
+                if paused_time:
+                    start_time += time.time() - paused_time
+                    paused_time = 0
+                player.move()
+                falling.fall_and_respawn()
+                player.check_falling_item_collision()
+                current_time = time.time()
+                elapsed_time = current_time - start_time
+                remaining_time = max(timer_seconds - int(elapsed_time), 0)
+                timer.draw(game_board, timer=remaining_time)
+                game_board.update_display()
+                if remaining_time == 0:
+                    player.check_is_winner()
+                    player.check_for_level_up()
+                    if player.leveled_up and player.level < 3:
+                        player.level_up_player()
+                        level.display_level_up_image(game_board)
+                        start_time = time.time()
+                        player.reset_player_stats()
+
+            elif game_board.pause:
+                if not paused_time:
+                    paused_time = time.time()
+                    pause_menu.draw()
+                    game_board.update_display()
+
+        elif is_winner and restart:
+            reset_game(player, falling, winning_menu)
+            game_board.update_display()
+
+        else:
+            winning_menu.draw()
+            game_board.update_display()
 
 
 if __name__ == '__main__':

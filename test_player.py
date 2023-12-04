@@ -3,7 +3,7 @@ import pygame
 import numpy as np
 from unittest.mock import patch, MagicMock
 from board import Board
-from player import Player
+from models.player import Player
 
 
 class TestPlayer(unittest.TestCase):
