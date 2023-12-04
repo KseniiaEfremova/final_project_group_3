@@ -4,6 +4,7 @@ import datetime
 import random
 from falling_items.abstract_falling_item import FallingItem
 
+#FallingItem Class
 
 class FallingItem(FallingItem, ABC):
     def __init__(self, name, image, speed, damage, points, width, height, x, y,
