@@ -59,7 +59,7 @@ def run():
                 if remaining_time == 0:
                     player.check_is_winner()
                     player.check_for_level_up()
-                    if player.leveled_up:
+                    if player.leveled_up and player.level < 3:
                         player.level_up_player()
                         level.display_level_up_image(game_board)
                         start_time = time.time()
