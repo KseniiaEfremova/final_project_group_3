@@ -45,7 +45,7 @@ class TestBoard(unittest.TestCase):
         test_board.draw_background()
         board_content = pygame.surfarray.array3d(test_board.board)
         loaded_background = pygame.image.load(
-			"assets/backgrounds/background.jpg")
+			"../assets/backgrounds/background.jpg")
         loaded_background = pygame.transform.scale(loaded_background, res)
         background_content = pygame.surfarray.array3d(loaded_background)
         diff = np.abs(board_content - background_content)

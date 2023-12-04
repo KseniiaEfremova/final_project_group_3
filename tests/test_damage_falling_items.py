@@ -2,7 +2,7 @@ import unittest
 import pygame
 from unittest.mock import MagicMock
 import datetime
-from falling_items.damage_falling_item import DamageFallingItem, WarningItem, ErrorItem, BugItem
+from models.falling_items.damage_falling_item import DamageFallingItem, WarningItem, ErrorItem, BugItem
 
 
 class MockBoard:
