@@ -13,8 +13,7 @@ class TestBugItem(unittest.TestCase):
 
 	def setUp(self):
 		pygame.init()
-		self.board = pygame.display.set_mode(
-			(800, 600))
+		self.board = pygame.display.set_mode((800, 600))
 		self.test_board = Board("Test Board", (800, 600), 60)
 
 	@patch('models.falling_items.damage_falling_item.BugItem.spawn')
