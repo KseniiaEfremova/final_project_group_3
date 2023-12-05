@@ -31,6 +31,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.y = random.randint(-400, -100)
 		self.rect.x = self.x
 		self.rect.y = self.y
+		return self.x, self.y
 
 	@abstractmethod
 	def disappear(self):

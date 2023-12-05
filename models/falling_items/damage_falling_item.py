@@ -11,9 +11,6 @@ class DamageFallingItem(FallingItem, ABC):
                          y, board_instance)
         self.image = pygame.transform.scale(image, (50, 50))
         self.disappear_start_time = None
-
-    def draw(self, board_instance):
-        board_instance.board.blit(self.image, (self.x, self.y))
     
     def disappear(self):
         self.y = 500

@@ -11,9 +11,9 @@ class Board:
         self.name = name
         self.res = res
         self.frames = frames
-        self.image = pygame.transform.scale(background_image, (self.res))
+        self.image = pygame.transform.scale(background_image, self.res)
         self.board = pygame.display.set_mode(self.res)
-        self.board_surface = pygame.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
+        self.board_surface = pygame.surface.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
         self.pause = False
         self.over = False
     
@@ -31,11 +31,12 @@ class Board:
         fps = pygame.time.Clock()
         pygame.display.update()
         fps.tick(self.frames)
+        return 'Display updated'
 
     def draw_background(self):
         self.board.fill('black')
-        self.board.blit(self.image, (0, 0))
         self.board.blit(self.board_surface, (0, 0))
+        self.board.blit(self.image, (0, 0))
 
 
 

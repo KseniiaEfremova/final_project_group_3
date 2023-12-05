@@ -10,7 +10,7 @@ from menus.winning_menu import WinningMenu
 from decorators.sounds import Sounds
 from utils import assets_library
 from menus.registration_menu import RegistrationMenu
-from menu.game_over_menu import GameOverMenu
+from menus.game_over_menu import GameOverMenu
 
 
 
