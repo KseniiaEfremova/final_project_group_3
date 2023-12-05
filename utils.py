@@ -11,8 +11,9 @@ assets_library = {
         'start': 'assets/backgrounds/start.jpg',
         'game_over': 'assets/backgrounds/game_over.png',
         'main_background': 'assets/backgrounds/background.jpg',
+        'win': 'assets/backgrounds/fireworks_win.jpg',
+        'level_up': 'assets/backgrounds/level_up.png',
         'registration_page': 'assets/backgrounds/registration.png'
-
     },
     'fonts': {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',
@@ -22,9 +23,9 @@ assets_library = {
         'soundtrack': 'assets/sounds/soundtrack.mp3',
         'bonus': 'assets/sounds/bonus_points_2.wav',
         'intro': 'assets/sounds/intro.wav',
-        'level': 'assets/sounds/level_complete',
+        'level': 'assets/sounds/level_complete.wav',
         'damage': 'assets/sounds/small_damage.wav',
-        'win': 'assets/sounds/win_applause.wav',
+        'win': 'assets/sounds/win.mp3',
         'game_over': 'assets/sounds/game_over.wav'
     },
     'sprites': {
