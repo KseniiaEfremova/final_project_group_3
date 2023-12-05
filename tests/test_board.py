@@ -55,15 +55,15 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(board_content.shape, background_content.shape)
         self.assertLessEqual(total_diff, allowable_diff)
 
-    # def test_quit_event_handling(self):
-    #     name = "TestBoard"
-    #     res = (800, 600)
-    #     frames = 60
-    #     test_board = Board(name, res, frames)
-    #
-    #     with patch('pygame.event.get', return_value=[MagicMock(type=pygame.QUIT)]):
-    #         with self.assertRaises(SystemExit):
-    #             test_board.display_board()
+    def test_quit_event_handling(self):
+        name = "TestBoard"
+        res = (800, 600)
+        frames = 60
+        test_board = Board(name, res, frames)
+
+        with patch('pygame.event.get', return_value=[MagicMock(type=pygame.QUIT)]):
+            with self.assertRaises(SystemExit):
+                test_board.display_board()
 
     def tearDown(self):
         pygame.quit()

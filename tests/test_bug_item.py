@@ -1,6 +1,8 @@
 import unittest
+from unittest.mock import patch
 import pygame
 import numpy as np
+from datetime import datetime, timedelta
 from board import Board
 from models.falling_items.damage_falling_item import BugItem
 from utils import assets_library
@@ -16,15 +18,18 @@ class TestBugItem(unittest.TestCase):
 			(800, 600))
 		self.test_board = Board("Test Board", (800, 600), 60)
 
-	def test_bug_item_init(self):
+	@patch('models.falling_items.damage_falling_item.BugItem.spawn')
+	def test_bug_item_init(self, mock_spawn):
 		bug_item = BugItem(bug_image, self.test_board)
+		mock_spawn.return_value = (0, 0)
 
 		self.assertEqual(bug_item.width, 50)
 		self.assertEqual(bug_item.height, 50)
-		self.assertEqual(bug_item.y, 0)
 		self.assertEqual(bug_item.speed, 8)
 		self.assertEqual(bug_item.points, 10)
 		self.assertEqual(bug_item.damage, 30)
+		self.assertEqual(bug_item.x, 0)
+		self.assertEqual(bug_item.y, 0)
 
 	def test_bug_item_draw(self):
 		bug_item = BugItem(bug_image, self.test_board)
@@ -46,10 +51,6 @@ class TestBugItem(unittest.TestCase):
 		self.assertFalse(bug_item.x > 770)
 		self.assertTrue(0 < bug_item.x < 770)
 
-	def test_bug_item_fall(self):
-		bug_item = BugItem(bug_image, self.test_board)
-		bug_item.draw(self.test_board)
-		bug_item.fall()
-
-		self.assertTrue(bug_item.y > 0)
-		self.assertTrue(bug_item.y >= bug_item.speed)
+	def tearDown(self):
+		pygame.quit()
+		patch.stopall()

@@ -14,7 +14,7 @@ short_stop = datetime.datetime.utcnow() + datetime.timedelta(
 
 
 class FallingItem(ABC, pygame.sprite.Sprite):
-	def __init__(self, name, image, speed, points, damage, width, height, x, y,
+	def __init__(self, name, image, speed, damage, points, width, height, x, y,
 				board_instance: Board):
 		super().__init__()
 		pygame.sprite.Sprite.__init__(self)
@@ -37,6 +37,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.y = random.randint(-500, -100)
 		self.rect.x = self.x
 		self.rect.y = self.y
+		return self.x, self.y
 
 	@abstractmethod
 	def disappear(self, stop_time):
