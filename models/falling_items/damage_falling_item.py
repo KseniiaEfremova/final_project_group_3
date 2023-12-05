@@ -15,10 +15,10 @@ class DamageFallingItem(FallingItem, ABC):
     def draw(self, board_instance):
         board_instance.board.blit(self.image, (self.x, self.y))
     
-    def disappear(self, stop_time):
+    def disappear(self):
         self.y = 500
         current_time = datetime.datetime.utcnow()
-        elapsed_time = current_time - stop_time
+        elapsed_time = current_time - self.stop_time
 
         if elapsed_time <= datetime.timedelta(seconds=3):
             disappearance_progress = -(elapsed_time.total_seconds() / 3)
@@ -38,10 +38,10 @@ class DamageFallingItem(FallingItem, ABC):
             offset_y = self.y - (final_height - initial_height) // 2
 
             self.board_instance.board.blit(blow, (offset_x, offset_y))
-        if datetime.datetime.utcnow() > stop_time:
-            # self.y = 500
+        if datetime.datetime.utcnow() > self.stop_time:
             self.kill()
             self.spawn()
+            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=4)
 
 
 class ErrorItem(DamageFallingItem):
