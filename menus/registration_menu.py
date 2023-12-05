@@ -46,11 +46,13 @@ class RegistrationMenu(Menu):
                                                            self.password_box.get_user_text())
             if user_credentials is None:
                 # TODO: Create a popup window with a warning about invalid username/password
+                print("invalid username/password")
                 pass
             else:
                 username, password = user_credentials
                 if is_user_exist_in_db(DB_NAME, users_table, username):
                     # TODO: Create a popup window that this username already exist, chose an another username
+                    print("this username already exist, chose an another username")
                     pass
                 else:
                     add_valid_user_data_to_db(username, password)
