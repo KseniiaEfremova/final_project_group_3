@@ -34,7 +34,6 @@ class TestDuckItem(unittest.TestCase):
 		duck_item.draw(self.test_board)
 		duck = pygame.surfarray.array3d(duck_item.image)
 		loaded_duck = pygame.transform.scale(duck_image, (50, 59))
-
 		duck_content = pygame.surfarray.array3d(loaded_duck)
 		diff = np.abs(duck_content - duck)
 		total_diff = np.sum(diff)
