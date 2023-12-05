@@ -1,5 +1,5 @@
 import pygame
-from app import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
+from user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
 from board import Board
 from button import Button
 from input_box import InputBox
