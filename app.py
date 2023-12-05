@@ -29,7 +29,7 @@ def insert_new_user(db_name, table_name, username, password):
             print("DB connection is closed")
 
 
-def update_user_statistics(db_name, table_name, user_id, points=0, life=3, level=1):
+def update_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         print("Connected to DB: %s" % db_name)
