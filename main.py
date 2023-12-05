@@ -12,19 +12,15 @@ from utils import assets_library
 from menu.game_over_menu import GameOverMenu
 
 
-def reset_game(player, falling, is_winner=False):
+def reset_game(player, falling, winning_menu):
     player.reset_player_stats()
     player.level = 1
     falling.falling_items.empty()
-    player.points = 0
-    if is_winner:
-        player.toggle_is_winner()
+    winning_menu.play_again = False
+    player.toggle_is_winner()
 
 
-
-
-
-# @Sounds(assets_library['sounds']['soundtrack'], loop=True)
+@Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
@@ -38,10 +34,7 @@ def run():
     points = Points(player, game_board)
     timer_seconds = 60
     start_time = time.time()
-    game_over_menu = GameOverMenu(game_board)
-
-
-
+    paused_time = 0
     while True:
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
@@ -67,11 +60,12 @@ def run():
                     start_time = time.time()
 
             if not game_board.pause:
+                if paused_time:
+                    start_time += time.time() - paused_time
+                    paused_time = 0
                 player.move()
                 falling.fall_and_respawn()
                 player.check_falling_item_collision()
-
-                # TODO: stop the timer and save the remaining time when paused
                 current_time = time.time()
                 elapsed_time = current_time - start_time
                 remaining_time = max(timer_seconds - int(elapsed_time), 0)
@@ -80,18 +74,20 @@ def run():
                 if remaining_time == 0:
                     player.check_is_winner()
                     player.check_for_level_up()
-                    if player.leveled_up:
+                    if player.leveled_up and player.level < 3:
                         player.level_up_player()
                         level.display_level_up_image(game_board)
                         start_time = time.time()
                         player.reset_player_stats()
 
             elif game_board.pause:
-                pause_menu.draw()
-                game_board.update_display()
+                if not paused_time:
+                    paused_time = time.time()
+                    pause_menu.draw()
+                    game_board.update_display()
 
         elif is_winner and restart:
-            reset_game(player, falling, is_winner=True)
+            reset_game(player, falling, winning_menu)
             game_board.update_display()
 
         else:

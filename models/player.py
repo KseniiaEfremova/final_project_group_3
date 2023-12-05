@@ -162,7 +162,6 @@ class Player(pygame.sprite.Sprite):
     def reset_player_stats(self):
         self.rect.center = (800 - 725, 600 - 200,)
         self.life = 90
-        self.points = 0
         self.leveled_up = False
         self.loser = False
         return self.life, self.points, self.leveled_up, self.loser
