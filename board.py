@@ -13,7 +13,7 @@ class Board:
         self.frames = frames
         self.image = pygame.transform.scale(background_image, self.res)
         self.board = pygame.display.set_mode(self.res)
-        self.board_surface = pygame.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
+        self.board_surface = pygame.surface.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
         self.pause = False
     
     def display_board(self):
@@ -34,8 +34,8 @@ class Board:
 
     def draw_background(self):
         self.board.fill('black')
-        self.board.blit(self.image, (0, 0))
         self.board.blit(self.board_surface, (0, 0))
+        self.board.blit(self.image, (0, 0))
 
 
 

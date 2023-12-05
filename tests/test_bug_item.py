@@ -3,8 +3,9 @@ import pygame
 import numpy as np
 from board import Board
 from models.falling_items.damage_falling_item import BugItem
+from utils import assets_library
 
-bug_image = pygame.image.load("assets/bug.png")
+bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
 
 
 class TestBugItem(unittest.TestCase):
@@ -18,10 +19,10 @@ class TestBugItem(unittest.TestCase):
 	def test_bug_item_init(self):
 		bug_item = BugItem(bug_image, self.test_board)
 
-		self.assertEqual(bug_item.width, 30)
-		self.assertEqual(bug_item.height, 30)
+		self.assertEqual(bug_item.width, 50)
+		self.assertEqual(bug_item.height, 50)
 		self.assertEqual(bug_item.y, 0)
-		self.assertEqual(bug_item.speed, 3)
+		self.assertEqual(bug_item.speed, 8)
 		self.assertEqual(bug_item.points, 10)
 		self.assertEqual(bug_item.damage, 30)
 
@@ -29,7 +30,7 @@ class TestBugItem(unittest.TestCase):
 		bug_item = BugItem(bug_image, self.test_board)
 		bug_item.draw(self.test_board)
 		bug = pygame.surfarray.array3d(bug_item.image)
-		loaded_bug = pygame.transform.scale(bug_image, (30, 30))
+		loaded_bug = pygame.transform.scale(bug_image, (50, 50))
 		bug_content = pygame.surfarray.array3d(loaded_bug)
 		diff = np.abs(bug_content - bug)
 		total_diff = np.sum(diff)
