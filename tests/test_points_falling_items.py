@@ -1,9 +1,8 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pygame
-import datetime
 from board import Board
-from models.falling_items.damage_falling_item import DamageFallingItem, WarningItem, ErrorItem, BugItem
+from models.falling_items.damage_falling_item import DamageFallingItem
 
 
 class TestPointsFallingItem(unittest.TestCase):
@@ -11,14 +10,14 @@ class TestPointsFallingItem(unittest.TestCase):
 		pygame.init()
 		self.board = pygame.display.set_mode((800, 600))
 		self.test_board = Board("Test Board", (800, 600), 60)
+		self.test_board.board = MagicMock(spec=pygame.surface.Surface)
 
 	@patch('pygame.image.load')
 	@patch('pygame.transform.scale')
 	@patch('pygame.surface.Surface')
 	def test_disappear_progress_zero(self, mock_scale, mock_load, mock_surface):
 		item = DamageFallingItem("Test", mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
-		stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
-		item.disappear(stop_time)
+		item.disappear()
 		disappearance_progress = 0
 		item_width = max(30, int(30 + 90 * (1 - disappearance_progress)))
 		item_height = max(30, int(30 + 90 * (1 - disappearance_progress)))
@@ -31,8 +30,7 @@ class TestPointsFallingItem(unittest.TestCase):
 	@patch('pygame.surface.Surface')
 	def test_disappear_progress_two_third_left(self, mock_scale, mock_load, mock_surface):
 		item = DamageFallingItem("Test", mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
-		stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
-		item.disappear(stop_time)
+		item.disappear()
 		disappearance_progress = -1/3
 		item_width = max(30, int(30 + 90 * (1 - disappearance_progress)))
 		item_height = max(30, int(30 + 90 * (1 - disappearance_progress)))
@@ -45,8 +43,7 @@ class TestPointsFallingItem(unittest.TestCase):
 	@patch('pygame.surface.Surface')
 	def test_disappear_progress_one_third_left(self, mock_scale, mock_load, mock_surface):
 		item = DamageFallingItem("Test", mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
-		stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
-		item.disappear(stop_time)
+		item.disappear()
 		disappearance_progress = -2/3
 		item_width = max(30, int(30 + 90 * (1 - disappearance_progress)))
 		item_height = max(30, int(30 + 90 * (1 - disappearance_progress)))

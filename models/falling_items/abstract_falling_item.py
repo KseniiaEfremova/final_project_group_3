@@ -5,13 +5,6 @@ import pygame
 import datetime
 from board import Board
 
-long_stop = datetime.datetime.utcnow() + datetime.timedelta(
-	seconds=3)
-medium_stop = datetime.datetime.utcnow() + datetime.timedelta(
-	seconds=2)
-short_stop = datetime.datetime.utcnow() + datetime.timedelta(
-	seconds=1)
-
 
 class FallingItem(ABC, pygame.sprite.Sprite):
 	def __init__(self, name, image, speed, damage, points, width, height, x, y,
@@ -30,24 +23,25 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 		self.rect.center = (x, y)
 		self.board_instance = board_instance
+		self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=3)
 		self.spawn()
 
 	def spawn(self):
 		self.x = random.randint(0, 770)
-		self.y = random.randint(-500, -100)
+		self.y = random.randint(-400, -100)
 		self.rect.x = self.x
 		self.rect.y = self.y
 		return self.x, self.y
 
 	@abstractmethod
-	def disappear(self, stop_time):
+	def disappear(self):
 		pass
 
-	def fall(self, stop_time):
+	def fall(self):
 		self.y += self.speed
 		self.rect.y = self.y
 		if self.y > 500:
-			self.disappear(stop_time)
+			self.disappear()
 
 	def draw(self, board_instance):
 		board_instance.board.blit(self.image, (self.x - self.width,

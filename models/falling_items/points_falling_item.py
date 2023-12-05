@@ -9,16 +9,14 @@ class PointsFallingItem(FallingItem, ABC):
             name, image, speed, damage, points, width, height, x, y, board_instance
         )
 
-    def draw(self, board_instance):
-            board_instance.board.blit(self.image, (self.x, self.y))
-
-    def disappear(self, stop_time):
+    def disappear(self):
         self.y = 500
-        if datetime.datetime.utcnow() > stop_time:
+        if datetime.datetime.utcnow() > self.stop_time:
             self.y = 500
             self.rect.y = 500
             self.kill()
             self.spawn()
+            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=4)
 
 
 class TickItem(PointsFallingItem, ABC):
