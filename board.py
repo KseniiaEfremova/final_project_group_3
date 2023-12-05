@@ -15,6 +15,7 @@ class Board:
         self.board = pygame.display.set_mode(self.res)
         self.board_surface = pygame.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
         self.pause = False
+        self.over = False
     
     def display_board(self):
         pygame.display.set_caption(self.name)
