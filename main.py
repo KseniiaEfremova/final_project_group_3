@@ -12,12 +12,14 @@ from utils import assets_library
 from menu.game_over_menu import GameOverMenu
 
 
-def reset_game(player, falling, winning_menu):
+def reset_game(player, falling, winning_menu, is_winner=False):
     player.reset_player_stats()
     player.level = 1
     falling.falling_items.empty()
     winning_menu.play_again = False
-    player.toggle_is_winner()
+    player.points = 0
+    if is_winner:
+        player.toggle_is_winner()
 
 
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
@@ -35,6 +37,7 @@ def run():
     timer_seconds = 60
     start_time = time.time()
     paused_time = 0
+    game_over_menu = GameOverMenu(game_board)
     while True:
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
@@ -55,7 +58,7 @@ def run():
                 game_board.update_display()
 
                 if restart_game_over_menu:
-                    reset_game(player, falling, is_winner=False)
+                    reset_game(player, falling,winning_menu, is_winner=False)
                     game_board.update_display()
                     start_time = time.time()
 
@@ -87,7 +90,7 @@ def run():
                     game_board.update_display()
 
         elif is_winner and restart:
-            reset_game(player, falling, winning_menu)
+            reset_game(player, falling, winning_menu,is_winner=True)
             game_board.update_display()
 
         else:
