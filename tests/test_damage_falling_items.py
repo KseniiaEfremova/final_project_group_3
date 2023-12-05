@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 import pygame
 from unittest.mock import MagicMock
 import datetime
@@ -7,19 +8,17 @@ from models.falling_items.damage_falling_item import DamageFallingItem
 
 
 class TestDamageFallingItem(unittest.TestCase):
-	def __init__(self, methodName: str = ...):
-		super().__init__(methodName)
-		self.mock_surface = MagicMock()
 
 	def setUp(self):
 		pygame.init()
 		self.board = pygame.display.set_mode((800, 600))
 		self.test_board = Board("Test Board", (800, 600), 60)
-		pygame.image.load = MagicMock()
-		pygame.transform.scale = MagicMock()
 
-	def test_disappear_progress_zero(self):
-		item = DamageFallingItem("Test", self.mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
+	@patch('pygame.image.load')
+	@patch('pygame.transform.scale')
+	@patch('pygame.surface.Surface')
+	def test_disappear_progress_zero(self, mock_scale, mock_load, mock_surface):
+		item = DamageFallingItem("Test", mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
 		stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
 		item.disappear(stop_time)
 		disappearance_progress = 0
@@ -29,8 +28,11 @@ class TestDamageFallingItem(unittest.TestCase):
 		self.assertEqual(item_width, 120)
 		self.assertEqual(item_height, 120)
 
-	def test_disappear_progress_two_third_left(self):
-		item = DamageFallingItem("Test", self.mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
+	@patch('pygame.image.load')
+	@patch('pygame.transform.scale')
+	@patch('pygame.surface.Surface')
+	def test_disappear_progress_two_third_left(self, mock_scale, mock_load, mock_surface):
+		item = DamageFallingItem("Test", mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
 		stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
 		item.disappear(stop_time)
 		disappearance_progress = -1/3
@@ -40,8 +42,11 @@ class TestDamageFallingItem(unittest.TestCase):
 		self.assertEqual(item_width, 150)
 		self.assertEqual(item_height, 150)
 
-	def test_disappear_progress_one_third_left(self):
-		item = DamageFallingItem("Test", self.mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
+	@patch('pygame.image.load')
+	@patch('pygame.transform.scale')
+	@patch('pygame.surface.Surface')
+	def test_disappear_progress_one_third_left(self, mock_scale, mock_load, mock_surface):
+		item = DamageFallingItem("Test", mock_surface, 8, 5, 10, 30, 30, 0,0, self.test_board)
 		stop_time = datetime.datetime(2023, 1, 1, 0, 0, 0)
 		item.disappear(stop_time)
 		disappearance_progress = -2/3
@@ -53,5 +58,6 @@ class TestDamageFallingItem(unittest.TestCase):
 
 	def tearDown(self):
 		pygame.quit()
+		patch.stopall()
 
 

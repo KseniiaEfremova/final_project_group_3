@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import patch
 import pygame
 import numpy as np
-from datetime import datetime, timedelta
 from board import Board
 from models.falling_items.damage_falling_item import BugItem
 from utils import assets_library
