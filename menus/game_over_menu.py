@@ -1,6 +1,6 @@
 import pygame
 from board import Board
-from menu.menu import Menu
+from menus.menu import Menu
 import sys
 from models.components.button import Button
 

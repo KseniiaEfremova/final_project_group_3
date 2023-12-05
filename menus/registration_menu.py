@@ -1,10 +1,10 @@
 import pygame
 from user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
 from board import Board
-from button import Button
-from input_box import InputBox
+from models.components.button import Button
+from models.components.input_box import InputBox
 from menus.menu import Menu
-from text_drawer import TextDrawer
+from models.components.text_drawer import TextDrawer
 from utils import assets_library
 
 pygame.font.init()
