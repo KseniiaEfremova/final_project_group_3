@@ -1,7 +1,7 @@
 import pygame
 import sys
 from board import Board
-from menu.menu import Menu
+from menus.menu import Menu
 from models.components.button import Button
 from utils import assets_library
 

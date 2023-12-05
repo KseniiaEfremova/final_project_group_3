@@ -5,11 +5,13 @@ from models.stats.life import Life
 from models.stats.level import Level
 from models.stats.timer import Timer
 from models.stats.points import Points
-from menu.pause_menu import PauseMenu
-from menu.winning_menu import WinningMenu
+from menus.pause_menu import PauseMenu
+from menus.winning_menu import WinningMenu
 from decorators.sounds import Sounds
 from utils import assets_library
+from menus.registration_menu import RegistrationMenu
 from menu.game_over_menu import GameOverMenu
+
 
 
 def reset_game(player, falling, winning_menu, is_winner=False):
@@ -34,10 +36,17 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 60
-    start_time = time.time()
-    paused_time = 0
+    timer_seconds = 10
     game_over_menu = GameOverMenu(game_board)
+    paused_time = 0
+
+    registration_menu = RegistrationMenu(game_board)
+
+    while registration_menu.registration:
+        registration_menu.process_registration()
+
+    start_time = time.time()
+    
     while True:
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
