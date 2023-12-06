@@ -12,7 +12,7 @@ font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 class HistoryMenu(Menu):
     """ Represents the history menu for users to see their stats"""
-    def __init__(self, board_instance, history=True):
+    def __init__(self, board_instance: Board, history=True):
         super().__init__(board_instance)
         self.history = history
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
@@ -65,7 +65,7 @@ class HistoryMenu(Menu):
 
         self.exit_button.process()
         pygame.display.update()
-   
+        
         
     def process_history(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
