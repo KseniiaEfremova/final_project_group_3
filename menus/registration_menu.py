@@ -6,6 +6,7 @@ from models.components.input_box import InputBox
 from menus.menu import Menu
 from models.components.text_drawer import TextDrawer
 from utils import assets_library
+from pygame.locals import *
 
 pygame.font.init()
 font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
@@ -39,6 +40,8 @@ class RegistrationMenu(Menu):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
         for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
         if self.submit_btn.alreadyPressed:
