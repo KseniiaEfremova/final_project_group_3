@@ -11,6 +11,8 @@ from decorators.sounds import Sounds
 from utils import assets_library
 from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
+from menus.history_menu import HistoryMenu
+
 
 
 
@@ -41,9 +43,13 @@ def run():
     paused_time = 0
 
     registration_menu = RegistrationMenu(game_board)
+    history_menu = HistoryMenu(game_board)
 
-    while registration_menu.registration:
-        registration_menu.process_registration()
+    # while registration_menu.registration:
+    #     registration_menu.process_registration()
+
+    while history_menu.history:
+        history_menu.draw()
 
     start_time = time.time()
     
