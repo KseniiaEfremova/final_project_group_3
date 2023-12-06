@@ -164,3 +164,51 @@ def add_valid_user_data_to_db(username: str, password: str):
     # User does not exist, proceed with adding user data to the database
     hashed_password = hash_password(password)
     insert_new_user(DB_NAME, users_table, username, hashed_password)
+
+
+#  login menu
+
+def get_password_by_username(db_name: str, table_name: str, username: str):
+    """
+    Retrieve the hashed password for a given username from the database.
+
+    Returns: Optional[str]: The hashed password if the username is found; otherwise, None.
+    """
+    user_id = None
+    try:
+        cursor, db_connection = get_cursor_and_connection(db_name)
+        print("Connected to DB: %s" % db_name)
+        query = """SELECT password FROM {}
+        WHERE username = %s
+        """.format(table_name)
+        cursor.execute(query, (username,))
+        user_id = cursor.fetchall()
+        cursor.close()
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+    # If no user_id is found, return None; otherwise, return the hashed password
+    if not user_id:
+        return
+    return user_id[0][0]
+
+
+def check_passwords(input_password, stored_password):
+    """
+    Check if the input password matches the stored hashed password.
+
+    Args:
+        input_password (str): The user-provided password.
+        stored_password (str): The hashed password stored in the database.
+
+    Returns:
+        bool: True if the passwords match; otherwise, False.
+    """
+    hashed_input_password = hash_password(input_password)
+    return hashed_input_password == stored_password
