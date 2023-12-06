@@ -24,4 +24,5 @@ jobs:
 
       - name: Test
         run: |
-          pipenv run python -m unittest tests
+          pipenv run python -m unittest test_runner
+

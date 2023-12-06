@@ -1,10 +1,19 @@
+import os
+
+
+def get_path_from_root(path_to_file):
+    root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    return f"{root_path}/{path_to_file}"
+
+
 assets_library = {
     'backgrounds': {
         'start': 'assets/backgrounds/start.jpg',
         'game_over': 'assets/backgrounds/game_over.png',
         'main_background': 'assets/backgrounds/background.jpg',
         'win': 'assets/backgrounds/fireworks_win.jpg',
-        'level_up': 'assets/backgrounds/level_up.png'
+        'level_up': 'assets/backgrounds/level_up.png',
+        'registration_page': 'assets/backgrounds/registration.png'
     },
     'fonts': {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',
@@ -85,4 +94,3 @@ assets_library = {
         'warning': 'assets/sprites/warning.png'
     }
 }
-
