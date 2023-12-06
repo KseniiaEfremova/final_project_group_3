@@ -14,7 +14,7 @@ class TestInputBox(unittest.TestCase):
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
         self.input = InputBox(0, 0, 100, 50, "Test Input", self.test_board)
-        self.mock_surface = pygame.surface.Surface((100, 100))
+
     def test_input_initialization(self):
 
         self.assertEqual(self.input.rect, (0, 0, 100, 50))
@@ -62,4 +62,5 @@ class TestInputBox(unittest.TestCase):
 
     def tearDown(self):
         pygame.quit()
+        pygame.font.quit()
         patch.stopall()
