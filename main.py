@@ -13,7 +13,6 @@ from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
 
 
-
 def reset_game(player, falling, winning_menu, is_winner=False):
     player.reset_player_stats()
     player.level = 1
@@ -107,6 +106,7 @@ def run():
             game_board.update_display()
 
         game_board.update_display()
+
 
 if __name__ == '__main__':
     run()
