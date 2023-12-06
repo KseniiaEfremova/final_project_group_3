@@ -57,6 +57,9 @@ class TestInputBox(unittest.TestCase):
         self.assertTrue(self.input.text, "Test Input")
         self.assertTrue(self.input.color, pygame.Color('gray15'))
 
+    def test_get_user_text(self):
+        self.assertEqual(self.input.text, "Test Input")
+
     def tearDown(self):
         pygame.quit()
         patch.stopall()
