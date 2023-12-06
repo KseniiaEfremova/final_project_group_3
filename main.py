@@ -100,6 +100,7 @@ def run():
 
         elif is_winner and restart:
             reset_game(player, falling, winning_menu,is_winner=True)
+            start_time = time.time()
             game_board.update_display()
 
         else:
