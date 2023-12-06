@@ -71,3 +71,4 @@ class HistoryMenu(Menu):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
         self.history = False
+        self.exit_button.onePress = False
