@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
+import time
 from db_utils import connect_to_mysql_database, get_cursor_and_connection, create_database, connect_to_database_or_create_if_not_exists
 
 
@@ -34,9 +35,10 @@ class TestDatabaseConnection(unittest.TestCase):
             self.fail(f"Failed to get cursor and connection: {e}")
 
     def test_create_database(self):
-        with unittest.mock.patch(
+        try:
+            with unittest.mock.patch(
                 'db_utils.mysql.connector.connect',
-                return_value=self.mock_connection):
+                    return_value=self.mock_connection):
 
                 db_name = 'test_db'
 
@@ -44,4 +46,21 @@ class TestDatabaseConnection(unittest.TestCase):
 
                 expected_sql = "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(db_name)
                 self.mock_cursor.execute.assert_called_once_with(expected_sql)
+        except Exception as e:
+            self.fail("Failed creating database: {}".format(e))
+
+    def test_connect_to_database_or_create_if_not_exists(self):
+        try:
+            with unittest.mock.patch(
+                'db_utils.mysql.connector.connect',
+                    return_value=self.mock_connection):
+
+                db_name = 'test_db'
+
+                connect_to_database_or_create_if_not_exists(db_name)
+
+                expected_sql = "USE {}".format(db_name)
+                self.mock_cursor.execute.assert_called_once_with(expected_sql)
+        except Exception as e:
+            self.fail("Database {} does not exist.".format(db_name))
 
