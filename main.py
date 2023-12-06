@@ -14,15 +14,6 @@ from menus.game_over_menu import GameOverMenu
 from menus.history_menu import HistoryMenu
 
 
-def show_history_menu():
-    history_menu.draw()
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
 def reset_game(player, falling, winning_menu, is_winner=False):
     player.reset_player_stats()
     player.level = 1
@@ -50,9 +41,7 @@ def run():
     paused_time = 0
 
     registration_menu = RegistrationMenu(game_board)
-    history_menu = HistoryMenu(game_board)
-    game_board.display_board()
-    
+    history_menu = HistoryMenu(game_board)  
 
     # while registration_menu.registration:
     #     registration_menu.process_registration()
@@ -66,7 +55,7 @@ def run():
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
         restart_game_over_menu = game_over_menu.get_restart_game()
-        # game_board.display_board()
+        game_board.display_board()
         game_board.draw_background()
 
         if not is_winner:

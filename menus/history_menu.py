@@ -109,7 +109,7 @@ class HistoryMenu(Menu):
 
 ##########################################################
 
-## TEST CLASS - Another way bliting the for loops for the table
+## TEST CLASS - Another way bliting the player data from for loops 
 
 # class HistoryMenu(Menu):
 #     """ Represents the history menu for users to see their stats"""
