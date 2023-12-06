@@ -18,7 +18,6 @@ class InputBox:
        - text (str): The initial text in the input box.
        - board_instance (Board): The instance of the game board.
        """
-        super().__init__()
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.active = False
