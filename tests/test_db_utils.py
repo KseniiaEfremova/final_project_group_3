@@ -32,3 +32,16 @@ class TestDatabaseConnection(unittest.TestCase):
                 db_connection.close()
         except Exception as e:
             self.fail(f"Failed to get cursor and connection: {e}")
+
+    def test_create_database(self):
+        with unittest.mock.patch(
+                'db_utils.mysql.connector.connect',
+                return_value=self.mock_connection):
+
+                db_name = 'test_db'
+
+                create_database(db_name)
+
+                expected_sql = "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(db_name)
+                self.mock_cursor.execute.assert_called_once_with(expected_sql)
+
