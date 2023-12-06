@@ -54,8 +54,8 @@ def run():
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)  
 
-    while registration_menu.registration:
-        registration_menu.process_registration()
+    # while registration_menu.registration:
+    #     registration_menu.process_registration()
         
     while login_menu.login:
         username = login_menu.process_login()
