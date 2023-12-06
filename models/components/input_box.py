@@ -43,7 +43,7 @@ class InputBox:
 
         text_surface = font.render(self.text, True, (255, 255, 255))
         self.board_instance.board.blit(text_surface, (self.rect.x + 5, self.rect.y + 4))
-        self.rect.w = max(150, text_surface.get_width() + 10)
+        self.rect.w = max(300, text_surface.get_width() + 10)
 
     def get_user_text(self):
         """
