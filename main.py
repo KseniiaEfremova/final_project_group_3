@@ -49,7 +49,7 @@ def run():
     #     registration_menu.process_registration()
 
     while history_menu.history:
-        history_menu.draw()
+        history_menu.process_history()
 
     start_time = time.time()
     
