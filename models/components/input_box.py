@@ -21,6 +21,7 @@ class InputBox:
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.active = False
+        self.color = pygame.Color('gray15')
         self.board_instance = board_instance
 
     # Handle mouse and keyboard events for the input box.
@@ -35,12 +36,12 @@ class InputBox:
             else:
                 self.text += event.unicode
 
-    # Draw the input box on the game board.
     def draw_box(self):
-        color = pygame.Color('chartreuse3') if self.active else pygame.Color('gray15')
-        pygame.draw.rect(self.board_instance.board, color, self.rect, 2)
+        self.color = pygame.Color('gray15') if not self.active else pygame.Color("chartreuse3")
+        pygame.draw.rect(self.board_instance.board, self.color, self.rect, 2)
 
         text_surface = font.render(self.text, True, (255, 255, 255))
+
         self.board_instance.board.blit(text_surface, (self.rect.x + 5, self.rect.y + 4))
         self.rect.w = max(150, text_surface.get_width() + 10)
 
