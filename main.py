@@ -12,6 +12,7 @@ from utils import assets_library
 from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
 from menus.history_menu import HistoryMenu
+import sys
 
 
 def reset_game(player, falling, winning_menu, is_winner=False):
@@ -23,7 +24,15 @@ def reset_game(player, falling, winning_menu, is_winner=False):
     if is_winner:
         player.toggle_is_winner()
 
-
+def show_history_menu(history_menu):
+    history_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
@@ -46,8 +55,9 @@ def run():
     # while registration_menu.registration:
     #     registration_menu.process_registration()
 
+
     while history_menu.history:
-        history_menu.process_history()
+        show_history_menu(history_menu)
         
     start_time = time.time()
     
