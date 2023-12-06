@@ -1,5 +1,4 @@
 import pygame
-from board import Board
 
 pygame.font.init()
 font = pygame.font.Font(None, 24)
