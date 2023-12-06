@@ -1,4 +1,5 @@
 from board import Board
+from menus.login_menu import LoginMenu
 from models.player import Player
 from models.falling_items.falling_items_factory import *
 from models.stats.life import Life
@@ -41,9 +42,14 @@ def run():
     paused_time = 0
 
     registration_menu = RegistrationMenu(game_board)
+    login_menu = LoginMenu(game_board)
 
     while registration_menu.registration:
         registration_menu.process_registration()
+
+    while login_menu.login:
+        username = login_menu.process_login()
+
 
     start_time = time.time()
     
