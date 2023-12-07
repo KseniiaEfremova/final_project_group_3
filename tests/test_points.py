@@ -1,11 +1,10 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 import pygame
 from board import Board
 from models.player import Player
 from models.falling_items.falling_items_factory import FallingItemsFactory
 from models.stats.points import Points
-from utils import assets_library
 
 
 class TestPoints(unittest.TestCase):
@@ -20,6 +19,7 @@ class TestPoints(unittest.TestCase):
         self.points = Points(self.test_player, self.test_board)
 
     def test_level_initialization(self):
+
         self.assertEqual(self.points.board_instance, self.test_board)
         self.assertEqual(self.points.x, 500)
         self.assertEqual(self.points.y, 75)
@@ -28,14 +28,17 @@ class TestPoints(unittest.TestCase):
     def test_update(self):
         self.test_player.points = 0
         self.points.update()
+
         self.assertEqual(self.points.points, 0)
 
         self.test_player.points = 999
         self.points.update()
+
         self.assertEqual(self.points.points, 999)
 
         self.test_player.points = -564
         self.points.update()
+
         self.assertEqual(self.points.points, -564)
 
     def test_draw(self):

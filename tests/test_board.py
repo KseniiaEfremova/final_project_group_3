@@ -36,6 +36,7 @@ class TestBoard(unittest.TestCase):
         frames = 60
         test_board = Board(name, res, frames)
         test_result = test_board.update_display()
+
         self.assertEqual(test_result, 'Display updated')
 
     def test_draw_background(self):

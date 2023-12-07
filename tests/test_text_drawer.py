@@ -1,9 +1,8 @@
 import unittest
 import pygame
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from board import Board
 from models.components.text_drawer import TextDrawer
-from utils import assets_library
 
 
 class TestTextDrawer(unittest.TestCase):
