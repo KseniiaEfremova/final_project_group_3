@@ -45,7 +45,11 @@ class Button:
         """
         Process the button's behavior, including handling mouse interactions and rendering.
         """
+        print(self.buttonText)
+        print(font)
+        print(font.render)
         buttonSurf = font.render(self.buttonText, True, (255, 255, 255))
+
         mousePos = pygame.mouse.get_pos()
         self.buttonSurface.fill(self.fillColors['normal'])
         if self.buttonRect.collidepoint(mousePos):
@@ -66,4 +70,4 @@ class Button:
             self.buttonRect.width / 2 - buttonSurf.get_rect().width / 2,
             self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2
         ])
-        self.board_instance.board.blit(self.buttonSurface, self.buttonRect)
+        # self.board_instance.board.blit(self.buttonSurface, self.buttonRect)

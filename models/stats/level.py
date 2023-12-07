@@ -5,12 +5,12 @@ from models.player import Player
 from board import Board
 from utils import assets_library
 
-#[<Surface(1008x811x32 SW)>, <Surface(1014x811x32 SW)>, <Surface(1026x811x32 SW)>]
+
 class Level(Stats, ABC):
 	def __init__(self, player_instance: Player, board_instance: Board):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
-		self.level = self.player_instance.get_level() - 1
+		self.level = self.player_instance.get_level()
 		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level1']))
 		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level2']))
 		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level3']))
@@ -27,6 +27,7 @@ class Level(Stats, ABC):
 		self.current_sprite = self.player_instance.get_level() - 1
 		if self.current_sprite > 2:
 			self.current_sprite = 2
+		return self.current_sprite
 
 	def draw(self, board_instance, **kwargs):
 		self.update()

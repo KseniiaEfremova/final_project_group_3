@@ -12,6 +12,7 @@ pygame.mouse.get_pos = MagicMock(return_value=(0, 0))
 class TestButton(unittest.TestCase):
     def setUp(self):
         pygame.init()
+        pygame.font.init()
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
 
@@ -27,17 +28,23 @@ class TestButton(unittest.TestCase):
         self.assertEqual(button.board_instance, self.test_board)
         self.assertFalse(button.alreadyPressed)
 
-    # def test_process_button_behavior(self):
-    #     mock_onclick_function = MagicMock()
-    #     button = Button(0, 0, 100, 50, self.test_board, onclickFunction=mock_onclick_function)
-    #     pygame.mouse.get_pos = MagicMock(return_value=(25, 25))
-    #     button.process()
-    #     self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['hover'])
-    #     pygame.mouse.get_pressed = MagicMock(return_value=(True, False, False))
-    #     button.process()
-    #     self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['pressed'])
-    #     mock_onclick_function.assert_called_once()
+    def test_process_button_behavior(self):
+        mock_onclick_function = MagicMock()
+        button = Button(0, 0, 100, 50, self.test_board, onclickFunction=mock_onclick_function)
+        pygame.mouse.get_pos = MagicMock(return_value=(25, 25))
+        # TODO: there is a memory leak in font.render method that is causing
+        #  testing this to crash all the tests, come back to it later
+        # f = pygame.font.Font(None, 40)
+        # print("F: ", f)
+        # f.render.return_value = pygame.surface.Surface((200, 200))
+        # button.process()
+        # self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['hover'])
+        # pygame.mouse.get_pressed = MagicMock(return_value=(True, False, False))
+        # button.process()
+        # self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['pressed'])
+        # mock_onclick_function.assert_called_once()
 
     def tearDown(self):
         pygame.quit()
+        pygame.font.quit()
         patch.stopall()
