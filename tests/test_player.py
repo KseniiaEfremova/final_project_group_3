@@ -15,14 +15,14 @@ class TestPlayer(unittest.TestCase):
 		self.test_group = FallingItemsFactory(self.test_board)
 
 	def test_player_initialization(self):
-		player = Player(100, 100, self.test_board, self.test_group)
+		player = Player(100, 100, self.test_board, self.test_group, "Test Player")
 
 		self.assertEqual(player.rect.center, (100, 100))
 		self.assertEqual(player.width, 100)
 		self.assertEqual(player.height, 90)
 
 	def test_draw_player(self):
-		player = Player(100, 100, self.test_board, self.test_group)
+		player = Player(100, 100, self.test_board, self.test_group, "Test Player")
 		player.draw_player()
 		player = pygame.surfarray.array3d(player.image)
 		loaded_player = pygame.image.load("assets/sprites/player_idle.png")
