@@ -43,13 +43,12 @@ class Life(Stats, ABC):
 	def update(self):
 		self.images = []
 		self.lives = self.player_instance.get_lives()
-		print(self.lives)
-		damage_remainder = self.lives % 30
+		damage_remainder = self.lives % 30 if self.lives > 0 else 1
 		if self.lives >= 60:
 			first_sprite = 0
 			second_sprite = 0
 			third_sprite = self.pick_image_index(damage_remainder)
-		elif 30 <= self.lives < 60:
+		elif 30 < self.lives < 60:
 			first_sprite = 0
 			second_sprite = self.pick_image_index(damage_remainder)
 			third_sprite = 5
@@ -71,6 +70,7 @@ class Life(Stats, ABC):
 		self.images.append(first_image)
 		self.images.append(second_image)
 		self.images.append(third_image)
+		return self.images
 
 	def draw(self, board_instance, **kwargs):
 		self.update()

@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import pygame
-import datetime
 from board import Board
 from models.falling_items.damage_falling_item import DamageFallingItem
 
