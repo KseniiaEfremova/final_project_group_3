@@ -17,8 +17,6 @@ class HistoryMenu(Menu):
         super().__init__(board_instance)
         self.history = True
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
-        self.text_drawer = TextDrawer(self.board_instance)
-        self.exit_button = Button(450, 500, 150, 40, self.board_instance, buttonText='Exit', onclickFunction=self.exit_game_handler, onePress=False)
         self.column_names = ["Username", "Points", "Life", "Level"]
 
     def get_history_data(self):
