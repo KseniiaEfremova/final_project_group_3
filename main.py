@@ -1,3 +1,5 @@
+import pygame.display
+
 from board import Board
 from models.player import Player
 from models.falling_items.falling_items_factory import *
@@ -11,7 +13,7 @@ from decorators.sounds import Sounds
 from utils import assets_library
 from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
-
+from menus.starting_menu import StartingMenu, show_starting_menu
 
 
 def reset_game(player, falling, winning_menu, is_winner=False):
@@ -28,6 +30,7 @@ def reset_game(player, falling, winning_menu, is_winner=False):
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
+    start_menu = StartingMenu(game_board)
     pause_menu = PauseMenu(game_board)
     winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
@@ -42,10 +45,13 @@ def run():
 
     registration_menu = RegistrationMenu(game_board)
 
-    while registration_menu.registration:
-        registration_menu.process_registration()
+    # while registration_menu.registration:
+    #     registration_menu.process_registration()
 
-    start_time = time.time()
+    while start_menu.start:
+        show_starting_menu(start_menu)
+
+        start_time = time.time()
     
     while True:
         is_winner = player.get_is_winner()
