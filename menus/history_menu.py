@@ -2,6 +2,7 @@ import pygame
 import sys
 from menus.menu import Menu
 from db_utils import get_cursor_and_connection
+from history import get_history_data
 from board import Board
 from models.components.button import Button
 from models.components.text_drawer import TextDrawer
@@ -19,22 +20,6 @@ class HistoryMenu(Menu):
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.column_names = ["Username", "Points", "Life", "Level"]
 
-    def get_history_data(self):
-        cursor, db_connection = get_cursor_and_connection("game_users_db")
-        try:
-            query = """SELECT u.username, g.points, g.life, g.level
-                       FROM users AS u
-                       JOIN game_statistics AS g ON u.user_id = g.user_id
-                       ORDER BY g.level DESC, g.points DESC
-                       LIMIT 8
-                    """
-            cursor.execute(query)
-            return cursor.fetchall()
-        
-        finally:
-            cursor.close()
-            db_connection.close()
-
         
     def get_play_again(self):
         return self.play_again
@@ -50,7 +35,7 @@ class HistoryMenu(Menu):
         
         
     def draw(self):
-        player_data = self.get_history_data()
+        player_data = get_history_data()
         background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         background_image = pygame.transform.scale(background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
