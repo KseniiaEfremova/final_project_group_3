@@ -81,8 +81,10 @@ class HistoryMenu(Menu):
 
         play_button = Button(200, 550, 150, 40, self.board_instance, buttonText='Play', onclickFunction=self.play_again_handler, onePress=False)
         exit_button = Button(450, 550, 150, 40, self.board_instance, buttonText='Exit', onclickFunction=self.exit_game_handler, onePress=False)
+        back_button = Button(20, 10, 200, 40, self.board_instance, 'BACK TO MENU')
         play_button.process()
         exit_button.process()
+        back_button.process()
 
         pygame.display.update()
         self.history = False
