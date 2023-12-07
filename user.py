@@ -5,6 +5,7 @@ import hashlib
 
 DB_NAME = "game_users_db"
 users_table = "users"
+statistics_table = "game_statistics"
 
 
 # adding new user
@@ -21,7 +22,7 @@ def insert_new_user(db_name, table_name, username, password):
 
         # insert user's initial statistics in the game_statistics table
         user_id = get_user_id(db_name, table_name, username)
-        update_user_statistics(db_name, "game_statistics", user_id)
+        initial_user_statistics(db_name, "game_statistics", user_id)
         print(f"\nNew user '{username}' has been successfully added into the database!")
     finally:
         if db_connection:
@@ -29,17 +30,36 @@ def insert_new_user(db_name, table_name, username, password):
             print("DB connection is closed")
 
 
-def update_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
+def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         print("Connected to DB: %s" % db_name)
 
         query = """INSERT INTO {} (user_id, points, life, level) VALUES ('{}', '{}', '{}', '{}')""".format(table_name, user_id, points, life, level)
-
+        
         cursor.execute(query)
         db_connection.commit()
         cursor.close()
-        print(f"\nThe user's statistics has been successfully updated!")
+        print(f"\nThe user's statistics have been successfully updated!")
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+
+def update_user_statistics(db_name, table_name, points, life, level, user_id):
+    try:
+        cursor, db_connection = get_cursor_and_connection(db_name)
+        print("Connected to DB: %s" % db_name)
+
+        query = """UPDATE {}
+        SET points = {}, life = {}, level = {}
+        WHERE user_id = {}""".format(table_name, points, life, level, user_id)
+        
+        cursor.execute(query)
+        db_connection.commit()
+        cursor.close()
+        print(f"\nThe user's statistics have been successfully updated!")
     finally:
         if db_connection:
             db_connection.close()
