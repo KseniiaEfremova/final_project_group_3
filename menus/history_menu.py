@@ -59,18 +59,18 @@ class HistoryMenu(Menu):
 
         # Draw title
         title_text = font.render("HISTORY", True, (255, 255, 255))
-        self.board_instance.board.blit(title_text, (150, 200))
+        self.board_instance.board.blit(title_text, (350, 180))
 
         # Draw column names
         column_x = 150
-        column_y = 250
+        column_y = 230
         for col_name in self.column_names:
             col_text = font.render(col_name, True, (255, 255, 255))
             self.board_instance.board.blit(col_text, (column_x, column_y))
             column_x += 150
 
         # Draw data
-        data_y = 300
+        data_y = 270
         for row in player_data:
             data_x = 150
             for value in row:
