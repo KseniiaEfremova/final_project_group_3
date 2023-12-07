@@ -25,6 +25,20 @@ class TestPoints(unittest.TestCase):
         self.assertEqual(self.points.y, 75)
         self.assertEqual(self.points.points, self.test_player.points)
 
+    def test_update(self):
+        self.test_player.points = 0
+        self.points.update()
+        self.assertEqual(self.points.points, 0)
+
+        self.test_player.points = 999
+        self.points.update()
+        self.assertEqual(self.points.points, 999)
+
+        self.test_player.points = -564
+        self.points.update()
+        self.assertEqual(self.points.points, -564)
+
+
 
     def tearDown(self):
         pygame.quit()
