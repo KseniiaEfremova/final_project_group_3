@@ -12,7 +12,6 @@ class TestLevel(unittest.TestCase):
 
     def setUp(self):
         pygame.init()
-        pygame.font.init()
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
         self.test_falling_items = FallingItemsFactory(self.test_board)
@@ -88,11 +87,28 @@ class TestLevel(unittest.TestCase):
 
         self.assertEqual(current_image_str, expected_image_str)
 
+    def test_display_level_up_image(self):
+        mock_board_instance = MagicMock()
 
-    def test_level_up_image(self):
-        pass
+        with patch('pygame.image.load') as mock_load, \
+                patch('pygame.transform.scale') as mock_scale, \
+                patch('pygame.display.update') as mock_display_update, \
+                patch('pygame.time.delay') as mock_time_delay:
+
+            mock_load.return_value = MagicMock()
+            mock_scale.return_value = MagicMock()
+
+            self.level.display_level_up_image(mock_board_instance)
+
+            mock_load.assert_called_once_with(
+                assets_library['backgrounds']['level_up'])
+            mock_scale.assert_called_once_with(mock_load.return_value,
+                                               (600, 600))
+            mock_board_instance.board.blit.assert_called_once_with(
+                mock_scale.return_value, (100, 0))
+            mock_display_update.assert_called_once()
+            mock_time_delay.assert_called_once_with(2000)
 
     def tearDown(self):
         pygame.quit()
-        pygame.font.quit()
         patch.stopall()
