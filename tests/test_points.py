@@ -13,6 +13,7 @@ class TestPoints(unittest.TestCase):
     def setUp(self):
         pygame.init()
         pygame.font.init()
+        self.font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 40)
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
         self.test_falling_items = FallingItemsFactory(self.test_board)
@@ -38,7 +39,13 @@ class TestPoints(unittest.TestCase):
         self.points.update()
         self.assertEqual(self.points.points, -564)
 
+    def test_draw(self):
+        mock_font = pygame.font.Font(None,36)
+        mock_color = (255, 255, 255)
+        self.points.points = 100
+        self.points.draw(self.test_board)
 
+        mock_font.render.assert_called_with(f"Points: {self.points.points}", True, (255, 255, 255))
 
     def tearDown(self):
         pygame.quit()

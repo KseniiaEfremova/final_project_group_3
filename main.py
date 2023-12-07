@@ -39,10 +39,10 @@ def run():
     game_over_menu = GameOverMenu(game_board)
     paused_time = 0
 
-    registration_menu = RegistrationMenu(game_board)
-
-    while registration_menu.registration:
-        registration_menu.process_registration()
+    # registration_menu = RegistrationMenu(game_board)
+    #
+    # while registration_menu.registration:
+    #     registration_menu.process_registration()
 
     start_time = time.time()
     
