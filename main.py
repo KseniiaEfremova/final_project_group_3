@@ -48,11 +48,11 @@ def run():
     # while registration_menu.registration:
     #     username = registration_menu.process_registration()
         
-    while login_menu.login:
-        username = login_menu.process_login()
+    # while login_menu.login:
+    #     username = login_menu.process_login()
         
-    # while history_menu.history:
-    #     show_history_menu(history_menu)
+    while history_menu.history:
+        show_history_menu(history_menu)
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
