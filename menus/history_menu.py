@@ -79,8 +79,8 @@ class HistoryMenu(Menu):
                 data_x += 150
             data_y += 30
 
-        play_button = Button(200, 500, 150, 40, self.board_instance, buttonText='Play', onclickFunction=self.play_again_handler, onePress=False)
-        exit_button = Button(450, 500, 150, 40, self.board_instance, buttonText='Exit', onclickFunction=self.exit_game_handler, onePress=False)
+        play_button = Button(200, 550, 150, 40, self.board_instance, buttonText='Play', onclickFunction=self.play_again_handler, onePress=False)
+        exit_button = Button(450, 550, 150, 40, self.board_instance, buttonText='Exit', onclickFunction=self.exit_game_handler, onePress=False)
         play_button.process()
         exit_button.process()
 
