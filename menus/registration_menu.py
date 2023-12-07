@@ -93,5 +93,5 @@ class RegistrationMenu(Menu):
                     background_image = pygame.image.load(assets_library['backgrounds']['main_background'])
                     self.board_instance.image = pygame.transform.scale(background_image, (800, 600))
                     pygame.display.update()
-                    return username, password
+                    return username
 
