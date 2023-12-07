@@ -41,14 +41,14 @@ def run():
     pause_menu = PauseMenu(game_board)
     winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
-    player = Player(800 - 725, 600 - 200, game_board, falling)
-    life = Life(player, game_board)
-    level = Level(player, game_board)
-    timer = Timer(player, game_board)
-    points = Points(player, game_board)
-    timer_seconds = 10
-    game_over_menu = GameOverMenu(game_board)
-    paused_time = 0
+    # player = Player(800 - 725, 600 - 200, game_board, falling, username)
+    # life = Life(player, game_board)
+    # level = Level(player, game_board)
+    # timer = Timer(player, game_board)
+    # points = Points(player, game_board)
+    # timer_seconds = 10
+    # game_over_menu = GameOverMenu(game_board)
+    # paused_time = 0
 
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
@@ -57,13 +57,21 @@ def run():
     # while registration_menu.registration:
     #     registration_menu.process_registration()
         
-    while login_menu.login:
-        username = login_menu.process_login()
+    # while login_menu.login:
+    #     username = login_menu.process_login()
         
     while history_menu.history:
         show_history_menu(history_menu)
 
-
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
+    life = Life(player, game_board)
+    level = Level(player, game_board)
+    timer = Timer(player, game_board)
+    points = Points(player, game_board)
+    timer_seconds = 10
+    game_over_menu = GameOverMenu(game_board)
+    paused_time = 0
+    
     start_time = time.time()
     
     while True:
@@ -82,6 +90,7 @@ def run():
             falling.draw()
 
             if life.lives <= 0:
+                player.update_db()
                 game_over_menu.draw()
                 game_board.update_display()
 
@@ -112,17 +121,20 @@ def run():
                         player.reset_player_stats()
 
             elif game_board.pause:
+                player.update_db()
                 if not paused_time:
                     paused_time = time.time()
                     pause_menu.draw()
                     game_board.update_display()
 
         elif is_winner and restart:
+            player.update_db()
             reset_game(player, falling, winning_menu,is_winner=True)
             start_time = time.time()
             game_board.update_display()
 
         else:
+            player.update_db()
             winning_menu.draw()
             game_board.update_display()
 

@@ -37,10 +37,19 @@ class HistoryMenu(Menu):
             cursor.close()
             db_connection.close()
 
-
+        
+    def get_play_again(self):
+        return self.play_again
+    
+    
+    def play_again_handler(self):
+        self.play_again = True
+        
+        
     def exit_game_handler(self):
         pygame.quit()
         sys.exit()
+        
         
     def draw(self):
         player_data = self.get_history_data()
@@ -70,7 +79,9 @@ class HistoryMenu(Menu):
                 data_x += 150
             data_y += 30
 
+        play_button = Button(200, 500, 150, 40, self.board_instance, buttonText='Play', onclickFunction=self.play_again_handler, onePress=False)
         exit_button = Button(450, 500, 150, 40, self.board_instance, buttonText='Exit', onclickFunction=self.exit_game_handler, onePress=False)
+        play_button.process()
         exit_button.process()
 
         pygame.display.update()
