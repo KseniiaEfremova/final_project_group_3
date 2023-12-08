@@ -60,17 +60,22 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(board_content.shape, background_content.shape)
         self.assertLessEqual(total_diff, allowable_diff)
 
-    # def test_quit_event_handling(self):
-    #     name = "TestBoard"
-    #     res = (800, 600)
-    #     frames = 60
-    #     test_board = Board(name, res, frames)
-    #
-    #     with patch('pygame.event.get', return_value=[MagicMock(type=pygame.QUIT)]):
-    #         with self.assertRaises(SystemExit):
-    #             test_falling = FallingItemsFactory(test_board)
-    #             test_player = Player(100, 100, test_board, test_falling, "Test Player")
-    #             test_board.display_board(test_player)
+    @patch('models.player.Player')
+    def test_quit_event_handling(self, mock_player):
+        name = "TestBoard"
+        res = (800, 600)
+        frames = 60
+        test_board = Board(name, res, frames)
+
+        mock_player_instance = mock_player.return_value
+        mock_player_instance.points = 100  # Set points attribute
+        mock_player_instance.life = 3      # Set life attribute
+        mock_player_instance.level = 1     # Set level attribute
+        mock_player_instance.user_id = 123
+
+        with patch('pygame.event.get', return_value=[MagicMock(type=pygame.QUIT)]):
+            with self.assertRaises(SystemExit):
+                test_board.display_board(mock_player_instance)
 
     def tearDown(self):
         pygame.quit()
