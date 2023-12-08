@@ -48,8 +48,15 @@ def run():
     # while registration_menu.registration:
     #     registration_menu.process_registration()
 
+    def show_registration_menu(registration_menu):
+        while registration_menu.registration:
+            registration_menu.process_registration()
+
     while start_menu.start:
         show_starting_menu(start_menu)
+        if start_menu.state == "registration":
+            show_registration_menu(registration_menu)
+            start_menu.state = "starting"
 
         start_time = time.time()
     
