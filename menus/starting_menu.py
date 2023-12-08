@@ -12,7 +12,6 @@ font = pygame.font.Font('assets/fonts/FukuCatch.otf', 30)
 class StartingMenu(Menu):
     def __init__(self, board_instance: Board):
         super().__init__(board_instance)
-        self.start = True
         self.state = "starting"
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.registration_button = Button(300, 250, 200, 40, self.board_instance, 'Registration',
@@ -52,24 +51,30 @@ class StartingMenu(Menu):
         self.board_instance.board.blit(text, (350, 180))
 
         self.registration_button.process()
-        # self.login_button.process()
-        # self.history_button.process()
-        # self.instructions_button.process()
-        # self.credits_button.process()
-        # pygame.display.update()
+        self.login_button.process()
+        self.history_button.process()
+        self.instructions_button.process()
+        self.credits_button.process()
+        pygame.display.update()
 
 
 def show_starting_menu(start_menu):
-    start_menu.draw()
-    pygame.display.update()
-    while True:
+    while start_menu.state == "starting":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-        for event in pygame.event.get():
+                start_menu.exit_game_handler()
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
 
                 if start_menu.registration_button.buttonRect.collidepoint(mouse_x, mouse_y):
                     start_menu.start_registration()
+
+        start_menu.draw()
+        pygame.display.update()
+        pygame.time.delay(10)
+
+
+def show_registration_menu(registration_menu):
+    while registration_menu.registration:
+        registration_menu.process_registration()

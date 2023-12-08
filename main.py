@@ -13,7 +13,7 @@ from decorators.sounds import Sounds
 from utils import assets_library
 from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
-from menus.starting_menu import StartingMenu, show_starting_menu
+from menus.starting_menu import StartingMenu, show_starting_menu, show_registration_menu
 
 
 def reset_game(player, falling, winning_menu, is_winner=False):
@@ -48,17 +48,14 @@ def run():
     # while registration_menu.registration:
     #     registration_menu.process_registration()
 
-    def show_registration_menu(registration_menu):
-        while registration_menu.registration:
-            registration_menu.process_registration()
-
-    while start_menu.start:
+    while start_menu.state == "starting":
         show_starting_menu(start_menu)
+
         if start_menu.state == "registration":
             show_registration_menu(registration_menu)
             start_menu.state = "starting"
 
-        start_time = time.time()
+    start_time = time.time()
     
     while True:
         is_winner = player.get_is_winner()
