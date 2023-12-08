@@ -5,6 +5,7 @@ import hashlib
 
 DB_NAME = "game_users_db"
 users_table = "users"
+statistics_table = "game_statistics"
 
 
 # adding new user
@@ -21,7 +22,7 @@ def insert_new_user(db_name, table_name, username, password):
 
         # insert user's initial statistics in the game_statistics table
         user_id = get_user_id(db_name, table_name, username)
-        update_user_statistics(db_name, "game_statistics", user_id)
+        initial_user_statistics(db_name, "game_statistics", user_id)
         print(f"\nNew user '{username}' has been successfully added into the database!")
     finally:
         if db_connection:
@@ -29,17 +30,36 @@ def insert_new_user(db_name, table_name, username, password):
             print("DB connection is closed")
 
 
-def update_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
+def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         print("Connected to DB: %s" % db_name)
 
         query = """INSERT INTO {} (user_id, points, life, level) VALUES ('{}', '{}', '{}', '{}')""".format(table_name, user_id, points, life, level)
-
+        
         cursor.execute(query)
         db_connection.commit()
         cursor.close()
-        print(f"\nThe user's statistics has been successfully updated!")
+        print(f"\nThe user's statistics have been successfully updated!")
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+
+def update_user_statistics(db_name, table_name, points, life, level, user_id):
+    try:
+        cursor, db_connection = get_cursor_and_connection(db_name)
+        print("Connected to DB: %s" % db_name)
+
+        query = """UPDATE {}
+        SET points = {}, life = {}, level = {}
+        WHERE user_id = {}""".format(table_name, points, life, level, user_id)
+        
+        cursor.execute(query)
+        db_connection.commit()
+        cursor.close()
+        print(f"\nThe user's statistics have been successfully updated!")
     finally:
         if db_connection:
             db_connection.close()
@@ -164,3 +184,51 @@ def add_valid_user_data_to_db(username: str, password: str):
     # User does not exist, proceed with adding user data to the database
     hashed_password = hash_password(password)
     insert_new_user(DB_NAME, users_table, username, hashed_password)
+
+
+#  login menu
+
+def get_password_by_username(db_name: str, table_name: str, username: str):
+    """
+    Retrieve the hashed password for a given username from the database.
+
+    Returns: Optional[str]: The hashed password if the username is found; otherwise, None.
+    """
+    user_id = None
+    try:
+        cursor, db_connection = get_cursor_and_connection(db_name)
+        print("Connected to DB: %s" % db_name)
+        query = """SELECT password FROM {}
+        WHERE username = %s
+        """.format(table_name)
+        cursor.execute(query, (username,))
+        user_id = cursor.fetchall()
+        cursor.close()
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+    # If no user_id is found, return None; otherwise, return the hashed password
+    if not user_id:
+        return
+    return user_id[0][0]
+
+
+def check_passwords(input_password, stored_password):
+    """
+    Check if the input password matches the stored hashed password.
+
+    Args:
+        input_password (str): The user-provided password.
+        stored_password (str): The hashed password stored in the database.
+
+    Returns:
+        bool: True if the passwords match; otherwise, False.
+    """
+    hashed_input_password = hash_password(input_password)
+    return hashed_input_password == stored_password

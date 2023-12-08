@@ -21,11 +21,12 @@ class Button:
         - onePress (bool): If True, the onclickFunction is executed only once on the first click (default is False).
         """
 
-        super().__init__()
+
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.buttonText = buttonText
         self.onclickFunction = onclickFunction
         self.onePress = onePress
         self.board_instance = board_instance
@@ -38,13 +39,17 @@ class Button:
         }
         self.buttonSurface = pygame.Surface((self.width, self.height))
         self.buttonRect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.buttonSurf = font.render(buttonText, True, (255, 255, 255))
         self.alreadyPressed = False
 
     def process(self):
         """
         Process the button's behavior, including handling mouse interactions and rendering.
         """
+        print(self.buttonText)
+        print(font)
+        print(font.render)
+        buttonSurf = font.render(self.buttonText, True, (255, 255, 255))
+
         mousePos = pygame.mouse.get_pos()
         self.buttonSurface.fill(self.fillColors['normal'])
         if self.buttonRect.collidepoint(mousePos):
@@ -61,8 +66,8 @@ class Button:
                 self.alreadyPressed = False
 
         # Center the text on the button and blit the button surface and text on the game board
-        self.buttonSurface.blit(self.buttonSurf, [
-            self.buttonRect.width / 2 - self.buttonSurf.get_rect().width / 2,
-            self.buttonRect.height / 2 - self.buttonSurf.get_rect().height / 2
+        self.buttonSurface.blit(buttonSurf, [
+            self.buttonRect.width / 2 - buttonSurf.get_rect().width / 2,
+            self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2
         ])
-        self.board_instance.board.blit(self.buttonSurface, self.buttonRect)
+        # self.board_instance.board.blit(self.buttonSurface, self.buttonRect)

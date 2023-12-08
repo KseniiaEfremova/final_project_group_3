@@ -17,10 +17,11 @@ class Board:
         self.pause = False
         self.over = False
     
-    def display_board(self):
+    def display_board(self, player):
         pygame.display.set_caption(self.name)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                player.update_db()
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:

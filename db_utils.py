@@ -58,7 +58,7 @@ def connect_to_database_or_create_if_not_exists(db_name):
         cursor, db_connection = get_cursor_and_connection(db_name)
         cursor.execute("USE {}".format(db_name))
     except mysql.connector.Error as err:
-        print("Database {} does not exists.".format(db_name))
+        print("Database {} does not exist.".format(db_name))
         if err.errno == errorcode.ER_BAD_DB_ERROR:
             create_database(db_name)
             print("Database {} created successfully.".format(db_name))

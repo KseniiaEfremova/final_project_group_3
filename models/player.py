@@ -4,10 +4,11 @@ from utils import assets_library
 from decorators.sounds import Sounds
 from models.falling_items.points_falling_item import PointsFallingItem
 from models.falling_items.damage_falling_item import DamageFallingItem
+from user import update_user_statistics, get_user_id, DB_NAME, users_table, statistics_table
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, board_instance: Board, falling_group):
+    def __init__(self, x, y, board_instance: Board, falling_group, name):
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -56,6 +57,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (x, y)
         self.board_instance = board_instance
         self.falling_group = falling_group
+        self.name = name
         self.life = 90
         self.points = 0
         self.level = 1
@@ -166,4 +168,6 @@ class Player(pygame.sprite.Sprite):
         self.loser = False
         return self.life, self.points, self.leveled_up, self.loser
 
-
+    def update_db(self):
+        user_id = get_user_id(DB_NAME, users_table, self.name)
+        update_user_statistics(DB_NAME, statistics_table, self.points, self.life, self.level, user_id)

@@ -1,6 +1,7 @@
 import pygame.display
 
 from board import Board
+from menus.login_menu import LoginMenu
 from models.player import Player
 from models.falling_items.falling_items_factory import *
 from models.stats.life import Life
@@ -15,6 +16,8 @@ from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
 from menus.starting_menu import StartingMenu, show_starting_menu, show_registration_menu
 
+from menus.history_menu import HistoryMenu
+import sys
 
 def reset_game(player, falling, winning_menu, is_winner=False):
     player.reset_player_stats()
@@ -25,7 +28,15 @@ def reset_game(player, falling, winning_menu, is_winner=False):
     if is_winner:
         player.toggle_is_winner()
 
-
+def show_history_menu(history_menu):
+    history_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
@@ -34,7 +45,20 @@ def run():
     pause_menu = PauseMenu(game_board)
     winning_menu = WinningMenu(game_board)
     falling = FallingItemsFactory(game_board)
-    player = Player(800 - 725, 600 - 200, game_board, falling)
+    registration_menu = RegistrationMenu(game_board)
+    login_menu = LoginMenu(game_board)
+    history_menu = HistoryMenu(game_board)  
+
+    # while registration_menu.registration:
+    #     username = registration_menu.process_registration()
+        
+    # while login_menu.login:
+    #     username = login_menu.process_login()
+        
+    while history_menu.history:
+        show_history_menu(history_menu)
+
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
@@ -61,7 +85,7 @@ def run():
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
         restart_game_over_menu = game_over_menu.get_restart_game()
-        game_board.display_board()
+        game_board.display_board(player)
         game_board.draw_background()
 
         if not is_winner:
@@ -73,6 +97,7 @@ def run():
             falling.draw()
 
             if life.lives <= 0:
+                player.update_db()
                 game_over_menu.draw()
                 game_board.update_display()
 
@@ -103,20 +128,25 @@ def run():
                         player.reset_player_stats()
 
             elif game_board.pause:
+                player.update_db()
                 if not paused_time:
                     paused_time = time.time()
                     pause_menu.draw()
                     game_board.update_display()
 
         elif is_winner and restart:
+            player.update_db()
             reset_game(player, falling, winning_menu,is_winner=True)
+            start_time = time.time()
             game_board.update_display()
 
         else:
+            player.update_db()
             winning_menu.draw()
             game_board.update_display()
 
         game_board.update_display()
+
 
 if __name__ == '__main__':
     run()
