@@ -49,12 +49,12 @@ class Player(pygame.sprite.Sprite):
         self.sprites_left.append(pygame.image.load(
             assets_library['sprites']['player']['player_left']['player_left9']))
         self.current_sprite = 0
-        self.image = pygame.transform.scale(
-            self.sprites_right[self.current_sprite], (100, 238))
         self.width = 100
-        self.height = 90
+        self.height = 238
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
+        self.image = pygame.transform.scale(
+            self.sprites_right[self.current_sprite], (self.width, self.height))
         self.board_instance = board_instance
         self.falling_group = falling_group
         self.name = name
@@ -83,14 +83,13 @@ class Player(pygame.sprite.Sprite):
         if direction == 'right':
             self.image = self.sprites_right[self.current_sprite]
             self.image = pygame.transform.scale(self.sprites_right[self.current_sprite],
-                                            (100, 238))
+                                            (self.width, self.height))
         else:
             self.image = self.sprites_left[self.current_sprite]
             self.image = pygame.transform.scale(self.sprites_left[self.current_sprite],
-                                            (100, 238))
+                                            (self.width, self.height))
 
     def move(self):
-        # variable to reset for delta x and delta y
         dx = 0
         dy = 0
         key = pygame.key.get_pressed()

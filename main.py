@@ -24,7 +24,6 @@ def reset_game(player, falling, end_game_menu, is_winner, is_loser):
         player.toggle_is_winner()
     if is_loser:
         player.toggle_is_loser()
-        print("Loser in if: ", is_loser)
 
 
 def show_history_menu(history_menu):
