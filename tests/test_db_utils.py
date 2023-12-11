@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-from db_utils import connect_to_mysql_database, get_cursor_and_connection, create_database, connect_to_database_or_create_if_not_exists
+from db.db_utils import connect_to_mysql_database, get_cursor_and_connection, create_database, connect_to_database_or_create_if_not_exists
 
 
 class TestDatabaseConnection(unittest.TestCase):

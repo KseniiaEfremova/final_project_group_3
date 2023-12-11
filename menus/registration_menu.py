@@ -1,6 +1,6 @@
 import pygame
 from models.components.popup import PopupWindow
-from user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
+from db.user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
 from board import Board
 from models.components.button import Button
 from models.components.input_box import InputBox

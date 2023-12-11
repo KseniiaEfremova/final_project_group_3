@@ -1,5 +1,5 @@
 #  manipulating with user's data in DB
-from db_utils import get_cursor_and_connection
+from db.db_utils import get_cursor_and_connection
 import re
 import hashlib
 

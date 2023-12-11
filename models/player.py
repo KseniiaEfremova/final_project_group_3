@@ -4,7 +4,7 @@ from utils import assets_library
 from decorators.sounds import Sounds
 from models.falling_items.points_falling_item import PointsFallingItem
 from models.falling_items.damage_falling_item import DamageFallingItem
-from user import update_user_statistics, get_user_id, DB_NAME, users_table, statistics_table
+from db.user import update_user_statistics, get_user_id, DB_NAME, users_table, statistics_table
 
 
 class Player(pygame.sprite.Sprite):

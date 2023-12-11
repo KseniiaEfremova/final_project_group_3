@@ -1,7 +1,7 @@
 import mysql.connector
 import logging
 from mysql.connector import errorcode
-from config import data
+from db.config import data
 
 host, user, password = data["host"], data["user"], data["passwd"]
 DB_NAME = 'game_users_db'
