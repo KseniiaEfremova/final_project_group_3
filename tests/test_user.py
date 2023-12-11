@@ -193,3 +193,11 @@ class TestUser(unittest.TestCase):
         self.assertFalse(is_valid_password('!!!!!!!!!!!!!'))
         self.assertTrue(is_valid_password('345FGasd!&'))
         self.assertTrue(is_valid_password('!1213testTest'))
+
+    def test_hash_password(self):
+        password = "MySecretPassword123"
+        expected_hash = hashlib.sha256((password + ":weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74").encode('utf-8')).hexdigest()
+
+        computed_hash = hash_password(password)
+
+        self.assertEqual(computed_hash, expected_hash)
