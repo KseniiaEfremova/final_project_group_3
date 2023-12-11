@@ -31,7 +31,6 @@ def connect_to_mysql_database(db_name):
         print(f"ValueError: {e}")
         raise e
     except Exception as e:
-        # Catch unexpected exceptions, log them, and raise to crash the program
         logging.exception(f"Unexpected error occurred: {e}")
         raise e
 
