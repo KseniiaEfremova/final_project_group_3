@@ -167,7 +167,7 @@ class Player(pygame.sprite.Sprite):
         return self.level
         
     def reset_player(self):
-        self.rect.center = (800 - 725, 600 - 200,)
+        self.rect.center = (800 - 725, 600 - 200)
         self.leveled_up = False
         return self.life, self.leveled_up
 

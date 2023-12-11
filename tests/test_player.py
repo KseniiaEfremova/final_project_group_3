@@ -173,6 +173,15 @@ class TestPlayer(unittest.TestCase):
 		self.player.toggle_is_loser()
 		self.assertEqual(self.player.is_loser, True)
 
+	def test_check_for_level_up(self):
+		self.player.check_for_level_up()
+		self.assertEqual(self.player.leveled_up, True)
+
+	def test_level_up_player(self):
+		self.player.level_up_player()
+		self.assertEqual(self.player.level, 2)
+
+
 
 
 
