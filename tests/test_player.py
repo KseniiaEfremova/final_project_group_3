@@ -5,6 +5,8 @@ import numpy as np
 from board import Board
 from models.player import Player
 from models.falling_items.falling_items_factory import FallingItemsFactory
+from models.falling_items.points_falling_item import *
+from models.falling_items.damage_falling_item import *
 from utils import assets_library
 
 
@@ -74,6 +76,30 @@ class TestPlayer(unittest.TestCase):
 					initial_sprite + 1) % 8)
 		self.assertNotEqual(self.player.image, initial_image)
 
-	def tearDown(self):
+	def test_points_collision_python(self):
+		python = PythonItem("Python", self.test_board)
+		initial_points = self.player.points
+		initial_life = self.player.life
+		self.player.points_collision(python)
+		self.assertEqual(self.player.points, initial_points + python.points)
+		self.assertEqual(self.player.life, initial_life + python.damage)
+
+	def test_points_collision_tick(self):
+		tick = TickItem("Tick", self.test_board)
+		initial_points = self.player.points
+		initial_life = self.player.life
+		self.player.points_collision(tick)
+		self.assertEqual(self.player.points, initial_points + tick.points)
+		self.assertEqual(self.player.life, initial_life + tick.damage)
+
+	def test_points_collision_duck(self):
+		duck = RubberDuckItem("Duck", self.test_board)
+		initial_points = self.player.points
+		initial_life = self.player.life
+		self.player.points_collision(duck)
+		self.assertEqual(self.player.points, initial_points + duck.points)
+		self.assertEqual(self.player.life, initial_life + duck.damage)
+
+def tearDown(self):
 		pygame.quit()
 		patch.stopall()
