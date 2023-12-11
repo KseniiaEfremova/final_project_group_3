@@ -157,30 +157,51 @@ class TestPlayer(unittest.TestCase):
 		self.player.life = 90
 		self.player.level = 3
 		self.player.check_is_winner()
+
 		self.assertEqual(self.player.is_winner, True)
 
 	def test_check_is_winner_fail(self):
 		self.player.life = -10
 		self.player.level = 3
 		self.player.check_is_winner()
+
 		self.assertEqual(self.player.is_winner, False)
 
 	def test_toggle_is_winner(self):
 		self.player.toggle_is_winner()
+
 		self.assertEqual(self.player.is_winner, True)
 
 	def test_toggle_is_loser(self):
 		self.player.toggle_is_loser()
+
 		self.assertEqual(self.player.is_loser, True)
 
 	def test_check_for_level_up(self):
 		self.player.check_for_level_up()
+
 		self.assertEqual(self.player.leveled_up, True)
 
 	def test_level_up_player(self):
 		self.player.level_up_player()
+
 		self.assertEqual(self.player.level, 2)
 
+	def test_reset_player(self):
+		self.player.reset_player()
+
+		self.assertEqual(self.player.rect.center, (800 - 725, 600 - 200))
+		self.assertEqual(self.player.leveled_up, False)
+
+	def test_reset_player_stats(self):
+		self.player.level = 3
+		self.player.points = 999
+		self.player.life = 20
+		self.player.reset_player_stats()
+
+		self.assertEqual(self.player.level, 1)
+		self.assertEqual(self.player.points, 0)
+		self.assertEqual(self.player.life, 90)
 
 
 
