@@ -172,3 +172,14 @@ class TestUser(unittest.TestCase):
         result = get_user_data(self.db_name, self.users_table, self.username)
 
         self.assertEqual(result, {'message': 'Cannot get user data, please try again later'})
+
+    def test_is_valid_username(self):
+        self.assertFalse(is_valid_username('a'))
+        self.assertFalse(is_valid_username('!abc'))
+        self.assertFalse(is_valid_username('AWRT$'))
+        self.assertFalse(is_valid_username('567()'))
+        self.assertFalse(is_valid_username('asdfghjklqwertyuiozxc'))
+        self.assertTrue(is_valid_username('abc'))
+        self.assertTrue(is_valid_username('___'))
+        self.assertTrue(is_valid_username('AEFCtysdfs_'))
+        self.assertTrue(is_valid_username('8347568347'))
