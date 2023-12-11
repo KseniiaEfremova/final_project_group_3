@@ -94,8 +94,8 @@ def get_user_data(db_name, table_name, username):
         user_data = cursor.fetchall()
         cursor.close()
 
-    except Exception as e:
-        return {'message': e}
+    except Exception:
+        return {'message': 'Cannot get user data, please try again later'}
 
     finally:
         if db_connection:
