@@ -1,4 +1,3 @@
-#  manipulating with user's data in DB
 from db.db_utils import get_cursor_and_connection
 import re
 import hashlib
@@ -8,49 +7,57 @@ users_table = "users"
 statistics_table = "game_statistics"
 
 
-# adding new user
 def insert_new_user(db_name, table_name, username, password):
+    db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
-        print("Connected to DB: %s" % db_name)
-        # insert user data into users table
-        query = """INSERT INTO {} (username, password) VALUES ('{}', '{}')""".format(table_name, username, password)
+
+        query = ("""INSERT INTO {} (username, password) VALUES ('{}', '{}')"""
+                 .format(table_name, username, password))
 
         cursor.execute(query)
         db_connection.commit()
+        result = cursor.fetchall()
         cursor.close()
 
-        # insert user's initial statistics in the game_statistics table
         user_id = get_user_id(db_name, table_name, username)
-        initial_user_statistics(db_name, "game_statistics", user_id)
-        print(f"\nNew user '{username}' has been successfully added into the database!")
+        initial_user_statistics(db_name, statistics_table, user_id)
+
+    except Exception:
+        return {'message': 'Cannot create new user, try again later'}
+
     finally:
         if db_connection:
             db_connection.close()
-            print("DB connection is closed")
+
+    return result
 
 
 def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
+    db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
-        print("Connected to DB: %s" % db_name)
 
-        query = """INSERT INTO {} (user_id, points, life, level) VALUES ('{}', '{}', '{}', '{}')""".format(table_name, user_id, points, life, level)
+        query = """INSERT INTO {} (user_id, points, life, level) VALUES 
+        ('{}', '{}', '{}', '{}')""".format(table_name, user_id, points,
+                                           life, level)
         
         cursor.execute(query)
         db_connection.commit()
         cursor.close()
-        print(f"\nThe user's statistics have been successfully updated!")
+
+    except Exception:
+        return {'message': 'Cannot add initial user statistics, try again later'}
+
     finally:
         if db_connection:
             db_connection.close()
-            print("DB connection is closed")
 
 
 def update_user_statistics(db_name, table_name, points, life, level, user_id):
+    db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
-        print("Connected to DB: %s" % db_name)
 
         query = """UPDATE {}
         SET points = {}, life = {}, level = {}
@@ -59,15 +66,18 @@ def update_user_statistics(db_name, table_name, points, life, level, user_id):
         cursor.execute(query)
         db_connection.commit()
         cursor.close()
-        print(f"\nThe user's statistics have been successfully updated!")
+
+    except Exception:
+        return {'message': 'Cannot update user statistics right now, please try again later'}
+
     finally:
         if db_connection:
             db_connection.close()
-            print("DB connection is closed")
 
 
 def get_user_data(db_name, table_name, username):
-    user_data = None
+    # user_data = None
+    db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         print("Connected to DB: %s" % db_name)
@@ -82,7 +92,7 @@ def get_user_data(db_name, table_name, username):
         cursor.close()
 
     except Exception as e:
-        print(e)
+        return {'message': e}
 
     finally:
         if db_connection:
@@ -93,7 +103,8 @@ def get_user_data(db_name, table_name, username):
 
 
 def get_user_id(db_name, table_name, username):
-    user_id = None
+    # user_id = None
+    db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         print("Connected to DB: %s" % db_name)
@@ -105,7 +116,7 @@ def get_user_id(db_name, table_name, username):
         cursor.close()
 
     except Exception as e:
-        print(e)
+        return {'message': e}
 
     finally:
         if db_connection:
@@ -195,6 +206,7 @@ def get_password_by_username(db_name: str, table_name: str, username: str):
     Returns: Optional[str]: The hashed password if the username is found; otherwise, None.
     """
     user_id = None
+    db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         print("Connected to DB: %s" % db_name)
