@@ -4,8 +4,9 @@ from user import check_username_and_password, is_user_exist_in_db, DB_NAME, user
 from board import Board
 from models.components.button import Button
 from models.components.input_box import InputBox
-from menus.menu import Menu
+from models.components.popup import PopupWindow
 from models.components.text_drawer import TextDrawer
+from menus.menu import Menu
 from utils import assets_library
 from pygame.locals import *
 
@@ -25,9 +26,10 @@ class LoginMenu(Menu):
         self.submit_btn = Button(300, 420, 200, 40, self.board_instance, 'SUBMIT',
                                  lambda: check_username_and_password(self.username_box.get_user_text(),
                                                                      self.password_box.get_user_text()))
-        self.back_btn = Button(20, 10, 200, 40, self.board_instance, 'BACK TO MENU',
+        self.back_btn = Button(20, 500, 200, 40, self.board_instance, 'BACK TO MENU',
                                  lambda: check_username_and_password(self.username_box.get_user_text(),
                                                                      self.password_box.get_user_text()))
+        self.popup_window_incorrect = PopupWindow(800, 40, "Incorrect Username or Password!")
 
     def draw(self):
         # Drawing elements on the board
@@ -44,6 +46,11 @@ class LoginMenu(Menu):
     def process_login(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
+
+        if self.popup_window_incorrect.opened:
+            self.popup_window_incorrect.draw_window(self.board_instance.board)
+            pygame.display.update()
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -55,6 +62,7 @@ class LoginMenu(Menu):
                     and check_passwords(password, get_password_by_username(DB_NAME, users_table, username))):
                 self.login = False
                 self.submit_btn.onePress = False
+                self.popup_window_incorrect.opened = False
 
                 # Switch to the main background after login
                 background_image = pygame.image.load(assets_library['backgrounds']['main_background'])
@@ -62,8 +70,8 @@ class LoginMenu(Menu):
                 return username
 
             else:
-                #  TODO popup window with a message "Incorrect username or password"
-                print("Incorrect username or password")
+                self.popup_window_incorrect.draw_window(self.board_instance.board)
+                pygame.display.update()
         if self.back_btn.alreadyPressed:
             #  TODO go to start menu
             print("go to START MENU")
