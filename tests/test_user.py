@@ -39,14 +39,15 @@ class TestUser(unittest.TestCase):
             self.assertEqual(expected_sql, actual_sql)
 
 
-    # @patch('db.history.get_cursor_and_connection')
-    # def test_get_history_data_exception(self, mock_get_cursor_and_connection):
-	#
-    #     self.mock_cursor.execute.side_effect = Exception('Cannot get history data right now, try again later')
-	#
-    #     mock_get_cursor_and_connection.return_value = (
-    #         self.mock_cursor, self.mock_connection)
-	#
-    #     result = get_history_data()
-	#
-    #     self.assertEqual(result, {'message': 'Cannot get history data right now, try again later'})
+    @patch('db.history.get_cursor_and_connection')
+    def test_insert_new_user_exception(self, mock_get_cursor_and_connection):
+
+        self.mock_cursor.execute.side_effect = Exception('Cannot create new user, try again later')
+
+        mock_get_cursor_and_connection.return_value = (
+            self.mock_cursor, self.mock_connection)
+
+        result = insert_new_user(self.db_name, self.statistics_table,
+                                     self.username, self.password)
+
+        self.assertEqual(result, {'message': 'Cannot create new user, try again later'})
