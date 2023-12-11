@@ -22,7 +22,6 @@ class StartingMenu(Menu):
                                           self.instructions_handler)
         self.credits_button = Button(300, 450, 200, 40, self.board_instance, 'Credits', self.credits_handler)
 
-
     def exit_game_handler(self):
         pygame.quit()
         sys.exit()
@@ -71,6 +70,7 @@ def show_starting_menu(start_menu):
 def show_registration_menu(registration_menu):
     while registration_menu.registration:
         registration_menu.process_registration()
+
 
 def show_login_menu(login_menu):
     while login_menu.login:
