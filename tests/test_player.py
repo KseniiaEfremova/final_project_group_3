@@ -203,6 +203,16 @@ class TestPlayer(unittest.TestCase):
 		self.assertEqual(self.player.points, 0)
 		self.assertEqual(self.player.life, 90)
 
+	@patch('models.player.get_user_id')
+	@patch('models.player.update_user_statistics')
+	def test_update_db(self, mock_update_user_stats, mock_get_user_id):
+		mock_get_user_id.return_value = 123
+		self.player.update_db()
+		mock_get_user_id.assert_called_once_with('game_users_db', 'users', 'Test Player')
+		mock_update_user_stats.assert_called_once_with(
+			'game_users_db', 'game_statistics', self.player.points, self.player.life,
+			self.player.level, mock_get_user_id.return_value)
+
 
 
 

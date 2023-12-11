@@ -1,26 +1,30 @@
-class Node:
-    def __init__(self, value):
+from typing import TypeVar, Generic
+
+T = TypeVar('T')
+
+class Node(Generic[T]):
+    def __init__(self, value: T):
         self.value = value
-        self.next = None
+        self.next: Node[T] = None
 
 
-class LinkedList:
+class LinkedList(Generic[T]):
     def __init__(self):
-        self.head = None
+        self.head: Node[T] = None
 
-    def append(self, value):
+    def append(self, value: T) -> None:
         new_node = Node(value)
         if not self.head:
             self.head = new_node
             return
-        current = self.head
+        current: Node[T] = self.head
         while current.next:
             current = current.next
         current.next = new_node
 
     def length(self):
         count = 0
-        current = self.head
+        current: Node[T] = self.head
         while current:
             count += 1
             current = current.next
