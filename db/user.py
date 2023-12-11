@@ -195,9 +195,8 @@ def add_valid_user_data_to_db(username: str, password: str):
 
     # User does not exist, proceed with adding user data to the database
     hashed_password = hash_password(password)
-    insert_new_user(DB_NAME, users_table, username, hashed_password)
-
-
+    user = insert_new_user(DB_NAME, users_table, username, hashed_password)
+    return user
 #  login menu
 
 def get_password_by_username(db_name: str, table_name: str, username: str):

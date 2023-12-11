@@ -195,10 +195,10 @@ class TestUser(unittest.TestCase):
         self.assertTrue(is_valid_password('!1213testTest'))
 
     def test_hash_password(self):
-        password = "MySecretPassword123"
-        expected_hash = hashlib.sha256((password + ":weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74").encode('utf-8')).hexdigest()
 
-        computed_hash = hash_password(password)
+        expected_hash = hashlib.sha256((self.password + ":weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74").encode('utf-8')).hexdigest()
+
+        computed_hash = hash_password(self.password)
 
         self.assertEqual(computed_hash, expected_hash)
 
@@ -219,3 +219,29 @@ class TestUser(unittest.TestCase):
 
         self.assertFalse(
             is_user_exist_in_db(self.db_name, self.users_table, self.username))
+
+    @patch('db.user.is_user_exist_in_db')
+    @patch('db.user.hash_password')
+    @patch('db.user.insert_new_user')
+    def test_add_valid_user_data_to_db_success(self, mock_insert_new_user, mock_hash_password, mock_is_user_exist):
+
+        mock_is_user_exist.return_value = False
+
+        hashed_password = "hashed_password"
+        mock_hash_password.return_value = hashed_password
+
+        result = add_valid_user_data_to_db(self.username, self.password)
+
+        mock_insert_new_user.assert_called_with(self.db_name, self.users_table, self.username, hashed_password)
+
+        self.assertIsNotNone(result)
+
+    @patch('db.user.is_user_exist_in_db')
+    def test_add_valid_user_data_to_db_user_exists(self, mock_is_user_exist):
+
+        mock_is_user_exist.return_value = True
+
+        result = add_valid_user_data_to_db(self.username, self.password)
+
+        self.assertIsNone(result)
+
