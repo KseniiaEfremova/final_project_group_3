@@ -13,7 +13,7 @@ class TestDatabaseConnection(unittest.TestCase):
     def test_connect_to_mysql_database(self):
         try:
             with unittest.mock.patch(
-                    'db_utils.mysql.connector.connect',
+                    'db.db_utils.mysql.connector.connect',
                     return_value=self.mock_connection):
                 db_connection = connect_to_mysql_database('test_db')
                 self.assertIsNotNone(
@@ -24,7 +24,7 @@ class TestDatabaseConnection(unittest.TestCase):
 
     def test_get_cursor_and_connection(self):
         try:
-            with unittest.mock.patch('db_utils.mysql.connector.connect', return_value=self.mock_connection):
+            with unittest.mock.patch('db.db_utils.mysql.connector.connect', return_value=self.mock_connection):
                 cursor, db_connection = get_cursor_and_connection('test_db')
                 self.assertIsNotNone(cursor)
                 self.assertIsNotNone(db_connection)
@@ -36,7 +36,7 @@ class TestDatabaseConnection(unittest.TestCase):
     def test_create_database(self):
         try:
             with unittest.mock.patch(
-                'db_utils.mysql.connector.connect',
+                'db.db_utils.mysql.connector.connect',
                     return_value=self.mock_connection):
 
                 db_name = 'test_db'
@@ -51,7 +51,7 @@ class TestDatabaseConnection(unittest.TestCase):
     def test_connect_to_database_or_create_if_not_exists(self):
         try:
             with unittest.mock.patch(
-                'db_utils.mysql.connector.connect',
+                'db.db_utils.mysql.connector.connect',
                     return_value=self.mock_connection):
 
                 db_name = 'test_db'
