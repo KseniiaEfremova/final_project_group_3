@@ -24,20 +24,21 @@ class TestHistory(unittest.TestCase):
                 LIMIT 8
             """.replace("\n", "").replace(" ", "")
 
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
-                " ", "")
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertEqual(expected_sql, actual_sql)
 
     @patch('db.history.get_cursor_and_connection')
     def test_get_history_data_exception(self, mock_get_cursor_and_connection):
 
-        self.mock_cursor.execute.side_effect = Exception('Cannot get history data right now, try again later')
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot get history data right now, try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
         result = get_history_data()
 
-        self.assertEqual(result, {'message': 'Cannot get history data right now, try again later'})
+        self.assertEqual(result, {'message': 'Cannot get history data '
+                                             'right now, try again later'})

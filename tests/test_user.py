@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch, Mock
+from unittest.mock import MagicMock, patch
 from db.user import *
 
 
@@ -20,20 +20,21 @@ class TestUser(unittest.TestCase):
 
     @patch('db.user.initial_user_statistics')
     @patch('db.user.get_user_id')
-    def test_insert_new_user_success(self, mock_initial_user_stats, mock_user_id):
-        with unittest.mock.patch(
+    def test_insert_new_user_success(self, mock_initial_user_stats,
+                                     mock_user_id):
+        with (unittest.mock.patch(
             'db.db_utils.mysql.connector.connect',
-                return_value=self.mock_connection):
+                return_value=self.mock_connection)):
             result = insert_new_user(self.db_name, self.statistics_table,
                                      self.username, self.password)
             expected_sql = (
                 """INSERT INTO {} (username, password) VALUES ('{}', '{}')"""
                 .format(self.statistics_table, self.username,
-                        self.password)).replace("\n", "").replace(" ", "")
+                        self.password)).replace(
+                "\n", "").replace(" ", "")
 
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
-                " ", "")
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertIsNotNone(result)
             self.assertEqual(expected_sql, actual_sql)
@@ -41,106 +42,124 @@ class TestUser(unittest.TestCase):
     @patch('db.user.get_cursor_and_connection')
     def test_insert_new_user_exception(self, mock_get_cursor_and_connection):
 
-        self.mock_cursor.execute.side_effect = Exception('Cannot create new user, try again later')
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot create new user, try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
-        result = insert_new_user(self.db_name, self.statistics_table,
-                                     self.username, self.password)
+        result = insert_new_user(
+            self.db_name, self.statistics_table, self.username, self.password)
 
-        self.assertEqual(result, {'message': 'Cannot create new user, try again later'})
+        self.assertEqual(result, {'message': 'Cannot create new user, '
+                                             'try again later'})
 
     @patch('db.user.get_user_id')
     def test_initial_user_statistics_success(self, mock_user_id):
-        with unittest.mock.patch(
+        with (unittest.mock.patch(
             'db.db_utils.mysql.connector.connect',
-                return_value=self.mock_connection):
+                return_value=self.mock_connection)):
 
-            initial_user_statistics(self.db_name, self.statistics_table, mock_user_id, points=0, life=90, level=1)
+            initial_user_statistics(self.db_name, self.statistics_table,
+                                    mock_user_id, points=0, life=90, level=1)
 
-            expected_sql = """INSERT INTO {} (user_id, points, life, level) VALUES 
-                ('{}', '{}', '{}', '{}')""".format(self.statistics_table,
-                                                   mock_user_id, 0,
-                                                    90, 1).replace(
+            expected_sql = """INSERT INTO {} (user_id, points, life, level) 
+            VALUES ('{}', '{}', '{}', '{}')""".format(
+                self.statistics_table, mock_user_id, 0, 90, 1).replace(
                 "\n", "").replace(" ", "")
 
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
-                " ", "")
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertEqual(expected_sql, actual_sql)
 
     @patch('db.user.get_user_id')
     @patch('db.user.get_cursor_and_connection')
-    def test_initial_users_statistics_exception(self, mock_user_id, mock_get_cursor_and_connection):
+    def test_initial_users_statistics_exception(self, mock_user_id,
+                                                mock_get_cursor_and_connection):
 
-        self.mock_cursor.execute.side_effect = Exception('Cannot add initial user statistics, try again later')
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot add initial user statistics, try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
-        result =  initial_user_statistics(self.db_name, self.statistics_table, mock_user_id, points=0, life=90, level=1)
+        result = initial_user_statistics(self.db_name, self.statistics_table,
+                                         mock_user_id, points=0, life=90,
+                                         level=1)
 
-        self.assertEqual(result, {'message': 'Cannot add initial user statistics, try again later'})
+        self.assertEqual(result, {'message': 'Cannot add initial user '
+                                             'statistics, try again later'})
 
     @patch('db.user.get_user_id')
     def test_update_user_statistics_success(self, mock_user_id):
-        with unittest.mock.patch(
+        with (unittest.mock.patch(
             'db.db_utils.mysql.connector.connect',
-                return_value=self.mock_connection):
+                return_value=self.mock_connection)):
 
-            update_user_statistics(self.db_name, self.statistics_table, 900, 68, 2, mock_user_id)
+            update_user_statistics(self.db_name, self.statistics_table,
+                                   900, 68, 2,
+                                   mock_user_id)
 
             expected_sql = """UPDATE {}
         SET points = {}, life = {}, level = {}
-        WHERE user_id = {}""".format(self.statistics_table, 900, 68, 2, mock_user_id).replace(
-                "\n", "").replace(" ", "")
-
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
+        WHERE user_id = {}""".format(self.statistics_table, 900, 68, 2,
+                                     mock_user_id).replace("\n",
+                                                           "").replace(
                 " ", "")
+
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertEqual(expected_sql, actual_sql)
 
     @patch('db.user.get_user_id')
     @patch('db.user.get_cursor_and_connection')
-    def test_update_users_statistics_exception(self, mock_user_id, mock_get_cursor_and_connection):
+    def test_update_users_statistics_exception(self, mock_user_id,
+                                               mock_get_cursor_and_connection):
 
-        self.mock_cursor.execute.side_effect = Exception('Cannot update user statistics right now, please try again later')
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot update user statistics right now, please try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
-        result = update_user_statistics(self.db_name, self.statistics_table, 900, 68, 2, mock_user_id)
-        self.assertEqual(result, {'message': 'Cannot update user statistics right now, please try again later'})
+        result = update_user_statistics(self.db_name, self.statistics_table,
+                                        900, 68, 2,
+                                        mock_user_id)
+        self.assertEqual(result, {'message': 'Cannot update user '
+                                             'statistics right now, please try '
+                                             'again later'})
 
     def test_get_user_id_success(self):
-        with unittest.mock.patch(
+        with (unittest.mock.patch(
             'db.db_utils.mysql.connector.connect',
-                return_value=self.mock_connection):
+                return_value=self.mock_connection)):
 
             get_user_id(self.db_name, self.users_table, self.username)
 
-            expected_sql = """SELECT user_id FROM {} WHERE username = %s""".format(self.users_table).replace(
-                "\n", "").replace(" ", "")
+            expected_sql = """SELECT user_id FROM {} WHERE username = 
+            %s""".format(self.users_table).replace("\n", ""
+                                                   ).replace(" ",
+                                                             "")
 
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
-                " ", "")
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertEqual(expected_sql, actual_sql)
 
     @patch('db.user.get_cursor_and_connection')
     def test_get_user_id_exception(self, mock_get_cursor_and_connection):
-        self.mock_cursor.execute.side_effect = Exception('Cannot retrieve user id, please try again later')
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot retrieve user id, please try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
         result = get_user_id(self.db_name, self.users_table, self.username)
 
-        self.assertEqual(result, {'message': 'Cannot retrieve user id, please try again later'})
+        self.assertEqual(result, {'message': 'Cannot retrieve user id, '
+                                             'please try again later'})
 
     def test_get_user_data_success(self):
         with unittest.mock.patch(
@@ -149,29 +168,32 @@ class TestUser(unittest.TestCase):
 
             get_user_data(self.db_name, self.users_table, self.username)
 
-            expected_sql = """SELECT u.user_id, u.username, g.points, g.life, g.level 
+            expected_sql = """SELECT u.user_id, u.username, g.points, g.life, 
+            g.level 
         FROM {} as u 
         JOIN game_statistics as g
         ON u.user_id = g.user_id
         WHERE u.username = %s
-        """.format(self.users_table).replace("\n", "").replace(" ", "")
-
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
+        """.format(self.users_table).replace("\n", "").replace(
                 " ", "")
+
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertEqual(expected_sql, actual_sql)
 
     @patch('db.user.get_cursor_and_connection')
     def test_get_user_data_exception(self, mock_get_cursor_and_connection):
-        self.mock_cursor.execute.side_effect = Exception('Cannot get user data, please try again later')
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot get user data, please try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
         result = get_user_data(self.db_name, self.users_table, self.username)
 
-        self.assertEqual(result, {'message': 'Cannot get user data, please try again later'})
+        self.assertEqual(result, {'message': 'Cannot get user data, '
+                                             'please try again later'})
 
     def test_is_valid_username(self):
         self.assertFalse(is_valid_username(''))
@@ -196,22 +218,34 @@ class TestUser(unittest.TestCase):
 
     def test_hash_password(self):
 
-        expected_hash = hashlib.sha256((self.password + ":weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74").encode('utf-8')).hexdigest()
+        expected_hash = hashlib.sha256((
+            self.password + ":weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74").encode(
+            'utf-8')).hexdigest()
 
         computed_hash = hash_password(self.password)
 
         self.assertEqual(computed_hash, expected_hash)
 
     def test_check_username_and_password(self):
-        self.assertIsNone(check_username_and_password('', ''))
-        self.assertIsNone(check_username_and_password('', '345FGasd!&'))
-        self.assertIsNone(check_username_and_password('AEFCtysdfs_', ''))
-        self.assertIsNotNone(check_username_and_password('8347568347', '!1213testTest'))
+        self.assertIsNone(
+            check_username_and_password(
+                '', ''))
+        self.assertIsNone(
+            check_username_and_password(
+                '', '345FGasd!&'))
+        self.assertIsNone(
+            check_username_and_password(
+                'AEFCtysdfs_', ''))
+        self.assertIsNotNone(
+            check_username_and_password(
+                '8347568347', '!1213testTest'))
+
     @patch('db.user.get_user_id')
     def test_is_user_exist_in_db_success(self, mock_id):
         mock_id.return_value = 'mock_user_id'
 
-        self.assertTrue(is_user_exist_in_db(self.db_name, self.users_table, self.username))
+        self.assertTrue(is_user_exist_in_db(self.db_name, self.users_table,
+                                            self.username))
 
     @patch('db.user.get_user_id')
     def test_is_user_exist_in_db_fail(self, mock_id):
@@ -223,7 +257,9 @@ class TestUser(unittest.TestCase):
     @patch('db.user.is_user_exist_in_db')
     @patch('db.user.hash_password')
     @patch('db.user.insert_new_user')
-    def test_add_valid_user_data_to_db_success(self, mock_insert_new_user, mock_hash_password, mock_is_user_exist):
+    def test_add_valid_user_data_to_db_success(self, mock_insert_new_user,
+                                               mock_hash_password,
+                                               mock_is_user_exist):
 
         mock_is_user_exist.return_value = False
 
@@ -232,7 +268,8 @@ class TestUser(unittest.TestCase):
 
         result = add_valid_user_data_to_db(self.username, self.password)
 
-        mock_insert_new_user.assert_called_with(self.db_name, self.users_table, self.username, hashed_password)
+        mock_insert_new_user.assert_called_with(self.db_name, self.users_table,
+                                                self.username, hashed_password)
 
         self.assertIsNotNone(result)
 
@@ -249,31 +286,34 @@ class TestUser(unittest.TestCase):
         with unittest.mock.patch(
                 'db.db_utils.mysql.connector.connect',
                 return_value=self.mock_connection):
-            get_password_by_username(self.db_name, self.users_table, self.username)
+            get_password_by_username(self.db_name, self.users_table,
+                                     self.username)
 
             expected_sql = """SELECT password FROM {}
         WHERE username = %s
         """.format(self.users_table).replace(
                 "\n", "").replace(" ", "")
 
-            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
-                                                                          "").replace(
-                " ", "")
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace(
+                "\n", "").replace(" ", "")
 
             self.assertEqual(expected_sql, actual_sql)
 
     @patch('db.user.get_cursor_and_connection')
-    def test_get_password_by_username_exception(self, mock_get_cursor_and_connection):
+    def test_get_password_by_username_exception(self,
+                                                mock_get_cursor_and_connection):
         self.mock_cursor.execute.side_effect = Exception(
             'Cannot get password for this username, try again later')
 
         mock_get_cursor_and_connection.return_value = (
             self.mock_cursor, self.mock_connection)
 
-        result = get_password_by_username(self.db_name, self.users_table, self.username)
+        result = get_password_by_username(
+            self.db_name, self.users_table, self.username)
 
         self.assertEqual(result, {
-            'message': 'Cannot get password for this username, try again later'})
+            'message': 'Cannot get password for this username, '
+                       'try again later'})
 
     @patch('db.user.hash_password')
     def test_check_passwords_success(self, mock_hash_password):
@@ -290,6 +330,3 @@ class TestUser(unittest.TestCase):
         stored_password = "stored_password"
 
         self.assertFalse(check_passwords(hashed_password, stored_password))
-
-
-
