@@ -14,7 +14,8 @@ assets_library = {
         'win': 'assets/backgrounds/fireworks_win.jpg',
         'level_up': 'assets/backgrounds/level_up.png',
         'registration_page': 'assets/backgrounds/registration.png',
-        'credits': 'assets/backgrounds/credits.png'
+        'credits': 'assets/backgrounds/credits.png',
+        'instructions': 'assets/backgrounds/instructions.png'
     },
     'fonts': {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',

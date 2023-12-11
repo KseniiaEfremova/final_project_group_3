@@ -17,6 +17,7 @@ from menus.game_over_menu import GameOverMenu
 from menus.starting_menu import *
 from menus.credits_menu import CreditsMenu
 from menus.history_menu import HistoryMenu
+from menus.instructions_menu import InstructionsMenu
 import sys
 
 
@@ -42,6 +43,7 @@ def run():
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)
     credits_menu = CreditsMenu(game_board)
+    instructions_menu = InstructionsMenu(game_board)
 
     while start_menu.state == "starting":
         show_starting_menu(start_menu)
@@ -62,6 +64,10 @@ def run():
 
         if start_menu.state == "credits":
             show_credits_menu(credits_menu)
+            start_menu.state = "starting"
+
+        if start_menu.state == "instructions":
+            show_instructions_menu(instructions_menu)
             start_menu.state = "starting"
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)

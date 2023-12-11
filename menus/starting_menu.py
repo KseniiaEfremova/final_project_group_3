@@ -94,3 +94,12 @@ def show_credits_menu(credits_menu):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+def show_instructions_menu(instructions_menu):
+    instructions_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
