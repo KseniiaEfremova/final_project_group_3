@@ -64,7 +64,6 @@ def connect_to_database_or_create_if_not_exists(db_name):
             db_connection.database = db_name
         else:
             print(err)
-            exit(1)
     print(f"You are using {db_name} database.")
 
 
