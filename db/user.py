@@ -43,6 +43,7 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
         
         cursor.execute(query)
         db_connection.commit()
+        result = cursor.fetchall()
         cursor.close()
 
     except Exception:
@@ -51,6 +52,8 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
     finally:
         if db_connection:
             db_connection.close()
+
+    return result
 
 
 def update_user_statistics(db_name, table_name, points, life, level, user_id):

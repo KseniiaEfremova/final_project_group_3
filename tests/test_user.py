@@ -38,7 +38,6 @@ class TestUser(unittest.TestCase):
             self.assertIsNotNone(result)
             self.assertEqual(expected_sql, actual_sql)
 
-
     @patch('db.history.get_cursor_and_connection')
     def test_insert_new_user_exception(self, mock_get_cursor_and_connection):
 
@@ -51,3 +50,22 @@ class TestUser(unittest.TestCase):
                                      self.username, self.password)
 
         self.assertEqual(result, {'message': 'Cannot create new user, try again later'})
+    @patch('db.user.get_user_id')
+    def test_initial_user_statistics_success(self, mock_user_id):
+        with unittest.mock.patch(
+            'db.db_utils.mysql.connector.connect',
+                return_value=self.mock_connection):
+
+            initial_user_statistics(self.db_name, self.statistics_table, mock_user_id, points=0, life=90, level=1)
+
+            expected_sql = """INSERT INTO {} (user_id, points, life, level) VALUES 
+                ('{}', '{}', '{}', '{}')""".format(self.statistics_table,
+                                                   mock_user_id, 0,
+                                                    90, 1).replace(
+                "\n", "").replace(" ", "")
+
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
+                                                                          "").replace(
+                " ", "")
+
+            self.assertEqual(expected_sql, actual_sql)
