@@ -82,13 +82,14 @@ def get_user_data(db_name, table_name, username):
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
-        print("Connected to DB: %s" % db_name)
+
         query = """SELECT u.user_id, u.username, g.points, g.life, g.level 
         FROM {} as u 
         JOIN game_statistics as g
         ON u.user_id = g.user_id
         WHERE u.username = %s
         """.format(table_name)
+
         cursor.execute(query, (username,))
         user_data = cursor.fetchall()
         cursor.close()
@@ -99,17 +100,15 @@ def get_user_data(db_name, table_name, username):
     finally:
         if db_connection:
             db_connection.close()
-            print("DB connection is closed")
 
     return user_data
 
 
 def get_user_id(db_name, table_name, username):
-    # user_id = None
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
-        print("Connected to DB: %s" % db_name)
+
         query = """SELECT user_id FROM {}
         WHERE username = %s
         """.format(table_name)
@@ -117,13 +116,13 @@ def get_user_id(db_name, table_name, username):
         user_id = cursor.fetchall()
         cursor.close()
 
-    except Exception as e:
-        return {'message': e}
+    except Exception:
+        return {'message': 'Cannot retrieve user id, please try again later'}
 
     finally:
         if db_connection:
             db_connection.close()
-            print("DB connection is closed")
+
     if not user_id:
         return
     return user_id[0][0]
