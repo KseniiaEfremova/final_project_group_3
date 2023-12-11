@@ -275,4 +275,21 @@ class TestUser(unittest.TestCase):
         self.assertEqual(result, {
             'message': 'Cannot get password for this username, try again later'})
 
+    @patch('db.user.hash_password')
+    def test_check_passwords_success(self, mock_hash_password):
+        hashed_password = "hashed_password"
+        mock_hash_password.return_value = hashed_password
+        stored_password = "hashed_password"
+
+        self.assertTrue(check_passwords(hashed_password, stored_password))
+
+    @patch('db.user.hash_password')
+    def test_check_passwords_fail(self, mock_hash_password):
+        hashed_password = "hashed_password"
+        mock_hash_password.return_value = hashed_password
+        stored_password = "stored_password"
+
+        self.assertFalse(check_passwords(hashed_password, stored_password))
+
+
 
