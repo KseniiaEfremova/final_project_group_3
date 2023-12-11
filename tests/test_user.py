@@ -201,3 +201,10 @@ class TestUser(unittest.TestCase):
         computed_hash = hash_password(password)
 
         self.assertEqual(computed_hash, expected_hash)
+
+    def test_check_username_and_password(self):
+        self.assertIsNone(check_username_and_password('', ''))
+        self.assertIsNone(check_username_and_password('', '345FGasd!&'))
+        self.assertIsNone(check_username_and_password('AEFCtysdfs_', ''))
+        self.assertIsNotNone(check_username_and_password('8347568347', '!1213testTest'))
+
