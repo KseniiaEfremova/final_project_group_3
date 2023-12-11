@@ -81,6 +81,7 @@ class TestPlayer(unittest.TestCase):
 		initial_points = self.player.points
 		initial_life = self.player.life
 		self.player.points_collision(python)
+
 		self.assertEqual(self.player.points, initial_points + python.points)
 		self.assertEqual(self.player.life, initial_life + python.damage)
 
@@ -89,6 +90,7 @@ class TestPlayer(unittest.TestCase):
 		initial_points = self.player.points
 		initial_life = self.player.life
 		self.player.points_collision(tick)
+
 		self.assertEqual(self.player.points, initial_points + tick.points)
 		self.assertEqual(self.player.life, initial_life + tick.damage)
 
@@ -97,6 +99,7 @@ class TestPlayer(unittest.TestCase):
 		initial_points = self.player.points
 		initial_life = self.player.life
 		self.player.points_collision(duck)
+
 		self.assertEqual(self.player.points, initial_points + duck.points)
 		self.assertEqual(self.player.life, initial_life + duck.damage)
 
@@ -106,6 +109,7 @@ class TestPlayer(unittest.TestCase):
 		initial_points = self.player.points
 		initial_life = self.player.life
 		self.player.damage_collision(warning)
+
 		self.assertEqual(self.player.points, initial_points - warning.points)
 		self.assertEqual(self.player.life, initial_life - warning.damage)
 
@@ -115,6 +119,7 @@ class TestPlayer(unittest.TestCase):
 		initial_points = self.player.points
 		initial_life = self.player.life
 		self.player.damage_collision(error)
+
 		self.assertEqual(self.player.points, initial_points - error.points)
 		self.assertEqual(self.player.life, initial_life - error.damage)
 
@@ -124,6 +129,7 @@ class TestPlayer(unittest.TestCase):
 		initial_points = self.player.points
 		initial_life = self.player.life
 		self.player.damage_collision(bug)
+
 		self.assertEqual(self.player.points, initial_points - bug.points)
 		self.assertEqual(self.player.life, initial_life - bug.damage)
 
@@ -146,6 +152,29 @@ class TestPlayer(unittest.TestCase):
 
 	def test_get_is_loser(self):
 		self.assertEqual(self.player.is_loser, False)
+
+	def test_check_is_winner_success(self):
+		self.player.life = 90
+		self.player.level = 3
+		self.player.check_is_winner()
+		self.assertEqual(self.player.is_winner, True)
+
+	def test_check_is_winner_fail(self):
+		self.player.life = -10
+		self.player.level = 3
+		self.player.check_is_winner()
+		self.assertEqual(self.player.is_winner, False)
+
+	def test_toggle_is_winner(self):
+		self.player.toggle_is_winner()
+		self.assertEqual(self.player.is_winner, True)
+
+	def test_toggle_is_loser(self):
+		self.player.toggle_is_loser()
+		self.assertEqual(self.player.is_loser, True)
+
+
+
 
 
 
