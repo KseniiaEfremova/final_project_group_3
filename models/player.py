@@ -63,8 +63,7 @@ class Player(pygame.sprite.Sprite):
         self.level = 1
         self.is_winner = False
         self.leveled_up = False
-        self.loser = False
-
+        self.is_loser = False
 
     def draw_player(self):
         self.board_instance.board.blit(self.image, (self.rect.x,
@@ -128,8 +127,8 @@ class Player(pygame.sprite.Sprite):
                 if isinstance(item, DamageFallingItem):
                     self.damage_collision(item)
         else:
-            self.loser = True
-        return self.points, self.loser
+            self.is_loser = True
+        return self.points, self.is_loser
 
     def get_lives(self):
         return self.life
@@ -143,6 +142,9 @@ class Player(pygame.sprite.Sprite):
     def get_is_winner(self):
         return self.is_winner
 
+    def get_is_loser(self):
+        return self.is_loser
+
     def check_is_winner(self):
         if self.life > 0 and self.level == 3:
             self.toggle_is_winner()
@@ -151,6 +153,10 @@ class Player(pygame.sprite.Sprite):
     def toggle_is_winner(self):
         self.is_winner = not self.is_winner
         return self.is_winner
+
+    def toggle_is_loser(self):
+        self.is_loser = not self.is_loser
+        return self.is_loser
 
     def check_for_level_up(self):
         if self.life > 0:
@@ -161,12 +167,16 @@ class Player(pygame.sprite.Sprite):
         self.level += 1
         return self.level
         
-    def reset_player_stats(self):
+    def reset_player(self):
         self.rect.center = (800 - 725, 600 - 200,)
-        self.life = 90
         self.leveled_up = False
-        self.loser = False
-        return self.life, self.points, self.leveled_up, self.loser
+        return self.life, self.leveled_up
+
+    def reset_player_stats(self):
+        self.level = 1
+        self.points = 0
+        self.life = 90
+        return self.level, self.points, self.life
 
     def update_db(self):
         user_id = get_user_id(DB_NAME, users_table, self.name)
