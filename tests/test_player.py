@@ -64,6 +64,16 @@ class TestPlayer(unittest.TestCase):
 					initial_sprite + 1) % 8)
 		self.assertNotEqual(self.player.image, initial_image)
 
+	def test_animate_left(self):
+		initial_sprite = self.player.current_sprite
+		initial_image = self.player.image
+
+		self.player.animate('left')
+
+		self.assertEqual(self.player.current_sprite, (
+					initial_sprite + 1) % 8)
+		self.assertNotEqual(self.player.image, initial_image)
+
 	def tearDown(self):
 		pygame.quit()
 		patch.stopall()
