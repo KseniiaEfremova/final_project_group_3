@@ -141,6 +141,12 @@ class TestPlayer(unittest.TestCase):
 	def test_get_level(self):
 		self.assertEqual(self.player.level, 1)
 
+	def test_get_is_winner(self):
+		self.assertEqual(self.player.is_winner, False)
+
+	def test_get_is_loser(self):
+		self.assertEqual(self.player.is_loser, False)
+
 
 
 def tearDown(self):
