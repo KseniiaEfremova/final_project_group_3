@@ -69,3 +69,16 @@ class TestUser(unittest.TestCase):
                 " ", "")
 
             self.assertEqual(expected_sql, actual_sql)
+
+    @patch('db.user.get_user_id')
+    @patch('db.history.get_cursor_and_connection')
+    def test_initial_users_statistics_exception(self, mock_user_id, mock_get_cursor_and_connection):
+
+        self.mock_cursor.execute.side_effect = Exception('Cannot add initial user statistics, try again later')
+
+        mock_get_cursor_and_connection.return_value = (
+            self.mock_cursor, self.mock_connection)
+
+        result =  initial_user_statistics(self.db_name, self.statistics_table, mock_user_id, points=0, life=90, level=1)
+
+        self.assertEqual(result, {'message': 'Cannot add initial user statistics, try again later'})
