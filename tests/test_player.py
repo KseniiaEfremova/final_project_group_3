@@ -127,6 +127,22 @@ class TestPlayer(unittest.TestCase):
 		self.assertEqual(self.player.points, initial_points - bug.points)
 		self.assertEqual(self.player.life, initial_life - bug.damage)
 
+	# TODO: test if the player is colliding and return proper points and life
+	# def test_check_falling_item_collision(self):
+	# 	with patch(
+	# 			'models.player.pygame.sprite.spritecollide') as mock_spritecollide:
+
+	def test_get_lives(self):
+		self.assertEqual(self.player.life, 90)
+
+	def test_get_points(self):
+		self.assertEqual(self.player.points, 0)
+
+	def test_get_level(self):
+		self.assertEqual(self.player.level, 1)
+
+
+
 def tearDown(self):
 		pygame.quit()
 		patch.stopall()
