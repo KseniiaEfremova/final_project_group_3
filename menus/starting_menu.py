@@ -28,10 +28,10 @@ class StartingMenu(Menu):
         sys.exit()
 
     def instructions_handler(self):
-        pass
+        self.state = "instructions"
 
     def credits_handler(self):
-        pass
+        self.state = "credits"
 
     def register_handler(self):
         self.state = "registration"
@@ -63,12 +63,6 @@ def show_starting_menu(start_menu):
             if event.type == pygame.QUIT:
                 start_menu.exit_game_handler()
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-
-                # if start_menu.registration_button.buttonRect.collidepoint(mouse_x, mouse_y):
-                #     start_menu.start_registration()
-
         start_menu.draw()
         pygame.display.update()
         pygame.time.delay(10)
@@ -82,8 +76,19 @@ def show_login_menu(login_menu):
     while login_menu.login:
         login_menu.process_login()
 
+
 def show_history_menu(history_menu):
     history_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+def show_credits_menu(credits_menu):
+    credits_menu.draw()
     pygame.display.update()
     while True:
         for event in pygame.event.get():

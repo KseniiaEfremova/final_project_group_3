@@ -15,7 +15,7 @@ from utils import assets_library
 from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
 from menus.starting_menu import *
-
+from menus.credits_menu import CreditsMenu
 from menus.history_menu import HistoryMenu
 import sys
 
@@ -48,18 +48,8 @@ def run():
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)
+    credits_menu = CreditsMenu(game_board)
 
-    # while registration_menu.registration:
-    #     username = registration_menu.process_registration()
-
-    # while registration_menu.registration:
-    #   registration_menu.process_registration()
-
-    # while login_menu.login:
-    #     username = login_menu.process_login()
-    # #
-    # while history_menu.history:
-    #     show_history_menu(history_menu)
 
     while start_menu.state == "starting":
         show_starting_menu(start_menu)
@@ -76,6 +66,10 @@ def run():
 
         if start_menu.state == "history":
             show_history_menu(history_menu)
+            start_menu.state = "starting"
+
+        if start_menu.state == "credits":
+            show_credits_menu(credits_menu)
             start_menu.state = "starting"
 
 
