@@ -29,7 +29,6 @@ def insert_new_user(db_name, table_name, username, password):
     finally:
         if db_connection:
             db_connection.close()
-
     return result
 
 

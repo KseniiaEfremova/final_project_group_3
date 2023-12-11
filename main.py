@@ -118,11 +118,9 @@ def run():
 
         elif is_loser and restart_from_loss:
             player.update_db()
-            print(player.is_loser)
             reset_game(player, falling, game_over_menu, False, True)
             start_time = time.time()
             game_board.update_display()
-            print(player.is_loser)
 
         elif is_winner:
             player.update_db()
