@@ -100,6 +100,33 @@ class TestPlayer(unittest.TestCase):
 		self.assertEqual(self.player.points, initial_points + duck.points)
 		self.assertEqual(self.player.life, initial_life + duck.damage)
 
+	def test_damage_collision_warning(self):
+		image = pygame.Surface((50, 50))
+		warning = WarningItem(image, self.test_board)
+		initial_points = self.player.points
+		initial_life = self.player.life
+		self.player.damage_collision(warning)
+		self.assertEqual(self.player.points, initial_points - warning.points)
+		self.assertEqual(self.player.life, initial_life - warning.damage)
+
+	def test_damage_collision_error(self):
+		image = pygame.Surface((50, 50))
+		error = ErrorItem(image, self.test_board)
+		initial_points = self.player.points
+		initial_life = self.player.life
+		self.player.damage_collision(error)
+		self.assertEqual(self.player.points, initial_points - error.points)
+		self.assertEqual(self.player.life, initial_life - error.damage)
+
+	def test_damage_collision_bug(self):
+		image = pygame.Surface((50, 50))
+		bug = BugItem(image, self.test_board)
+		initial_points = self.player.points
+		initial_life = self.player.life
+		self.player.damage_collision(bug)
+		self.assertEqual(self.player.points, initial_points - bug.points)
+		self.assertEqual(self.player.life, initial_life - bug.damage)
+
 def tearDown(self):
 		pygame.quit()
 		patch.stopall()
