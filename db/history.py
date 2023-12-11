@@ -16,6 +16,9 @@ def get_history_data():
                 """
         cursor.execute(query)
         return cursor.fetchall()
+
+    except Exception as e:
+        return {'message': 'Cannot get history data right now, try again later'}
     
     finally:
         cursor.close()
