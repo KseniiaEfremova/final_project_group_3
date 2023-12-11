@@ -22,5 +22,4 @@ class CreditsMenu(Menu):
 
     #  TODO make the button work
     def back_button_handler(self):
-        self.credits = False
-        show_starting_menu(start_menu)
+        pass
