@@ -64,7 +64,6 @@ def show_starting_menu(start_menu):
 
         start_menu.draw()
         pygame.display.update()
-        pygame.time.delay(10)
 
 
 def show_registration_menu(registration_menu):

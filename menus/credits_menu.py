@@ -3,6 +3,7 @@ from menus.menu import Menu
 from board import Board
 from models.components.button import Button
 from utils import assets_library
+from menus.starting_menu import show_starting_menu
 
 
 class CreditsMenu(Menu):
@@ -19,5 +20,7 @@ class CreditsMenu(Menu):
         pygame.display.update()
         self.credits = False
 
+    #  TODO make the button work
     def back_button_handler(self):
         self.credits = False
+        show_starting_menu(start_menu)
