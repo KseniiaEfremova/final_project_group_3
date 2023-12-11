@@ -209,7 +209,7 @@ def get_password_by_username(db_name: str, table_name: str, username: str):
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
-        print("Connected to DB: %s" % db_name)
+
         query = """SELECT password FROM {}
         WHERE username = %s
         """.format(table_name)
@@ -217,8 +217,8 @@ def get_password_by_username(db_name: str, table_name: str, username: str):
         user_id = cursor.fetchall()
         cursor.close()
 
-    except Exception as e:
-        print(e)
+    except Exception:
+        return {'message': 'Cannot get password for this username, try again later'}
 
     finally:
         if db_connection:

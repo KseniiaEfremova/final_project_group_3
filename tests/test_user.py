@@ -245,3 +245,34 @@ class TestUser(unittest.TestCase):
 
         self.assertIsNone(result)
 
+    def test_get_password_by_username_success(self):
+        with unittest.mock.patch(
+                'db.db_utils.mysql.connector.connect',
+                return_value=self.mock_connection):
+            get_password_by_username(self.db_name, self.users_table, self.username)
+
+            expected_sql = """SELECT password FROM {}
+        WHERE username = %s
+        """.format(self.users_table).replace(
+                "\n", "").replace(" ", "")
+
+            actual_sql = self.mock_cursor.execute.call_args[0][0].replace("\n",
+                                                                          "").replace(
+                " ", "")
+
+            self.assertEqual(expected_sql, actual_sql)
+
+    @patch('db.user.get_cursor_and_connection')
+    def test_get_password_by_username_exception(self, mock_get_cursor_and_connection):
+        self.mock_cursor.execute.side_effect = Exception(
+            'Cannot get password for this username, try again later')
+
+        mock_get_cursor_and_connection.return_value = (
+            self.mock_cursor, self.mock_connection)
+
+        result = get_password_by_username(self.db_name, self.users_table, self.username)
+
+        self.assertEqual(result, {
+            'message': 'Cannot get password for this username, try again later'})
+
+
