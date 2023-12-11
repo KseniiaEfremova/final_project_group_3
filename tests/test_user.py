@@ -207,4 +207,15 @@ class TestUser(unittest.TestCase):
         self.assertIsNone(check_username_and_password('', '345FGasd!&'))
         self.assertIsNone(check_username_and_password('AEFCtysdfs_', ''))
         self.assertIsNotNone(check_username_and_password('8347568347', '!1213testTest'))
+    @patch('db.user.get_user_id')
+    def test_is_user_exist_in_db_success(self, mock_id):
+        mock_id.return_value = 'mock_user_id'
 
+        self.assertTrue(is_user_exist_in_db(self.db_name, self.users_table, self.username))
+
+    @patch('db.user.get_user_id')
+    def test_is_user_exist_in_db_fail(self, mock_id):
+        mock_id.return_value = None
+
+        self.assertFalse(
+            is_user_exist_in_db(self.db_name, self.users_table, self.username))
