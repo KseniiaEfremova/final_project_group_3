@@ -1,5 +1,5 @@
 import pygame
-from user import check_username_and_password, is_user_exist_in_db, DB_NAME, users_table, \
+from db.user import check_username_and_password, is_user_exist_in_db, DB_NAME, users_table, \
     check_passwords, get_password_by_username
 from board import Board
 from models.components.button import Button

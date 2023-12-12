@@ -24,7 +24,6 @@ def reset_game(player, falling, end_game_menu, is_winner, is_loser):
         player.toggle_is_winner()
     if is_loser:
         player.toggle_is_loser()
-        print("Loser in if: ", is_loser)
 
 
 def show_history_menu(history_menu):
@@ -49,16 +48,16 @@ def run():
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)  
 
-    # while registration_menu.registration:
-    #     username = registration_menu.process_registration()
-    #
-    # while login_menu.login:
-    #     username = login_menu.process_login()
+    while registration_menu.registration:
+        username = registration_menu.process_registration()
+
+    while login_menu.login:
+        username = login_menu.process_login()
         
     # while history_menu.history:
     #     show_history_menu(history_menu)
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, "test")
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
@@ -118,11 +117,9 @@ def run():
 
         elif is_loser and restart_from_loss:
             player.update_db()
-            print(player.is_loser)
             reset_game(player, falling, game_over_menu, False, True)
             start_time = time.time()
             game_board.update_display()
-            print(player.is_loser)
 
         elif is_winner:
             player.update_db()

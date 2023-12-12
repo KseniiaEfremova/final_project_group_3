@@ -1,11 +1,9 @@
 import pygame
 import sys
 from menus.menu import Menu
-from db_utils import get_cursor_and_connection
-from history import get_history_data
+from db.history import get_history_data
 from board import Board
 from models.components.button import Button
-from models.components.text_drawer import TextDrawer
 from utils import assets_library
 
 pygame.font.init()

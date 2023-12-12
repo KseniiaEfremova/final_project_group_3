@@ -1,9 +1,10 @@
 import pygame
 from board import Board
 from menus.menu import Menu
+from utils import assets_library
 
 pygame.font.init()
-font = pygame.font.Font('assets/fonts/FukuCatch.otf', 60)
+font = pygame.font.Font(assets_library['fonts']['fuku_catch'], 60)
 
 
 class PauseMenu(Menu):

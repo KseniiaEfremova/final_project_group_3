@@ -1,7 +1,7 @@
 import mysql.connector
 import logging
 from mysql.connector import errorcode
-from config import data
+from db.config import data
 
 host, user, password = data["host"], data["user"], data["passwd"]
 DB_NAME = 'game_users_db'
@@ -31,7 +31,6 @@ def connect_to_mysql_database(db_name):
         print(f"ValueError: {e}")
         raise e
     except Exception as e:
-        # Catch unexpected exceptions, log them, and raise to crash the program
         logging.exception(f"Unexpected error occurred: {e}")
         raise e
 
@@ -65,7 +64,6 @@ def connect_to_database_or_create_if_not_exists(db_name):
             db_connection.database = db_name
         else:
             print(err)
-            exit(1)
     print(f"You are using {db_name} database.")
 
 
