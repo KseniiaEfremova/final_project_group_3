@@ -11,7 +11,7 @@ assets_library = {
         'start': 'assets/backgrounds/start.jpg',
         'game_over': 'assets/backgrounds/game_over.png',
         'main_background': 'assets/backgrounds/background.jpg',
-        'win': 'assets/backgrounds/fireworks_win.jpg',
+        'win': 'assets/backgrounds/win_text.jpg',
         'level_up': 'assets/backgrounds/level_up.png',
         'registration_page': 'assets/backgrounds/registration.png'
     },
