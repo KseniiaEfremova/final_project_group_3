@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 import pygame
 from board import Board
 from menus.history_menu import HistoryMenu
@@ -18,19 +18,76 @@ class TestEndGameMenu(unittest.TestCase):
 		self.history_menu = HistoryMenu(
 			self.test_board)
 		self.test_falling = FallingItemsFactory(self.test_board)
-		self.test_player = Player(100, 100, self.test_board, self.test_falling, "Test Player")
+		self.test_player = Player(100, 100, self.test_board,
+								  self.test_falling, "Test Player")
 
 	def test_history_menu_initialization(self):
 		current_image = self.history_menu.background_image
-		expected_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
+		expected_image = pygame.image.load(
+			assets_library['backgrounds']['registration_page'])
 
-		current_image_str = pygame.image.tostring(current_image, "RGBA")
-		expected_image_str = pygame.image.tostring(expected_image, "RGBA")
+		current_image_str = pygame.image.tostring(
+			current_image, "RGBA")
+		expected_image_str = pygame.image.tostring(
+			expected_image, "RGBA")
 
 		self.assertEqual(self.history_menu.board_instance, self.test_board)
 		self.assertEqual(self.history_menu.history, True)
 		self.assertEqual(current_image_str, expected_image_str)
-		self.assertEqual(self.history_menu.column_names, ["Username", "Points", "Life", "Level"])
+		self.assertEqual(self.history_menu.column_names,
+						 ["Username", "Points", "Life", "Level"])
+
+	@patch('menus.history_menu.get_history_data')
+	def test_draw_rows_first_row(self, mock_get_history_data):
+		test_data = [
+			('Test123', -2, 0, 3), ('test', 9, 89, 1),
+			('szam', 0, 90, 1), ('gorilla', 0, -12, 1),
+			('doggy', 0, -1, 1), ('paskudzio', 0, -1, 1),
+			('alba', 0, -3, 1), ('pablo', 0, 90, 1)
+		]
+		mock_get_history_data.return_value = test_data
+		mock_surface = MagicMock()
+		mock_font = pygame.font.Font(None, 36)
+		mock_color = (255, 255, 255)
+
+		self.history_menu.draw_rows(mock_surface)
+
+		expected_calls = [
+			call(mock_font.render('Test123', True, mock_color), (150, 270)),
+			call(mock_font.render('-2', True, mock_color), (300, 270)),
+			call(mock_font.render('0', True, mock_color), (450, 270)),
+			call(mock_font.render('3', True, mock_color), (600, 270)),
+			call(mock_font.render('test', True, mock_color), (150, 300)),
+			call(mock_font.render('9', True, mock_color), (300, 300)),
+			call(mock_font.render('89', True, mock_color), (450, 300)),
+			call(mock_font.render('1', True, mock_color), (600, 300)),
+			call(mock_font.render('szam', True, mock_color), (150, 330)),
+			call(mock_font.render('0', True, mock_color), (300, 330)),
+			call(mock_font.render('90', True, mock_color), (450, 330)),
+			call(mock_font.render('1', True, mock_color), (600, 330)),
+			call(mock_font.render('gorilla', True, mock_color), (150, 360)),
+			call(mock_font.render('0', True, mock_color), (300, 360)),
+			call(mock_font.render('-12', True, mock_color), (450, 360)),
+			call(mock_font.render('1', True, mock_color), (600, 360)),
+			call(mock_font.render('doggy', True, mock_color), (150, 390)),
+			call(mock_font.render('0', True, mock_color), (300, 390)),
+			call(mock_font.render('-1', True, mock_color), (450, 390)),
+			call(mock_font.render('1', True, mock_color), (600, 390)),
+			call(mock_font.render('paskudzio', True, mock_color), (150, 420)),
+			call(mock_font.render('0', True, mock_color), (300, 420)),
+			call(mock_font.render('-1', True, mock_color), (450, 420)),
+			call(mock_font.render('1', True, mock_color), (600, 420)),
+			call(mock_font.render('alba', True, mock_color), (150, 450)),
+			call(mock_font.render('0', True, mock_color), (300, 450)),
+			call(mock_font.render('-3', True, mock_color), (450, 450)),
+			call(mock_font.render('1', True, mock_color), (600, 450)),
+			call(mock_font.render('pablo', True, mock_color), (150, 480)),
+			call(mock_font.render('0', True, mock_color), (300, 480)),
+			call(mock_font.render('90', True, mock_color), (450, 480)),
+			call(mock_font.render('1', True, mock_color), (600, 480)),
+
+		]
+		mock_surface.blit.assert_has_calls(expected_calls)
 
 	@patch('pygame.image.load')
 	@patch('pygame.transform.scale')

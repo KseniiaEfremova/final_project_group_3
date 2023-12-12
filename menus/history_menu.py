@@ -26,14 +26,14 @@ class HistoryMenu(Menu):
             self.board_instance.board.blit(col_text, (column_x, column_y))
             column_x += 150
 
-    def draw_rows(self):
+    def draw_rows(self, surface):
         player_data = get_history_data()
         data_y = 270
         for row in player_data:
             data_x = 150
             for value in row:
                 value_text = font.render(str(value), True, (255, 255, 255))
-                self.board_instance.board.blit(value_text, (data_x, data_y))
+                surface.blit(value_text, (data_x, data_y))
                 data_x += 150
             data_y += 30
 
@@ -47,7 +47,7 @@ class HistoryMenu(Menu):
         self.board_instance.board.blit(title_text, (350, 180))
 
         self.draw_columns()
-        self.draw_rows()
+        self.draw_rows(self.board_instance.board)
 
         back_button = Button(20, 10, 200, 40, self.board_instance, 'BACK TO MENU')
         back_button.process()
