@@ -41,15 +41,13 @@ class LoginMenu(Menu):
         self.password_box.draw_box()
         self.submit_btn.process()
         self.back_btn.process()
+        if self.popup_window_incorrect.opened:
+            self.popup_window_incorrect.draw_window(self.board_instance.board)
         pygame.display.update()
 
     def process_login(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
-
-        if self.popup_window_incorrect.opened:
-            self.popup_window_incorrect.draw_window(self.board_instance.board)
-            pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == QUIT:
