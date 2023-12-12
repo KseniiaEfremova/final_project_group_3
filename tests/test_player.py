@@ -1,6 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock
-import pygame
+from unittest.mock import patch
 import numpy as np
 from board import Board
 from models.player import Player
@@ -20,11 +19,10 @@ class TestPlayer(unittest.TestCase):
 						"Test Player")
 
 	def test_player_initialization(self):
-		player = Player(100, 100, self.test_board, self.test_group, "Test Player")
 
 		self.assertEqual(self.player.rect.center, (100, 100))
-		self.assertEqual(player.width, 100)
-		self.assertEqual(player.height, 238)
+		self.assertEqual(self.player.width, 100)
+		self.assertEqual(self.player.height, 238)
 
 	def test_draw_player(self):
 		self.player.draw_player()
