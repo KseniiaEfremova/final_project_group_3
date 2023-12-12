@@ -41,23 +41,23 @@ def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
-    winning_menu = EndGameMenu(game_board, assets_library['backgrounds']['win'], 'You won')
+    winning_menu = EndGameMenu(game_board, assets_library['backgrounds']['win'])
     game_over_menu = EndGameMenu(game_board, assets_library['backgrounds']['game_over'])
     falling = FallingItemsFactory(game_board)
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)  
 
-    while registration_menu.registration:
-        username = registration_menu.process_registration()
-
-    while login_menu.login:
-        username = login_menu.process_login()
+    # while registration_menu.registration:
+    #     username = registration_menu.process_registration()
+    #
+    # while login_menu.login:
+    #     username = login_menu.process_login()
         
-    # while history_menu.history:
-    #     show_history_menu(history_menu)
+    while history_menu.history:
+        show_history_menu(history_menu)
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, username)
+    player = Player(800 - 725, 600 - 200, game_board, falling, "test")
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)

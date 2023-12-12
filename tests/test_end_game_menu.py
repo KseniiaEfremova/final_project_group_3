@@ -81,5 +81,4 @@ class TestEndGameMenu(unittest.TestCase):
 
 	def tearDown(self):
 		pygame.quit()
-		pygame.font.quit()
 		patch.stopall()
