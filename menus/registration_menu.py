@@ -52,17 +52,15 @@ class RegistrationMenu(Menu):
         self.text_drawer.draw_text("Enter your password: ", (255, 255, 255), 100, 320, font)
         self.password_box.draw_box()
         self.submit_btn.process()
-        pygame.display.update()
-
-    def process_registration(self):
-        self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
-        self.draw()
-
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
             self.popup_window_exist.draw_window(self.board_instance.board)
         pygame.display.update()
+
+    def process_registration(self):
+        self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
+        self.draw()
 
         for event in pygame.event.get():
             if event.type == QUIT:
