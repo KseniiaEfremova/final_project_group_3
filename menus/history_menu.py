@@ -18,12 +18,12 @@ class HistoryMenu(Menu):
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.column_names = ["Username", "Points", "Life", "Level"]
 
-    def draw_columns(self):
+    def draw_columns(self, surface):
         column_x = 150
         column_y = 230
         for col_name in self.column_names:
             col_text = font.render(col_name, True, (255, 255, 255))
-            self.board_instance.board.blit(col_text, (column_x, column_y))
+            surface.blit(col_text, (column_x, column_y))
             column_x += 150
 
     def draw_rows(self, surface):
@@ -46,7 +46,7 @@ class HistoryMenu(Menu):
         title_text = font.render("HISTORY", True, (255, 255, 255))
         self.board_instance.board.blit(title_text, (350, 180))
 
-        self.draw_columns()
+        self.draw_columns(self.board_instance.board)
         self.draw_rows(self.board_instance.board)
 
         back_button = Button(20, 10, 200, 40, self.board_instance, 'BACK TO MENU')

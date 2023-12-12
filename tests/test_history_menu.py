@@ -37,8 +37,23 @@ class TestEndGameMenu(unittest.TestCase):
 		self.assertEqual(self.history_menu.column_names,
 						 ["Username", "Points", "Life", "Level"])
 
+	def test_draw_columns(self):
+		mock_surface = MagicMock()
+		mock_font = pygame.font.Font(None, 36)
+		mock_color = (255, 255, 255)
+
+		self.history_menu.draw_rows(mock_surface)
+
+		expected_calls = [
+			call(mock_font.render('Username', True, mock_color), (150, 230)),
+			call(mock_font.render('Points', True, mock_color), (300, 230)),
+			call(mock_font.render('Life', True, mock_color), (450, 230)),
+			call(mock_font.render('Level', True, mock_color), (600, 230)),
+		]
+
+
 	@patch('menus.history_menu.get_history_data')
-	def test_draw_rows_first_row(self, mock_get_history_data):
+	def test_draw_rows(self, mock_get_history_data):
 		test_data = [
 			('Test123', -2, 0, 3), ('test', 9, 89, 1),
 			('szam', 0, 90, 1), ('gorilla', 0, -12, 1),
