@@ -16,6 +16,16 @@ from utils import assets_library
 
 
 def reset_game(player, falling, end_game_menu, is_winner, is_loser):
+    """
+    Resets the game state.
+
+    Args:
+        player (Player): The player object.
+        falling (FallingItemsFactory): The falling items factory object.
+        end_game_menu (EndGameMenu): The end game menu object.
+        is_winner (bool): True if the player won, False otherwise.
+        is_loser (bool): True if the player lost, False otherwise.
+    """
     player.reset_player()
     player.reset_player_stats()
     falling.falling_items.empty()
@@ -27,6 +37,12 @@ def reset_game(player, falling, end_game_menu, is_winner, is_loser):
 
 
 def show_history_menu(history_menu):
+    """
+    Displays the history menu.
+
+    Args:
+        history_menu (HistoryMenu): The history menu object.
+    """
     history_menu.draw()
     pygame.display.update()
     while True:
@@ -38,6 +54,12 @@ def show_history_menu(history_menu):
 
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
+    """
+    The main function to run the Code Quest game.
+
+    This function initializes the game components, handles user registration and login,
+    and manages the game loop with different states such as playing, winning, and losing.
+    """
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
