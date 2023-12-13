@@ -1,11 +1,11 @@
 import pygame
-from models.components.popup import PopupWindow
-from db.user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
+from db.user import *
 from board import Board
+from menus.menu import Menu
 from models.components.button import Button
 from models.components.input_box import InputBox
-from menus.menu import Menu
 from models.components.text_drawer import TextDrawer
+from models.components.popup import PopupWindow
 from utils import assets_library
 from pygame.locals import *
 
@@ -32,29 +32,45 @@ class RegistrationMenu(Menu):
     def __init__(self, board_instance: Board, registration=True):
         super().__init__(board_instance)
         self.registration = registration
-        self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
-        self.username_box = InputBox(250, 250, 140, 32, "", self.board_instance)
-        self.password_box = InputBox(250, 350, 140, 32, "", self.board_instance)
+        self.background_image = pygame.image.load(
+            assets_library['backgrounds']['registration_page'])
+        self.username_box = InputBox(
+            250, 250, 140, 32, "",
+            self.board_instance)
+        self.password_box = InputBox(
+            250, 350, 140, 32, "",
+            self.board_instance)
         self.text_drawer = TextDrawer(self.board_instance)
-        self.submit_btn = Button(300, 420, 200, 40, self.board_instance, 'SUBMIT',
-                                 lambda: check_username_and_password(self.username_box.get_user_text(),
-                                                                     self.password_box.get_user_text()))
-
-        self.popup_window_invalid = PopupWindow(800, 40, "Invalid Username or Password!")
-        self.popup_window_exist = PopupWindow(800, 40, "This username already exist, try another")
+        self.submit_btn = Button(
+            300, 420, 200, 40, self.board_instance,
+            'SUBMIT', lambda: check_username_and_password(
+                self.username_box.get_user_text(),
+                self.password_box.get_user_text()))
+        self.popup_window_invalid = PopupWindow(
+            800, 40, "Invalid Username or Password!")
+        self.popup_window_exist = PopupWindow(
+            800, 40,
+            "This username already exist, try another")
 
     def draw(self):
         self.board_instance.draw_background()
-        self.text_drawer.draw_text("REGISTRATION", (255, 255, 255), 100, 180, font)
-        self.text_drawer.draw_text("Enter your username: ", (255, 255, 255), 100, 220, font)
+        self.text_drawer.draw_text(
+            "REGISTRATION", (255, 255, 255),
+            100, 180, font)
+        self.text_drawer.draw_text(
+            "Enter your username: ", (255, 255, 255),
+            100, 220, font)
         self.username_box.draw_box()
-        self.text_drawer.draw_text("Enter your password: ", (255, 255, 255), 100, 320, font)
+        self.text_drawer.draw_text(
+            "Enter your password: ", (255, 255, 255),
+            100, 320, font)
         self.password_box.draw_box()
         self.submit_btn.process()
         pygame.display.update()
 
     def process_registration(self):
-        self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
+        self.board_instance.image = pygame.transform.scale(
+            self.background_image, (800, 600))
         self.draw()
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
@@ -96,7 +112,7 @@ class RegistrationMenu(Menu):
             pygame.display.update()
         else:
             self.add_user_to_db(username, password)
-            self.finish_registration(username)
+            self.finish_registration()
 
     def add_user_to_db(self, username, password):
         add_valid_user_data_to_db(username, password)
@@ -106,7 +122,8 @@ class RegistrationMenu(Menu):
         self.registration = False
         self.submit_btn.onePress = False
         self.popup_window_invalid.opened = (
-            False if self.popup_window_invalid.opened else self.popup_window_exist.opened
+            False if self.popup_window_invalid.opened else
+            self.popup_window_exist.opened
         )
         self.switch_to_main_background()
 
