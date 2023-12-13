@@ -19,12 +19,15 @@ class RegistrationMenu(Menu):
 
     Attributes:
     - board_instance (Board): The instance of the game board.
-    - registration (bool): Flag indicating whether it's a registration or login menu.
-    - background_image (pygame.Surface): The background image for the registration page.
+    - registration (bool): Flag indicating whether it's a registration or login
+    menu.
+    - background_image (pygame.Surface): The background image for the
+    registration page.
     - username_box (InputBox): Input box for entering the username.
     - password_box (InputBox): Input box for entering the password.
     - text_drawer (TextDrawer): Helper class for drawing text on the board.
-    - submit_btn (Button): Button for submitting the registration or login information.
+    - submit_btn (Button): Button for submitting the registration or login
+    information.
     - popup_window_invalid (PopupWindow): Popup window for invalid input.
     - popup_window_exist (PopupWindow): Popup window for an existing username.
     """

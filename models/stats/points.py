@@ -21,5 +21,7 @@ class Points(Stats, ABC):
 
 	def draw(self, board_instance, **kwargs):
 		self.update()
-		text = font.render(f"Points: {self.points}", True, (255, 255, 255))
+		text = font.render(
+			f"Points: {self.points}", True,
+			(255, 255, 255))
 		self.board_instance.board.blit(text, (170, 20))

@@ -3,11 +3,6 @@ import sys
 from board import Board
 from menus.menu import Menu
 from models.components.button import Button
-from utils import assets_library
-#
-#
-# pygame.font.init()
-# font = pygame.font.Font(assets_library['fonts']['fuku_catch'], 60)
 
 
 class EndGameMenu(Menu):
@@ -28,12 +23,16 @@ class EndGameMenu(Menu):
 
 	def draw(self):
 		background_image = pygame.image.load(self.background_pic)
-		image = pygame.transform.scale(background_image, (self.width, self.height))
-		play_again_button = Button(200, 500, 150, 40, self.board_instance, buttonText='Play again', onclickFunction=self.play_again_handler, onePress=False)
-		exit_button = Button(450, 500, 150, 40, self.board_instance,
-								   buttonText='Exit',
-								   onclickFunction=self.exit_game_handler,
-								   onePress=False)
+		image = pygame.transform.scale(
+			background_image, (self.width, self.height))
+		play_again_button = Button(
+			200, 500, 150, 40, self.board_instance,
+			buttonText='Play again', onclickFunction=self.play_again_handler,
+			onePress=False)
+		exit_button = Button(
+			450, 500, 150, 40, self.board_instance,
+			buttonText='Exit', onclickFunction=self.exit_game_handler,
+			onePress=False)
 		self.board_instance.board.blit(image, (0, 0))
 
 		play_again_button.process()

@@ -11,9 +11,12 @@ class Level(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.level = self.player_instance.get_level()
-		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level1']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level2']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['level']['level3']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['level']['level1']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['level']['level2']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['level']['level3']))
 		self.current_sprite = self.player_instance.get_level() - 1
 		self.width = 70
 		self.height = 70
@@ -37,8 +40,10 @@ class Level(Stats, ABC):
 											   self.y - self.height))
 
 	def display_level_up_image(self, board_instance):
-		level_up_image = pygame.image.load(assets_library['backgrounds']['level_up'])
-		level_up_image = pygame.transform.scale(level_up_image, (600, 600))
+		level_up_image = pygame.image.load(
+			assets_library['backgrounds']['level_up'])
+		level_up_image = pygame.transform.scale(
+			level_up_image, (600, 600))
 		board_instance.board.blit(level_up_image, (100, 0))
 		pygame.display.update()
 		pygame.time.delay(2000) 

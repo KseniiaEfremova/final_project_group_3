@@ -37,12 +37,16 @@ class InputBox:
                 self.text += event.unicode
 
     def draw_box(self):
-        self.color = pygame.Color('gray15') if not self.active else pygame.Color("chartreuse3")
-        pygame.draw.rect(self.board_instance.board, self.color, self.rect, 2)
+        self.color = pygame.Color('gray15') if not self.active else (
+            pygame.Color("chartreuse3"))
+        pygame.draw.rect(
+            self.board_instance.board, self.color, self.rect, 2)
 
-        text_surface = font.render(self.text, True, (255, 255, 255))
+        text_surface = font.render(
+            self.text, True, (255, 255, 255))
 
-        self.board_instance.board.blit(text_surface, (self.rect.x + 5, self.rect.y + 4))
+        self.board_instance.board.blit(
+            text_surface, (self.rect.x + 5, self.rect.y + 4))
         self.rect.w = max(300, text_surface.get_width() + 10)
 
     def get_user_text(self):

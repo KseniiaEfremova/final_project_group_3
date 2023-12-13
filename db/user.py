@@ -32,7 +32,8 @@ def insert_new_user(db_name, table_name, username, password):
     return result
 
 
-def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
+def initial_user_statistics(
+        db_name, table_name, user_id, points=0, life=90, level=1):
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
@@ -47,7 +48,8 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
         cursor.close()
 
     except Exception:
-        return {'message': 'Cannot add initial user statistics, try again later'}
+        return {'message':
+                    'Cannot add initial user statistics, try again later'}
 
     finally:
         if db_connection:
@@ -63,14 +65,16 @@ def update_user_statistics(db_name, table_name, points, life, level, user_id):
 
         query = """UPDATE {}
         SET points = {}, life = {}, level = {}
-        WHERE user_id = {}""".format(table_name, points, life, level, user_id)
+        WHERE user_id = {}""".format(
+            table_name, points, life, level, user_id)
         
         cursor.execute(query)
         db_connection.commit()
         cursor.close()
 
     except Exception:
-        return {'message': 'Cannot update user statistics right now, please try again later'}
+        return {'message': 'Cannot update user statistics right now, '
+                    'please try again later'}
 
     finally:
         if db_connection:
@@ -159,11 +163,13 @@ def hash_password(password: str) -> str:
     salt = "weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74"
 
     # Hash the password using SHA-256
-    hashed_password = hashlib.sha256((password + ":" + salt).encode('utf-8')).hexdigest()
+    hashed_password = hashlib.sha256((
+        password + ":" + salt).encode('utf-8')).hexdigest()
     return hashed_password
 
 
-def check_username_and_password(input_username: str, input_password: str) -> tuple or None:
+def check_username_and_password(
+        input_username: str, input_password: str) -> tuple or None:
     """
     Checks if the provided username and password are valid.
 
@@ -172,23 +178,26 @@ def check_username_and_password(input_username: str, input_password: str) -> tup
     - input_password (str): The input password.
 
     Returns:
-    - Tuple[str, str] or None: A tuple containing the valid username and password,
-      or None if either the username or password is invalid.
+    - Tuple[str, str] or None: A tuple containing the valid username and
+    password, or None if either the username or password is invalid.
     """
-    if not is_valid_username(input_username) or not is_valid_password(input_password):
+    if (not is_valid_username(input_username) or
+            not is_valid_password(input_password)):
         return None
     return input_username, input_password
 
 
 def is_user_exist_in_db(db_name: str, table_name: str, username: str) -> bool:
-    """Checks if a user with the given username exists in the specified database table."""
+    """Checks if a user with the given username exists in the specified
+    database table."""
     if get_user_id(db_name, table_name, username) is None:
         return False
     return True
 
 
 def add_valid_user_data_to_db(username: str, password: str):
-    """Adds valid user data to the specified database if the user does not already exist."""
+    """Adds valid user data to the specified database if the user does not
+    already exist."""
     if is_user_exist_in_db(DB_NAME, users_table, username):
         # User already exists, return None
         return None
@@ -203,7 +212,8 @@ def get_password_by_username(db_name: str, table_name: str, username: str):
     """
     Retrieve the hashed password for a given username from the database.
 
-    Returns: Optional[str]: The hashed password if the username is found; otherwise, None.
+    Returns: Optional[str]: The hashed password if the username is found;
+    otherwise, None.
     """
     user_id = None
     db_connection = None
@@ -218,7 +228,8 @@ def get_password_by_username(db_name: str, table_name: str, username: str):
         cursor.close()
 
     except Exception:
-        return {'message': 'Cannot get password for this username, try again later'}
+        return {'message': 'Cannot get password for this username, '
+                           'try again later'}
 
     finally:
         if db_connection:

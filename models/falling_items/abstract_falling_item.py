@@ -1,6 +1,5 @@
 import random
-from abc import abstractmethod
-from abc import ABC
+from abc import abstractmethod, ABC
 import pygame
 import datetime
 from board import Board
@@ -23,7 +22,8 @@ class FallingItem(ABC, pygame.sprite.Sprite):
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 		self.rect.center = (x, y)
 		self.board_instance = board_instance
-		self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=3)
+		self.stop_time = (datetime.datetime.utcnow() +
+						  datetime.timedelta(seconds=3))
 		self.spawn()
 
 	def spawn(self):

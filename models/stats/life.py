@@ -11,12 +11,18 @@ class Life(Stats, ABC):
 		super().__init__(player_instance, board_instance)
 		self.sprites = []
 		self.lives = self.player_instance.life
-		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart1']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart2']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart3']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart4']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart5']))
-		self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart6']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['heart']['heart1']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['heart']['heart2']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['heart']['heart3']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['heart']['heart4']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['heart']['heart5']))
+		self.sprites.append(
+			pygame.image.load(assets_library['sprites']['heart']['heart6']))
 		self.current_sprite = 0
 		self.x_positions = [775, 705, 635]
 		self.images = []
@@ -76,4 +82,5 @@ class Life(Stats, ABC):
 		self.update()
 		for index, image in enumerate(self.images):
 			x = self.x_positions[index]
-			board_instance.board.blit(image, (x - self.height, self.y - self.height))
+			board_instance.board.blit(
+				image, (x - self.height, self.y - self.height))
