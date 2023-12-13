@@ -53,3 +53,12 @@ class InputBox:
         - str: The text entered the input box.
         """
         return self.text
+
+    def get_attributes(self):
+        return {
+            'x': self.rect.x,
+            'y': self.rect.y,
+            'width': self.rect.width,
+            'height': self.rect.height,
+            'text': self.text
+        }

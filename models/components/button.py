@@ -68,3 +68,12 @@ class Button:
             self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2
         ])
         self.board_instance.board.blit(self.buttonSurface, self.buttonRect)
+
+    def get_attributes(self):
+        return {
+            'x': self.x,
+            'y': self.y,
+            'width': self.width,
+            'height': self.height,
+            'text': self.buttonText
+        }

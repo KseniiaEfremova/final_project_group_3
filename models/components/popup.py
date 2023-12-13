@@ -20,3 +20,12 @@ class PopupWindow:
 
         board.blit(text_surface, (self.rect.x + start_text, self.rect.y + 12))
         self.opened = True
+
+    def get_attributes(self):
+        return {
+            'x': self.rect.x,
+            'y': self.rect.y,
+            'width': self.rect.width,
+            'height': self.rect.height,
+            'text': self.text
+        }

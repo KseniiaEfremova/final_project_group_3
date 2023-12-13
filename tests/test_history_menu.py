@@ -9,7 +9,6 @@ from utils import assets_library
 
 
 class TestHistoryMenu(unittest.TestCase):
-
 	def setUp(self):
 		pygame.init()
 		pygame.font.init()

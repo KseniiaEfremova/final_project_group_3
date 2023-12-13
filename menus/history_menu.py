@@ -1,5 +1,4 @@
 import pygame
-import sys
 from menus.menu import Menu
 from db.history import get_history_data
 from board import Board
@@ -11,7 +10,6 @@ font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 
 class HistoryMenu(Menu):
-    """ Represents the history menu for users to see their stats"""
     def __init__(self, board_instance: Board):
         super().__init__(board_instance)
         self.history = True
