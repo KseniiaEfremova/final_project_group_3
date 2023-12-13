@@ -72,7 +72,6 @@ def run():
     #
     #     if credits_menu.state == "back":
     #         pass
-
     if start_menu.opened:
         show_starting_menu(start_menu)
         start_menu.opened = False
@@ -94,8 +93,6 @@ def run():
     game_over_menu = GameOverMenu(game_board)
     paused_time = 0
     start_time = time.time()
-
-    
     while True:
         is_winner = player.get_is_winner()
         restart = winning_menu.get_play_again()
