@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pygame
 import numpy as np
 from board import Board
@@ -44,10 +44,31 @@ class TestBugItem(unittest.TestCase):
 	def test_bug_item_spawn(self):
 		bug_item = BugItem(bug_image, self.test_board)
 
-		self.assertFalse(bug_item.x < 0)
-		self.assertFalse(bug_item.x == 0)
-		self.assertFalse(bug_item.x > 770)
-		self.assertTrue(0 < bug_item.x < 770)
+		self.assertTrue(bug_item.width < bug_item.x < 800 - bug_item.width)
+		self.assertTrue(-400 < bug_item.y < -100)
+
+	def test_bug_item_fall(self):
+		bug_item = BugItem(bug_image, self.test_board)
+
+		bug_item.y = 400
+		bug_item.speed = 5
+		bug_item.rect = MagicMock()
+
+		bug_item.disappear = MagicMock()
+
+		bug_item.fall()
+
+		self.assertEqual(bug_item.y, 405)
+		self.assertEqual(bug_item.rect.y, 405)
+		bug_item.disappear.assert_not_called()
+
+		bug_item.y = 501
+
+		bug_item.fall()
+
+		self.assertEqual(bug_item.y, 506)
+		self.assertEqual(bug_item.rect.y, 506)
+		bug_item.disappear.assert_called_once()
 
 	def tearDown(self):
 		pygame.quit()

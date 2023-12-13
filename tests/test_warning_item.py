@@ -46,10 +46,8 @@ class TestWarningItem(unittest.TestCase):
 	def test_warning_item_spawn(self):
 		warning_item = WarningItem(warning_image, self.test_board)
 
-		self.assertFalse(warning_item.x < 0)
-		self.assertFalse(warning_item.x == 0)
-		self.assertFalse(warning_item.x > 770)
-		self.assertTrue(0 < warning_item.x < 770)
+		self.assertTrue(warning_item.width < warning_item.x < 800 - warning_item.width)
+		self.assertTrue(-400 < warning_item.y < -100)
 
 	def test_warning_item_fall(self):
 		warning_item = WarningItem(warning_image, self.test_board)
