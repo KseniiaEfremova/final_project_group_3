@@ -1,6 +1,6 @@
 import pygame.display
 
-from board import Board
+# from board import Board
 from menus.login_menu import LoginMenu
 from models.player import Player
 from models.falling_items.falling_items_factory import *
@@ -11,14 +11,14 @@ from models.stats.points import Points
 from menus.pause_menu import PauseMenu
 from menus.winning_menu import WinningMenu
 from decorators.sounds import Sounds
-from utils import assets_library
+# from utils import assets_library
 from menus.registration_menu import RegistrationMenu
 from menus.game_over_menu import GameOverMenu
 from menus.starting_menu import *
 from menus.credits_menu import CreditsMenu
 from menus.history_menu import HistoryMenu
 from menus.instructions_menu import InstructionsMenu
-import sys
+# import sys
 
 
 def reset_game(player, falling, winning_menu, is_winner=False):
@@ -45,30 +45,45 @@ def run():
     credits_menu = CreditsMenu(game_board)
     instructions_menu = InstructionsMenu(game_board)
 
-    while start_menu.state == "starting":
+    # while start_menu.state == "starting":
+    #     show_starting_menu(start_menu)
+    #
+    #     if start_menu.state == "registration":
+    #         username = registration_menu.process_registration()
+    #         show_registration_menu(registration_menu)
+    #         start_menu.state = "starting"
+    #
+    #     if start_menu.state == "login":
+    #         username = login_menu.process_login()
+    #         show_login_menu(login_menu)
+    #         start_menu.state = "starting"
+    #
+    #     if start_menu.state == "history":
+    #         show_history_menu(history_menu)
+    #         start_menu.state = "starting"
+    #
+    #     if start_menu.state == "credits":
+    #         show_credits_menu(credits_menu)
+    #         start_menu.state = "starting"
+    #
+    #     if start_menu.state == "instructions":
+    #         show_instructions_menu(instructions_menu)
+    #         start_menu.state = "starting"
+    #
+    #     if credits_menu.state == "back":
+    #         pass
+
+    if start_menu.opened:
         show_starting_menu(start_menu)
-
-        if start_menu.state == "registration":
-            username = registration_menu.process_registration()
-            show_registration_menu(registration_menu)
-            start_menu.state = "starting"
-
-        if start_menu.state == "login":
-            username = login_menu.process_login()
-            show_login_menu(login_menu)
-            start_menu.state = "starting"
-
-        if start_menu.state == "history":
-            show_history_menu(history_menu)
-            start_menu.state = "starting"
-
-        if start_menu.state == "credits":
-            show_credits_menu(credits_menu)
-            start_menu.state = "starting"
-
-        if start_menu.state == "instructions":
-            show_instructions_menu(instructions_menu)
-            start_menu.state = "starting"
+        start_menu.opened = False
+    elif registration_menu.opened:
+        username = registration_menu.process_registration()
+        show_registration_menu(registration_menu)
+        registration_menu.opened = False
+    elif login_menu.opened:
+        username = login_menu.process_login()
+        show_login_menu(login_menu)
+        login_menu.opened = False
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
@@ -79,6 +94,7 @@ def run():
     game_over_menu = GameOverMenu(game_board)
     paused_time = 0
     start_time = time.time()
+
     
     while True:
         is_winner = player.get_is_winner()
@@ -125,6 +141,9 @@ def run():
                         level.display_level_up_image(game_board)
                         start_time = time.time()
                         player.reset_player_stats()
+
+            elif game_board.credits:
+                credits_menu.draw()
 
             elif game_board.pause:
                 player.update_db()

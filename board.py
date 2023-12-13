@@ -16,6 +16,7 @@ class Board:
         self.board_surface = pygame.surface.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
         self.pause = False
         self.over = False
+        self.credits = False
     
     def display_board(self, player):
         pygame.display.set_caption(self.name)
