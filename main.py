@@ -47,13 +47,13 @@ def run():
     falling = FallingItemsFactory(game_board)
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
-    history_menu = HistoryMenu(game_board)  
+    history_menu = HistoryMenu(game_board)
 
-    # while registration_menu.registration:
-    #     username = registration_menu.process_registration()
-    #
-    # while login_menu.login:
-    #     username = login_menu.process_login()
+    while registration_menu.registration:
+        username = registration_menu.process_registration()
+
+    while login_menu.login:
+        username = login_menu.process_login()
         
     # while history_menu.history:
     #     show_history_menu(history_menu)

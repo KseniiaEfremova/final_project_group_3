@@ -23,7 +23,7 @@ class LoginMenu(Menu):
         self.username_box = InputBox(250, 250, 140, 32, "", self.board_instance)
         self.password_box = InputBox(250, 350, 140, 32, "", self.board_instance)
         self.text_drawer = TextDrawer(self.board_instance)
-        self.submit_btn = Button(300, 420, 200, 40, self.board_instance, 'SUBMIT',
+        self.submit_btn = Button(300, 450, 200, 40, self.board_instance, 'SUBMIT',
                                  lambda: check_username_and_password(self.username_box.get_user_text(),
                                                                      self.password_box.get_user_text()))
         self.back_btn = Button(20, 500, 200, 40, self.board_instance, 'BACK TO MENU',
@@ -54,6 +54,7 @@ class LoginMenu(Menu):
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
+
         if self.submit_btn.alreadyPressed:
             username, password = self.username_box.get_user_text(), self.password_box.get_user_text()
             if (is_user_exist_in_db(DB_NAME, users_table, username)
@@ -68,8 +69,7 @@ class LoginMenu(Menu):
                 return username
 
             else:
-                self.popup_window_incorrect.draw_window(self.board_instance.board)
-                pygame.display.update()
+                self.popup_window_incorrect.opened = True
         if self.back_btn.alreadyPressed:
             #  TODO go to start menu
             print("go to START MENU")
