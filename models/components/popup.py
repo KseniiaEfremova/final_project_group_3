@@ -13,7 +13,8 @@ class PopupWindow:
     def draw_window(self, board):
         color = pygame.Color('brown2')
         pygame.draw.rect(board, color, self.rect)
-        text_surface = font.render(self.text, True, (255, 255, 255))
+        text_surface = font.render(
+            self.text, True, (255, 255, 255))
 
         location = text_surface.get_rect()
         start_text = int(self.rect.width / 2 - location.center[0])
