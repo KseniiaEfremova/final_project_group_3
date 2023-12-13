@@ -133,5 +133,3 @@ class RegistrationMenu(Menu):
         self.board_instance.image = pygame.transform.scale(background_image,
                                                            (800, 600))
         pygame.display.update()
-
-

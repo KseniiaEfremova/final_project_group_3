@@ -8,7 +8,7 @@ from models.player import Player
 from utils import assets_library
 
 
-class TestEndGameMenu(unittest.TestCase):
+class TestHistoryMenu(unittest.TestCase):
 
 	def setUp(self):
 		pygame.init()
@@ -19,7 +19,7 @@ class TestEndGameMenu(unittest.TestCase):
 			self.test_board)
 		self.test_falling = FallingItemsFactory(self.test_board)
 		self.test_player = Player(100, 100, self.test_board,
-								  self.test_falling, "Test Player")
+									self.test_falling, "Test Player")
 
 	def test_history_menu_initialization(self):
 		current_image = self.history_menu.background_image
@@ -42,15 +42,20 @@ class TestEndGameMenu(unittest.TestCase):
 		mock_font = pygame.font.Font(None, 36)
 		mock_color = (255, 255, 255)
 
-		self.history_menu.draw_rows(mock_surface)
+		self.history_menu.draw_columns(mock_surface)
 
 		expected_calls = [
-			call(mock_font.render('Username', True, mock_color), (150, 230)),
-			call(mock_font.render('Points', True, mock_color), (300, 230)),
-			call(mock_font.render('Life', True, mock_color), (450, 230)),
-			call(mock_font.render('Level', True, mock_color), (600, 230)),
+			call(mock_font.render(
+				'Username', True, mock_color), (150, 230)),
+			call(mock_font.render(
+				'Points', True, mock_color), (300, 230)),
+			call(mock_font.render(
+				'Life', True, mock_color), (450, 230)),
+			call(mock_font.render(
+				'Level', True, mock_color), (600, 230)),
 		]
 
+		mock_surface.blit.assert_has_calls(expected_calls)
 
 	@patch('menus.history_menu.get_history_data')
 	def test_draw_rows(self, mock_get_history_data):
@@ -68,38 +73,70 @@ class TestEndGameMenu(unittest.TestCase):
 		self.history_menu.draw_rows(mock_surface)
 
 		expected_calls = [
-			call(mock_font.render('Test123', True, mock_color), (150, 270)),
-			call(mock_font.render('-2', True, mock_color), (300, 270)),
-			call(mock_font.render('0', True, mock_color), (450, 270)),
-			call(mock_font.render('3', True, mock_color), (600, 270)),
-			call(mock_font.render('test', True, mock_color), (150, 300)),
-			call(mock_font.render('9', True, mock_color), (300, 300)),
-			call(mock_font.render('89', True, mock_color), (450, 300)),
-			call(mock_font.render('1', True, mock_color), (600, 300)),
-			call(mock_font.render('szam', True, mock_color), (150, 330)),
-			call(mock_font.render('0', True, mock_color), (300, 330)),
-			call(mock_font.render('90', True, mock_color), (450, 330)),
-			call(mock_font.render('1', True, mock_color), (600, 330)),
-			call(mock_font.render('gorilla', True, mock_color), (150, 360)),
-			call(mock_font.render('0', True, mock_color), (300, 360)),
-			call(mock_font.render('-12', True, mock_color), (450, 360)),
-			call(mock_font.render('1', True, mock_color), (600, 360)),
-			call(mock_font.render('doggy', True, mock_color), (150, 390)),
-			call(mock_font.render('0', True, mock_color), (300, 390)),
-			call(mock_font.render('-1', True, mock_color), (450, 390)),
-			call(mock_font.render('1', True, mock_color), (600, 390)),
-			call(mock_font.render('paskudzio', True, mock_color), (150, 420)),
-			call(mock_font.render('0', True, mock_color), (300, 420)),
-			call(mock_font.render('-1', True, mock_color), (450, 420)),
-			call(mock_font.render('1', True, mock_color), (600, 420)),
-			call(mock_font.render('alba', True, mock_color), (150, 450)),
-			call(mock_font.render('0', True, mock_color), (300, 450)),
-			call(mock_font.render('-3', True, mock_color), (450, 450)),
-			call(mock_font.render('1', True, mock_color), (600, 450)),
-			call(mock_font.render('pablo', True, mock_color), (150, 480)),
-			call(mock_font.render('0', True, mock_color), (300, 480)),
-			call(mock_font.render('90', True, mock_color), (450, 480)),
-			call(mock_font.render('1', True, mock_color), (600, 480)),
+			call(mock_font.render(
+				'Test123', True, mock_color), (150, 270)),
+			call(mock_font.render(
+				'-2', True, mock_color), (300, 270)),
+			call(mock_font.render(
+				'0', True, mock_color), (450, 270)),
+			call(mock_font.render(
+				'3', True, mock_color), (600, 270)),
+			call(mock_font.render(
+				'test', True, mock_color), (150, 300)),
+			call(mock_font.render(
+				'9', True, mock_color), (300, 300)),
+			call(mock_font.render(
+				'89', True, mock_color), (450, 300)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 300)),
+			call(mock_font.render(
+				'szam', True, mock_color), (150, 330)),
+			call(mock_font.render(
+				'0', True, mock_color), (300, 330)),
+			call(mock_font.render(
+				'90', True, mock_color), (450, 330)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 330)),
+			call(mock_font.render(
+				'gorilla', True, mock_color), (150, 360)),
+			call(mock_font.render(
+				'0', True, mock_color), (300, 360)),
+			call(mock_font.render(
+				'-12', True, mock_color), (450, 360)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 360)),
+			call(mock_font.render(
+				'doggy', True, mock_color), (150, 390)),
+			call(mock_font.render(
+				'0', True, mock_color), (300, 390)),
+			call(mock_font.render(
+				'-1', True, mock_color), (450, 390)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 390)),
+			call(mock_font.render(
+				'paskudzio', True, mock_color), (150, 420)),
+			call(mock_font.render(
+				'0', True, mock_color), (300, 420)),
+			call(mock_font.render(
+				'-1', True, mock_color), (450, 420)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 420)),
+			call(mock_font.render(
+				'alba', True, mock_color), (150, 450)),
+			call(mock_font.render(
+				'0', True, mock_color), (300, 450)),
+			call(mock_font.render(
+				'-3', True, mock_color), (450, 450)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 450)),
+			call(mock_font.render(
+				'pablo', True, mock_color), (150, 480)),
+			call(mock_font.render(
+				'0', True, mock_color), (300, 480)),
+			call(mock_font.render(
+				'90', True, mock_color), (450, 480)),
+			call(mock_font.render(
+				'1', True, mock_color), (600, 480)),
 
 		]
 		mock_surface.blit.assert_has_calls(expected_calls)
@@ -108,7 +145,6 @@ class TestEndGameMenu(unittest.TestCase):
 	@patch('pygame.transform.scale')
 	@patch('menus.history_menu.Button')
 	def test_draw(self, mock_button, mock_scale, mock_load):
-
 		mock_button.return_value.process.return_value = None
 		mock_surface = pygame.Surface((800, 600))
 		mock_scale.return_value = mock_surface
