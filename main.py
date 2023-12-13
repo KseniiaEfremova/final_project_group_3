@@ -8,8 +8,11 @@ from models.stats.life import Life
 from models.stats.level import Level
 from models.stats.timer import Timer
 from models.stats.points import Points
+from menus.registration_menu import RegistrationMenu
+from menus.login_menu import LoginMenu
+from menus.history_menu import HistoryMenu
 from menus.pause_menu import PauseMenu
-from menus.winning_menu import WinningMenu
+from menus.end_game_menu import EndGameMenu
 from decorators.sounds import Sounds
 # from utils import assets_library
 from menus.registration_menu import RegistrationMenu
@@ -21,14 +24,17 @@ from menus.instructions_menu import InstructionsMenu
 # import sys
 
 
-def reset_game(player, falling, winning_menu, is_winner=False):
+
+def reset_game(player, falling, end_game_menu, is_winner, is_loser):
+    player.reset_player()
     player.reset_player_stats()
-    player.level = 1
     falling.falling_items.empty()
-    winning_menu.play_again = False
-    player.points = 0
+    end_game_menu.play_again = False
     if is_winner:
         player.toggle_is_winner()
+    if is_loser:
+        player.toggle_is_loser()
+
 
                 
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
@@ -37,7 +43,8 @@ def run():
     game_board = Board('Code Quest', (800, 600), 60)
     start_menu = StartingMenu(game_board)
     pause_menu = PauseMenu(game_board)
-    winning_menu = WinningMenu(game_board)
+    winning_menu = EndGameMenu(game_board, assets_library['backgrounds']['win'], 'You won')
+    game_over_menu = EndGameMenu(game_board, assets_library['backgrounds']['game_over'])
     falling = FallingItemsFactory(game_board)
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
@@ -90,33 +97,23 @@ def run():
     timer = Timer(player, game_board)
     points = Points(player, game_board)
     timer_seconds = 10
-    game_over_menu = GameOverMenu(game_board)
     paused_time = 0
     start_time = time.time()
     while True:
         is_winner = player.get_is_winner()
-        restart = winning_menu.get_play_again()
-        restart_game_over_menu = game_over_menu.get_restart_game()
+        is_loser = player.get_is_loser()
+        restart_from_win = winning_menu.get_play_again()
+        restart_from_loss = game_over_menu.get_play_again()
         game_board.display_board(player)
         game_board.draw_background()
 
-        if not is_winner:
+        if not is_winner and not is_loser:
             life.draw(game_board)
             level.draw(game_board)
             points.draw(game_board)
             player.draw_player()
             falling.create_group()
             falling.draw()
-
-            if life.lives <= 0:
-                player.update_db()
-                game_over_menu.draw()
-                game_board.update_display()
-
-                if restart_game_over_menu:
-                    reset_game(player, falling, winning_menu, is_winner=False)
-                    game_board.update_display()
-                    start_time = time.time()
 
             if not game_board.pause:
                 if paused_time:
@@ -137,27 +134,34 @@ def run():
                         player.level_up_player()
                         level.display_level_up_image(game_board)
                         start_time = time.time()
-                        player.reset_player_stats()
-
-            elif game_board.credits:
-                credits_menu.draw()
+                        player.reset_player()
 
             elif game_board.pause:
-                player.update_db()
+                pause_menu.draw()
                 if not paused_time:
                     paused_time = time.time()
-                    pause_menu.draw()
                     game_board.update_display()
 
-        elif is_winner and restart:
+        elif is_winner and restart_from_win:
             player.update_db()
-            reset_game(player, falling, winning_menu, is_winner=True)
+            reset_game(player, falling, winning_menu, True, False)
             start_time = time.time()
             game_board.update_display()
 
-        else:
+        elif is_loser and restart_from_loss:
+            player.update_db()
+            reset_game(player, falling, game_over_menu, False, True)
+            start_time = time.time()
+            game_board.update_display()
+
+        elif is_winner:
             player.update_db()
             winning_menu.draw()
+            game_board.update_display()
+
+        elif is_loser:
+            player.update_db()
+            game_over_menu.draw()
             game_board.update_display()
 
         game_board.update_display()

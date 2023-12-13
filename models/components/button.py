@@ -45,9 +45,6 @@ class Button:
         """
         Process the button's behavior, including handling mouse interactions and rendering.
         """
-        # print(self.buttonText)
-        # print(font)
-        # print(font.render)
         buttonSurf = font.render(self.buttonText, True, (255, 255, 255))
 
         mousePos = pygame.mouse.get_pos()
