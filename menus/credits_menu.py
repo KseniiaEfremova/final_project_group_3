@@ -3,7 +3,6 @@ from menus.menu import Menu
 from board import Board
 from models.components.button import Button
 from utils import assets_library
-from menus.starting_menu import show_starting_menu
 
 
 class CreditsMenu(Menu):
@@ -11,7 +10,7 @@ class CreditsMenu(Menu):
         super().__init__(board_instance)
         self.background_image = pygame.image.load(assets_library['backgrounds']['credits'])
         self.back_button = Button(20, 10, 200, 40, self.board_instance, 'BACK TO MENU', self.back_button_handler)
-        self.state = "credits"
+        self.is_open = False
 
     def draw(self):
         self.background_image = pygame.transform.scale(self.background_image, (800, 600))
@@ -21,11 +20,4 @@ class CreditsMenu(Menu):
 
     #  TODO make the button work
     def back_button_handler(self):
-        self.state = "back"
-
-
-# def back_to_starting_menu(start_menu):
-#     start_menu.state = "starting"
-#     show_starting_menu()
-
-
+        self.is_open = False

@@ -18,7 +18,7 @@ class LoginMenu(Menu):
     """ Represents the login menu for user sign-up. """
     def __init__(self, board_instance: Board, login=True):
         super().__init__(board_instance)
-        self.opened = False
+        self.is_open = False
         self.login = login
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.username_box = InputBox(250, 250, 140, 32, "", self.board_instance)
