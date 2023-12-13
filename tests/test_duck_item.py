@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pygame
 import numpy as np
 from board import Board
@@ -44,10 +44,31 @@ class TestDuckItem(unittest.TestCase):
 	def test_duck_item_spawn(self):
 		duck_item = RubberDuckItem(duck_image, self.test_board)
 
-		self.assertFalse(duck_item.x < 0)
-		self.assertFalse(duck_item.x == 0)
-		self.assertFalse(duck_item.x > 770)
-		self.assertTrue(0 < duck_item.x < 770)
+		self.assertTrue(duck_item.width < duck_item.x < 800 - duck_item.width)
+		self.assertTrue(-400 < duck_item.y < -100)
+
+	def test_duck_item_fall(self):
+		duck_item = RubberDuckItem(duck_image, self.test_board)
+
+		duck_item.y = 400
+		duck_item.speed = 5
+		duck_item.rect = MagicMock()
+
+		duck_item.disappear = MagicMock()
+
+		duck_item.fall()
+
+		self.assertEqual(duck_item.y,405)
+		self.assertEqual(duck_item.rect.y, 405)
+		duck_item.disappear.assert_not_called()
+
+		duck_item.y = 501
+
+		duck_item.fall()
+
+		self.assertEqual(duck_item.y,506)
+		self.assertEqual(duck_item.rect.y, 506)
+		duck_item.disappear.assert_called_once()
 
 	def tearDown(self):
 		pygame.quit()
