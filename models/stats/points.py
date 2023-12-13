@@ -23,7 +23,7 @@ class Points(Stats, ABC):
 
 	def __init__(self, player_instance: Player, board_instance: Board):
 		"""
-        Initialises a Points object.
+        Initialise a Points object.
 
         Parameters:
             player_instance (Player): An instance of the player associated with the points.

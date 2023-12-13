@@ -33,7 +33,7 @@ class FallingItemsFactory(pygame.sprite.Sprite):
     
     def __init__(self, board_instance: Board):
         """
-        Initialises a FallingItemsFactory object.
+        Initialise a FallingItemsFactory object.
 
         Parameters:
             board_instance (Board): An instance of the game board.

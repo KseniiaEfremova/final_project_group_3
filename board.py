@@ -22,7 +22,7 @@ class Board:
     """
     def __init__(self, name, res, frames):
         """
-        Initializes the Board object.
+        Initialise the Board object.
 
         Parameters:
             name (str): The name of the game.

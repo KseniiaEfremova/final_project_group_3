@@ -26,7 +26,7 @@ class Level(Stats, ABC):
     
     def __init__(self, player_instance: Player, board_instance: Board):
         """
-        Initialises a Level object.
+        Initialise a Level object.
 
         Parameters:
             player_instance (Player): An instance of the player associated with the level.

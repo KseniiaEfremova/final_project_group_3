@@ -23,7 +23,7 @@ class PointsFallingItem(FallingItem, ABC):
     
     def __init__(self, name, image, speed, damage, points, width, height, x, y, board_instance):
         """
-        Initialises a PointsFallingItem object.
+        Initialise a PointsFallingItem object.
 
         Parameters:
             name (str): The name of the falling item.

@@ -19,7 +19,7 @@ class InputBox:
     
     def __init__(self, x, y, width, height, text, board_instance: Board):
         """
-        Initialises an InputBox object.
+        Initialise an InputBox object.
 
         Parameters:
             x (int): The x-coordinate of the top-left corner of the input box.

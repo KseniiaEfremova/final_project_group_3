@@ -16,7 +16,7 @@ class Stats(ABC, pygame.sprite.Sprite):
     
     def __init__(self, player_instance: Player, board_instance: Board):
         """
-        Initialises a Stats object.
+        Initialise a Stats object.
 
         Parameters:
             player_instance (Player): An instance of the player associated with the stats.

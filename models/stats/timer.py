@@ -22,7 +22,7 @@ class Timer(Stats, ABC):
     
 	def __init__(self, player_instance: Player, board_instance: Board):
 		"""
-        Initialises a Timer object.
+        Initialise a Timer object.
 
         Parameters:
             player_instance (Player): An instance of the player associated with the timer.

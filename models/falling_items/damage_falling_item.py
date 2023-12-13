@@ -25,7 +25,7 @@ class DamageFallingItem(FallingItem, ABC):
     def __init__(self, name, image,  speed, damage, points, width, height, x, y,
                  board_instance):
         """
-        Initialises a DamageFallingItem object.
+        Initialise a DamageFallingItem object.
 
         Parameters:
             name (str): The name of the damage falling item.

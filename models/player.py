@@ -34,7 +34,7 @@ class Player(pygame.sprite.Sprite):
     
     def __init__(self, x, y, board_instance: Board, falling_group, name):
         """
-        Initialises a Player object.
+        Initialise a Player object.
 
         Parameters:
             x (int): The initial x-coordinate of the player on the game board.

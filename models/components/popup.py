@@ -20,7 +20,7 @@ class PopupWindow:
     
     def __init__(self, width, height, text, x=0, y=0, opened=False):
         """
-        Initializes a PopupWindow object.
+        Initialise a PopupWindow object.
 
         Parameters:
             width (int): The width of the popup window.

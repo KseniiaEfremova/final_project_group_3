@@ -16,7 +16,7 @@ class TextDrawer:
 
     def __init__(self, board_instance: Board):
         """
-        Initializes a TextDrawer object.
+        Initialise a TextDrawer object.
 
         Parameters:
             board_instance (Board): An instance of the game board where text is to be drawn.

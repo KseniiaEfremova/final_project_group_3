@@ -28,7 +28,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
     def __init__(self, name, image, speed, damage, points, width, height, x, y,
 				board_instance: Board):
         """
-        Initialises a FallingItem object.
+        Initialise a FallingItem object.
 
         Parameters:
             name (str): The name of the falling item.
