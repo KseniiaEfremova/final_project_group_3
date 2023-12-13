@@ -44,6 +44,18 @@ class TestFallingItemsFactory(unittest.TestCase):
 		self.assertEqual(self.test_falling_items.game_board, self.test_board)
 		self.assertEqual(self.test_falling_items.item_list, [])
 
+	def test_create_group(self):
+		self.test_falling_items.create_group()
+
+		self.assertEqual(self.test_falling_items.item_list,
+						 [self.test_falling_items.tick,
+						  self.test_falling_items.duck,
+						  self.test_falling_items.warning,
+						  self.test_falling_items.error,
+						  self.test_falling_items.bug,
+						  self.test_falling_items.python])
+		self.assertEqual(len(self.test_falling_items.falling_items), 6)
+
 	# def test_bug_item_draw(self):
 	# 	bug_item = BugItem(bug_image, self.test_board)
 	# 	bug_item.draw(self.test_board)
