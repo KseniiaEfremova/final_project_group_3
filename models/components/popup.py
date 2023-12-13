@@ -19,4 +19,3 @@ class PopupWindow:
         start_text = int(self.rect.width / 2 - location.center[0])
 
         board.blit(text_surface, (self.rect.x + start_text, self.rect.y + 12))
-        self.opened = True
