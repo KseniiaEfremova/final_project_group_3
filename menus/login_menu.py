@@ -28,21 +28,19 @@ class LoginMenu(Menu):
             self.board_instance)
         self.text_drawer = TextDrawer(self.board_instance)
         self.submit_btn = Button(
-            300, 420, 200, 40, self.board_instance,
+            300, 450, 200, 40, self.board_instance,
             'SUBMIT', lambda: check_username_and_password(
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
         self.back_btn = Button(
-            20, 10, 200, 40, self.board_instance,
+            20, 500, 200, 40, self.board_instance,
             'BACK TO MENU', lambda: check_username_and_password(
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
-
         self.popup_window_incorrect = PopupWindow(
             800, 40, "Incorrect Username or Password!")
 
     def draw(self):
-        # Drawing elements on the board
         self.board_instance.draw_background()
         self.text_drawer.draw_text(
             "LOGIN", (255, 255, 255), 100, 180, font)

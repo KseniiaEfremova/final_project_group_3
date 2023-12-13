@@ -100,9 +100,7 @@ class RegistrationMenu(Menu):
             self.password_box.get_user_text()
         )
         if user_credentials is None:
-            self.popup_window_invalid.draw_window(self.board_instance.board)
-            self.popup_window_exist.opened = False
-            pygame.display.update()
+            self.handle_invalid_credentials()
         else:
             username = self.handle_valid_credentials(user_credentials)
             return username
@@ -121,6 +119,7 @@ class RegistrationMenu(Menu):
         else:
             username = self.add_user_to_db(username, password)
             self.finish_registration()
+            print("from handling valid credentials", self.popup_window_invalid.opened)
             return username
 
     def add_user_to_db(self, username, password):
