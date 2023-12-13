@@ -53,7 +53,7 @@ class LoginMenu(Menu):
             self.password_box.handle_event(event)
 
         if self.submit_btn.alreadyPressed:
-            self.process_submit()
+            return self.process_submit()
         if self.back_btn.alreadyPressed:
             self.handle_back_to_menu()
 
@@ -64,6 +64,7 @@ class LoginMenu(Menu):
             self.handle_correct_credentials()
         else:
             self.handle_incorrect_credentials()
+        return username
 
     def handle_incorrect_credentials(self):
         self.popup_window_incorrect.opened = True
@@ -93,4 +94,4 @@ class LoginMenu(Menu):
     def process_login(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
-        self.handle_user_input()
+        return self.handle_user_input()
