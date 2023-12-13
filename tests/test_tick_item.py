@@ -48,7 +48,7 @@ class TestTickItem(unittest.TestCase):
 		self.assertTrue(tick_item.width < tick_item.x < 800 - tick_item.width)
 		self.assertTrue(-400 < tick_item.y < -100)
 
-	def test_duck_item_fall(self):
+	def test_tick_item_fall(self):
 		tick_item = TickItem(tick_image, self.test_board)
 
 		tick_item.y = 400
