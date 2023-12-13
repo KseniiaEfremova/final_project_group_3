@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock
 import pygame
 import numpy as np
 from board import Board
@@ -56,26 +56,35 @@ class TestFallingItemsFactory(unittest.TestCase):
 						  self.test_falling_items.python])
 		self.assertEqual(len(self.test_falling_items.falling_items), 6)
 
-	# def test_bug_item_draw(self):
-	# 	bug_item = BugItem(bug_image, self.test_board)
-	# 	bug_item.draw(self.test_board)
-	# 	bug = pygame.surfarray.array3d(bug_item.image)
-	# 	loaded_bug = pygame.transform.scale(bug_image, (50, 50))
-	# 	bug_content = pygame.surfarray.array3d(loaded_bug)
-	# 	diff = np.abs(bug_content - bug)
-	# 	total_diff = np.sum(diff)
-	# 	allowable_diff = 0
-	#
-	# 	self.assertLessEqual(total_diff, allowable_diff)
-	#
-	# def test_bug_item_spawn(self):
-	# 	bug_item = BugItem(bug_image, self.test_board)
-	#
-	# 	self.assertFalse(bug_item.x < 0)
-	# 	self.assertFalse(bug_item.x == 0)
-	# 	self.assertFalse(bug_item.x > 770)
-	# 	self.assertTrue(0 < bug_item.x < 770)
+	def test_draw(self):
+		mock_sprite_1 = MagicMock(spec=pygame.sprite.Sprite)
+		mock_sprite_2 = MagicMock(spec=pygame.sprite.Sprite)
+		mock_sprite_1.draw = MagicMock()
+		mock_sprite_2.draw = MagicMock()
+
+		self.test_falling_items.item_list = [mock_sprite_1, mock_sprite_2]
+		for item in self.test_falling_items.item_list:
+			self.test_falling_items.falling_items.add(item)
+
+		self.test_falling_items.draw()
+
+		mock_sprite_1.draw.assert_called_with(self.test_board)
+		mock_sprite_2.draw.assert_called_with(self.test_board)
+
+	def test_fall_and_respawn(self):
+		mock_sprite_1 = MagicMock(spec=pygame.sprite.Sprite)
+		mock_sprite_2 = MagicMock(spec=pygame.sprite.Sprite)
+		mock_sprite_1.fall = MagicMock()
+		mock_sprite_2.fall = MagicMock()
+
+		self.test_falling_items.item_list = [mock_sprite_1, mock_sprite_2]
+		for item in self.test_falling_items.item_list:
+			self.test_falling_items.falling_items.add(item)
+
+		self.test_falling_items.fall_and_respawn()
+
+		mock_sprite_1.fall.assert_called()
+		mock_sprite_2.fall.assert_called()
 
 	def tearDown(self):
 		pygame.quit()
-		patch.stopall()

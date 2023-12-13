@@ -42,10 +42,4 @@ class FallingItemsFactory(pygame.sprite.Sprite):
 
     def fall_and_respawn(self):
         for sprite in self.falling_items.sprites():
-            if isinstance(sprite, TickItem) or isinstance(sprite, WarningItem):
-                sprite.fall()
-            if isinstance(sprite, PythonItem) or isinstance(sprite, ErrorItem):
-                sprite.fall()
-            if (isinstance(sprite, RubberDuckItem)
-                    or isinstance(sprite, BugItem)):
-                sprite.fall()
+            sprite.fall()
