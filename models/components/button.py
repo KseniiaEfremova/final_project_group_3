@@ -6,22 +6,38 @@ font = pygame.font.Font(None, 34)
 
 
 class Button:
+    """
+    Represents a button in Code Quest.
+
+    Attributes:
+        x (int): The x-coordinate of the top-left corner of the button.
+        y (int): The y-coordinate of the top-left corner of the button.
+        width (int): The width of the button.
+        height (int): The height of the button.
+        board_instance (Board): The instance of the game board.
+        buttonText (str): The text to be displayed on the button (default is 'Button').
+        onclickFunction (callable): The function to be executed when the button is clicked.
+        onePress (bool): If True, the onclickFunction is executed only once on the first click (default is False).
+        fillColors (dict): Dictionary containing colors for different button states (normal, hover, pressed).
+        buttonSurface (pygame.Surface): Surface representing the button.
+        buttonRect (pygame.Rect): Rectangle defining the position and size of the button.
+        alreadyPressed (bool): Flag indicating whether the button has already been pressed.
+    """
+    
     def __init__(self, x, y, width, height, board_instance: Board, buttonText='Button', onclickFunction=None, onePress=False):
         """
-        Initialise a Button object.
+        Initialises a Button object.
 
         Parameters:
-        - x (int): The x-coordinate of the top-left corner of the button.
-        - y (int): The y-coordinate of the top-left corner of the button.
-        - width (int): The width of the button.
-        - height (int): The height of the button.
-        - board_instance (Board): The instance of the game board.
-        - buttonText (str): The text to be displayed on the button (default is 'Button').
-        - onclickFunction (callable): The function to be executed when the button is clicked.
-        - onePress (bool): If True, the onclickFunction is executed only once on the first click (default is False).
+            x (int): The x-coordinate of the top-left corner of the button.
+            y (int): The y-coordinate of the top-left corner of the button.
+            width (int): The width of the button.
+            height (int): The height of the button.
+            board_instance (Board): The instance of the game board.
+            buttonText (str): The text to be displayed on the button (default is 'Button').
+            onclickFunction (callable): The function to be executed when the button is clicked.
+            onePress (bool): If True, the onclickFunction is executed only once on the first click (default is False).
         """
-
-
         self.x = x
         self.y = y
         self.width = width
@@ -31,7 +47,6 @@ class Button:
         self.onePress = onePress
         self.board_instance = board_instance
 
-        # Colors for different button states
         self.fillColors = {
             'normal': '#9867c5',
             'hover': '#be93d4',

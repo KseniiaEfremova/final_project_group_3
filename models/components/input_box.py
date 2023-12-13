@@ -19,16 +19,16 @@ class InputBox:
     
     def __init__(self, x, y, width, height, text, board_instance: Board):
         """
-       Initialises an InputBox object.
+        Initialises an InputBox object.
 
-       Parameters:
-       - x (int): The x-coordinate of the top-left corner of the input box.
-       - y (int): The y-coordinate of the top-left corner of the input box.
-       - width (int): The width of the input box.
-       - height (int): The height of the input box.
-       - text (str): The initial text in the input box.
-       - board_instance (Board): The instance of the game board.
-       """
+        Parameters:
+            x (int): The x-coordinate of the top-left corner of the input box.
+            y (int): The y-coordinate of the top-left corner of the input box.
+            width (int): The width of the input box.
+            height (int): The height of the input box.
+            text (str): The initial text in the input box.
+            board_instance (Board): The instance of the game board.
+        """
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.active = False
