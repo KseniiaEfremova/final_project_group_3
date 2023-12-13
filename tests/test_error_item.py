@@ -45,7 +45,8 @@ class TestErrorItem(unittest.TestCase):
 	def test_error_item_spawn(self):
 		error_item = ErrorItem(error_image, self.test_board)
 
-		self.assertTrue(error_item.width < error_item.x < 800 - error_item.width)
+		self.assertTrue(
+			error_item.width < error_item.x < 800 - error_item.width)
 		self.assertTrue(-400 < error_item.y < -100)
 
 	def test_error_item_fall(self):
@@ -59,7 +60,7 @@ class TestErrorItem(unittest.TestCase):
 
 		error_item.fall()
 
-		self.assertEqual(error_item.y,405)
+		self.assertEqual(error_item.y, 405)
 		self.assertEqual(error_item.rect.y, 405)
 		error_item.disappear.assert_not_called()
 
@@ -67,7 +68,7 @@ class TestErrorItem(unittest.TestCase):
 
 		error_item.fall()
 
-		self.assertEqual(error_item.y,506)
+		self.assertEqual(error_item.y, 506)
 		self.assertEqual(error_item.rect.y, 506)
 		error_item.disappear.assert_called_once()
 

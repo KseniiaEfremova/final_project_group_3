@@ -58,7 +58,7 @@ class TestDuckItem(unittest.TestCase):
 
 		duck_item.fall()
 
-		self.assertEqual(duck_item.y,405)
+		self.assertEqual(duck_item.y, 405)
 		self.assertEqual(duck_item.rect.y, 405)
 		duck_item.disappear.assert_not_called()
 
@@ -66,7 +66,7 @@ class TestDuckItem(unittest.TestCase):
 
 		duck_item.fall()
 
-		self.assertEqual(duck_item.y,506)
+		self.assertEqual(duck_item.y, 506)
 		self.assertEqual(duck_item.rect.y, 506)
 		duck_item.disappear.assert_called_once()
 
