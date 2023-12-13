@@ -100,3 +100,10 @@ class FallingItemsFactory(ABC, pygame.sprite.Sprite):
             self.error.disappear(self.medium_stop)
         if self.bug.y >= 500:
             self.bug.disappear(self.long_stop)
+
+    def check_player_collision(self, player):
+        collisions = pygame.sprite.spritecollide(player, self.falling_items, False)
+        for falling_item in collisions: 
+            falling_item.rect.x = -10
+            falling_item.rect.y = -10
+            falling_item.image = None
