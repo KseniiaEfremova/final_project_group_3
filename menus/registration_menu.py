@@ -44,7 +44,6 @@ class RegistrationMenu(Menu):
         self.popup_window_exist = PopupWindow(800, 40, "This username already exist, try another")
 
     def draw(self):
-        # Drawing elements on the board
         self.board_instance.draw_background()
         self.text_drawer.draw_text("REGISTRATION", (255, 255, 255), 100, 180, font)
         self.text_drawer.draw_text("Enter your username: ", (255, 255, 255), 100, 220, font)
@@ -57,41 +56,65 @@ class RegistrationMenu(Menu):
     def process_registration(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
-
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
             self.popup_window_exist.draw_window(self.board_instance.board)
         pygame.display.update()
+        self.handle_user_input()
 
+    def handle_user_input(self):
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
-        if self.submit_btn.alreadyPressed:
-            user_credentials = check_username_and_password(self.username_box.get_user_text(),
-                                                           self.password_box.get_user_text())
-            if user_credentials is None:
-                self.popup_window_invalid.draw_window(self.board_instance.board)
-                self.popup_window_exist.opened = False
-                pygame.display.update()
-            else:
-                username, password = user_credentials
-                if is_user_exist_in_db(DB_NAME, users_table, username):
-                    self.popup_window_exist.draw_window(self.board_instance.board)
-                    self.popup_window_invalid.opened = False
-                    pygame.display.update()
-                else:
-                    add_valid_user_data_to_db(username, password)
 
-                    # Finish the registration process
-                    self.registration = False
-                    self.submit_btn.onePress = False
-                    self.popup_window_invalid.opened = False if self.popup_window_invalid.opened else self.popup_window_exist.opened
-                    # Switch to the main background after registration
-                    background_image = pygame.image.load(assets_library['backgrounds']['main_background'])
-                    self.board_instance.image = pygame.transform.scale(background_image, (800, 600))
-                    pygame.display.update()
-                    return username
+        if self.submit_btn.alreadyPressed:
+            self.process_submit()
+
+    def process_submit(self):
+        user_credentials = check_username_and_password(
+            self.username_box.get_user_text(),
+            self.password_box.get_user_text()
+        )
+        if user_credentials is None:
+            self.handle_invalid_credentials()
+        else:
+            self.handle_valid_credentials(user_credentials)
+
+    def handle_invalid_credentials(self):
+        self.popup_window_invalid.draw_window(self.board_instance.board)
+        self.popup_window_exist.opened = False
+        pygame.display.update()
+
+    def handle_valid_credentials(self, user_credentials):
+        username, password = user_credentials
+        if is_user_exist_in_db(DB_NAME, users_table, username):
+            self.popup_window_exist.draw_window(self.board_instance.board)
+            self.popup_window_invalid.opened = False
+            pygame.display.update()
+        else:
+            self.add_user_to_db(username, password)
+            self.finish_registration(username)
+
+    def add_user_to_db(self, username, password):
+        add_valid_user_data_to_db(username, password)
+        return username
+
+    def finish_registration(self):
+        self.registration = False
+        self.submit_btn.onePress = False
+        self.popup_window_invalid.opened = (
+            False if self.popup_window_invalid.opened else self.popup_window_exist.opened
+        )
+        self.switch_to_main_background()
+
+    def switch_to_main_background(self):
+        background_image = pygame.image.load(
+            assets_library['backgrounds']['main_background'])
+        self.board_instance.image = pygame.transform.scale(background_image,
+                                                           (800, 600))
+        pygame.display.update()
+
 
