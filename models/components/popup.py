@@ -30,3 +30,4 @@ class PopupWindow:
             'height': self.rect.height,
             'text': self.text
         }
+

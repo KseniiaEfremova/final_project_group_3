@@ -69,16 +69,16 @@ class RegistrationMenu(Menu):
             100, 320, font)
         self.password_box.draw_box()
         self.submit_btn.process()
+        if self.popup_window_invalid.opened:
+            self.popup_window_invalid.draw_window(self.board_instance.board)
+        if self.popup_window_exist.opened:
+            self.popup_window_exist.draw_window(self.board_instance.board)
         pygame.display.update()
 
     def process_registration(self):
         self.board_instance.image = pygame.transform.scale(
             self.background_image, (800, 600))
         self.draw()
-        if self.popup_window_invalid.opened:
-            self.popup_window_invalid.draw_window(self.board_instance.board)
-        if self.popup_window_exist.opened:
-            self.popup_window_exist.draw_window(self.board_instance.board)
         pygame.display.update()
         username = self.handle_user_input()
         return username
@@ -100,7 +100,9 @@ class RegistrationMenu(Menu):
             self.password_box.get_user_text()
         )
         if user_credentials is None:
-            self.handle_invalid_credentials()
+            self.popup_window_invalid.draw_window(self.board_instance.board)
+            self.popup_window_exist.opened = False
+            pygame.display.update()
         else:
             username = self.handle_valid_credentials(user_credentials)
             return username
