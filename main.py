@@ -57,7 +57,7 @@ def run():
     # while history_menu.history:
     #     show_history_menu(history_menu)
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, "test")
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)

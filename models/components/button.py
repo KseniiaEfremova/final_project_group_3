@@ -21,7 +21,6 @@ class Button:
         - onePress (bool): If True, the onclickFunction is executed only once on the first click (default is False).
         """
 
-
         self.x = x
         self.y = y
         self.width = width

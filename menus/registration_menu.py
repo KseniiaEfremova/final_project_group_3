@@ -77,7 +77,8 @@ class RegistrationMenu(Menu):
         if self.popup_window_exist.opened:
             self.popup_window_exist.draw_window(self.board_instance.board)
         pygame.display.update()
-        self.handle_user_input()
+        username = self.handle_user_input()
+        return username
 
     def handle_user_input(self):
         for event in pygame.event.get():
@@ -87,7 +88,8 @@ class RegistrationMenu(Menu):
             self.password_box.handle_event(event)
 
         if self.submit_btn.alreadyPressed:
-            self.process_submit()
+            username = self.process_submit()
+            return username
 
     def process_submit(self):
         user_credentials = check_username_and_password(
@@ -97,7 +99,8 @@ class RegistrationMenu(Menu):
         if user_credentials is None:
             self.handle_invalid_credentials()
         else:
-            self.handle_valid_credentials(user_credentials)
+            username = self.handle_valid_credentials(user_credentials)
+            return username
 
     def handle_invalid_credentials(self):
         self.popup_window_invalid.draw_window(self.board_instance.board)
@@ -111,8 +114,9 @@ class RegistrationMenu(Menu):
             self.popup_window_invalid.opened = False
             pygame.display.update()
         else:
-            self.add_user_to_db(username, password)
+            username = self.add_user_to_db(username, password)
             self.finish_registration()
+            return username
 
     def add_user_to_db(self, username, password):
         add_valid_user_data_to_db(username, password)

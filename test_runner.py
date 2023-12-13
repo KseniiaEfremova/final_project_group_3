@@ -17,7 +17,7 @@ def run_tests():
     result = runner.run(suite)
 
     cov.stop()
-    # cov.report()
+    cov.report()
 
     return result
 
