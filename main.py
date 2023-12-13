@@ -50,23 +50,18 @@ def run():
     history_menu = HistoryMenu(game_board)
     credits_menu = CreditsMenu(game_board)
     instructions_menu = InstructionsMenu(game_board)
-    start_menu = StartingMenu(game_board, registration_menu, credits_menu)
+    start_menu = StartingMenu(game_board)
 
     username = None
 
     while start_menu.is_open:
         show_starting_menu(start_menu)
-    while registration_menu.is_open:
+    while start_menu.registration:
         username = registration_menu.process_registration()
         show_registration_menu(registration_menu)
         registration_menu.is_open = False
-    # while login_menu.is_open:
-    #     username = login_menu.process_login()
-    #     show_login_menu(login_menu)
-    #     login_menu.is_open = False
-    while credits_menu.is_open:
+    while start_menu.credits:
         show_credits_menu(credits_menu)
-
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)

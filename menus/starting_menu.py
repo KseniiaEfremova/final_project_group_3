@@ -10,11 +10,11 @@ font = pygame.font.Font('assets/fonts/FukuCatch.otf', 30)
 
 
 class StartingMenu(Menu):
-    def __init__(self, board_instance: Board, registration_menu, credits_menu):
+    def __init__(self, board_instance: Board):
         super().__init__(board_instance)
-        self.registration_menu = registration_menu
-        self.credits_menu = credits_menu
         self.is_open = True
+        self.registration = False
+        self.credits = False
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.registration_button = Button(300, 250, 200, 40, self.board_instance, 'Registration', self.register_handler)
         self.login_button = Button(300, 300, 200, 40, self.board_instance, 'Login')
@@ -26,23 +26,14 @@ class StartingMenu(Menu):
         pygame.quit()
         sys.exit()
 
-    # def instructions_handler(self):
-    #     self.state = "instructions"
-    #
-    def credits_handler(self):
-        self.credits_menu.is_open = True
-        self.is_open = False
-
     def register_handler(self):
-        self.registration_menu.is_open = True
         self.is_open = False
-    #
-    # def login_handler(self):
-    #     self.login = True
-    #     self.is_open = False
-    #
-    # def history_handler(self):
-    #     self.state = "history"
+        self.registration = True
+
+    def credits_handler(self):
+        self.is_open = False
+        self.credits = True
+
 
     def draw(self):
         background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
@@ -67,15 +58,21 @@ def show_starting_menu(start_menu):
     start_menu.draw()
     pygame.display.update()
 
+
+
+def show_credits_menu(credits_menu):
+    credits_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
 def show_registration_menu(registration_menu):
     while registration_menu.registration:
         registration_menu.process_registration()
-#
-#
-def show_login_menu(login_menu):
-    while login_menu.login:
-        login_menu.process_login()
-#
 #
 # def show_history_menu(history_menu):
 #     history_menu.draw()
@@ -85,17 +82,6 @@ def show_login_menu(login_menu):
 #             if event.type == pygame.QUIT:
 #                 pygame.quit()
 #                 sys.exit()
-#
-#
-def show_credits_menu(credits_menu):
-    credits_menu.draw()
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-#
 #
 # def show_instructions_menu(instructions_menu):
 #     instructions_menu.draw()
