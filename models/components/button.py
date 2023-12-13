@@ -8,7 +8,7 @@ font = pygame.font.Font(None, 34)
 class Button:
     def __init__(self, x, y, width, height, board_instance: Board, buttonText='Button', onclickFunction=None, onePress=False):
         """
-        Initialize a Button object.
+        Initialise a Button object.
 
         Parameters:
         - x (int): The x-coordinate of the top-left corner of the button.
