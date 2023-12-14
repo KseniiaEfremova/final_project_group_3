@@ -131,9 +131,10 @@ class Player(pygame.sprite.Sprite):
             collisions = pygame.sprite.spritecollide(
                 self, self.falling_group.falling_items, True)
             for item in collisions:
-                item.rect.topleft = (-1000, -1000)
-                item.y = 1000
-                item.rect.y = 1000
+                item.rect.topleft = (-10, -10)
+                item.x = 1000
+                item.rect.x = 1000
+                self.kill()
                 if isinstance(item, PointsFallingItem):
                     self.points_collision(item)
                 if isinstance(item, DamageFallingItem):

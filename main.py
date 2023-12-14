@@ -48,21 +48,21 @@ def run():
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)
 
-    while registration_menu.registration:
-        username = registration_menu.process_registration()
-
-    while login_menu.login:
-        username = login_menu.process_login()
+    # while registration_menu.registration:
+    #     username = registration_menu.process_registration()
+    #
+    # while login_menu.login:
+    #     username = login_menu.process_login()
         
     # while history_menu.history:
     #     show_history_menu(history_menu)
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, username)
+    player = Player(800 - 725, 600 - 200, game_board, falling, 'test')
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 10
+    timer_seconds = 30
     paused_time = 0
     start_time = time.time()
     
