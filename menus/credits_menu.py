@@ -21,5 +21,7 @@ class CreditsMenu(Menu):
 
     #  TODO make the button work
     def back_button_handler(self):
+        # print("I;m clicked!!")
+        # pass
         self.is_open = False
         self.close = True

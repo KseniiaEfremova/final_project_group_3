@@ -5,6 +5,7 @@ from menus.menu import Menu
 from models.components.button import Button
 from utils import assets_library
 
+
 pygame.font.init()
 font = pygame.font.Font('assets/fonts/FukuCatch.otf', 30)
 
@@ -15,12 +16,14 @@ class StartingMenu(Menu):
         self.is_open = True
         self.registration = False
         self.credits = False
+        self.login = False
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.registration_button = Button(300, 250, 200, 40, self.board_instance, 'Registration', self.register_handler)
-        self.login_button = Button(300, 300, 200, 40, self.board_instance, 'Login')
+        self.login_button = Button(300, 300, 200, 40, self.board_instance, 'Login', self.login_handler)
         self.history_button = Button(300, 350, 200, 40, self.board_instance, 'History')
         self.instructions_button = Button(300, 400, 200, 40, self.board_instance, 'Instructions')
         self.credits_button = Button(300, 450, 200, 40, self.board_instance, 'Credits', self.credits_handler)
+
 
     def exit_game_handler(self):
         pygame.quit()
@@ -33,6 +36,10 @@ class StartingMenu(Menu):
     def credits_handler(self):
         self.is_open = False
         self.credits = True
+
+    def login_handler(self):
+        self.is_open = False
+        self.login = True
 
 
     def draw(self):
@@ -73,6 +80,10 @@ def show_credits_menu(credits_menu):
 def show_registration_menu(registration_menu):
     while registration_menu.registration:
         registration_menu.process_registration()
+
+def show_login_menu(login_menu):
+    while login_menu.login:
+        login_menu.process_login()
 #
 # def show_history_menu(history_menu):
 #     history_menu.draw()

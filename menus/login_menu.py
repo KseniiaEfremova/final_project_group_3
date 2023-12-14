@@ -20,6 +20,7 @@ class LoginMenu(Menu):
         super().__init__(board_instance)
         self.is_open = False
         self.login = login
+        self.close = False
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.username_box = InputBox(250, 250, 140, 32, "", self.board_instance)
         self.password_box = InputBox(250, 350, 140, 32, "", self.board_instance)
@@ -88,9 +89,9 @@ class LoginMenu(Menu):
         pygame.display.update()
 
     def handle_back_to_menu(self):
-        #  TODO go to start menu
-        print("go to START MENU")
-        pass
+        print("im clicked")
+        self.is_open = False
+        self.close = True
 
     def process_login(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))

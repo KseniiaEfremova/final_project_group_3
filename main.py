@@ -60,8 +60,32 @@ def run():
         username = registration_menu.process_registration()
         show_registration_menu(registration_menu)
         registration_menu.is_open = False
+    while start_menu.login:
+        username = login_menu.process_login()
+        show_login_menu(login_menu)
+    while login_menu.close:
+        show_starting_menu(start_menu)
     while start_menu.credits:
         show_credits_menu(credits_menu)
+    while credits_menu.close:
+        show_starting_menu(start_menu)
+    # while start_menu.is_open:
+    #     show_starting_menu(start_menu)
+    #
+    #     if start_menu.registration:
+    #         username = registration_menu.process_registration()
+    #         show_registration_menu(registration_menu)
+    #
+    #     elif start_menu.login:
+    #         username = login_menu.process_login()
+    #         show_login_menu(login_menu)
+    #         start_menu.login = False
+    #
+    #     elif start_menu.credits:
+    #         show_credits_menu(credits_menu)
+    #
+    #     elif login_menu.close:
+    #         show_starting_menu(start_menu)
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
