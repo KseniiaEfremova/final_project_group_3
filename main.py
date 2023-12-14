@@ -54,25 +54,41 @@ def run():
 
     username = None
 
-    while True:
+    # while True:
+    #     login_closed = login_menu.get_login_closed()
+    #     if start_menu.is_open:
+    #         show_starting_menu(start_menu)
+    #     if start_menu.registration:
+    #         print(f"start_menu: {start_menu.is_open}, registration: {start_menu.registration}")
+    #         username = registration_menu.process_registration()
+    #         show_registration_menu(registration_menu)
+    #     elif start_menu.login:
+    #         print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
+    #         username = login_menu.process_login()
+    #         show_login_menu(login_menu)
+    #     elif start_menu.credits:
+    #         show_credits_menu(credits_menu)
+    #     elif start_menu.login and login_closed or start_menu.is_open:
+    #         print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
+    #         # start_menu.is_open = True
+    #         start_menu.reset_flags()
+    #         show_starting_menu(start_menu)
+
+    while start_menu.is_open:
         login_closed = login_menu.get_login_closed()
-        # if start_menu.is_open:
-        #     show_starting_menu(start_menu)
-        if start_menu.registration:
-            print(f"start_menu: {start_menu.is_open}, registration: {start_menu.registration}")
-            username = registration_menu.process_registration()
-            show_registration_menu(registration_menu)
+        show_starting_menu(start_menu)
+
+        if login_closed:
+            start_menu.is_open = True
+            print("Im back")
+            continue
+
         elif start_menu.login:
-            print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
             username = login_menu.process_login()
             show_login_menu(login_menu)
+
         elif start_menu.credits:
             show_credits_menu(credits_menu)
-        elif start_menu.login and login_closed or start_menu.is_open:
-            print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
-            # start_menu.is_open = True
-            start_menu.reset_flags()
-            show_starting_menu(start_menu)
 
 
 
