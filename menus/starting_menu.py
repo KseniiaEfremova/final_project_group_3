@@ -15,8 +15,10 @@ class StartingMenu(Menu):
         super().__init__(board_instance)
         self.is_open = True
         self.registration = False
-        self.credits = False
         self.login = False
+        self.history = False
+        self.instructions = False
+        self.credits = False
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.registration_button = Button(300, 250, 200, 40, self.board_instance, 'Registration', self.register_handler)
         self.login_button = Button(300, 300, 200, 40, self.board_instance, 'Login', self.login_handler)
@@ -24,23 +26,33 @@ class StartingMenu(Menu):
         self.instructions_button = Button(300, 400, 200, 40, self.board_instance, 'Instructions')
         self.credits_button = Button(300, 450, 200, 40, self.board_instance, 'Credits', self.credits_handler)
 
-
     def exit_game_handler(self):
         pygame.quit()
         sys.exit()
+
 
     def register_handler(self):
         self.is_open = False
         self.registration = True
 
-    def credits_handler(self):
-        self.is_open = False
-        self.credits = True
+    def get_login_open(self):
+        return self.login
 
     def login_handler(self):
         self.is_open = False
         self.login = True
 
+    def history_handler(self):
+        self.is_open = False
+        self.history = True
+
+    def instructions_handler(self):
+        self.is_open = False
+        self.instructions = True
+
+    def credits_handler(self):
+        self.is_open = False
+        self.credits = True
 
     def draw(self):
         background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
@@ -66,6 +78,35 @@ def show_starting_menu(start_menu):
     pygame.display.update()
 
 
+def show_registration_menu(registration_menu):
+    while registration_menu.registration:
+        registration_menu.process_registration()
+
+
+def show_login_menu(login_menu):
+    while login_menu.login:
+        login_menu.process_login()
+
+
+def show_history_menu(history_menu):
+    history_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
+def show_instructions_menu(instructions_menu):
+    instructions_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
 
 def show_credits_menu(credits_menu):
     credits_menu.draw()
@@ -76,29 +117,3 @@ def show_credits_menu(credits_menu):
                 pygame.quit()
                 sys.exit()
 
-
-def show_registration_menu(registration_menu):
-    while registration_menu.registration:
-        registration_menu.process_registration()
-
-def show_login_menu(login_menu):
-    while login_menu.login:
-        login_menu.process_login()
-#
-# def show_history_menu(history_menu):
-#     history_menu.draw()
-#     pygame.display.update()
-#     while True:
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 pygame.quit()
-#                 sys.exit()
-#
-# def show_instructions_menu(instructions_menu):
-#     instructions_menu.draw()
-#     pygame.display.update()
-#     while True:
-#         for event in pygame.event.get():
-#             if event.type == pygame.QUIT:
-#                 pygame.quit()
-#                 sys.exit()
