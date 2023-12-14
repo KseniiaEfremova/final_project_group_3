@@ -30,6 +30,13 @@ class RegistrationMenu(Menu):
     """
 
     def __init__(self, board_instance: Board, registration=True):
+        """
+        Initialise a RegistrationMenu instance.
+
+        Args:
+            board_instance (Board): The instance of the game board.
+            registration (bool, optional): Flag indicating whether it's a registration or login menu.
+        """
         super().__init__(board_instance)
         self.registration = registration
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
@@ -44,7 +51,9 @@ class RegistrationMenu(Menu):
         self.popup_window_exist = PopupWindow(800, 40, "This username already exist, try another")
 
     def draw(self):
-        # Drawing elements on the board
+        """
+        Draw the registration menu on the board.
+        """
         self.board_instance.draw_background()
         self.text_drawer.draw_text("REGISTRATION", (255, 255, 255), 100, 180, font)
         self.text_drawer.draw_text("Enter your username: ", (255, 255, 255), 100, 220, font)
@@ -59,6 +68,12 @@ class RegistrationMenu(Menu):
         pygame.display.update()
 
     def process_registration(self):
+        """
+        Process the registration input and perform necessary actions.
+
+        Returns:
+            str: The username entered by the user during the registration process.
+        """
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
         self.draw()
 
@@ -92,4 +107,3 @@ class RegistrationMenu(Menu):
                     self.board_instance.image = pygame.transform.scale(background_image, (800, 600))
                     pygame.display.update()
                     return username
-

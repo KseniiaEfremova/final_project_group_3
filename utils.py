@@ -2,6 +2,15 @@ import os
 
 
 def get_path_from_root(path_to_file):
+    """
+    Returns the absolute path to a file relative to the project's root directory.
+
+    Args:
+        path_to_file (str): The path to the file from the root directory.
+
+    Returns:
+        str: The absolute path to the specified file.
+    """
     root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     return f"{root_path}/{path_to_file}"
 

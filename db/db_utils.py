@@ -10,8 +10,13 @@ DB_NAME = 'game_users_db'
 def connect_to_mysql_database(db_name):
     """
     Connects to a MySQL database using credentials from a JSON file.
+
+    Args:
+        db_name (str): The name of the MySQL database.
+
     Returns:
         mysql.connector.MySQLConnection: A MySQL database connection object.
+
     Raises:
         mysql.connector.Error: If there is an error during the database connection process.
     """
@@ -36,12 +41,28 @@ def connect_to_mysql_database(db_name):
 
 
 def get_cursor_and_connection(db_name):
+    """
+    Connects to a MySQL database and returns a cursor and database connection.
+
+    Args:
+        db_name (str): The name of the MySQL database.
+
+    Returns:
+        Tuple[mysql.connector.cursor.MySQLCursor, mysql.connector.MySQLConnection]:
+            A tuple containing a MySQL cursor and database connection.
+    """
     db_connection = connect_to_mysql_database(db_name)
     cursor = db_connection.cursor()
     return cursor, db_connection
 
 
 def create_database(db_name):
+    """
+    Creates a MySQL database with the specified name.
+
+    Args:
+        db_name (str): The name of the MySQL database to be created.
+    """
     try:
         cursor, _ = get_cursor_and_connection(db_name)
         cursor.execute(
@@ -53,6 +74,15 @@ def create_database(db_name):
 
 
 def connect_to_database_or_create_if_not_exists(db_name):
+    """
+    Connects to a MySQL database or creates it if it does not exist.
+
+    Args:
+        db_name (str): The name of the MySQL database.
+
+    Raises:
+        mysql.connector.Error: If there is an error during the database connection or creation process.
+    """
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
         cursor.execute("USE {}".format(db_name))
@@ -65,6 +95,3 @@ def connect_to_database_or_create_if_not_exists(db_name):
         else:
             print(err)
     print(f"You are using {db_name} database.")
-
-
-
