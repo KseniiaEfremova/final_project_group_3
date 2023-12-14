@@ -18,7 +18,6 @@ class LoginMenu(Menu):
     """ Represents the login menu for user sign-up. """
     def __init__(self, board_instance: Board, login=True):
         super().__init__(board_instance)
-        self.is_open = False
         self.login = login
         self.close = True
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
@@ -90,8 +89,7 @@ class LoginMenu(Menu):
 
     def handle_back_to_menu(self):
         print("im clicked")
-        self.is_open = False
-        self.close = True
+        self.close = False
 
     def get_login_closed(self):
         return self.close

@@ -62,17 +62,19 @@ def run():
         username = registration_menu.process_registration()
         show_registration_menu(registration_menu)
     while start_menu.login:
-        print(f"start_menu: {start_menu.is_open}, login: {login_menu.login}")
+        print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
         username = login_menu.process_login()
         show_login_menu(login_menu)
         if login_closed:
+            start_menu.login = False
+            start_menu.is_open = True
             print(f"start_menu: {start_menu.is_open}, login_menu_close: {login_menu.close}")
-            show_starting_menu(start_menu)
+            # show_starting_menu(start_menu)
     while start_menu.credits:
         show_credits_menu(credits_menu)
 
-    while credits_menu.close:
-        show_starting_menu(start_menu)
+    # while credits_menu.close:
+    #     show_starting_menu(start_menu)
 
     # while True:
     #     login_closed = login_menu.get_login_closed()
@@ -81,9 +83,10 @@ def run():
     #     if login_closed:
     #         show_starting_menu(start_menu)
     #     elif login_open:
+    #         print(f"login_open: {login_open}, login_closed: {login_closed}")
     #         username = login_menu.process_login()
     #         show_login_menu(login_menu)
-  
+
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
