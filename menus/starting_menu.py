@@ -22,8 +22,8 @@ class StartingMenu(Menu):
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.registration_button = Button(300, 250, 200, 40, self.board_instance, 'Registration', self.register_handler)
         self.login_button = Button(300, 300, 200, 40, self.board_instance, 'Login', self.login_handler)
-        self.history_button = Button(300, 350, 200, 40, self.board_instance, 'History')
-        self.instructions_button = Button(300, 400, 200, 40, self.board_instance, 'Instructions')
+        self.history_button = Button(300, 350, 200, 40, self.board_instance, 'History', self.history_handler)
+        self.instructions_button = Button(300, 400, 200, 40, self.board_instance, 'Instructions', self.instructions_handler)
         self.credits_button = Button(300, 450, 200, 40, self.board_instance, 'Credits', self.credits_handler)
 
     def exit_game_handler(self):
@@ -67,6 +67,12 @@ class StartingMenu(Menu):
         self.instructions_button.process()
         self.credits_button.process()
         pygame.display.update()
+
+    def reset_flags(self):
+        self.registration = False
+        self.login = False
+        self.credits = False
+        self.history = False
 
 
 def show_starting_menu(start_menu):
