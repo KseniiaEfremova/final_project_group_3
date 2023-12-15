@@ -52,5 +52,7 @@ class Points(Stats, ABC):
             **kwargs: Additional keyword arguments.
 		"""
 		self.update()
-		text = font.render(f"Points: {self.points}", True, (255, 255, 255))
+		text = font.render(
+			f"Points: {self.points}", True,
+			(255, 255, 255))
 		self.board_instance.board.blit(text, (170, 20))

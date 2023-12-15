@@ -3,7 +3,8 @@ import sys
 from utils import assets_library
 
 
-background_image = pygame.image.load(assets_library['backgrounds']['main_background'])
+background_image = pygame.image.load(
+    assets_library['backgrounds']['main_background'])
 
 
 class Board:
@@ -34,7 +35,8 @@ class Board:
         self.frames = frames
         self.image = pygame.transform.scale(background_image, self.res)
         self.board = pygame.display.set_mode(self.res)
-        self.board_surface = pygame.surface.Surface((self.res[0], self.res[1]), pygame.SRCALPHA)
+        self.board_surface = pygame.surface.Surface(
+            (self.res[0], self.res[1]), pygame.SRCALPHA)
         self.pause = False
         self.over = False
     

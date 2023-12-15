@@ -43,9 +43,20 @@ class PopupWindow:
         """
         color = pygame.Color('brown2')
         pygame.draw.rect(board, color, self.rect)
-        text_surface = font.render(self.text, True, (255, 255, 255))
+        text_surface = font.render(
+            self.text, True, (255, 255, 255))
 
         location = text_surface.get_rect()
         start_text = int(self.rect.width / 2 - location.center[0])
 
         board.blit(text_surface, (self.rect.x + start_text, self.rect.y + 12))
+
+    def get_attributes(self):
+        return {
+            'x': self.rect.x,
+            'y': self.rect.y,
+            'width': self.rect.width,
+            'height': self.rect.height,
+            'text': self.text
+        }
+

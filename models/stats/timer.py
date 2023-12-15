@@ -51,5 +51,6 @@ class Timer(Stats, ABC):
 		"""
 		timer = kwargs.get('timer', None)
 		if timer is not None:
-			text = font.render(f"Time: {timer}", True, (255, 255, 255))
+			text = font.render(
+				f"Time: {timer}", True, (255, 255, 255))
 			self.board_instance.board.blit(text, (20, 20))

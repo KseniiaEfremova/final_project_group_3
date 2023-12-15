@@ -7,6 +7,7 @@ from utils import assets_library
 
 
 class Level(Stats, ABC):
+
     """
     Class representing the player's level in Code Quest.
 
@@ -25,6 +26,7 @@ class Level(Stats, ABC):
     """
     
     def __init__(self, player_instance: Player, board_instance: Board):
+
         """
         Initialise a Level object.
 
@@ -32,6 +34,7 @@ class Level(Stats, ABC):
             player_instance (Player): An instance of the player associated with the level.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(player_instance, board_instance)
         self.sprites = []
         self.level = self.player_instance.get_level()
@@ -48,18 +51,21 @@ class Level(Stats, ABC):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         
     def update(self):
+
         """
         Update the current level sprite based on the player's level.
 
         Returns:
             int: The index of the current sprite.
         """
+
         self.current_sprite = self.player_instance.get_level() - 1
         if self.current_sprite > 2:
             self.current_sprite = 2
             return self.current_sprite
     
     def draw(self, board_instance, **kwargs):
+
         """
         Draw the current level sprite on the game board.
 
@@ -67,6 +73,7 @@ class Level(Stats, ABC):
             board_instance (Board): An instance of the game board.
             **kwargs: Additional keyword arguments.
         """
+
         self.update()
         self.image = pygame.transform.scale(self.sprites[self.current_sprite],
 											(self.width, self.height))
@@ -74,14 +81,17 @@ class Level(Stats, ABC):
 											   self.y - self.height))
     
     def display_level_up_image(self, board_instance):
+
         """
         Display the level up image on the game board.
 
         Parameters:
             board_instance (Board): An instance of the game board.
         """
+
         level_up_image = pygame.image.load(assets_library['backgrounds']['level_up'])
         level_up_image = pygame.transform.scale(level_up_image, (600, 600))
         board_instance.board.blit(level_up_image, (100, 0))
         pygame.display.update()
         pygame.time.delay(2000) 
+

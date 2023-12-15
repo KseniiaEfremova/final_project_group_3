@@ -4,6 +4,7 @@ from models.falling_items.abstract_falling_item import FallingItem
 
 
 class PointsFallingItem(FallingItem, ABC):
+
     """
     Abstract base class for points-awarding falling items in Code Quest.
 
@@ -22,6 +23,7 @@ class PointsFallingItem(FallingItem, ABC):
     """
     
     def __init__(self, name, image, speed, damage, points, width, height, x, y, board_instance):
+
         """
         Initialise a PointsFallingItem object.
 
@@ -37,24 +39,29 @@ class PointsFallingItem(FallingItem, ABC):
             y (int): The initial y-coordinate of the falling item.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(
-            name, image, speed, damage, points, width, height, x, y, board_instance
-        )
+            name, image, speed, damage, points, width, height, x, y,
+            board_instance)
 
     def disappear(self):
+
         """
         Handle the disappearance of the points-awarding falling item.
         """
+
         self.y = 500
         if datetime.datetime.utcnow() > self.stop_time:
             self.y = 500
             self.rect.y = 500
             self.kill()
             self.spawn()
-            self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=4)
+            self.stop_time = (datetime.datetime.utcnow() +
+                              datetime.timedelta(seconds=4))
 
 
 class TickItem(PointsFallingItem, ABC):
+
     """
     Falling item class representing a Tick that awards 1 point.
 
@@ -64,6 +71,7 @@ class TickItem(PointsFallingItem, ABC):
     """
     
     def __init__(self, image, board_instance):
+
         """
         Initialises a TickItem object.
 
@@ -71,12 +79,14 @@ class TickItem(PointsFallingItem, ABC):
             image (pygame.Surface): The image representing the falling Tick.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(
             "Tick", image, 5, 0, 1, 50, 50, 0, 0, board_instance
         )
 
 
 class PythonItem(PointsFallingItem, ABC):
+
     """
     Falling item class representing a Python logo that awards 5 points.
 
@@ -86,6 +96,7 @@ class PythonItem(PointsFallingItem, ABC):
     """
     
     def __init__(self, image, board_instance):
+
         """
         Initialises a PythonItem object.
 
@@ -93,12 +104,14 @@ class PythonItem(PointsFallingItem, ABC):
             image (pygame.Surface): The image representing the falling Python logo.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(
             "Python", image, 8, 0, 5, 50, 50, 0, 0, board_instance
         )
 
 
 class RubberDuckItem(PointsFallingItem, ABC):
+
     """
     Falling item class representing a Rubber Duck that awards 10 points.
 
@@ -108,6 +121,7 @@ class RubberDuckItem(PointsFallingItem, ABC):
     """
     
     def __init__(self, image, board_instance):
+
         """
         Initialises a RubberDuckItem object.
 
@@ -115,6 +129,7 @@ class RubberDuckItem(PointsFallingItem, ABC):
             image (pygame.Surface): The image representing the falling Rubber Duck.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(
             "Rubber duck", image, 12, 0, 10, 50, 50, 0, 0, board_instance
         )

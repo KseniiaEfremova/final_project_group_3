@@ -330,3 +330,6 @@ class TestUser(unittest.TestCase):
         stored_password = "stored_password"
 
         self.assertFalse(check_passwords(hashed_password, stored_password))
+
+    def tearDown(self):
+        patch.stopall()

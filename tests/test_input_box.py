@@ -60,6 +60,17 @@ class TestInputBox(unittest.TestCase):
     def test_get_user_text(self):
         self.assertEqual(self.input.text, "Test Input")
 
+    def test_get_attributes(self):
+        actual = self.input.get_attributes()
+        expected = {
+            'x': 0,
+            'y': 0,
+            'width': 100,
+            'height': 50,
+            'text': "Test Input"
+            }
+        self.assertEqual(actual, expected)
+
     def tearDown(self):
         pygame.quit()
         pygame.font.quit()

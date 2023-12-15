@@ -68,9 +68,9 @@ class TestBoard(unittest.TestCase):
         test_board = Board(name, res, frames)
 
         mock_player_instance = mock_player.return_value
-        mock_player_instance.points = 100  # Set points attribute
-        mock_player_instance.life = 3      # Set life attribute
-        mock_player_instance.level = 1     # Set level attribute
+        mock_player_instance.points = 100
+        mock_player_instance.life = 3
+        mock_player_instance.level = 1
         mock_player_instance.user_id = 123
 
         with patch('pygame.event.get', return_value=[MagicMock(type=pygame.QUIT)]):

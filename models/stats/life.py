@@ -7,6 +7,7 @@ from utils import assets_library
 
 
 class Life(Stats, ABC):
+
     """
     Class representing the player's remaining lives in Code Quest.
 
@@ -25,6 +26,7 @@ class Life(Stats, ABC):
     """
     
     def __init__(self, player_instance: Player, board_instance: Board):
+
         """
         Initialise a Life object.
 
@@ -32,6 +34,7 @@ class Life(Stats, ABC):
             player_instance (Player): An instance of the player associated with the lives.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(player_instance, board_instance)
         self.sprites = []
         self.lives = self.player_instance.life
@@ -50,6 +53,7 @@ class Life(Stats, ABC):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
     
     def pick_image_index(self, remainder):
+
         """
         Determine the index of the life sprite based on the remainder of lives.
 
@@ -59,6 +63,7 @@ class Life(Stats, ABC):
         Returns:
             int: The index of the life sprite.
         """
+
         if 30 >= remainder > 25:
             self.current_sprite = 1
         elif 25 >= remainder > 17:
@@ -74,12 +79,14 @@ class Life(Stats, ABC):
         return self.current_sprite
     
     def update(self):
+
         """
         Update the list of scaled life images based on the current number of lives.
 
         Returns:
             list: A list of scaled life images.
         """
+
         self.images = []
         self.lives = self.player_instance.get_lives()
         damage_remainder = self.lives % 30 if self.lives > 0 else 1
@@ -112,6 +119,7 @@ class Life(Stats, ABC):
         return self.images
     
     def draw(self, board_instance, **kwargs):
+
         """
         Draw the scaled life images on the game board.
 
@@ -119,7 +127,10 @@ class Life(Stats, ABC):
             board_instance (Board): An instance of the game board.
             **kwargs: Additional keyword arguments.
         """
+
         self.update()
         for index, image in enumerate(self.images):
             x = self.x_positions[index]
-            board_instance.board.blit(image, (x - self.height, self.y - self.height))
+            board_instance.board.blit(
+				image, (x - self.height, self.y - self.height))
+

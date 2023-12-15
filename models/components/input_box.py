@@ -29,6 +29,7 @@ class InputBox:
             text (str): The initial text in the input box.
             board_instance (Board): The instance of the game board.
         """
+
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.active = False
@@ -36,12 +37,14 @@ class InputBox:
         self.board_instance = board_instance
 
     def handle_event(self, event):
+
         """
         Handles mouse and keyboard events for the input box.
 
         Args:
             event (pygame.event): The event to handle.
         """
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.active = self.rect.collidepoint(event.pos)
         elif event.type == pygame.KEYDOWN and self.active:
@@ -53,22 +56,38 @@ class InputBox:
                 self.text += event.unicode
 
     def draw_box(self):
+
         """
         Draws the input box on the game board.
         """
-        self.color = pygame.Color('gray15') if not self.active else pygame.Color("chartreuse3")
-        pygame.draw.rect(self.board_instance.board, self.color, self.rect, 2)
+        self.color = pygame.Color('gray15') if not self.active else (
+            pygame.Color("chartreuse3"))
+        pygame.draw.rect(self.board_instance.board, self.color, self.rect,
+                         2)
 
-        text_surface = font.render(self.text, True, (255, 255, 255))
+        text_surface = font.render(
+            self.text, True, (255, 255, 255))
 
-        self.board_instance.board.blit(text_surface, (self.rect.x + 5, self.rect.y + 4))
+        self.board_instance.board.blit(
+            text_surface, (self.rect.x + 5, self.rect.y + 4))
         self.rect.w = max(300, text_surface.get_width() + 10)
 
     def get_user_text(self):
+
         """
         Gets the text entered in the input box.
 
         Returns:
             str: The text entered in the input box.
         """
+
         return self.text
+
+    def get_attributes(self):
+        return {
+            'x': self.rect.x,
+            'y': self.rect.y,
+            'width': self.rect.width,
+            'height': self.rect.height,
+            'text': self.text
+        }

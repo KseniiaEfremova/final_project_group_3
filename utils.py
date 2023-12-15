@@ -1,26 +1,9 @@
-import os
-
-
-def get_path_from_root(path_to_file):
-    """
-    Returns the absolute path to a file relative to the project's root directory.
-
-    Args:
-        path_to_file (str): The path to the file from the root directory.
-
-    Returns:
-        str: The absolute path to the specified file.
-    """
-    root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-    return f"{root_path}/{path_to_file}"
-
-
 assets_library = {
     'backgrounds': {
         'start': 'assets/backgrounds/start.jpg',
         'game_over': 'assets/backgrounds/game_over.png',
         'main_background': 'assets/backgrounds/background.jpg',
-        'win': 'assets/backgrounds/fireworks_win.jpg',
+        'win': 'assets/backgrounds/win_text.jpg',
         'level_up': 'assets/backgrounds/level_up.png',
         'registration_page': 'assets/backgrounds/registration.png'
     },
@@ -39,22 +22,10 @@ assets_library = {
     },
     'sprites': {
         'bug': {
-            'bug1': 'assets/sprites/bug1.png',
-            'bug2': 'assets/sprites/bug2.png',
-            'bug3': 'assets/sprites/bug3.png',
-            'bug4': 'assets/sprites/bug4.png',
-            'bug5': 'assets/sprites/bug5.png',
-            'bug6': 'assets/sprites/bug6.png',
-            'bug7': 'assets/sprites/bug7.png',
-            'bug8': 'assets/sprites/bug8.png',
+            'bug1': 'assets/sprites/bug1.png'
         },
         'duck': {
-            'duck1': 'assets/sprites/duck1.png',
-            'duck2': 'assets/sprites/duck2.png',
-            'duck3': 'assets/sprites/duck3.png',
-            'duck4': 'assets/sprites/duck4.png',
             'duck5': 'assets/sprites/duck5.png',
-            'duck6': 'assets/sprites/duck6.png',
         },
         'error': 'assets/sprites/error.png',
         'heart': {
@@ -96,8 +67,6 @@ assets_library = {
         },
         'python': {
             'python1': 'assets/sprites/python1.png',
-            'python2': 'assets/sprites/python2.png',
-            'python3': 'assets/sprites/python3.png',
         },
         'tick': 'assets/sprites/tick.png',
         'warning': 'assets/sprites/warning.png'

@@ -8,6 +8,7 @@ statistics_table = "game_statistics"
 
 
 def insert_new_user(db_name, table_name, username, password):
+
     """
     Inserts a new user into the specified database table.
 
@@ -23,6 +24,7 @@ def insert_new_user(db_name, table_name, username, password):
     Raises:
         Exception: If there is an error during the user insertion process.
     """
+
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
@@ -48,6 +50,7 @@ def insert_new_user(db_name, table_name, username, password):
 
 
 def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, level=1):
+
     """
     Inserts initial statistics for a new user into the specified database table.
 
@@ -65,6 +68,7 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
     Raises:
         Exception: If there is an error during the statistics insertion process.
     """
+
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
@@ -79,7 +83,8 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
         cursor.close()
 
     except Exception:
-        return {'message': 'Cannot add initial user statistics, try again later'}
+        return {'message':
+                    'Cannot add initial user statistics, try again later'}
 
     finally:
         if db_connection:
@@ -89,6 +94,7 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
 
 
 def update_user_statistics(db_name, table_name, points, life, level, user_id):
+
     """
     Updates the statistics for a user in the specified database table.
 
@@ -103,20 +109,23 @@ def update_user_statistics(db_name, table_name, points, life, level, user_id):
     Raises:
         Exception: If there is an error during the statistics update process.
     """
+
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
 
         query = """UPDATE {}
         SET points = {}, life = {}, level = {}
-        WHERE user_id = {}""".format(table_name, points, life, level, user_id)
+        WHERE user_id = {}""".format(
+            table_name, points, life, level, user_id)
         
         cursor.execute(query)
         db_connection.commit()
         cursor.close()
 
     except Exception:
-        return {'message': 'Cannot update user statistics right now, please try again later'}
+        return {'message': 'Cannot update user statistics right now, '
+                    'please try again later'}
 
     finally:
         if db_connection:
@@ -124,6 +133,7 @@ def update_user_statistics(db_name, table_name, points, life, level, user_id):
 
 
 def get_user_data(db_name, table_name, username):
+
     """
     Retrieves user data from the specified database table.
 
@@ -138,6 +148,7 @@ def get_user_data(db_name, table_name, username):
     Raises:
         Exception: If there is an error during the user data retrieval process.
     """
+
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
@@ -164,6 +175,7 @@ def get_user_data(db_name, table_name, username):
 
 
 def get_user_id(db_name, table_name, username):
+
     """
     Retrieves the user ID for a given username from the specified database table.
 
@@ -178,6 +190,7 @@ def get_user_id(db_name, table_name, username):
     Raises:
         Exception: If there is an error during the user ID retrieval process.
     """
+
     db_connection = None
     try:
         cursor, db_connection = get_cursor_and_connection(db_name)
@@ -202,6 +215,7 @@ def get_user_id(db_name, table_name, username):
 
 
 def is_valid_username(username):
+
     """
     Checks if a username is valid based on certain criteria:
         Between 3 and 20 characters
@@ -213,10 +227,12 @@ def is_valid_username(username):
     Returns:
         bool: True if the username is valid; otherwise, False.
     """
+
     return re.match("^[a-zA-Z0-9_]{3,20}$", username) is not None
 
 
 def is_valid_password(password):
+
     """
     Checks if a password is valid based on certain criteria:
         At least 8 characters long
@@ -231,6 +247,7 @@ def is_valid_password(password):
     Returns:
         bool: True if the password is valid; otherwise, False.
     """
+
     return (
             len(password) >= 8 and
             any(c.isupper() for c in password) and
@@ -241,6 +258,7 @@ def is_valid_password(password):
 
 
 def hash_password(password):
+
     """
     Hashes a password using SHA-256 algorithm with a salt.
 
@@ -252,11 +270,13 @@ def hash_password(password):
     """
     salt = "weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74"
 
-    hashed_password = hashlib.sha256((password + ":" + salt).encode('utf-8')).hexdigest()
+    hashed_password = hashlib.sha256((
+        password + ":" + salt).encode('utf-8')).hexdigest()
     return hashed_password
 
 
 def check_username_and_password(input_username, input_password):
+
     """
     Checks if the provided username and password are valid.
 
@@ -268,12 +288,15 @@ def check_username_and_password(input_username, input_password):
         Tuple[str, str] or None: A tuple containing the valid username and password,
           or None if either the username or password is invalid.
     """
-    if not is_valid_username(input_username) or not is_valid_password(input_password):
+
+    if (not is_valid_username(input_username) or
+            not is_valid_password(input_password)):
         return None
     return input_username, input_password
 
 
 def is_user_exist_in_db(db_name, table_name, username):
+
     """
     Checks if a user with the given username exists in the specified database table.
 
@@ -285,12 +308,14 @@ def is_user_exist_in_db(db_name, table_name, username):
     Returns:
         bool: True if the user exists; otherwise, False.
     """
+
     if get_user_id(db_name, table_name, username) is None:
         return False
     return True
 
 
 def add_valid_user_data_to_db(username, password):
+
     """
     Adds valid user data to the specified database if the user does not already exist.
 
@@ -305,6 +330,7 @@ def add_valid_user_data_to_db(username, password):
     Raises:
         Exception: If there is an error during the user data addition process.
     """
+
     if is_user_exist_in_db(DB_NAME, users_table, username):
         return None
 
@@ -314,9 +340,9 @@ def add_valid_user_data_to_db(username, password):
 
 
 def get_password_by_username(db_name, table_name, username):
+
     """
     Retrieve the hashed password for a given username from the database.
-
     Args:
         db_name (str): The name of the database.
         table_name (str): The name of the table in the database.
@@ -328,6 +354,7 @@ def get_password_by_username(db_name, table_name, username):
     Raises:
         Exception: If there is an error during the password retrieval process.
     """
+
     user_id = None
     db_connection = None
     try:
@@ -341,7 +368,8 @@ def get_password_by_username(db_name, table_name, username):
         cursor.close()
 
     except Exception:
-        return {'message': 'Cannot get password for this username, try again later'}
+        return {'message': 'Cannot get password for this username, '
+                           'try again later'}
 
     finally:
         if db_connection:
@@ -354,6 +382,7 @@ def get_password_by_username(db_name, table_name, username):
 
 
 def check_passwords(input_password, stored_password):
+
     """
     Check if the input password matches the stored hashed password.
 
@@ -364,5 +393,6 @@ def check_passwords(input_password, stored_password):
     Returns:
         bool: True if the passwords match; otherwise, False.
     """
+
     hashed_input_password = hash_password(input_password)
     return hashed_input_password == stored_password

@@ -18,7 +18,8 @@ def connect_to_mysql_database(db_name):
         mysql.connector.MySQLConnection: A MySQL database connection object.
 
     Raises:
-        mysql.connector.Error: If there is an error during the database connection process.
+        mysql.connector.Error: If there is an error during the database
+        connection process.
     """
     try:
         db_connection = mysql.connector.connect(

@@ -1,10 +1,8 @@
-from models.falling_items.damage_falling_item import WarningItem, ErrorItem, BugItem
-from models.falling_items.points_falling_item import TickItem, PythonItem, RubberDuckItem
-from utils import assets_library
-from board import Board
-import pygame
-import datetime
 import time
+from board import Board
+from models.falling_items.damage_falling_item import *
+from models.falling_items.points_falling_item import *
+from utils import assets_library
 
 
 class FallingItemsFactory(pygame.sprite.Sprite):
@@ -32,21 +30,27 @@ class FallingItemsFactory(pygame.sprite.Sprite):
     """
     
     def __init__(self, board_instance: Board):
+
         """
         Initialise a FallingItemsFactory object.
 
         Parameters:
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__()
         self.timer_seconds = 60
         self.start_time = time.time()
-        self.python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
+        self.python_image = pygame.image.load(
+            assets_library['sprites']['python']['python1'])
         self.tick_image = pygame.image.load(assets_library['sprites']['tick'])
-        self.duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
-        self.bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
+        self.duck_image = pygame.image.load(
+            assets_library['sprites']['duck']['duck5'])
+        self.bug_image = pygame.image.load(
+            assets_library['sprites']['bug']['bug1'])
         self.error_image = pygame.image.load(assets_library['sprites']['error'])
-        self.warning_image = pygame.image.load(assets_library['sprites']['warning'])
+        self.warning_image = pygame.image.load(
+            assets_library['sprites']['warning'])
         self.falling_items = pygame.sprite.Group()
         self.game_board = board_instance
         self.python = PythonItem(self.python_image, self.game_board)
@@ -58,28 +62,37 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         self.item_list = []
 
     def create_group(self):
+
         """
         Create a group of falling items for the current game phase.
         """
+
         self.item_list = [self.tick, self.duck, self.warning, self.error, self.bug, self.python]
+
         for item in self.item_list:
             self.falling_items.add(item)
 
     def draw(self):
+
         """
         Draw all falling items on the game board.
         """
+
         for sprite in self.falling_items.sprites():
             sprite.draw(self.game_board)
 
     def fall_and_respawn(self):
+
         """
         Move all falling items down the screen and handle respawning.
         """
+
         for sprite in self.falling_items.sprites():
+            sprite.fall()
             if isinstance(sprite, TickItem) or isinstance(sprite, WarningItem):
                 sprite.fall()
             if isinstance(sprite, PythonItem) or isinstance(sprite, ErrorItem):
                 sprite.fall()
             if isinstance(sprite, RubberDuckItem) or isinstance(sprite, BugItem):
                 sprite.fall()
+
