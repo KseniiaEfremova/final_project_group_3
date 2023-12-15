@@ -134,6 +134,27 @@ def test_handle_user_input(self, mock_button):
 	mock_button.return_value.process_submit.assert_called_once()
 
 
+@patch('menus.registration_menu.handle_invalid_credentials')
+@patch('menus.registration_menu.handle_valid_credentials')
+@patch('menus.registration_menu.check_username_and_password')
+def test_process_submit(self, mock_check_credentials, mock_handle_valid, mock_handle_invalid):
+	expected_username = mock_handle_valid.return_value
+	mock_check_credentials.return_value = ("Test User", "Test123!")
+
+	returned_username = self.registration_menu.process_submit()
+
+	mock_handle_valid.assert_called_once_with(mock_check_credentials.return_value)
+	mock_handle_invalid.assert_not_called()
+	self.assertEqual(returned_username, expected_username)
+
+	mock_check_credentials.return_value = None
+
+	self.registration_menu.process_submit()
+
+	mock_handle_invalid.assert_called_once()
+	mock_handle_valid.assert_not_called()
+
+
 def tearDown(self):
 	pygame.quit()
 	patch.stopall()
