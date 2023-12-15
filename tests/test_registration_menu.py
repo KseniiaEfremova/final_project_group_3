@@ -68,7 +68,8 @@ class TestRegistrationMenu(unittest.TestCase):
 @patch('menus.registration_menu.TextDrawer')
 @patch('menus.registration_menu.InputBox')
 @patch('menus.registration_menu.PopupWindow')
-def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button, mock_scale, mock_load):
+def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button,
+			  mock_scale, mock_load):
 	mock_surface = pygame.Surface((800, 600))
 	mock_scale.return_value = mock_surface
 	mock_button.return_value.process.return_value = None
@@ -86,10 +87,10 @@ def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button, m
 	mock_button_instance = mock_button.return_value
 	mock_button_instance.process.assert_called_once()
 
-	mock_text_drawer.assert_called_with("Enter your username: ", (255, 255, 255),
-            100, 220, mock_font)
-	mock_text_drawer.assert_called_with("Enter your password: ", (255, 255, 255),
-            100, 320, mock_font)
+	mock_text_drawer.assert_called_with(
+		"Enter your username: ", (255, 255, 255), 100, 220, mock_font)
+	mock_text_drawer.assert_called_with(
+		"Enter your password: ", (255, 255, 255), 100, 320, mock_font)
 
 	mock_input_box.assert_called(2)
 
@@ -102,7 +103,8 @@ def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button, m
 	@patch('menus.registration_menu.TextDrawer')
 	@patch('menus.registration_menu.InputBox')
 	@patch('menus.registration_menu.PopupWindow')
-	def test_process_registration(self, mock_popup, mock_input_box, mock_text_drawer,
+	def test_process_registration(
+			self, mock_popup, mock_input_box, mock_text_drawer,
 				  mock_button, mock_update, mock_scale, mock_load):
 		mock_surface = pygame.Surface((800, 600))
 		mock_scale.return_value = mock_surface
@@ -137,13 +139,15 @@ def test_handle_user_input(self, mock_button):
 @patch('menus.registration_menu.handle_invalid_credentials')
 @patch('menus.registration_menu.handle_valid_credentials')
 @patch('menus.registration_menu.check_username_and_password')
-def test_process_submit(self, mock_check_credentials, mock_handle_valid, mock_handle_invalid):
+def test_process_submit(
+		self, mock_check_credentials, mock_handle_valid, mock_handle_invalid):
 	expected_username = mock_handle_valid.return_value
 	mock_check_credentials.return_value = ("Test User", "Test123!")
 
 	returned_username = self.registration_menu.process_submit()
 
-	mock_handle_valid.assert_called_once_with(mock_check_credentials.return_value)
+	mock_handle_valid.assert_called_once_with(
+		mock_check_credentials.return_value)
 	mock_handle_invalid.assert_not_called()
 	self.assertEqual(returned_username, expected_username)
 
@@ -154,7 +158,7 @@ def test_process_submit(self, mock_check_credentials, mock_handle_valid, mock_ha
 	mock_handle_invalid.assert_called_once()
 	mock_handle_valid.assert_not_called()
 
-
+# TODO: check how to assert proper popup is opened
 @patch('pygame.display.update')
 @patch('menus.registration_menu.PopupWindow')
 def test_handle_invalid_credentials(self, mock_popup, mock_update):
@@ -162,6 +166,31 @@ def test_handle_invalid_credentials(self, mock_popup, mock_update):
 
 	mock_update.assert_called_once()
 	self.assertFalse(mock_popup.opened)
+
+# TODO: check how to assert proper popup is opened
+@patch('pygame.display.update')
+@patch('menus.registration_menu.PopupWindow')
+@patch('menus.registration_menu.is_user_exist_in_db')
+@patch('menus.registration_menu.add_user_to_db')
+@patch('menus.registration_menu.finish_registration')
+def test_handle_valid_credentials(
+		self, mock_add_user, mock_exist_in_db, mock_popup, mock_update):
+	mock_exist_in_db.return_value = True
+
+	self.registration_menu.hande_valid_credentials(("Test User", "Test123!"))
+
+	self.assertTrue(mock_popup.opened)
+	self.assertFalse(mock_popup.opened)
+	mock_update.assert_called_once()
+
+	mock_exist_in_db.return_value = False
+	mock_add_user.return_value = "Test User", "Test123!"
+
+	actual_username = self.registration_menu.hande_valid_credentials(
+		("Test User", "Test123!"))
+
+	self.assertEqual(actual_username, mock_add_user.return_value)
+
 
 
 

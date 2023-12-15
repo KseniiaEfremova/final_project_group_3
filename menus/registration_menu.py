@@ -123,7 +123,6 @@ class RegistrationMenu(Menu):
         else:
             username = self.add_user_to_db(username, password)
             self.finish_registration()
-            print("from handling valid credentials", self.popup_window_invalid.opened)
             return username
 
     def add_user_to_db(self, username, password):
