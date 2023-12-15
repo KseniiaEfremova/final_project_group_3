@@ -50,11 +50,10 @@ class LoginMenu(Menu):
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
-
-        if self.submit_btn.alreadyPressed:
-            return self.process_submit()
-        if self.back_btn.alreadyPressed:
-            self.handle_back_to_menu()
+            if self.submit_btn.alreadyPressed:
+                return self.process_submit()
+            elif event.type == self.back_btn.alreadyPressed:
+                self.handle_back_to_menu()
 
     def process_submit(self):
         username, password = self.username_box.get_user_text(), self.password_box.get_user_text()
