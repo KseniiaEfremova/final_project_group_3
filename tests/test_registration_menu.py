@@ -94,6 +94,27 @@ def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button, m
 
 	mock_popup.assert_not_called()
 
+	@patch('pygame.image.load')
+	@patch('pygame.transform.scale')
+	@patch('pygame.display.update')
+	@patch('menus.registration_menu.Button')
+	@patch('menus.registration_menu.TextDrawer')
+	@patch('menus.registration_menu.InputBox')
+	@patch('menus.registration_menu.PopupWindow')
+	def test_process_registration(self, mock_popup, mock_input_box, mock_text_drawer,
+				  mock_button, mock_update, mock_scale, mock_load):
+		mock_surface = pygame.Surface((800, 600))
+		mock_scale.return_value = mock_surface
+		mock_button.return_value.process.return_value = None
+		mock_font = pygame.font.Font(None, 36)
+		mock_font.render.return_value = pygame.Surface((200, 100))
+		self.registration_menu.handle_user_input.return_value = "Test User"
+
+		returned_username = self.registration_menu.process_registration()
+
+		mock_update.assert_called_once()
+		self.assertEqual(returned_username, "Test User")
+
 def tearDown(self):
 	pygame.quit()
 	patch.stopall()

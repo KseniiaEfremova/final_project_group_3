@@ -82,8 +82,6 @@ class RegistrationMenu(Menu):
             str: The username entered by the user during the registration process.
         """
 
-        # self.board_instance.image = pygame.transform.scale(
-        #     self.background_image, (800, 600))
         self.draw()
         pygame.display.update()
         username = self.handle_user_input()
