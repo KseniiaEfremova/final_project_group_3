@@ -1,4 +1,5 @@
 import pygame
+import sys
 from menus.menu import Menu
 from db.history import get_history_data
 from board import Board
@@ -11,13 +12,60 @@ font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 class HistoryMenu(Menu):
     def __init__(self, board_instance: Board):
+
+        """
+        Initialise the HistoryMenu.
+
+        Args:
+            board_instance (Board): The game board instance.
+        """
+
         super().__init__(board_instance)
         self.history = True
         self.background_image = pygame.image.load(
             assets_library['backgrounds']['registration_page'])
         self.column_names = ["Username", "Points", "Life", "Level"]
 
+    def get_play_again(self):
+
+        """
+        Get the play_again status.
+
+        Returns:
+            bool: The play_again status.
+        """
+
+        return self.play_again
+
+    def play_again_handler(self):
+
+        """
+        Handle the play again action.
+
+        Set the play_again flag to True.
+        """
+
+        self.play_again = True
+        
+    def exit_game_handler(self):
+
+        """
+        Handle the exit game action.
+
+        Quit the pygame application and exit the system.
+        """
+
+        pygame.quit()
+        sys.exit()
+
     def draw_columns(self, surface):
+
+        """
+          Draw 4 columns based on column_names list.
+
+          Display text on the surface.
+        """
+
         column_x = 150
         column_y = 230
         for col_name in self.column_names:
@@ -27,6 +75,13 @@ class HistoryMenu(Menu):
             column_x += 150
 
     def draw_rows(self, surface):
+
+        """
+          Draw 8 rows based on history_data from db.
+
+          Display text on the surface.
+        """
+
         player_data = get_history_data()
         data_y = 270
         for row in player_data:
@@ -39,6 +94,12 @@ class HistoryMenu(Menu):
             data_y += 30
 
     def draw(self):
+
+        """
+          Draw the history menu on the board.
+
+          Display the background image, title, column names, data and button.
+          """
 
         background_image = pygame.image.load(
             assets_library['backgrounds']['registration_page'])

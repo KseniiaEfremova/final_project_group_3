@@ -6,7 +6,38 @@ from utils import assets_library
 
 
 class FallingItemsFactory(pygame.sprite.Sprite):
+    """
+    Factory class for creating and managing falling items in Code Quest.
+
+    Attributes:
+        timer_seconds (int): The duration of the falling items phase in seconds.
+        start_time (float): The start time of the falling items phase.
+        python_image (pygame.Surface): The image for Python falling items.
+        tick_image (pygame.Surface): The image for Tick falling items.
+        duck_image (pygame.Surface): The image for Rubber Duck falling items.
+        bug_image (pygame.Surface): The image for Bug falling items.
+        error_image (pygame.Surface): The image for Error falling items.
+        warning_image (pygame.Surface): The image for Warning falling items.
+        falling_items (pygame.sprite.Group): A group containing all falling items.
+        game_board (Board): An instance of the game board.
+        python (PythonItem): An instance of PythonItem for creating Python falling items.
+        tick (TickItem): An instance of TickItem for creating Tick falling items.
+        duck (RubberDuckItem): An instance of RubberDuckItem for creating Rubber Duck falling items.
+        warning (WarningItem): An instance of WarningItem for creating Warning falling items.
+        error (ErrorItem): An instance of ErrorItem for creating Error falling items.
+        bug (BugItem): An instance of BugItem for creating Bug falling items.
+        item_list (list): A list containing all types of falling items.
+    """
+    
     def __init__(self, board_instance: Board):
+
+        """
+        Initialise a FallingItemsFactory object.
+
+        Parameters:
+            board_instance (Board): An instance of the game board.
+        """
+
         super().__init__()
         self.timer_seconds = 60
         self.start_time = time.time()
@@ -31,15 +62,37 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         self.item_list = []
 
     def create_group(self):
-        self.item_list = [self.tick, self.duck, self.warning, self.error,
-                          self.bug, self.python]
+
+        """
+        Create a group of falling items for the current game phase.
+        """
+
+        self.item_list = [self.tick, self.duck, self.warning, self.error, self.bug, self.python]
+
         for item in self.item_list:
             self.falling_items.add(item)
 
     def draw(self):
+
+        """
+        Draw all falling items on the game board.
+        """
+
         for sprite in self.falling_items.sprites():
             sprite.draw(self.game_board)
 
     def fall_and_respawn(self):
+
+        """
+        Move all falling items down the screen and handle respawning.
+        """
+
         for sprite in self.falling_items.sprites():
             sprite.fall()
+            if isinstance(sprite, TickItem) or isinstance(sprite, WarningItem):
+                sprite.fall()
+            if isinstance(sprite, PythonItem) or isinstance(sprite, ErrorItem):
+                sprite.fall()
+            if isinstance(sprite, RubberDuckItem) or isinstance(sprite, BugItem):
+                sprite.fall()
+

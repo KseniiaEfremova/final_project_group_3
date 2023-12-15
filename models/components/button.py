@@ -6,10 +6,10 @@ font = pygame.font.Font(None, 34)
 
 
 class Button:
-    def __init__(self, x, y, width, height, board_instance: Board,
-                 buttonText='Button', onclickFunction=None, onePress=False):
+    def __init__(self, x, y, width, height, board_instance: Board, buttonText='Button', onclickFunction=None, onePress=False):
+
         """
-        Initialize a Button object.
+        Initialise a Button object.
 
         Parameters:
         - x (int): The x-coordinate of the top-left corner of the button.
@@ -34,7 +34,6 @@ class Button:
         self.onePress = onePress
         self.board_instance = board_instance
 
-        # Colors for different button states
         self.fillColors = {
             'normal': '#9867c5',
             'hover': '#be93d4',
@@ -45,6 +44,7 @@ class Button:
         self.alreadyPressed = False
 
     def process(self):
+
         """
         Process the button's behavior, including handling mouse interactions
         and rendering.
@@ -68,8 +68,6 @@ class Button:
             else:
                 self.alreadyPressed = False
 
-        # Center the text on the button and blit the button surface and text
-        # on the game board
         self.buttonSurface.blit(buttonSurf, [
             self.buttonRect.width / 2 - buttonSurf.get_rect().width / 2,
             self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2

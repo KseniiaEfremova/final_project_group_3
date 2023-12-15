@@ -14,25 +14,16 @@ font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 
 class RegistrationMenu(Menu):
-    """
-    Represents the registration menu for user sign-up.
-
-    Attributes:
-    - board_instance (Board): The instance of the game board.
-    - registration (bool): Flag indicating whether it's a registration or login
-    menu.
-    - background_image (pygame.Surface): The background image for the
-    registration page.
-    - username_box (InputBox): Input box for entering the username.
-    - password_box (InputBox): Input box for entering the password.
-    - text_drawer (TextDrawer): Helper class for drawing text on the board.
-    - submit_btn (Button): Button for submitting the registration or login
-    information.
-    - popup_window_invalid (PopupWindow): Popup window for invalid input.
-    - popup_window_exist (PopupWindow): Popup window for an existing username.
-    """
-
     def __init__(self, board_instance: Board, registration=True):
+
+        """
+        Initialise a RegistrationMenu instance.
+
+        Args:
+            board_instance (Board): The instance of the game board.
+            registration (bool, optional): Flag indicating whether it's a registration or login menu.
+        """
+
         super().__init__(board_instance)
         self.registration = registration
         self.background_image = pygame.image.load(
@@ -56,6 +47,11 @@ class RegistrationMenu(Menu):
             "This username already exist, try another")
 
     def draw(self):
+
+        """
+        Draw the registration menu on the board.
+        """
+
         self.board_instance.draw_background()
         self.text_drawer.draw_text(
             "REGISTRATION", (255, 255, 255),
@@ -76,6 +72,14 @@ class RegistrationMenu(Menu):
         pygame.display.update()
 
     def process_registration(self):
+
+        """
+        Process the registration input and perform necessary actions.
+
+        Returns:
+            str: The username entered by the user during the registration process.
+        """
+
         self.board_instance.image = pygame.transform.scale(
             self.background_image, (800, 600))
         self.draw()
