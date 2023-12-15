@@ -40,7 +40,8 @@ class RegistrationMenu(Menu):
         self.submit_btn = Button(300, 410, 200, 40, self.board_instance, 'SUBMIT',
                                  lambda: check_username_and_password(self.username_box.get_user_text(),
                                                                      self.password_box.get_user_text()))
-
+        self.back_btn = Button(20, 500, 200, 40, self.board_instance, 'BACK TO MENU',
+                               self.handle_back_to_menu)
         self.popup_window_invalid = PopupWindow(800, 40, "Invalid Username or Password!")
         self.popup_window_exist = PopupWindow(800, 40, "This username already exist, try another")
 
@@ -53,6 +54,7 @@ class RegistrationMenu(Menu):
         self.text_drawer.draw_text("Enter your password: ", (255, 255, 255), 100, 320, font)
         self.password_box.draw_box()
         self.submit_btn.process()
+        self.back_btn.process()
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
@@ -94,3 +96,5 @@ class RegistrationMenu(Menu):
                     pygame.display.update()
                     return username
 
+    def handle_back_to_menu(self):
+        self.registration = False

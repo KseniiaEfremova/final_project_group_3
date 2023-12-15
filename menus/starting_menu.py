@@ -30,13 +30,9 @@ class StartingMenu(Menu):
         pygame.quit()
         sys.exit()
 
-
     def register_handler(self):
         self.is_open = False
         self.registration = True
-
-    def get_login_open(self):
-        return self.login
 
     def login_handler(self):
         self.is_open = False
@@ -73,6 +69,37 @@ class StartingMenu(Menu):
         self.login = False
         self.credits = False
         self.history = False
+        self.instructions = False
+
+    def show_registration_menu(self, registration_menu):
+        self.is_open = False
+        while registration_menu.registration:
+            registration_menu.process_registration()
+
+    def show_login_menu(self, login_menu):
+        username = None
+        self.is_open = False
+        while login_menu.login:
+            username = login_menu.process_login()
+        return username
+
+    def show_credits_menu(self, credits_menu):
+        self.is_open = False
+        credits_menu.draw()
+        credits_menu.event_handler()
+        pygame.display.update()
+
+    def show_history_menu(self, history_menu):
+        self.is_open = False
+        history_menu.draw()
+        history_menu.event_handler()
+        pygame.display.update()
+
+    def show_instructions_menu(self, instructions_menu):
+        self.is_open = False
+        instructions_menu.draw()
+        instructions_menu.event_handler()
+        pygame.display.update()
 
 
 def show_starting_menu(start_menu):
@@ -84,42 +111,4 @@ def show_starting_menu(start_menu):
     pygame.display.update()
 
 
-def show_registration_menu(registration_menu):
-    while registration_menu.registration:
-        registration_menu.process_registration()
-
-
-def show_login_menu(login_menu):
-    while login_menu.login:
-        login_menu.process_login()
-
-
-def show_history_menu(history_menu):
-    history_menu.draw()
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-
-def show_instructions_menu(instructions_menu):
-    instructions_menu.draw()
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-
-def show_credits_menu(credits_menu):
-    credits_menu.draw()
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
 

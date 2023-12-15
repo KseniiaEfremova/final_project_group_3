@@ -37,7 +37,7 @@ def reset_game(player, falling, end_game_menu, is_winner, is_loser):
 
 
                 
-# @Sounds(assets_library['sounds']['soundtrack'], loop=True)
+@Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
@@ -53,44 +53,38 @@ def run():
     start_menu = StartingMenu(game_board)
 
     username = None
-
-    # while True:
-    #     login_closed = login_menu.get_login_closed()
-    #     if start_menu.is_open:
-    #         show_starting_menu(start_menu)
-    #     if start_menu.registration:
-    #         print(f"start_menu: {start_menu.is_open}, registration: {start_menu.registration}")
-    #         username = registration_menu.process_registration()
-    #         show_registration_menu(registration_menu)
-    #     elif start_menu.login:
-    #         print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
-    #         username = login_menu.process_login()
-    #         show_login_menu(login_menu)
-    #     elif start_menu.credits:
-    #         show_credits_menu(credits_menu)
-    #     elif start_menu.login and login_closed or start_menu.is_open:
-    #         print(f"start_menu: {start_menu.is_open}, login: {start_menu.login}")
-    #         # start_menu.is_open = True
-    #         start_menu.reset_flags()
-    #         show_starting_menu(start_menu)
-
-    while start_menu.is_open:
-        login_closed = login_menu.get_login_closed()
+    while username is None:
         show_starting_menu(start_menu)
 
-        if login_closed:
-            start_menu.is_open = True
-            print("Im back")
-            continue
+        if start_menu.registration:
+            registration_menu.registration = True
+            start_menu.show_registration_menu(registration_menu)
+            if username is None:
+                start_menu.reset_flags()
 
-        elif start_menu.login:
-            username = login_menu.process_login()
-            show_login_menu(login_menu)
+        if start_menu.login:
+            login_menu.login = True
+            username = start_menu.show_login_menu(login_menu)
+            if username is None:
+                start_menu.reset_flags()
 
-        elif start_menu.credits:
-            show_credits_menu(credits_menu)
+        if start_menu.credits:
+            credits_menu.credits = True
+            while credits_menu.credits:
+                start_menu.show_credits_menu(credits_menu)
+            start_menu.reset_flags()
 
+        if start_menu.history:
+            history_menu.history = True
+            while history_menu.history:
+                start_menu.show_history_menu(history_menu)
+            start_menu.reset_flags()
 
+        if start_menu.instructions:
+            instructions_menu.instructions = True
+            while instructions_menu.instructions:
+                start_menu.show_instructions_menu(instructions_menu)
+            start_menu.reset_flags()
 
     player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)

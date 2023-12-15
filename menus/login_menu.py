@@ -19,7 +19,6 @@ class LoginMenu(Menu):
     def __init__(self, board_instance: Board, login=True):
         super().__init__(board_instance)
         self.login = login
-        self.is_closed = False
         self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
         self.username_box = InputBox(250, 250, 140, 32, "", self.board_instance)
         self.password_box = InputBox(250, 350, 140, 32, "", self.board_instance)
@@ -27,9 +26,8 @@ class LoginMenu(Menu):
         self.submit_btn = Button(300, 450, 200, 40, self.board_instance, 'SUBMIT',
                                  lambda: check_username_and_password(self.username_box.get_user_text(),
                                                                      self.password_box.get_user_text()))
-        self.back_btn = Button(20, 500, 200, 40, self.board_instance, 'BACK TO MENU',
-                                 lambda: check_username_and_password(self.username_box.get_user_text(),
-                                                                     self.password_box.get_user_text()))
+        self.back_btn = Button(20, 550, 200, 40, self.board_instance, 'BACK TO MENU',
+                               self.handle_back_to_menu)
         self.popup_window_incorrect = PopupWindow(800, 40, "Incorrect Username or Password!")
 
     def draw(self):
@@ -88,11 +86,7 @@ class LoginMenu(Menu):
         pygame.display.update()
 
     def handle_back_to_menu(self):
-        print("im clicked")
-        self.is_closed = True
-
-    def get_login_closed(self):
-        return self.is_closed
+        self.login = False
 
     def process_login(self):
         self.board_instance.image = pygame.transform.scale(self.background_image, (800, 600))
