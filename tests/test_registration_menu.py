@@ -155,6 +155,16 @@ def test_process_submit(self, mock_check_credentials, mock_handle_valid, mock_ha
 	mock_handle_valid.assert_not_called()
 
 
+@patch('pygame.display.update')
+@patch('menus.registration_menu.PopupWindow')
+def test_handle_invalid_credentials(self, mock_popup, mock_update):
+	self.registration_menu.handle_invalid_credentials()
+
+	mock_update.assert_called_once()
+	self.assertFalse(mock_popup.opened)
+
+
+
 def tearDown(self):
 	pygame.quit()
 	patch.stopall()
