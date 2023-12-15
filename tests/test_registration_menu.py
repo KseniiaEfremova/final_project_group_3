@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch, Mock
 import pygame
+from pygame.locals import QUIT
 from db.user import *
 from board import Board
 from menus.registration_menu import RegistrationMenu
@@ -114,6 +115,24 @@ def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button, m
 
 		mock_update.assert_called_once()
 		self.assertEqual(returned_username, "Test User")
+
+
+@patch('menus.registration_menu.Button')
+def test_handle_user_input(self, mock_button):
+	mock_event_quit = pygame.event.Event(QUIT)
+	mock_event_keydown = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RETURN)
+
+	pygame.event.post(mock_event_quit)
+	pygame.event.post(mock_event_keydown)
+
+	mock_button.return_value.alreadyPressed = True
+	self.registration_menu.process_submit = Mock(return_value="Test User")
+
+	returned_username = self.registration_menu.handle_user_input()
+
+	self.assertEqual(returned_username, "Test User")
+	mock_button.return_value.process_submit.assert_called_once()
+
 
 def tearDown(self):
 	pygame.quit()
