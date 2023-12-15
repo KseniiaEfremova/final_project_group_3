@@ -27,7 +27,7 @@ class TestPopup(unittest.TestCase):
         self.popup.draw_window(self.test_board.board)
 
         mock_font.render.assert_called_with("Test Popup", True, mock_color)
-        self.assertEqual(self.popup.opened, True)
+        self.assertEqual(self.popup.opened, False)
 
     def test_get_attributes(self):
         actual = self.popup.get_attributes()

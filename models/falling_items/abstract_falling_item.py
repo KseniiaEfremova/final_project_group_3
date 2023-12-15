@@ -70,7 +70,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
             tuple: The x and y coordinates of the spawned falling item.
         """
 
-        self.x = random.randint(0, 770)
+        self.x = random.randint(self.width, 800 - self.width)
         self.y = random.randint(-400, -100)
         self.rect.x = self.x
         self.rect.y = self.y

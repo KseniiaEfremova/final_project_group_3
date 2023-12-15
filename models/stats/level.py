@@ -62,7 +62,7 @@ class Level(Stats, ABC):
         self.current_sprite = self.player_instance.get_level() - 1
         if self.current_sprite > 2:
             self.current_sprite = 2
-            return self.current_sprite
+        return self.current_sprite
     
     def draw(self, board_instance, **kwargs):
 
