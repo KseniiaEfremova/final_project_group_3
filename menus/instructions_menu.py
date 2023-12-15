@@ -12,7 +12,7 @@ class InstructionsMenu(Menu):
     def __init__(self, board_instance: Board):
         super().__init__(board_instance)
         self.background_image = pygame.image.load(assets_library['backgrounds']['instructions'])
-        self.back_button = Button(20, 10, 200, 40, self.board_instance, 'BACK TO MENU', self.back_button_handler)
+        self.back_button = Button(0, 560, 190, 40, self.board_instance, 'BACK TO MENU', self.back_button_handler)
         self.instructions = True
 
     def draw(self):
