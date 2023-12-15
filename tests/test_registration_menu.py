@@ -191,6 +191,16 @@ def test_handle_valid_credentials(
 
 	self.assertEqual(actual_username, mock_add_user.return_value)
 
+@patch('menus.registration_menu.add_user_to_db')
+def test_add_user_to_db(self, mock_add_user):
+	mock_add_user.return_value = "Test User", "Test123!"
+
+	actual_username = self.registration_menu.add_user_to_db("Test User", "Test123!")
+	expected_username = mock_add_user.return_value
+
+	self.assertEqual(actual_username, expected_username)
+
+
 
 
 
