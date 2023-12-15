@@ -52,7 +52,9 @@ class RegistrationMenu(Menu):
         Draw the registration menu on the board.
         """
 
-        self.board_instance.draw_background()
+        background_image = pygame.transform.scale(
+            self.background_image, (800, 600))
+        self.board_instance.board.blit(background_image, (0, 0))
         self.text_drawer.draw_text(
             "REGISTRATION", (255, 255, 255),
             100, 180, font)
@@ -80,8 +82,8 @@ class RegistrationMenu(Menu):
             str: The username entered by the user during the registration process.
         """
 
-        self.board_instance.image = pygame.transform.scale(
-            self.background_image, (800, 600))
+        # self.board_instance.image = pygame.transform.scale(
+        #     self.background_image, (800, 600))
         self.draw()
         pygame.display.update()
         username = self.handle_user_input()

@@ -60,47 +60,40 @@ class TestRegistrationMenu(unittest.TestCase):
 			800, 40,
 				"This username already exist, try another")))
 
-	# @patch('menus.registration_menu.pygame.display.update')
-	# @patch('menus.registration_menu.pygame.transform.scale')
-	# def test_process_registration(self, mock_scale, mock_update):
-	# 	mock_popup_invalid = MagicMock()
-	# 	mock_popup_exist = MagicMock()
-	# 	mock_popup_invalid.opened = True
-	# 	mock_popup_exist.opened = False
-	# 	mock_scale.return_value = pygame.Surface((800, 600))
-	#
-	# 	self.registration_menu.process_registration()
-	#
-	# 	mock_scale.assert_called_once_with(
-	# 		self.registration_menu.background_image, (800, 600))
-	# 	self.registration_menu.draw.assert_called_once()
-	# 	mock_popup_invalid.draw_window.assert_called_once_with(
-	# 		self.test_board.board)
-	# 	mock_update.assert_called_once()
-	# 	self.registration_menu.handle_user_input.assert_called_once()
 
-#
-# @patch('pygame.image.load')
-# @patch('pygame.transform.scale')
-# @patch('menus.history_menu.Button')
-# def test_draw(self, mock_button, mock_scale, mock_load):
-# 	mock_button.return_value.process.return_value = None
-# 	mock_surface = pygame.Surface((800, 600))
-# 	mock_scale.return_value = mock_surface
-# 	mock_font = pygame.font.Font(None, 36)
-# 	mock_font.render.return_value = pygame.Surface((200, 100))
-#
-# 	self.history_menu.draw()
-#
-# 	mock_load.assert_called_once_with(
-# 		assets_library['backgrounds']['registration_page'])
-# 	mock_scale.assert_called_once_with(mock_load.return_value, (800, 600))
-#
-# 	mock_button.assert_called_once_with(
-# 		20, 10, 200, 40, self.history_menu.board_instance, 'BACK TO MENU')
-# 	mock_button_instance = mock_button.return_value
-# 	mock_button_instance.process.assert_called_once()
-#
+@patch('pygame.image.load')
+@patch('pygame.transform.scale')
+@patch('menus.registration_menu.Button')
+@patch('menus.registration_menu.TextDrawer')
+@patch('menus.registration_menu.InputBox')
+@patch('menus.registration_menu.PopupWindow')
+def test_draw(self, mock_popup, mock_input_box, mock_text_drawer, mock_button, mock_scale, mock_load):
+	mock_surface = pygame.Surface((800, 600))
+	mock_scale.return_value = mock_surface
+	mock_button.return_value.process.return_value = None
+	mock_font = pygame.font.Font(None, 36)
+	mock_font.render.return_value = pygame.Surface((200, 100))
+
+	self.history_menu.draw()
+
+	mock_load.assert_called_once_with(
+		assets_library['backgrounds']['registration_page'])
+	mock_scale.assert_called_once_with(mock_load.return_value, (800, 600))
+
+	mock_button.assert_called_once_with(
+		300, 420, 200, 40, self.registration_menu.board_instance, 'SUBMIT')
+	mock_button_instance = mock_button.return_value
+	mock_button_instance.process.assert_called_once()
+
+	mock_text_drawer.assert_called_with("Enter your username: ", (255, 255, 255),
+            100, 220, mock_font)
+	mock_text_drawer.assert_called_with("Enter your password: ", (255, 255, 255),
+            100, 320, mock_font)
+
+	mock_input_box.assert_called(2)
+
+	mock_popup.assert_not_called()
+
 def tearDown(self):
 	pygame.quit()
 	patch.stopall()
