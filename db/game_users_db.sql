@@ -18,3 +18,27 @@ CREATE TABLE game_statistics (
     PRIMARY KEY(statistics_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+INSERT INTO users
+(username, password)
+VALUES
+('TestCat', 'Testtest1!'),
+('TestDog', 'Testtest1!'),
+('TestHamster', 'Testtest1!'),
+('TestBird', 'Testtest1!'),
+('TestRabbit', 'Testtest1!'),
+('TestSnake', 'Testtest1!'),
+('TestDuck', 'Testtest1!'),
+('TestWhale', 'Testtest1!');
+
+INSERT INTO game_statistics
+(user_id, points, life, level)
+VALUES
+(1, 10, 5, 2),
+(2, 20, 80, 1),
+(3, 5, 65, 1),
+(4, 35, 75, 2),
+(5, 10, 60, 2),
+(6, 40, 10, 2),
+(7, 55, 20, 1),
+(8, 0, 90, 1);
