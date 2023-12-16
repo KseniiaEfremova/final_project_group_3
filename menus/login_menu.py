@@ -47,7 +47,7 @@ class LoginMenu(Menu):
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
         self.back_btn = Button(
-            20, 550, 200, 40, self.board_instance, 'BACK TO MENU',
+            0, 560, 190, 40, self.board_instance, 'BACK TO MENU',
             self.handle_back_to_menu)
         self.popup_window_incorrect = PopupWindow(
             800, 40, "Incorrect Username or Password!")
