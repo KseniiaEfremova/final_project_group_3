@@ -1,12 +1,15 @@
 import pygame
 from board import Board
+from utils import assets_library
 
 pygame.font.init()
-font = pygame.font.Font(None, 34)
+font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 34)
 
 
 class Button:
-    def __init__(self, x, y, width, height, board_instance: Board, buttonText='Button', onclickFunction=None, onePress=False):
+    def __init__(
+            self, x, y, width, height, board_instance: Board,
+            buttonText='Button', onclickFunction=None, onePress=False):
 
         """
         Initialise a Button object.
@@ -54,7 +57,9 @@ class Button:
             self.buttonText, True, (255, 255, 255))
 
         mousePos = pygame.mouse.get_pos()
+
         self.buttonSurface.fill(self.fillColors['normal'])
+
         if self.buttonRect.collidepoint(mousePos):
             self.buttonSurface.fill(self.fillColors['hover'])
 

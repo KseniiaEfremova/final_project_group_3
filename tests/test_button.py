@@ -29,7 +29,9 @@ class TestButton(unittest.TestCase):
         self.assertFalse(button.alreadyPressed)
 
     def test_get_attributes(self):
-        button = Button(0, 0, 100, 50, self.test_board, "This is button")
+        button = Button(
+            0, 0, 100, 50, self.test_board,
+            "This is button")
         actual = button.get_attributes()
         expected = {
             'x': 0,
@@ -42,13 +44,15 @@ class TestButton(unittest.TestCase):
 
     # def test_process_button_behavior(self):
     #     mock_onclick_function = MagicMock()
-    #     button = Button(0, 0, 100, 50, self.test_board, onclickFunction=mock_onclick_function)
-    #     pygame.mouse.get_pos = MagicMock(return_value=(25, 25))
-        # TODO: there is a memory leak in font.render method that is causing
-        #  testing this to crash all the tests, come back to it later
-        # f = pygame.font.Font(None, 40)
-        # print("F: ", f)
-        # f.render.return_value = pygame.surface.Surface((200, 200))
+    #     button = Button(
+    #         0, 0, 100, 50, self.test_board,
+    #         onclickFunction=mock_onclick_function)
+    #     f = pygame.font.Font(None, 40)
+    #     f.render.return_value = pygame.surface.Surface((200, 200))
+    #     button.process()
+        # pygame.mouse.get_pos = MagicMock(return_value=(25, 25))
+        #
+
         # button.process()
         # self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['hover'])
         # pygame.mouse.get_pressed = MagicMock(return_value=(True, False, False))

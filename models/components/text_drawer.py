@@ -21,7 +21,8 @@ class TextDrawer:
         Initialise a TextDrawer object.
 
         Parameters:
-            board_instance (Board): An instance of the game board where text is to be drawn.
+            board_instance (Board): An instance of the game board where text is
+            to be drawn.
         """
 
         self.board_instance = board_instance
