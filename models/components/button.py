@@ -63,7 +63,7 @@ class Button:
         Process the button's behavior, including handling mouse interactions
         and rendering.
         """
-        print("fail from button process function")
+
         buttonSurf = font.render(
             self.buttonText, True, (255, 255, 255))
 

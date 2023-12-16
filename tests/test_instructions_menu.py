@@ -23,6 +23,13 @@ class TestInstructionsMenu(unittest.TestCase):
 		self.assertEqual(self.instructions_menu.background_pic,
 				assets_library['backgrounds']['instructions'])
 
+	def test_back_button_handler(self):
+		self.assertTrue(self.instructions_menu.instructions)
+
+		self.instructions_menu.back_button_handler()
+
+		self.assertFalse(self.instructions_menu.instructions)
+
 	def tearDown(self):
 		pygame.quit()
 		patch.stopall()
