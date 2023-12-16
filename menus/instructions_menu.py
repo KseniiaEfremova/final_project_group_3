@@ -19,7 +19,7 @@ class InstructionsMenu(Menu):
     
     def __init__(self, board_instance: Board):
         """
-        Initializes the InstructionsMenu.
+        Initialise the InstructionsMenu.
 
         Parameters:
         - board_instance (Board): The instance of the game board.
