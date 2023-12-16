@@ -121,7 +121,7 @@ class StartingMenu(Menu):
         self.history_button.process()
         self.instructions_button.process()
         self.credits_button.process()
-        pygame.display.update()
+        # pygame.display.update()
 
     def reset_flags(self):
         """
@@ -170,7 +170,7 @@ class StartingMenu(Menu):
         self.is_open = False
         credits_menu.draw()
         credits_menu.event_handler()
-        pygame.display.update()
+        # pygame.display.update()
 
     def show_history_menu(self, history_menu):
         """
@@ -182,7 +182,7 @@ class StartingMenu(Menu):
         self.is_open = False
         history_menu.draw()
         history_menu.event_handler()
-        pygame.display.update()
+        # pygame.display.update()
 
     def show_instructions_menu(self, instructions_menu):
         """
@@ -194,22 +194,23 @@ class StartingMenu(Menu):
         self.is_open = False
         instructions_menu.draw()
         instructions_menu.event_handler()
-        pygame.display.update()
+        # pygame.display.update()
 
+    def show_starting_menu(self):
 
-def show_starting_menu(start_menu):
-    """
-    Displays the starting menu.
+        """
+        Displays the starting menu.
 
-    Parameters:
-    - start_menu (StartingMenu): The starting menu to display.
-    """
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            start_menu.exit_game_handler()
+        Parameters:
+        - start_menu (StartingMenu): The starting menu to display.
+        """
 
-    start_menu.draw()
-    pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.exit_game_handler()
+
+        self.draw()
+
 
 
 
