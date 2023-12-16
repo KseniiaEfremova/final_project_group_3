@@ -4,6 +4,7 @@ import coverage
 
 
 def run_tests():
+
     """
     Runs the unit tests for the project and generates a coverage report.
 
@@ -13,6 +14,7 @@ def run_tests():
     Returns:
         unittest.TextTestResult: The result of running the unit tests.
     """
+
     script_directory = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_directory)
     tests_directory = os.path.join(script_directory, 'tests')
