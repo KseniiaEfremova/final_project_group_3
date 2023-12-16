@@ -19,7 +19,7 @@ class CreditsMenu(Menu):
         background_image = pygame.transform.scale(background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
         self.back_btn.process()
-        pygame.display.update()
+        # pygame.display.update()
 
     def event_handler(self):
         for event in pygame.event.get():

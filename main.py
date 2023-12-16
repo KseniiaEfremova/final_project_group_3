@@ -47,7 +47,7 @@ def show_history_menu(history_menu):
         history_menu (HistoryMenu): The history menu object.
     """
     history_menu.draw()
-    pygame.display.update()
+    # pygame.display.update()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

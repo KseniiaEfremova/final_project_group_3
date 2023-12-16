@@ -115,4 +115,4 @@ class HistoryMenu(Menu):
 
         self.draw_columns(self.board_instance.board)
         self.draw_rows(self.board_instance.board)
-        pygame.display.update()
+        # pygame.display.update()
