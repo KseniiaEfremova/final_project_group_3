@@ -22,14 +22,14 @@ CREATE TABLE game_statistics (
 INSERT INTO users
 (username, password)
 VALUES
-(‘TestCat’, ‘Testtest1!’),
-(‘TestDog’, ‘Testtest1!’),
-(‘TestHamster’, ‘Testtest1!’),
-(‘TestBird’, ‘Testtest1!’),
-(‘TestRabbit’, ‘Testtest1!’),
-(‘TestSnake’, ‘Testtest1!’),
-(‘TestDuck’, ‘Testtest1!’),
-(‘TestWhale’, ‘Testtest1!’);
+('TestCat', 'Testtest1!'),
+('TestDog', 'Testtest1!'),
+('TestHamster', 'Testtest1!'),
+('TestBird', 'Testtest1!'),
+('TestRabbit', 'Testtest1!'),
+('TestSnake', 'Testtest1!'),
+('TestDuck', 'Testtest1!'),
+('TestWhale', 'Testtest1!');
 
 INSERT INTO game_statistics
 (user_id, points, life, level)
