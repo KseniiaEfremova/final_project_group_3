@@ -211,11 +211,6 @@ class TestPlayer(unittest.TestCase):
 			'game_users_db', 'game_statistics', self.player.points, self.player.life,
 			self.player.level, mock_get_user_id.return_value)
 
-
-
-
-
-
-def tearDown(self):
+	def tearDown(self):
 		pygame.quit()
 		patch.stopall()

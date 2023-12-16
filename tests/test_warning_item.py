@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pygame
 import numpy as np
 from board import Board
@@ -15,7 +15,8 @@ class TestWarningItem(unittest.TestCase):
 		pygame.init()
 		self.board = pygame.display.set_mode(
 			(800, 600))
-		self.test_board = Board("Test Board", (800, 600), 60)
+		self.test_board = Board(
+			"Test Board", (800, 600), 60)
 
 	@patch('models.falling_items.damage_falling_item.WarningItem.spawn')
 	def test_warning_item_init(self, mock_spawn):
@@ -45,13 +46,32 @@ class TestWarningItem(unittest.TestCase):
 	def test_warning_item_spawn(self):
 		warning_item = WarningItem(warning_image, self.test_board)
 
-		self.assertFalse(warning_item.x < 0)
-		self.assertFalse(warning_item.x == 0)
-		self.assertFalse(warning_item.x > 770)
-		self.assertTrue(0 < warning_item.x < 770)
+		self.assertTrue(warning_item.width < warning_item.x < 800 - warning_item.width)
+		self.assertTrue(-400 < warning_item.y < -100)
+
+	def test_warning_item_fall(self):
+		warning_item = WarningItem(warning_image, self.test_board)
+
+		warning_item.y = 400
+		warning_item.speed = 5
+		warning_item.rect = MagicMock()
+
+		warning_item.disappear = MagicMock()
+
+		warning_item.fall()
+
+		self.assertEqual(warning_item.y, 405)
+		self.assertEqual(warning_item.rect.y, 405)
+		warning_item.disappear.assert_not_called()
+
+		warning_item.y = 501
+
+		warning_item.fall()
+
+		self.assertEqual(warning_item.y, 506)
+		self.assertEqual(warning_item.rect.y, 506)
+		warning_item.disappear.assert_called_once()
 
 	def tearDown(self):
 		pygame.quit()
 		patch.stopall()
-
-

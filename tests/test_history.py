@@ -42,3 +42,6 @@ class TestHistory(unittest.TestCase):
 
         self.assertEqual(result, {'message': 'Cannot get history data '
                                              'right now, try again later'})
+
+    def tearDown(self):
+        patch.stopall()

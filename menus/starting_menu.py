@@ -19,12 +19,23 @@ class StartingMenu(Menu):
         self.history = False
         self.instructions = False
         self.credits = False
-        self.background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
-        self.registration_button = Button(300, 250, 200, 40, self.board_instance, 'Registration', self.register_handler)
-        self.login_button = Button(300, 300, 200, 40, self.board_instance, 'Login', self.login_handler)
-        self.history_button = Button(300, 350, 200, 40, self.board_instance, 'History', self.history_handler)
-        self.instructions_button = Button(300, 400, 200, 40, self.board_instance, 'Instructions', self.instructions_handler)
-        self.credits_button = Button(300, 450, 200, 40, self.board_instance, 'Credits', self.credits_handler)
+        self.background_image = pygame.image.load(
+            assets_library['backgrounds']['registration_page'])
+        self.registration_button = Button(
+            300, 250, 200, 40, self.board_instance,
+            'Registration', self.register_handler)
+        self.login_button = Button(
+            300, 300, 200, 40, self.board_instance,
+            'Login', self.login_handler)
+        self.history_button = Button(
+            300, 350, 200, 40, self.board_instance,
+            'History', self.history_handler)
+        self.instructions_button = Button(
+            300, 400, 200, 40, self.board_instance,
+            'Instructions', self.instructions_handler)
+        self.credits_button = Button(
+            300, 450, 200, 40, self.board_instance,
+            'Credits', self.credits_handler)
 
     def exit_game_handler(self):
         pygame.quit()
@@ -51,8 +62,10 @@ class StartingMenu(Menu):
         self.credits = True
 
     def draw(self):
-        background_image = pygame.image.load(assets_library['backgrounds']['registration_page'])
-        background_image = pygame.transform.scale(background_image, (800, 600))
+        background_image = pygame.image.load(
+            assets_library['backgrounds']['registration_page'])
+        background_image = pygame.transform.scale(
+            background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
         text = font.render("Menu", True, (255, 255, 255))
         self.board_instance.board.blit(text, (350, 180))

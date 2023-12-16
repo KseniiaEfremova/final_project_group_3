@@ -98,4 +98,7 @@ class TestDatabaseConnection(unittest.TestCase):
             mock_print.assert_any_call("Database test_db does not exist.")
             mock_print.assert_any_call(f"You are using test_db database.")
 
+    def tearDown(self):
+        patch.stopall()
+
 

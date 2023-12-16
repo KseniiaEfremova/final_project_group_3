@@ -7,8 +7,9 @@ font = pygame.font.Font(None, 34)
 
 class Button:
     def __init__(self, x, y, width, height, board_instance: Board, buttonText='Button', onclickFunction=None, onePress=False):
+
         """
-        Initialize a Button object.
+        Initialise a Button object.
 
         Parameters:
         - x (int): The x-coordinate of the top-left corner of the button.
@@ -16,11 +17,13 @@ class Button:
         - width (int): The width of the button.
         - height (int): The height of the button.
         - board_instance (Board): The instance of the game board.
-        - buttonText (str): The text to be displayed on the button (default is 'Button').
-        - onclickFunction (callable): The function to be executed when the button is clicked.
-        - onePress (bool): If True, the onclickFunction is executed only once on the first click (default is False).
+        - buttonText (str): The text to be displayed on the button (default is
+        'Button').
+        - onclickFunction (callable): The function to be executed when the
+        button is clicked.
+        - onePress (bool): If True, the onclickFunction is executed only once
+        on the first click (default is False).
         """
-
 
         self.x = x
         self.y = y
@@ -31,7 +34,6 @@ class Button:
         self.onePress = onePress
         self.board_instance = board_instance
 
-        # Colors for different button states
         self.fillColors = {
             'normal': '#9867c5',
             'hover': '#be93d4',
@@ -42,10 +44,14 @@ class Button:
         self.alreadyPressed = False
 
     def process(self):
+
         """
-        Process the button's behavior, including handling mouse interactions and rendering.
+        Process the button's behavior, including handling mouse interactions
+        and rendering.
         """
-        buttonSurf = font.render(self.buttonText, True, (255, 255, 255))
+
+        buttonSurf = font.render(
+            self.buttonText, True, (255, 255, 255))
 
         mousePos = pygame.mouse.get_pos()
         self.buttonSurface.fill(self.fillColors['normal'])
@@ -62,9 +68,17 @@ class Button:
             else:
                 self.alreadyPressed = False
 
-        # Center the text on the button and blit the button surface and text on the game board
         self.buttonSurface.blit(buttonSurf, [
             self.buttonRect.width / 2 - buttonSurf.get_rect().width / 2,
             self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2
         ])
         self.board_instance.board.blit(self.buttonSurface, self.buttonRect)
+
+    def get_attributes(self):
+        return {
+            'x': self.x,
+            'y': self.y,
+            'width': self.width,
+            'height': self.height,
+            'text': self.buttonText
+        }

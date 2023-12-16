@@ -1,5 +1,4 @@
 import sys
-
 import pygame
 from menus.menu import Menu
 from board import Board

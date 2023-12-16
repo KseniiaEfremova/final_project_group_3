@@ -65,6 +65,10 @@ f"Finite loop started\nFinite loop ended: {round(time.time())}\n"
             f"Infinite loop started\nInfinite loop ended: {round(time.time())}\n"
             )
 
+    def tearDown(self):
+        pygame.quit()
+
+
 
 
 

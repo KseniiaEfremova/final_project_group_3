@@ -1,11 +1,9 @@
 import sys
-
 import pygame
 from menus.menu import Menu
 from board import Board
 from models.components.button import Button
 from utils import assets_library
-from menus.starting_menu import show_starting_menu
 
 
 class InstructionsMenu(Menu):

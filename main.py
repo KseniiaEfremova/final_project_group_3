@@ -1,7 +1,5 @@
-import pygame.display
-
-# from board import Board
-from menus.login_menu import LoginMenu
+import sys
+from board import Board
 from models.player import Player
 from models.falling_items.falling_items_factory import *
 from models.stats.life import Life
@@ -13,19 +11,24 @@ from menus.login_menu import LoginMenu
 from menus.history_menu import HistoryMenu
 from menus.pause_menu import PauseMenu
 from menus.end_game_menu import EndGameMenu
-from decorators.sounds import Sounds
-# from utils import assets_library
-from menus.registration_menu import RegistrationMenu
-from menus.end_game_menu import EndGameMenu
 from menus.starting_menu import *
 from menus.credits_menu import CreditsMenu
-from menus.history_menu import HistoryMenu
 from menus.instructions_menu import InstructionsMenu
-# import sys
-
+from decorators.sounds import Sounds
+from utils import assets_library
 
 
 def reset_game(player, falling, end_game_menu, is_winner, is_loser):
+    """
+    Resets the game state.
+
+    Args:
+        player (Player): The player object.
+        falling (FallingItemsFactory): The falling items factory object.
+        end_game_menu (EndGameMenu): The end game menu object.
+        is_winner (bool): True if the player won, False otherwise.
+        is_loser (bool): True if the player lost, False otherwise.
+    """
     player.reset_player()
     player.reset_player_stats()
     falling.falling_items.empty()
@@ -36,13 +39,34 @@ def reset_game(player, falling, end_game_menu, is_winner, is_loser):
         player.toggle_is_loser()
 
 
-                
+def show_history_menu(history_menu):
+    """
+    Displays the history menu.
+
+    Args:
+        history_menu (HistoryMenu): The history menu object.
+    """
+    history_menu.draw()
+    pygame.display.update()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
+    """
+    The main function to run the Code Quest game.
+
+    This function initializes the game components, handles user registration and login,
+    and manages the game loop with different states such as playing, winning, and losing.
+    """
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
-    winning_menu = EndGameMenu(game_board, assets_library['backgrounds']['win'], 'You won')
+    winning_menu = EndGameMenu(game_board, assets_library['backgrounds']['win'])
     game_over_menu = EndGameMenu(game_board, assets_library['backgrounds']['game_over'])
     falling = FallingItemsFactory(game_board)
     registration_menu = RegistrationMenu(game_board)
@@ -91,9 +115,10 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 10
+    timer_seconds = 30
     paused_time = 0
     start_time = time.time()
+    
     while True:
         is_winner = player.get_is_winner()
         is_loser = player.get_is_loser()
