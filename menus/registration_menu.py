@@ -96,10 +96,12 @@ class RegistrationMenu(Menu):
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
-
-        if self.submit_btn.alreadyPressed:
-            username = self.process_submit()
-            return username
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                username = self.process_submit()
+                return username
+            if self.submit_btn.alreadyPressed:
+                username = self.process_submit()
+                return username
 
     def process_submit(self):
         user_credentials = check_username_and_password(

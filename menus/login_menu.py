@@ -90,6 +90,8 @@ class LoginMenu(Menu):
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                return self.process_submit()
             if self.submit_btn.alreadyPressed:
                 return self.process_submit()
             elif event.type == self.back_btn.alreadyPressed:
