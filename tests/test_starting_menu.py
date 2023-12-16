@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import pygame
-from pygame.locals import QUIT
-from db.user import *
 from board import Board
 from menus.starting_menu import StartingMenu
 from menus.registration_menu import RegistrationMenu
@@ -10,9 +8,6 @@ from menus.credits_menu import CreditsMenu
 from menus.history_menu import HistoryMenu
 from menus.instructions_menu import InstructionsMenu
 from models.components.button import Button
-from models.components.input_box import InputBox
-from models.components.text_drawer import TextDrawer
-from models.components.popup import PopupWindow
 from utils import assets_library
 
 
@@ -129,14 +124,6 @@ class TestStartingMenu(unittest.TestCase):
 		self.assertFalse(self.starting_menu.history)
 		self.assertFalse(self.starting_menu.instructions)
 
-	def test_show_registration_menu(self):
-		mock_registration_menu = MagicMock(spec=RegistrationMenu)
-		# TODO: this causes pygame to freeze
-
-	def test_show_login_menu(self):
-		# TODO: no idea
-		pass
-
 	def test_show_credits_menu(self):
 		mock_credits = MagicMock(spec=CreditsMenu)
 
@@ -160,18 +147,6 @@ class TestStartingMenu(unittest.TestCase):
 
 		self.assertFalse(self.starting_menu.is_open)
 		mock_instructions.draw.assert_called_once()
-
-	def test_show_starting_menu(self):
-		mock_starting = MagicMock(spec=StartingMenu)
-		# TODO: this is untestable due to calling process button method
-		# self.starting_menu.show_starting_menu()
-		#
-		# mock_starting.draw.assert_called_once()
-
-
-
-
-
 
 	def tearDown(self):
 		pygame.quit()
