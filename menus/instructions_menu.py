@@ -7,19 +7,41 @@ from utils import assets_library
 
 
 class InstructionsMenu(Menu):
+    """
+    Represents the instructions menu.
+
+    Attributes:
+    - board_instance (Board): The instance of the game board.
+    - background_image (pygame.Surface): The background image for the instructions menu.
+    - back_button (Button): Button for going back to the main menu.
+    - instructions (bool): Flag indicating whether the instructions menu is active.
+    """
+    
     def __init__(self, board_instance: Board):
+        """
+        Initialise the InstructionsMenu.
+
+        Parameters:
+        - board_instance (Board): The instance of the game board.
+        """
         super().__init__(board_instance)
         self.background_image = pygame.image.load(assets_library['backgrounds']['instructions'])
         self.back_button = Button(0, 560, 190, 40, self.board_instance, 'BACK TO MENU', self.back_button_handler)
         self.instructions = True
 
     def draw(self):
+        """
+        Draws the instructions menu on the game board.
+        """
         self.background_image = pygame.transform.scale(self.background_image, (800, 600))
         self.board_instance.board.blit(self.background_image, (0, 0))
         self.back_button.process()
         pygame.display.update()
 
     def event_handler(self):
+        """
+        Handles events for the instructions menu, such as quitting the game or going back to the main menu.
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -28,4 +50,7 @@ class InstructionsMenu(Menu):
                 self.back_button_handler()
 
     def back_button_handler(self):
+        """
+        Handles the event when the back button is pressed, setting the instructions flag to False.
+        """
         self.instructions = False
