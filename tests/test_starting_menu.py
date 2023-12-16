@@ -5,6 +5,10 @@ from pygame.locals import QUIT
 from db.user import *
 from board import Board
 from menus.starting_menu import StartingMenu
+from menus.registration_menu import RegistrationMenu
+from menus.credits_menu import CreditsMenu
+from menus.history_menu import HistoryMenu
+from menus.instructions_menu import InstructionsMenu
 from models.components.button import Button
 from models.components.input_box import InputBox
 from models.components.text_drawer import TextDrawer
@@ -107,8 +111,6 @@ class TestStartingMenu(unittest.TestCase):
 		self.assertFalse(self.starting_menu.is_open)
 		self.assertTrue(self.starting_menu.instructions)
 
-
-
 	def test_credits_handler(self):
 		self.assertTrue(self.starting_menu.is_open)
 		self.assertFalse(self.starting_menu.credits)
@@ -117,6 +119,56 @@ class TestStartingMenu(unittest.TestCase):
 
 		self.assertFalse(self.starting_menu.is_open)
 		self.assertTrue(self.starting_menu.credits)
+
+	def test_reset_flags(self):
+		self.starting_menu.reset_flags()
+
+		self.assertFalse(self.starting_menu.registration)
+		self.assertFalse(self.starting_menu.login)
+		self.assertFalse(self.starting_menu.credits)
+		self.assertFalse(self.starting_menu.history)
+		self.assertFalse(self.starting_menu.instructions)
+
+	def test_show_registration_menu(self):
+		mock_registration_menu = MagicMock(spec=RegistrationMenu)
+		# TODO: this causes pygame to freeze
+
+	def test_show_login_menu(self):
+		# TODO: no idea
+		pass
+
+	def test_show_credits_menu(self):
+		mock_credits = MagicMock(spec=CreditsMenu)
+
+		self.starting_menu.show_credits_menu(mock_credits)
+
+		self.assertFalse(self.starting_menu.is_open)
+		mock_credits.draw.assert_called_once()
+
+	def test_show_history_menu(self):
+		mock_history = MagicMock(spec=HistoryMenu)
+
+		self.starting_menu.show_history_menu(mock_history)
+
+		self.assertFalse(self.starting_menu.is_open)
+		mock_history.draw.assert_called_once()
+
+	def test_show_instructions_menu(self):
+		mock_instructions = MagicMock(spec=InstructionsMenu)
+
+		self.starting_menu.show_history_menu(mock_instructions)
+
+		self.assertFalse(self.starting_menu.is_open)
+		mock_instructions.draw.assert_called_once()
+
+	def test_show_starting_menu(self):
+		mock_starting = MagicMock(spec=StartingMenu)
+		# TODO: this is untestable due to calling process button method
+		# self.starting_menu.show_starting_menu()
+		#
+		# mock_starting.draw.assert_called_once()
+
+
 
 
 
