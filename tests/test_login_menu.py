@@ -53,13 +53,19 @@ class TestLoginMenu(unittest.TestCase):
 					self.login_menu.username_box.get_user_text(),
 					self.login_menu.password_box.get_user_text()))))
 		self.assertTrue(compare_instances(self.login_menu.back_btn, Button(
-			20, 500, 200, 40, self.test_board,
-			'BACK TO MENU', lambda: check_username_and_password(
-				self.login_menu.username_box.get_user_text(),
-				self.login_menu.password_box.get_user_text()))))
+			20, 550, 200, 40, self.test_board,
+			'BACK TO MENU', self.login_menu.handle_back_to_menu)))
 		self.assertTrue(compare_instances(
 			self.login_menu.popup_window_incorrect, PopupWindow(
 				800, 40, "Incorrect Username or Password!")))
+
+
+	def test_handle_back_to_menu(self):
+		self.assertTrue(self.login_menu.login)
+
+		self.login_menu.handle_back_to_menu()
+
+		self.assertFalse(self.login_menu.login)
 
 	@patch('pygame.image.load')
 	@patch('pygame.transform.scale')

@@ -23,43 +23,6 @@ class HistoryMenu(Menu):
         self.background_image = pygame.image.load(
             assets_library['backgrounds']['registration_page'])
         self.column_names = ["Username", "Points", "Life", "Level"]
-        self.back_btn = Button(
-            20, 550, 200, 40, self.board_instance,
-            'BACK TO MENU', self.back_button_handler)
-
-    def get_play_again(self):
-        """
-        Get the play_again status.
-
-        Returns:
-            bool: The play_again status.
-        """
-        return self.play_again
-
-    def play_again_handler(self):
-        """
-        Handle the play again action.
-
-        Set the play_again flag to True.
-        """
-        self.play_again = True
-
-    def exit_game_handler(self):
-        """
-        Handle the exit game action.
-
-        Quit the pygame application and exit the system.
-        """
-        pygame.quit()
-        sys.exit()
-
-    def event_handler(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                self.back_button_handler()
 
     def back_button_handler(self):
         self.history = False
@@ -107,7 +70,6 @@ class HistoryMenu(Menu):
         background_image = pygame.transform.scale(
             background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
-        self.back_btn.process()
 
         title_text = font.render(
             "HISTORY", True, (255, 255, 255))
@@ -115,4 +77,10 @@ class HistoryMenu(Menu):
 
         self.draw_columns(self.board_instance.board)
         self.draw_rows(self.board_instance.board)
+
+        back_btn = Button(
+            20, 550, 200, 40, self.board_instance,
+            'BACK TO MENU', self.back_button_handler)
+        back_btn.process()
+
         pygame.display.update()

@@ -19,8 +19,7 @@ class StartingMenu(Menu):
         self.history = False
         self.instructions = False
         self.credits = False
-        self.background_image = pygame.image.load(
-            assets_library['backgrounds']['registration_page'])
+        self.background_pic = assets_library['backgrounds']['registration_page']
         self.registration_button = Button(
             300, 250, 200, 40, self.board_instance,
             'Registration', self.register_handler)
@@ -62,8 +61,7 @@ class StartingMenu(Menu):
         self.credits = True
 
     def draw(self):
-        background_image = pygame.image.load(
-            assets_library['backgrounds']['registration_page'])
+        background_image = pygame.image.load(self.background_pic)
         background_image = pygame.transform.scale(
             background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
@@ -75,7 +73,6 @@ class StartingMenu(Menu):
         self.history_button.process()
         self.instructions_button.process()
         self.credits_button.process()
-        # pygame.display.update()
 
     def reset_flags(self):
         self.registration = False
@@ -100,19 +97,16 @@ class StartingMenu(Menu):
         self.is_open = False
         credits_menu.draw()
         credits_menu.event_handler()
-        # pygame.display.update()
 
     def show_history_menu(self, history_menu):
         self.is_open = False
         history_menu.draw()
         history_menu.event_handler()
-        # pygame.display.update()
 
     def show_instructions_menu(self, instructions_menu):
         self.is_open = False
         instructions_menu.draw()
         instructions_menu.event_handler()
-        # pygame.display.update()
 
     def show_starting_menu(self):
         for event in pygame.event.get():
@@ -120,7 +114,6 @@ class StartingMenu(Menu):
                 self.exit_game_handler()
 
         self.draw()
-    # pygame.display.update()
 
 
 

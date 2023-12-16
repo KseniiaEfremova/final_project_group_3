@@ -6,7 +6,7 @@ from models.components.button import Button
 
 
 class EndGameMenu(Menu):
-    def __init__(self, board_instance: Board, background_pic, text=None):
+    def __init__(self, board_instance: Board, background_pic):
         """
         Initialise the EndGameMenu.
 
