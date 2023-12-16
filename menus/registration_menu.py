@@ -32,8 +32,7 @@ class RegistrationMenu(Menu):
             250, 250, 140, 32, "",
             self.board_instance)
         self.password_box = InputBox(
-            250, 350, 140, 32, "",
-            self.board_instance)
+            250, 350, 140, 32, "", self.board_instance, is_password=True)
         self.text_drawer = TextDrawer(self.board_instance)
         self.submit_btn = Button(
             300, 420, 200, 40, self.board_instance,
