@@ -5,7 +5,9 @@ assets_library = {
         'main_background': 'assets/backgrounds/background.jpg',
         'win': 'assets/backgrounds/win_text.jpg',
         'level_up': 'assets/backgrounds/level_up.png',
-        'registration_page': 'assets/backgrounds/registration.png'
+        'registration_page': 'assets/backgrounds/registration.png',
+        'credits': 'assets/backgrounds/credits.png',
+        'instructions': 'assets/backgrounds/instructions.png'
     },
     'fonts': {
         'kiddy_play': 'assets/fonts/Kiddy Play.ttf',

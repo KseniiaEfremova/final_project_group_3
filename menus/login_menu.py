@@ -1,5 +1,6 @@
 import pygame
-from db.user import *
+from db.user import (check_username_and_password, is_user_exist_in_db,
+                     DB_NAME, users_table, check_passwords, get_password_by_username)
 from board import Board
 from models.components.button import Button
 from models.components.input_box import InputBox
@@ -14,7 +15,6 @@ font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 
 class LoginMenu(Menu):
-
     """
     Represents the login menu for user sign-up.
 
@@ -30,37 +30,24 @@ class LoginMenu(Menu):
         popup_window_incorrect (PopupWindow): Popup window for displaying
         incorrect credentials message.
     """
-    
+
     def __init__(self, board_instance: Board, login=True):
-
-        """
-        Initialise the LoginMenu.
-
-        Args:
-            board_instance (Board): The game board instance.
-            login (bool): Flag indicating whether it's a login.
-        """
-
         super().__init__(board_instance)
         self.login = login
         self.background_pic = assets_library['backgrounds']['registration_page']
         self.username_box = InputBox(
-            250, 250, 140, 32, "",
-            self.board_instance)
+            250, 250, 140, 32, "", self.board_instance)
         self.password_box = InputBox(
-            250, 350, 140, 32, "",
-            self.board_instance)
+            250, 350, 140, 32, "", self.board_instance)
         self.text_drawer = TextDrawer(self.board_instance)
         self.submit_btn = Button(
-            300, 450, 200, 40, self.board_instance,
-            'SUBMIT', lambda: check_username_and_password(
+            300, 450, 200, 40, self.board_instance, 'SUBMIT',
+            lambda: check_username_and_password(
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
         self.back_btn = Button(
-            20, 500, 200, 40, self.board_instance,
-            'BACK TO MENU', lambda: check_username_and_password(
-                self.username_box.get_user_text(),
-                self.password_box.get_user_text()))
+            20, 550, 200, 40, self.board_instance, 'BACK TO MENU',
+            self.handle_back_to_menu)
         self.popup_window_incorrect = PopupWindow(
             800, 40, "Incorrect Username or Password!")
 
@@ -95,7 +82,6 @@ class LoginMenu(Menu):
         pygame.display.update()
 
     def handle_user_input(self):
-
         """
         Handle user input events.
 
@@ -107,26 +93,22 @@ class LoginMenu(Menu):
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
-
-        if self.submit_btn.alreadyPressed:
-            return self.process_submit()
-        if self.back_btn.alreadyPressed:
-            self.handle_back_to_menu()
+            if self.submit_btn.alreadyPressed:
+                return self.process_submit()
+            elif event.type == self.back_btn.alreadyPressed:
+                self.handle_back_to_menu()
 
     def process_submit(self):
-
         """
         Process the submission of login or sign-up credentials.
 
         Check if the username and password are correct, and take appropriate actions.
-        
+
         Returns:
             str: username.
         """
-
         username, password = (self.username_box.get_user_text(),
                               self.password_box.get_user_text())
-
         if (is_user_exist_in_db(DB_NAME, users_table, username)
                 and check_passwords(password, get_password_by_username(
                     DB_NAME, users_table, username))):
@@ -187,12 +169,8 @@ class LoginMenu(Menu):
     def handle_back_to_menu(self):
         """
         Handle going back to the main menu.
-
-        TODO: Implement the logic for going back to the main menu.
         """
-        #  TODO go to start menu
-        print("go to START MENU")
-        pass
+        self.login = False
 
     def process_login(self):
 
@@ -200,7 +178,7 @@ class LoginMenu(Menu):
         Process the login menu.
 
         Set up the background, draw elements, and handle user input.
-        
+
         Returns:
             str: The username entered by the user during the login process.
         """

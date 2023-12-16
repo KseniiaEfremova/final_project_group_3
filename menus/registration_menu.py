@@ -1,5 +1,5 @@
 import pygame
-from db.user import *
+from db.user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
 from board import Board
 from menus.menu import Menu
 from models.components.button import Button
@@ -39,6 +39,9 @@ class RegistrationMenu(Menu):
             'SUBMIT', lambda: check_username_and_password(
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
+        self.back_btn = Button(
+            20, 500, 200, 40, self.board_instance,
+            'BACK TO MENU', self.handle_back_to_menu)
         self.popup_window_invalid = PopupWindow(
             800, 40, "Invalid Username or Password!")
         self.popup_window_exist = PopupWindow(
@@ -69,6 +72,7 @@ class RegistrationMenu(Menu):
             100, 320, font)
         self.password_box.draw_box()
         self.submit_btn.process()
+        self.back_btn.process()
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
@@ -147,3 +151,6 @@ class RegistrationMenu(Menu):
         self.board_instance.image = pygame.transform.scale(background_image,
                                                            (800, 600))
         pygame.display.update()
+
+    def handle_back_to_menu(self):
+        self.registration = False
