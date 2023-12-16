@@ -6,14 +6,34 @@ from utils import assets_library
 
 
 class CreditsMenu(Menu):
+    """
+    Represents the credits menu.
+
+    Attributes:
+    - board_instance (Board): The instance of the game board.
+    - background_image (pygame.Surface): The background image for the credits menu.
+    - credits (bool): Flag indicating whether the credits menu is active.
+    - back_btn (Button): Button for going back to the main menu.
+    
+    """
+
     def __init__(self, board_instance: Board):
+        """
+        Initialise the CreditsMenu.
+
+        Parameters:
+        - board_instance (Board): The instance of the game board.
+        """
         super().__init__(board_instance)
         self.background_pic = assets_library['backgrounds']['credits']
         self.credits = True
-        self.back_btn = Button(20, 550, 200, 40, self.board_instance, 'BACK TO MENU',
+        self.back_btn = Button(0, 560, 190, 40, self.board_instance, 'BACK TO MENU',
                                self.back_button_handler)
 
     def draw(self):
+        """
+        Draws the credits menu on the game board.
+        """
         background_image = pygame.image.load(assets_library['backgrounds']['credits'])
         background_image = pygame.transform.scale(background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
@@ -21,4 +41,7 @@ class CreditsMenu(Menu):
         pygame.display.update()
 
     def back_button_handler(self):
+        """
+        Handles the event when the back button is pressed, setting the credits flag to False.
+        """
         self.credits = False
