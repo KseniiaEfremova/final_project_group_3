@@ -40,7 +40,7 @@ class RegistrationMenu(Menu):
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
         self.back_btn = Button(
-            20, 500, 200, 40, self.board_instance,
+            0, 560, 190, 40, self.board_instance,
             'BACK TO MENU', self.handle_back_to_menu)
         self.popup_window_invalid = PopupWindow(
             800, 40, "Invalid Username or Password!")
