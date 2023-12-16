@@ -1,4 +1,3 @@
-import pygame
 from abc import abstractmethod
 from abc import ABC
 from board import Board

@@ -11,6 +11,9 @@ from menus.login_menu import LoginMenu
 from menus.history_menu import HistoryMenu
 from menus.pause_menu import PauseMenu
 from menus.end_game_menu import EndGameMenu
+from menus.starting_menu import *
+from menus.credits_menu import CreditsMenu
+from menus.instructions_menu import InstructionsMenu
 from decorators.sounds import Sounds
 from utils import assets_library
 
@@ -69,17 +72,45 @@ def run():
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
     history_menu = HistoryMenu(game_board)
+    credits_menu = CreditsMenu(game_board)
+    instructions_menu = InstructionsMenu(game_board)
+    start_menu = StartingMenu(game_board)
 
-    while registration_menu.registration:
-        username = registration_menu.process_registration()
+    username = None
+    while username is None:
+        show_starting_menu(start_menu)
 
-    while login_menu.login:
-        username = login_menu.process_login()
-        
-    # while history_menu.history:
-    #     show_history_menu(history_menu)
+        if start_menu.registration:
+            registration_menu.registration = True
+            start_menu.show_registration_menu(registration_menu)
+            if username is None:
+                start_menu.reset_flags()
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, 'test')
+        if start_menu.login:
+            login_menu.login = True
+            username = start_menu.show_login_menu(login_menu)
+            if username is None:
+                start_menu.reset_flags()
+
+        if start_menu.credits:
+            credits_menu.credits = True
+            while credits_menu.credits:
+                start_menu.show_credits_menu(credits_menu)
+            start_menu.reset_flags()
+
+        if start_menu.history:
+            history_menu.history = True
+            while history_menu.history:
+                start_menu.show_history_menu(history_menu)
+            start_menu.reset_flags()
+
+        if start_menu.instructions:
+            instructions_menu.instructions = True
+            while instructions_menu.instructions:
+                start_menu.show_instructions_menu(instructions_menu)
+            start_menu.reset_flags()
+
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
