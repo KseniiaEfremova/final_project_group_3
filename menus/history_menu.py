@@ -24,7 +24,7 @@ class HistoryMenu(Menu):
             assets_library['backgrounds']['registration_page'])
         self.column_names = ["Username", "Points", "Life", "Level"]
         self.back_btn = Button(
-            20, 550, 200, 40, self.board_instance,
+            0, 560, 190, 40, self.board_instance,
             'BACK TO MENU', self.back_button_handler)
 
     def get_play_again(self):

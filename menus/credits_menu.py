@@ -28,7 +28,7 @@ class CreditsMenu(Menu):
         super().__init__(board_instance)
         self.background_image = pygame.image.load(assets_library['backgrounds']['credits'])
         self.credits = True
-        self.back_btn = Button(20, 550, 200, 40, self.board_instance, 'BACK TO MENU',
+        self.back_btn = Button(0, 560, 190, 40, self.board_instance, 'BACK TO MENU',
                                self.back_button_handler)
 
     def draw(self):
