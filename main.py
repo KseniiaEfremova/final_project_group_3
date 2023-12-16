@@ -39,22 +39,6 @@ def reset_game(player, falling, end_game_menu, is_winner, is_loser):
         player.toggle_is_loser()
 
 
-def show_history_menu(history_menu):
-    """
-    Displays the history menu.
-
-    Args:
-        history_menu (HistoryMenu): The history menu object.
-    """
-    history_menu.draw()
-    pygame.display.update()
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-
-
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
     """
@@ -115,6 +99,7 @@ def run():
     player = Player(800 - 725, 600 - 200, game_board, falling, "test")
     game_board.display_board(player)
     game_board.draw_background()
+
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)

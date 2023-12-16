@@ -25,29 +25,22 @@ class InstructionsMenu(Menu):
         - board_instance (Board): The instance of the game board.
         """
         super().__init__(board_instance)
-        self.background_image = pygame.image.load(assets_library['backgrounds']['instructions'])
-        self.back_button = Button(0, 560, 190, 40, self.board_instance, 'BACK TO MENU', self.back_button_handler)
+        self.background_pic = assets_library['backgrounds']['instructions']
+        self.back_button = Button(0, 560, 190, 40, self.board_instance,
+                             'BACK TO MENU', self.back_button_handler)
         self.instructions = True
 
     def draw(self):
+
         """
-        Draws the instructions menu on the game board.
+            Draws the instructions menu on the game board.
         """
-        self.background_image = pygame.transform.scale(self.background_image, (800, 600))
-        self.board_instance.board.blit(self.background_image, (0, 0))
+
+        background_img = pygame.image.load(self.background_pic)
+        background_image = pygame.transform.scale(background_img, (800, 600))
+        self.board_instance.board.blit(background_image, (0, 0))
         self.back_button.process()
         pygame.display.update()
-
-    def event_handler(self):
-        """
-        Handles events for the instructions menu, such as quitting the game or going back to the main menu.
-        """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                self.back_button_handler()
 
     def back_button_handler(self):
         """

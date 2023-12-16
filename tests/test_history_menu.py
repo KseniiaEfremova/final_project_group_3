@@ -14,27 +14,10 @@ class TestHistoryMenu(unittest.TestCase):
 		pygame.font.init()
 		self.board = pygame.display.set_mode((800, 600))
 		self.test_board = Board("Test Board", (800, 600), 60)
-		self.history_menu = HistoryMenu(
-			self.test_board)
+		self.history_menu = HistoryMenu(self.test_board)
 		self.test_falling = FallingItemsFactory(self.test_board)
 		self.test_player = Player(100, 100, self.test_board,
 									self.test_falling, "Test Player")
-
-	def test_history_menu_initialization(self):
-		current_image = self.history_menu.background_image
-		expected_image = pygame.image.load(
-			assets_library['backgrounds']['registration_page'])
-
-		current_image_str = pygame.image.tostring(
-			current_image, "RGBA")
-		expected_image_str = pygame.image.tostring(
-			expected_image, "RGBA")
-
-		self.assertEqual(self.history_menu.board_instance, self.test_board)
-		self.assertEqual(self.history_menu.history, True)
-		self.assertEqual(current_image_str, expected_image_str)
-		self.assertEqual(self.history_menu.column_names,
-						 ["Username", "Points", "Life", "Level"])
 
 	def test_draw_columns(self):
 		mock_surface = MagicMock()
@@ -45,13 +28,13 @@ class TestHistoryMenu(unittest.TestCase):
 
 		expected_calls = [
 			call(mock_font.render(
-				'Username', True, mock_color), (150, 230)),
+				'Username', True, mock_color), (100, 230)),
 			call(mock_font.render(
-				'Points', True, mock_color), (300, 230)),
+				'Points', True, mock_color), (290, 230)),
 			call(mock_font.render(
-				'Life', True, mock_color), (450, 230)),
+				'Life', True, mock_color), (480, 230)),
 			call(mock_font.render(
-				'Level', True, mock_color), (600, 230)),
+				'Level', True, mock_color), (670, 230)),
 		]
 
 		mock_surface.blit.assert_has_calls(expected_calls)
@@ -73,69 +56,69 @@ class TestHistoryMenu(unittest.TestCase):
 
 		expected_calls = [
 			call(mock_font.render(
-				'Test123', True, mock_color), (150, 270)),
+				'Test123', True, mock_color), (100, 270)),
 			call(mock_font.render(
-				'-2', True, mock_color), (300, 270)),
+				'-2', True, mock_color), (290, 270)),
 			call(mock_font.render(
-				'0', True, mock_color), (450, 270)),
+				'0', True, mock_color), (480, 270)),
 			call(mock_font.render(
-				'3', True, mock_color), (600, 270)),
+				'3', True, mock_color), (670, 270)),
 			call(mock_font.render(
-				'test', True, mock_color), (150, 300)),
+				'test', True, mock_color), (100, 300)),
 			call(mock_font.render(
-				'9', True, mock_color), (300, 300)),
+				'9', True, mock_color), (290, 300)),
 			call(mock_font.render(
-				'89', True, mock_color), (450, 300)),
+				'89', True, mock_color), (480, 300)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 300)),
+				'1', True, mock_color), (670, 300)),
 			call(mock_font.render(
-				'szam', True, mock_color), (150, 330)),
+				'szam', True, mock_color), (100, 330)),
 			call(mock_font.render(
-				'0', True, mock_color), (300, 330)),
+				'0', True, mock_color), (290, 330)),
 			call(mock_font.render(
-				'90', True, mock_color), (450, 330)),
+				'90', True, mock_color), (480, 330)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 330)),
+				'1', True, mock_color), (670, 330)),
 			call(mock_font.render(
-				'gorilla', True, mock_color), (150, 360)),
+				'gorilla', True, mock_color), (100, 360)),
 			call(mock_font.render(
-				'0', True, mock_color), (300, 360)),
+				'0', True, mock_color), (290, 360)),
 			call(mock_font.render(
-				'-12', True, mock_color), (450, 360)),
+				'-12', True, mock_color), (480, 360)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 360)),
+				'1', True, mock_color), (670, 360)),
 			call(mock_font.render(
-				'doggy', True, mock_color), (150, 390)),
+				'doggy', True, mock_color), (100, 390)),
 			call(mock_font.render(
-				'0', True, mock_color), (300, 390)),
+				'0', True, mock_color), (290, 390)),
 			call(mock_font.render(
-				'-1', True, mock_color), (450, 390)),
+				'-1', True, mock_color), (480, 390)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 390)),
+				'1', True, mock_color), (670, 390)),
 			call(mock_font.render(
-				'paskudzio', True, mock_color), (150, 420)),
+				'paskudzio', True, mock_color), (100, 420)),
 			call(mock_font.render(
-				'0', True, mock_color), (300, 420)),
+				'0', True, mock_color), (290, 420)),
 			call(mock_font.render(
-				'-1', True, mock_color), (450, 420)),
+				'-1', True, mock_color), (480, 420)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 420)),
+				'1', True, mock_color), (670, 420)),
 			call(mock_font.render(
-				'alba', True, mock_color), (150, 450)),
+				'alba', True, mock_color), (100, 450)),
 			call(mock_font.render(
-				'0', True, mock_color), (300, 450)),
+				'0', True, mock_color), (290, 450)),
 			call(mock_font.render(
-				'-3', True, mock_color), (450, 450)),
+				'-3', True, mock_color), (480, 450)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 450)),
+				'1', True, mock_color), (670, 450)),
 			call(mock_font.render(
-				'pablo', True, mock_color), (150, 480)),
+				'pablo', True, mock_color), (100, 480)),
 			call(mock_font.render(
-				'0', True, mock_color), (300, 480)),
+				'0', True, mock_color), (290, 480)),
 			call(mock_font.render(
-				'90', True, mock_color), (450, 480)),
+				'90', True, mock_color), (480, 480)),
 			call(mock_font.render(
-				'1', True, mock_color), (600, 480)),
+				'1', True, mock_color), (670, 480)),
 
 		]
 		mock_surface.blit.assert_has_calls(expected_calls)
@@ -144,7 +127,7 @@ class TestHistoryMenu(unittest.TestCase):
 	@patch('pygame.transform.scale')
 	@patch('menus.history_menu.Button')
 	def test_draw(self, mock_button, mock_scale, mock_load):
-		mock_button.return_value.process.return_value = None
+		mock_button.process.return_value = None
 		mock_surface = pygame.Surface((800, 600))
 		mock_scale.return_value = mock_surface
 		mock_font = pygame.font.Font(None, 36)
@@ -156,10 +139,15 @@ class TestHistoryMenu(unittest.TestCase):
 			assets_library['backgrounds']['registration_page'])
 		mock_scale.assert_called_once_with(mock_load.return_value, (800, 600))
 
-		mock_button.assert_called_once_with(
-			20, 10, 200, 40, self.history_menu.board_instance, 'BACK TO MENU')
 		mock_button_instance = mock_button.return_value
 		mock_button_instance.process.assert_called_once()
+
+	def test_back_button_handler(self):
+		self.assertTrue(self.history_menu.history)
+
+		self.history_menu.back_button_handler()
+
+		self.assertFalse(self.history_menu.history)
 
 	def tearDown(self):
 		pygame.quit()

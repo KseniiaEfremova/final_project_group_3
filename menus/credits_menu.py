@@ -1,4 +1,3 @@
-import sys
 import pygame
 from menus.menu import Menu
 from board import Board
@@ -26,7 +25,7 @@ class CreditsMenu(Menu):
         - board_instance (Board): The instance of the game board.
         """
         super().__init__(board_instance)
-        self.background_image = pygame.image.load(assets_library['backgrounds']['credits'])
+        self.background_pic = assets_library['backgrounds']['credits']
         self.credits = True
         self.back_btn = Button(0, 560, 190, 40, self.board_instance, 'BACK TO MENU',
                                self.back_button_handler)
@@ -40,17 +39,6 @@ class CreditsMenu(Menu):
         self.board_instance.board.blit(background_image, (0, 0))
         self.back_btn.process()
         pygame.display.update()
-
-    def event_handler(self):
-        """
-        Handles events for the credits menu, such as quitting the game or going back to the main menu.
-        """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                self.back_button_handler()
 
     def back_button_handler(self):
         """

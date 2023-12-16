@@ -44,8 +44,7 @@ class StartingMenu(Menu):
         self.history = False
         self.instructions = False
         self.credits = False
-        self.background_image = pygame.image.load(
-            assets_library['backgrounds']['registration_page'])
+        self.background_pic = assets_library['backgrounds']['registration_page']
         self.registration_button = Button(
             300, 250, 200, 40, self.board_instance,
             'Registration', self.register_handler)
@@ -106,10 +105,10 @@ class StartingMenu(Menu):
 
     def draw(self):
         """
-        Draws the starting menu on the game board.
+           Draws the starting menu on the game board.
         """
-        background_image = pygame.image.load(
-            assets_library['backgrounds']['registration_page'])
+
+        background_image = pygame.image.load(self.background_pic)
         background_image = pygame.transform.scale(
             background_image, (800, 600))
         self.board_instance.board.blit(background_image, (0, 0))
@@ -121,7 +120,6 @@ class StartingMenu(Menu):
         self.history_button.process()
         self.instructions_button.process()
         self.credits_button.process()
-        # pygame.display.update()
 
     def reset_flags(self):
         """
@@ -170,7 +168,6 @@ class StartingMenu(Menu):
         self.is_open = False
         credits_menu.draw()
         credits_menu.event_handler()
-        # pygame.display.update()
 
     def show_history_menu(self, history_menu):
         """
@@ -182,7 +179,6 @@ class StartingMenu(Menu):
         self.is_open = False
         history_menu.draw()
         history_menu.event_handler()
-        # pygame.display.update()
 
     def show_instructions_menu(self, instructions_menu):
         """
@@ -194,7 +190,6 @@ class StartingMenu(Menu):
         self.is_open = False
         instructions_menu.draw()
         instructions_menu.event_handler()
-        # pygame.display.update()
 
     def show_starting_menu(self):
 
@@ -208,7 +203,6 @@ class StartingMenu(Menu):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.exit_game_handler()
-
         self.draw()
 
 

@@ -34,8 +34,7 @@ class LoginMenu(Menu):
     def __init__(self, board_instance: Board, login=True):
         super().__init__(board_instance)
         self.login = login
-        self.background_image = pygame.image.load(
-            assets_library['backgrounds']['registration_page'])
+        self.background_pic = assets_library['backgrounds']['registration_page']
         self.username_box = InputBox(
             250, 250, 140, 32, "", self.board_instance)
         self.password_box = InputBox(
@@ -61,7 +60,11 @@ class LoginMenu(Menu):
         and popup window.
         """
 
-        self.board_instance.draw_background()
+        background_img = pygame.image.load(self.background_pic)
+        background_image = pygame.transform.scale(
+            background_img, (800, 600))
+        self.board_instance.board.blit(background_image, (0, 0))
+
         self.text_drawer.draw_text(
             "LOGIN", (255, 255, 255), 100, 180, font)
         self.text_drawer.draw_text(
@@ -158,10 +161,11 @@ class LoginMenu(Menu):
         Load the main background image and update the display.
         """
 
-        background_image = pygame.image.load(
+        background_img = pygame.image.load(
             assets_library['backgrounds']['main_background'])
-        self.board_instance.image = pygame.transform.scale(background_image,
+        background_image = pygame.transform.scale(background_img,
                                                            (800, 600))
+        self.board_instance.board.blit(background_image, (0, 0))
         pygame.display.update()
 
     def handle_back_to_menu(self):
@@ -181,7 +185,5 @@ class LoginMenu(Menu):
             str: The username entered by the user during the login process.
         """
 
-        self.board_instance.image = pygame.transform.scale(
-            self.background_image, (800, 600))
         self.draw()
         return self.handle_user_input()

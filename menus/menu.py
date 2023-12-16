@@ -1,5 +1,7 @@
 from abc import abstractmethod
 from abc import ABC
+import pygame
+import sys
 from board import Board
 
 
@@ -36,3 +38,14 @@ class Menu(ABC):
             **kwargs: Additional keyword arguments that subclasses might use for drawing.
 		"""
 		pass
+
+	def back_button_handler(self):
+		pass
+
+	def event_handler(self):
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
+			elif event.type == pygame.MOUSEBUTTONDOWN:
+				self.back_button_handler()

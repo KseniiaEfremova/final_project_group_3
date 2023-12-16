@@ -26,8 +26,7 @@ class RegistrationMenu(Menu):
 
         super().__init__(board_instance)
         self.registration = registration
-        self.background_image = pygame.image.load(
-            assets_library['backgrounds']['registration_page'])
+        self.background_pic = assets_library['backgrounds']['registration_page']
         self.username_box = InputBox(
             250, 250, 140, 32, "",
             self.board_instance)
@@ -54,7 +53,12 @@ class RegistrationMenu(Menu):
         Draw the registration menu on the board.
         """
 
-        self.board_instance.draw_background()
+        background_img = pygame.image.load(self.background_pic)
+
+        background_image = pygame.transform.scale(
+            background_img, (800, 600))
+
+        self.board_instance.board.blit(background_image, (0, 0))
         self.text_drawer.draw_text(
             "REGISTRATION", (255, 255, 255),
             100, 180, font)
@@ -66,12 +70,12 @@ class RegistrationMenu(Menu):
             "Enter your password: ", (255, 255, 255),
             100, 320, font)
         self.password_box.draw_box()
-        self.submit_btn.process()
-        self.back_btn.process()
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
             self.popup_window_exist.draw_window(self.board_instance.board)
+        self.submit_btn.process()
+        self.back_btn.process()
         pygame.display.update()
 
     def process_registration(self):
@@ -83,8 +87,6 @@ class RegistrationMenu(Menu):
             str: The username entered by the user during the registration process.
         """
 
-        self.board_instance.image = pygame.transform.scale(
-            self.background_image, (800, 600))
         self.draw()
         pygame.display.update()
         username = self.handle_user_input()
@@ -108,6 +110,7 @@ class RegistrationMenu(Menu):
             self.username_box.get_user_text(),
             self.password_box.get_user_text()
         )
+
         if user_credentials is None:
             self.handle_invalid_credentials()
         else:
