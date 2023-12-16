@@ -75,7 +75,7 @@ class StartingMenu(Menu):
         self.history_button.process()
         self.instructions_button.process()
         self.credits_button.process()
-        pygame.display.update()
+        # pygame.display.update()
 
     def reset_flags(self):
         self.registration = False
@@ -100,28 +100,27 @@ class StartingMenu(Menu):
         self.is_open = False
         credits_menu.draw()
         credits_menu.event_handler()
-        pygame.display.update()
+        # pygame.display.update()
 
     def show_history_menu(self, history_menu):
         self.is_open = False
         history_menu.draw()
         history_menu.event_handler()
-        pygame.display.update()
+        # pygame.display.update()
 
     def show_instructions_menu(self, instructions_menu):
         self.is_open = False
         instructions_menu.draw()
         instructions_menu.event_handler()
-        pygame.display.update()
+        # pygame.display.update()
 
+    def show_starting_menu(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.exit_game_handler()
 
-def show_starting_menu(start_menu):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            start_menu.exit_game_handler()
-
-    start_menu.draw()
-    pygame.display.update()
+        self.draw()
+    # pygame.display.update()
 
 
 

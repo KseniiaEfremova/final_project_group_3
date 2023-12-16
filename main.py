@@ -78,7 +78,7 @@ def run():
 
     username = None
     while username is None:
-        show_starting_menu(start_menu)
+        start_menu.show_starting_menu()
 
         if start_menu.registration:
             registration_menu.registration = True
@@ -110,7 +110,11 @@ def run():
                 start_menu.show_instructions_menu(instructions_menu)
             start_menu.reset_flags()
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, username)
+        game_board.update_display()
+
+    player = Player(800 - 725, 600 - 200, game_board, falling, "test")
+    game_board.display_board(player)
+    game_board.draw_background()
     life = Life(player, game_board)
     level = Level(player, game_board)
     timer = Timer(player, game_board)
