@@ -39,7 +39,7 @@ class LoginMenu(Menu):
         self.username_box = InputBox(
             250, 250, 140, 32, "", self.board_instance)
         self.password_box = InputBox(
-            250, 350, 140, 32, "", self.board_instance)
+            250, 350, 140, 32, "", self.board_instance, is_password=True)
         self.text_drawer = TextDrawer(self.board_instance)
         self.submit_btn = Button(
             300, 450, 200, 40, self.board_instance, 'SUBMIT',
@@ -90,6 +90,8 @@ class LoginMenu(Menu):
                 pygame.quit()
             self.username_box.handle_event(event)
             self.password_box.handle_event(event)
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                return self.process_submit()
             if self.submit_btn.alreadyPressed:
                 return self.process_submit()
             elif event.type == self.back_btn.alreadyPressed:
