@@ -90,6 +90,19 @@ class Button:
         self.board_instance.board.blit(self.button_surface, self.button_rect)
 
     def get_attributes(self):
+
+        """
+        Gets the attributes of an instance.
+
+        Returns:
+            dict:
+                x: int,
+                y: int,
+                width: int,
+                height: int,
+                text: str
+        """
+
         return {
             'x': self.x,
             'y': self.y,
