@@ -8,6 +8,7 @@ from db.user import *
 
 
 class Player(pygame.sprite.Sprite):
+
     """
     Class representing the Player in Code Quest.
 
@@ -33,6 +34,7 @@ class Player(pygame.sprite.Sprite):
     """
     
     def __init__(self, x, y, board_instance: Board, falling_group, name):
+
         """
         Initialise a Player object.
 
@@ -43,6 +45,7 @@ class Player(pygame.sprite.Sprite):
             falling_group: A group containing falling items.
             name (str): The name of the player.
         """
+
         super().__init__()
         self.sprites_right = []
         self.sprites_right.append(pygame.image.load(
@@ -110,13 +113,16 @@ class Player(pygame.sprite.Sprite):
         self.is_loser = False
 
     def draw_player(self):
+
         """
         Draw the Player on the game board.
         """
+
         self.board_instance.board.blit(self.image, (self.rect.x,
                                                     self.rect.y - 10))
 
     def constrain_move_within_board(self, dx, dy):
+
         """
         Constrain the Player's movement within the boundaries of the game board.
 
@@ -127,6 +133,7 @@ class Player(pygame.sprite.Sprite):
         Returns:
             Tuple[int, int]: The adjusted changes in x and y coordinates.
         """
+
         if self.rect.left + dx < 0:
             dx = -self.rect.left
         if self.rect.right + dx > self.board_instance.res[0]:
@@ -134,12 +141,14 @@ class Player(pygame.sprite.Sprite):
         return dx, dy
 
     def animate(self, direction):
+
         """
         Animate the Player's movement.
 
         Parameters:
             direction (str): The direction of movement ('right' or 'left').
         """
+
         self.current_sprite += 1
         if self.current_sprite >= 8:
             self.current_sprite = 0
@@ -155,10 +164,12 @@ class Player(pygame.sprite.Sprite):
                 (self.width, self.height))
 
     def move(self):
+
         """
         Move the Player based on keyboard input.
         Constrain the move within the board.
         """
+
         dx = 0
         dy = 0
         key = pygame.key.get_pressed()
@@ -175,27 +186,32 @@ class Player(pygame.sprite.Sprite):
 
     @Sounds(assets_library['sounds']['bonus'], loop=False)
     def points_collision(self, item):
+
         """
         Handle collision with a points-falling item, updating points and life.
 
         Parameters:
             item (PointsFallingItem): The points-falling item.
         """
+
         self.points += item.points
         self.life += item.damage
 
     @Sounds(assets_library['sounds']['damage'], loop=False)
     def damage_collision(self, item):
+
         """
         Handle collision with a damage-falling item, updating points and damage.
 
         Parameters:
             item (DamageFallingItem): The damage-falling item.
         """
+
         self.points -= item.points
         self.life -= item.damage
 
     def check_falling_item_collision(self):
+
         """
         Check for collisions between the Player and falling items.
 
@@ -208,6 +224,7 @@ class Player(pygame.sprite.Sprite):
             Tuple[int, bool]: A tuple containing the updated points and a flag
             indicating if the player is a loser.
         """
+
         if self.life > 0:
             collisions = pygame.sprite.spritecollide(
                 self, self.falling_group.falling_items, True)
@@ -225,51 +242,62 @@ class Player(pygame.sprite.Sprite):
         return self.points, self.is_loser
 
     def get_lives(self):
+
         """
         Get the current number of lives of the Player.
 
         Returns:
             int: The current number of lives.
         """
+
         return self.life
 
     def get_points(self):
+
         """
         Get the current points of the Player.
 
         Returns:
             int: The current points.
         """
+
         return self.points
 
     def get_level(self):
+
         """
         Get the current level of the Player.
 
         Returns:
             int: The current level.
         """
+
         return self.level
 
     def get_is_winner(self):
+
         """
         Check if the Player is the winner.
 
         Returns:
             bool: True if the Player is the winner, False otherwise.
         """
+
         return self.is_winner
 
     def get_is_loser(self):
+
         """
         Check if the Player is the loser.
 
         Returns:
             bool: True if the player is the loser, False otherwise.
         """
+
         return self.is_loser
 
     def check_is_winner(self):
+
         """
         Check if the Player is the winner.
 
@@ -279,31 +307,37 @@ class Player(pygame.sprite.Sprite):
         Returns:
             None
         """
+
         if self.life > 0 and self.level == 3:
             self.toggle_is_winner()
         return
 
     def toggle_is_winner(self):
+
         """
         Toggle the winner status of the Player.
 
         Returns:
             bool: The updated winner status.
         """
+
         self.is_winner = not self.is_winner
         return self.is_winner
 
     def toggle_is_loser(self):
+
         """
         Toggle the loser status of the Player.
 
         Returns:
             bool: The updated loser status.
         """
+
         self.is_loser = not self.is_loser
         return self.is_loser
 
     def check_for_level_up(self):
+
         """
         Check if the Player has leveled up.
 
@@ -312,11 +346,13 @@ class Player(pygame.sprite.Sprite):
         Returns:
             bool: True if the Player has leveled up, False otherwise.
         """
+
         if self.life > 0:
             self.leveled_up = True
             return self.leveled_up
         
     def level_up_player(self):
+
         """
         Level up the Player.
 
@@ -325,33 +361,39 @@ class Player(pygame.sprite.Sprite):
         Returns:
             int: The updated level.
         """
+
         self.level += 1
         return self.level
         
     def reset_player(self):
+
         """
         Reset the Player's position and the leveled_up flag.
 
         Returns:
             bool: The updated leveled_up status.
         """
+
         self.rect.center = (800 - 725, 600 - 200)
         self.leveled_up = False
         return self.leveled_up
 
     def reset_player_stats(self):
+
         """
         Reset the Player's level, points, and life.
 
         Returns:
             Tuple[int, int, int]: The updated level, points, and life.
         """
+
         self.level = 1
         self.points = 0
         self.life = 90
         return self.level, self.points, self.life
 
     def update_db(self):
+
         """
         Update the Player's statistics in the database.
 
@@ -360,6 +402,7 @@ class Player(pygame.sprite.Sprite):
         Returns:
             None
         """
+
         user_id = get_user_id(DB_NAME, users_table, self.name)
         update_user_statistics(DB_NAME, statistics_table, self.points,
                                self.life, self.level, user_id)
