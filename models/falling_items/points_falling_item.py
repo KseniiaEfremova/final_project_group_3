@@ -22,7 +22,9 @@ class PointsFallingItem(FallingItem, ABC):
         stop_time (datetime.datetime): The time when the item should disappear.
     """
     
-    def __init__(self, name, image, speed, damage, points, width, height, x, y, board_instance):
+    def __init__(
+            self, name, image, speed, damage, points, width, height, x, y,
+            board_instance):
 
         """
         Initialise a PointsFallingItem object.
