@@ -78,7 +78,7 @@ def run():
 
         game_board.update_display()
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, "test")
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
     game_board.display_board(player)
     game_board.draw_background()
 
@@ -86,7 +86,7 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 15
+    timer_seconds = 60
     paused_time = 0
     start_time = time.time()
     
