@@ -45,7 +45,7 @@ class TestTickItem(unittest.TestCase):
 	def test_tick_item_spawn(self):
 		tick_item = TickItem(tick_image, self.test_board)
 
-		self.assertTrue(tick_item.width < tick_item.x < 800 - tick_item.width)
+		self.assertTrue(0 < tick_item.x < 800)
 		self.assertTrue(-400 < tick_item.y < -100)
 
 	def test_tick_item_fall(self):

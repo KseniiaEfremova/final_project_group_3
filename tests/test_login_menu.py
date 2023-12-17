@@ -7,7 +7,6 @@ from board import Board
 from menus.login_menu import LoginMenu
 from models.components.button import Button
 from models.components.input_box import InputBox
-from models.components.text_drawer import TextDrawer
 from models.components.popup import PopupWindow
 from utils import assets_library
 
@@ -57,7 +56,8 @@ class TestLoginMenu(unittest.TestCase):
 		# 	'BACK TO MENU', self.login_menu.handle_back_to_menu)))
 		self.assertTrue(compare_instances(
 			self.login_menu.popup_window_incorrect, PopupWindow(
-				800, 40, "Incorrect Username or Password!")))
+				800, 40,
+				"Incorrect Username or Password!")))
 
 	def test_handle_back_to_menu(self):
 		self.assertTrue(self.login_menu.login)
@@ -72,7 +72,8 @@ class TestLoginMenu(unittest.TestCase):
 		mock_surface = pygame.Surface((800, 600))
 		mock_scale.return_value = mock_surface
 
-		mock_font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
+		mock_font = pygame.font.Font(
+			assets_library['fonts']['kiddy_play'], 30)
 		mock_font.render.return_value = pygame.Surface((200, 100))
 		self.login_menu.text_drawer = MagicMock()
 		self.login_menu.popup_window_incorrect = MagicMock()
@@ -92,7 +93,8 @@ class TestLoginMenu(unittest.TestCase):
 		self.login_menu.submit_btn.process.assert_called_once()
 		self.login_menu.back_btn.process.assert_called_once()
 
-		self.assertEqual(self.login_menu.text_drawer.draw_text.call_count, 3)
+		self.assertEqual(self.login_menu.text_drawer.draw_text.call_count,
+						 3)
 		self.login_menu.text_drawer.draw_text.assert_called_with(
 			"Password: ", (255, 255, 255), 100, 320, mock_font)
 
@@ -121,7 +123,8 @@ class TestLoginMenu(unittest.TestCase):
 		pygame.event.post(mock_event_keydown)
 
 		mock_button.return_value.alreadyPressed = True
-		self.login_menu.submit_btn.alreadyPressed = mock_button.return_value.alreadyPressed
+		self.login_menu.submit_btn.alreadyPressed = (
+			mock_button.return_value.already_pressed)
 		self.login_menu.process_submit = MagicMock()
 		self.login_menu.process_submit.return_value = "Test User"
 
@@ -134,7 +137,8 @@ class TestLoginMenu(unittest.TestCase):
 	@patch('menus.login_menu.is_user_exist_in_db')
 	def test_process_submit(self, mock_exist_in_db, mock_check_passwords):
 		mock_check_passwords.return_value = True
-		self.login_menu.check_username_and_password = mock_check_passwords.return_value
+		self.login_menu.check_username_and_password = (
+			mock_check_passwords.return_value)
 		mock_exist_in_db.return_value = True
 		self.login_menu.is_user_exist_in_db = mock_exist_in_db
 		self.login_menu.username_box.get_user_text = MagicMock()
@@ -181,9 +185,11 @@ class TestLoginMenu(unittest.TestCase):
 
 		self.login_menu.switch_to_main_background()
 
-		actual_image = pygame.image.tostring(self.login_menu.board_instance.image, "RGBA")
-		expected_image = pygame.image.tostring(pygame.transform.scale(pygame.image.load(
-			assets_library['backgrounds']['main_background']), (800, 600)), "RGBA")
+		actual_image = pygame.image.tostring(
+			self.login_menu.board_instance.image, "RGBA")
+		expected_image = pygame.image.tostring(pygame.transform.scale(
+			pygame.image.load(assets_library['backgrounds']['main_background']),
+			(800, 600)), "RGBA")
 
 		mock_update.assert_called_once()
 		self.assertEqual(actual_image, expected_image)

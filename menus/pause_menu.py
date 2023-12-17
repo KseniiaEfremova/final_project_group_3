@@ -13,7 +13,8 @@ class PauseMenu(Menu):
 	Represents the menu displayed when the game is paused.
 
 	Attributes:
-		board_instance (Board): An instance of the Board class associated with the pause menu.
+		board_instance (Board): An instance of the Board class associated with
+		the pause menu.
 		width (int): Width of the pause menu.
 		height (int): Height of the pause menu.
 	"""
@@ -24,7 +25,8 @@ class PauseMenu(Menu):
 		Initialise a PauseMenu instance.
 
 		Args:
-			board_instance (Board): An instance of the Board class associated with the pause menu.
+			board_instance (Board): An instance of the Board class associated
+			with the pause menu.
 		"""
 
 		super().__init__(board_instance)

@@ -29,7 +29,8 @@ class TestBoard(unittest.TestCase):
         frames = 60
         test_board = Board(name, res, frames)
         test_falling = FallingItemsFactory(test_board)
-        test_player = Player(100, 100, test_board, test_falling, "Test Player")
+        test_player = Player(
+            100, 100, test_board, test_falling, "Test Player")
         test_board.display_board(test_player)
 
         self.assertEqual(pygame.display.get_caption()[0], "TestBoard")
@@ -50,7 +51,8 @@ class TestBoard(unittest.TestCase):
         test_board = Board(name, res, frames)
         test_board.draw_background()
         board_content = pygame.surfarray.array3d(test_board.board)
-        loaded_background = pygame.image.load(assets_library['backgrounds']['main_background'])
+        loaded_background = pygame.image.load(
+            assets_library['backgrounds']['main_background'])
         loaded_background = pygame.transform.scale(loaded_background, res)
         background_content = pygame.surfarray.array3d(loaded_background)
         diff = np.abs(board_content - background_content)
@@ -73,7 +75,8 @@ class TestBoard(unittest.TestCase):
         mock_player_instance.level = 1
         mock_player_instance.user_id = 123
 
-        with patch('pygame.event.get', return_value=[MagicMock(type=pygame.QUIT)]):
+        with patch('pygame.event.get',
+                   return_value=[MagicMock(type=pygame.QUIT)]):
             with self.assertRaises(SystemExit):
                 test_board.display_board(mock_player_instance)
 

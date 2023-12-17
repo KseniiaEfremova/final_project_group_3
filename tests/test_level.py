@@ -15,7 +15,9 @@ class TestLevel(unittest.TestCase):
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
         self.test_falling_items = FallingItemsFactory(self.test_board)
-        self.test_player = Player(100, 100, self.test_board, self.test_falling_items, "Test Player")
+        self.test_player = Player(
+            100, 100, self.test_board, self.test_falling_items,
+            "Test Player")
         self.level = Level(self.test_player, self.test_board)
 
     def test_level_initialization(self):
@@ -50,40 +52,51 @@ class TestLevel(unittest.TestCase):
         self.test_player.level = 1
         current_sprite = self.level.update()
         current_image = self.level.sprites[current_sprite]
-        expected_image = pygame.image.load(assets_library['sprites']['level']['level1'])
+        expected_image = pygame.image.load(
+            assets_library['sprites']['level']['level1'])
 
-        current_image_str = pygame.image.tostring(current_image, "RGBA")
-        expected_image_str = pygame.image.tostring(expected_image, "RGBA")
+        current_image_str = pygame.image.tostring(
+            current_image, "RGBA")
+        expected_image_str = pygame.image.tostring(
+            expected_image, "RGBA")
 
         self.assertEqual(current_image_str, expected_image_str)
 
         self.test_player.level = 2
         current_sprite = self.level.update()
         current_image = self.level.sprites[current_sprite]
-        expected_image = pygame.image.load(assets_library['sprites']['level']['level2'])
+        expected_image = pygame.image.load(
+            assets_library['sprites']['level']['level2'])
 
-        current_image_str = pygame.image.tostring(current_image, "RGBA")
-        expected_image_str = pygame.image.tostring(expected_image, "RGBA")
+        current_image_str = pygame.image.tostring(
+            current_image, "RGBA")
+        expected_image_str = pygame.image.tostring(
+            expected_image, "RGBA")
 
         self.assertEqual(current_image_str, expected_image_str)
 
         self.test_player.level = 3
         current_sprite = self.level.update()
         current_image = self.level.sprites[current_sprite]
-        expected_image = pygame.image.load(assets_library['sprites']['level']['level3'])
+        expected_image = pygame.image.load(
+            assets_library['sprites']['level']['level3'])
 
-        current_image_str = pygame.image.tostring(current_image, "RGBA")
-        expected_image_str = pygame.image.tostring(expected_image, "RGBA")
+        current_image_str = pygame.image.tostring(
+            current_image, "RGBA")
+        expected_image_str = pygame.image.tostring(
+            expected_image, "RGBA")
 
         self.assertEqual(current_image_str, expected_image_str)
 
         self.test_player.level = 4
         current_sprite = self.level.update()
         current_image = self.level.sprites[current_sprite]
-        expected_image = pygame.image.load(assets_library['sprites']['level']['level3'])
+        expected_image = pygame.image.load(
+            assets_library['sprites']['level']['level3'])
 
         current_image_str = pygame.image.tostring(current_image, "RGBA")
-        expected_image_str = pygame.image.tostring(expected_image, "RGBA")
+        expected_image_str = pygame.image.tostring(
+            expected_image, "RGBA")
 
         self.assertEqual(current_image_str, expected_image_str)
 

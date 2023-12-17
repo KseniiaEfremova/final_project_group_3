@@ -69,3 +69,6 @@ assets_library = {
         'warning': 'assets/sprites/warning.png'
     }
 }
+
+def compare_instances(actual, expected):
+	return actual.get_attributes() == expected.get_attributes()

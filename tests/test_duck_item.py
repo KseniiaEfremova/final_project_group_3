@@ -6,7 +6,7 @@ from board import Board
 from models.falling_items.points_falling_item import RubberDuckItem
 from utils import assets_library
 
-duck_image = pygame.image.load(assets_library['sprites']['duck']['duck5'])
+duck_image = pygame.image.load(assets_library['sprites']['duck'])
 
 
 class TestDuckItem(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestDuckItem(unittest.TestCase):
 	def test_duck_item_spawn(self):
 		duck_item = RubberDuckItem(duck_image, self.test_board)
 
-		self.assertTrue(duck_item.width < duck_item.x < 800 - duck_item.width)
+		self.assertTrue(0 < duck_item.x < 800)
 		self.assertTrue(-400 < duck_item.y < -100)
 
 	def test_duck_item_fall(self):

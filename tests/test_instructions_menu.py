@@ -3,10 +3,8 @@ from unittest.mock import patch
 import pygame
 from board import Board
 from menus.instructions_menu import InstructionsMenu
-from utils import assets_library
+from utils import *
 
-def compare_instances(actual, expected):
-	return actual.get_attributes() == expected.get_attributes()
 
 class TestInstructionsMenu(unittest.TestCase):
 

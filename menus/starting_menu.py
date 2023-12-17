@@ -18,16 +18,21 @@ class StartingMenu(Menu):
     Attributes:
     - board_instance (Board): The instance of the game board.
     - is_open (bool): Flag indicating whether the starting menu is open.
-    - registration (bool): Flag indicating whether the registration menu is active.
+    - registration (bool): Flag indicating whether the registration menu is
+    active.
     - login (bool): Flag indicating whether the login menu is active.
     - history (bool): Flag indicating whether the history menu is active.
-    - instructions (bool): Flag indicating whether the instructions menu is active.
+    - instructions (bool): Flag indicating whether the instructions menu is
+    active.
     - credits (bool): Flag indicating whether the credits menu is active.
-    - background_image (pygame.Surface): The background image for the starting menu.
-    - registration_button (Button): Button for navigating to the registration menu.
+    - background_image (pygame.Surface): The background image for the starting
+    menu.
+    - registration_button (Button): Button for navigating to the registration
+    menu.
     - login_button (Button): Button for navigating to the login menu.
     - history_button (Button): Button for navigating to the history menu.
-    - instructions_button (Button): Button for navigating to the instructions menu.
+    - instructions_button (Button): Button for navigating to the instructions
+    menu.
     - credits_button (Button): Button for navigating to the credits menu.
     """
     

@@ -7,7 +7,6 @@ from board import Board
 from menus.registration_menu import RegistrationMenu
 from models.components.button import Button
 from models.components.input_box import InputBox
-from models.components.text_drawer import TextDrawer
 from models.components.popup import PopupWindow
 from utils import assets_library
 
@@ -123,8 +122,9 @@ class TestRegistrationMenu(unittest.TestCase):
 		pygame.event.post(mock_event_quit)
 		pygame.event.post(mock_event_keydown)
 
-		mock_button.return_value.alreadyPressed = True
-		self.registration_menu.submit_btn.alreadyPressed = mock_button.return_value.alreadyPressed
+		mock_button.return_value.already_pressed = True
+		self.registration_menu.submit_btn.already_pressed = (
+			mock_button.return_value.already_pressed)
 		self.registration_menu.process_submit = MagicMock()
 		self.registration_menu.process_submit.return_value = "Test User"
 
@@ -137,7 +137,8 @@ class TestRegistrationMenu(unittest.TestCase):
 	@patch('menus.registration_menu.is_user_exist_in_db')
 	def test_process_submit(self, mock_exist_in_db, mock_check_credentials):
 		mock_check_credentials.return_value = ("Test User", "Test123!")
-		self.registration_menu.check_username_and_password = mock_check_credentials.return_value
+		self.registration_menu.check_username_and_password = (
+			mock_check_credentials.return_value)
 		mock_exist_in_db.return_value = False
 		self.registration_menu.is_user_exist_in_db = mock_exist_in_db
 		actual_username = self.registration_menu.process_submit()
@@ -145,7 +146,8 @@ class TestRegistrationMenu(unittest.TestCase):
 		self.assertEqual(actual_username, "Test User")
 
 		mock_check_credentials.return_value = None
-		self.registration_menu.check_username_and_password = mock_check_credentials.return_value
+		self.registration_menu.check_username_and_password = (
+			mock_check_credentials.return_value)
 		actual_username = self.registration_menu.process_submit()
 
 		self.assertEqual(actual_username, None)
@@ -191,8 +193,8 @@ class TestRegistrationMenu(unittest.TestCase):
 	def test_add_user_to_db(self, mock_add_user):
 		mock_add_user.return_value = "Test User", "Test123!"
 
-		actual_username = self.registration_menu.add_user_to_db("Test User",
-																"Test123!")
+		actual_username = self.registration_menu.add_user_to_db(
+			"Test User", "Test123!")
 		expected_username, _ = mock_add_user.return_value
 
 		self.assertEqual(actual_username, expected_username)
@@ -202,16 +204,19 @@ class TestRegistrationMenu(unittest.TestCase):
 		self.registration_menu.finish_registration()
 
 		self.assertFalse(self.registration_menu.registration)
-		self.assertFalse(self.registration_menu.submit_btn.onePress)
+		self.assertFalse(self.registration_menu.submit_btn.one_press)
 
 	@patch('pygame.display.update')
 	def test_switch_to_main_background(self, mock_update):
 
 		self.registration_menu.switch_to_main_background()
 
-		actual_image = pygame.image.tostring(self.registration_menu.board_instance.image, "RGBA")
-		expected_image = pygame.image.tostring(pygame.transform.scale(pygame.image.load(
-			assets_library['backgrounds']['main_background']), (800, 600)), "RGBA")
+		actual_image = pygame.image.tostring(
+			self.registration_menu.board_instance.image, "RGBA")
+		expected_image = pygame.image.tostring(
+			pygame.transform.scale(pygame.image.load(
+			assets_library['backgrounds']['main_background']),
+				(800, 600)), "RGBA")
 
 		mock_update.assert_called_once()
 		self.assertEqual(actual_image, expected_image)

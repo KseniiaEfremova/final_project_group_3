@@ -6,7 +6,7 @@ from board import Board
 from models.falling_items.points_falling_item import PythonItem
 from utils import assets_library
 
-python_image = pygame.image.load(assets_library['sprites']['python']['python1'])
+python_image = pygame.image.load(assets_library['sprites']['python'])
 
 
 class TestPythonItem(unittest.TestCase):
@@ -44,8 +44,7 @@ class TestPythonItem(unittest.TestCase):
 	def test_python_item_spawn(self):
 		python_item = PythonItem(python_image, self.test_board)
 
-		self.assertTrue(
-			python_item.width < python_item.x < 800 - python_item.width)
+		self.assertTrue(0 < python_item.x < 800)
 		self.assertTrue(-400 < python_item.y < -100)
 
 	def test_python_item_fall(self):

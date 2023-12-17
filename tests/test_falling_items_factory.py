@@ -20,7 +20,7 @@ class TestFallingItemsFactory(unittest.TestCase):
 		self.assertEqual(pygame.image.tostring(
 			self.test_falling_items.python_image, "RGBA"),
 			pygame.image.tostring(pygame.image.load(
-				assets_library['sprites']['python']['python1']), "RGBA"))
+				assets_library['sprites']['python']), "RGBA"))
 		self.assertEqual(pygame.image.tostring(
 			self.test_falling_items.tick_image, "RGBA"),
 			pygame.image.tostring(pygame.image.load(
@@ -28,11 +28,11 @@ class TestFallingItemsFactory(unittest.TestCase):
 		self.assertEqual(pygame.image.tostring(
 			self.test_falling_items.duck_image, "RGBA"),
 			pygame.image.tostring(pygame.image.load(
-				assets_library['sprites']['duck']['duck5']), "RGBA"))
+				assets_library['sprites']['duck']), "RGBA"))
 		self.assertEqual(pygame.image.tostring(
 			self.test_falling_items.bug_image, "RGBA"),
 			pygame.image.tostring(pygame.image.load(
-				assets_library['sprites']['bug']['bug1']), "RGBA"))
+				assets_library['sprites']['bug']), "RGBA"))
 		self.assertEqual(pygame.image.tostring(
 			self.test_falling_items.error_image, "RGBA"),
 			pygame.image.tostring(pygame.image.load(

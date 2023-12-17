@@ -19,19 +19,24 @@ class TestEndGameMenu(unittest.TestCase):
 		self.game_over_menu = EndGameMenu(
 			self.test_board, assets_library['backgrounds']['game_over'])
 		self.test_falling = FallingItemsFactory(self.test_board)
-		self.test_player = Player(100, 100, self.test_board, self.test_falling, "Test Player")
+		self.test_player = Player(
+			100, 100, self.test_board, self.test_falling,
+			"Test Player")
 
 	def test_win_menu_initialization(self):
 
 		self.assertEqual(self.win_menu.board_instance, self.test_board)
 		self.assertEqual(self.win_menu.play_again, False)
-		self.assertEqual(self.win_menu.background_pic, assets_library['backgrounds']['win'])
+		self.assertEqual(
+			self.win_menu.background_pic, assets_library['backgrounds']['win'])
 
 	def test_game_over_menu_initialization(self):
 
 		self.assertEqual(self.game_over_menu.board_instance, self.test_board)
 		self.assertEqual(self.game_over_menu.play_again, False)
-		self.assertEqual(self.game_over_menu.background_pic, assets_library['backgrounds']['game_over'])
+		self.assertEqual(
+			self.game_over_menu.background_pic,
+			assets_library['backgrounds']['game_over'])
 
 	def test_get_play_again(self):
 
@@ -68,15 +73,12 @@ class TestEndGameMenu(unittest.TestCase):
 		mock_load.assert_called_once_with(
 			assets_library['backgrounds']['win'])
 		mock_scale.assert_called_once_with(mock_load.return_value, (
-		self.win_menu.width, self.win_menu.height))
+			self.win_menu.width, self.win_menu.height))
 		mock_button.assert_any_call(200, 500, 150, 40, self.test_board,
-									buttonText='Play again',
-									onclickFunction=self.win_menu.play_again_handler,
-									onePress=False)
-		mock_button.assert_any_call(450, 500, 150, 40, self.test_board,
-									buttonText='Exit',
-									onclickFunction=self.win_menu.exit_game_handler,
-									onePress=False)
+									'Play again',
+									self.win_menu.play_again_handler, False)
+		mock_button.assert_any_call(450, 500, 150, 40, self.test_board, 'Exit',
+									self.win_menu.exit_game_handler, False)
 		self.assertEqual(mock_button.call_count, 2)
 
 	def tearDown(self):

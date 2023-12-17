@@ -12,8 +12,10 @@ class TestInputBox(unittest.TestCase):
         pygame.init()
         pygame.font.init()
         self.board = pygame.display.set_mode((800, 600))
-        self.test_board = Board("Test Board", (800, 600), 60)
-        self.input = InputBox(0, 0, 100, 50, "Test Input", self.test_board)
+        self.test_board = Board(
+            "Test Board", (800, 600), 60)
+        self.input = InputBox(0, 0, 100, 50,
+                              "Test Input", self.test_board)
 
     def test_input_initialization(self):
 

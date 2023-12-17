@@ -19,7 +19,7 @@ class TestTextDrawer(unittest.TestCase):
         self.assertEqual(self.text.board_instance, self.test_board)
 
     def test_draw_text(self):
-        mock_font = pygame.font.Font(None,36)
+        mock_font = pygame.font.Font(None, 36)
         mock_color = (255, 255, 255)
 
         self.text.draw_text("Code Quest", mock_color, 100, 200, mock_font)
