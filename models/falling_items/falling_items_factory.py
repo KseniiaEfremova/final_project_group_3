@@ -18,13 +18,19 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         bug_image (pygame.Surface): The image for Bug falling items.
         error_image (pygame.Surface): The image for Error falling items.
         warning_image (pygame.Surface): The image for Warning falling items.
-        falling_items (pygame.sprite.Group): A group containing all falling items.
+        falling_items (pygame.sprite.Group): A group containing all falling
+        items.
         game_board (Board): An instance of the game board.
-        python (PythonItem): An instance of PythonItem for creating Python falling items.
-        tick (TickItem): An instance of TickItem for creating Tick falling items.
-        duck (RubberDuckItem): An instance of RubberDuckItem for creating Rubber Duck falling items.
-        warning (WarningItem): An instance of WarningItem for creating Warning falling items.
-        error (ErrorItem): An instance of ErrorItem for creating Error falling items.
+        python (PythonItem): An instance of PythonItem for creating Python
+        falling items.
+        tick (TickItem): An instance of TickItem for creating Tick falling
+        items.
+        duck (RubberDuckItem): An instance of RubberDuckItem for creating Rubber
+        Duck falling items.
+        warning (WarningItem): An instance of WarningItem for creating Warning
+        falling items.
+        error (ErrorItem): An instance of ErrorItem for creating Error falling
+        items.
         bug (BugItem): An instance of BugItem for creating Bug falling items.
         item_list (list): A list containing all types of falling items.
     """
