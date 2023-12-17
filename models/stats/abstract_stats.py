@@ -6,6 +6,7 @@ from models.player import Player
 
 
 class Stats(ABC, pygame.sprite.Sprite):
+
     """
     Abstract base class for representing player stats in Code Quest.
 
@@ -15,6 +16,7 @@ class Stats(ABC, pygame.sprite.Sprite):
     """
     
     def __init__(self, player_instance: Player, board_instance: Board):
+
         """
         Initialise a Stats object.
 
@@ -22,19 +24,23 @@ class Stats(ABC, pygame.sprite.Sprite):
             player_instance (Player): An instance of the player associated with the stats.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__()
         self.board_instance = board_instance
         self.player_instance = player_instance
         
     @abstractmethod
     def update(self):
+
         """
         Abstract method to update the stats.
         """
+
         pass
     
     @abstractmethod
     def draw(self, board_instance, *args, **kwargs):
+
         """
         Abstract method to draw the stats on the game board.
 
@@ -43,4 +49,5 @@ class Stats(ABC, pygame.sprite.Sprite):
             *args: Additional arguments.
             **kwargs: Additional keyword arguments.
         """
+
         pass
