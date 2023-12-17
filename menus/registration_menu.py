@@ -73,12 +73,12 @@ class RegistrationMenu(Menu):
             "Enter your password: ", (255, 255, 255),
             100, 320, font)
         self.password_box.draw_box()
+        self.submit_btn.process()
+        self.back_btn.process()
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
             self.popup_window_exist.draw_window(self.board_instance.board)
-        self.submit_btn.process()
-        self.back_btn.process()
         pygame.display.update()
 
     def process_registration(self):
@@ -145,7 +145,7 @@ class RegistrationMenu(Menu):
         """
         Handles correct popup with info to the user
         """
-
+        self.popup_window_invalid.opened = True
         self.popup_window_invalid.draw_window(self.board_instance.board)
         self.popup_window_exist.opened = False
         pygame.display.update()
@@ -163,6 +163,7 @@ class RegistrationMenu(Menu):
 
         username, password = user_credentials
         if is_user_exist_in_db(DB_NAME, users_table, username):
+            self.popup_window_exist.opened = True
             self.popup_window_exist.draw_window(self.board_instance.board)
             self.popup_window_invalid.opened = False
             pygame.display.update()

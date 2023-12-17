@@ -24,6 +24,7 @@ class PopupWindow:
     """
     
     def __init__(self, width, height, text, x=0, y=0, opened=False):
+
         """
         Initialise a PopupWindow object.
 
