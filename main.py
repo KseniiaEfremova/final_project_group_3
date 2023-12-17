@@ -16,9 +16,6 @@ from decorators.sounds import Sounds
 from utils import assets_library, reset_game
 
 
-
-
-
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
 
