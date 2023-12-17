@@ -70,5 +70,36 @@ assets_library = {
     }
 }
 
+
 def compare_instances(actual, expected):
-	return actual.get_attributes() == expected.get_attributes()
+
+    """
+    Compares x, y, width, height and text on two instances of one class.
+
+    Args:
+        actual (dict): dimensions of rendered instance.
+        expected (dict): dimensions of expected instance.
+    """
+
+    return actual.get_attributes() == expected.get_attributes()
+
+
+def reset_game(player, falling, end_game_menu, is_winner, is_loser):
+    """
+    Resets the game state.
+
+    Args:
+        player (Player): The player object.
+        falling (FallingItemsFactory): The falling items factory object.
+        end_game_menu (EndGameMenu): The end game menu object.
+        is_winner (bool): True if the player won, False otherwise.
+        is_loser (bool): True if the player lost, False otherwise.
+    """
+    player.reset_player()
+    player.reset_player_stats()
+    falling.falling_items.empty()
+    end_game_menu.play_again = False
+    if is_winner:
+        player.toggle_is_winner()
+    if is_loser:
+        player.toggle_is_loser()
