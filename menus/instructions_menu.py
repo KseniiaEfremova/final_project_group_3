@@ -1,4 +1,3 @@
-import sys
 import pygame
 from menus.menu import Menu
 from board import Board
@@ -7,6 +6,7 @@ from utils import assets_library
 
 
 class InstructionsMenu(Menu):
+
     """
     Represents the instructions menu.
 
@@ -18,16 +18,19 @@ class InstructionsMenu(Menu):
     """
     
     def __init__(self, board_instance: Board):
+
         """
         Initialise the InstructionsMenu.
 
         Parameters:
         - board_instance (Board): The instance of the game board.
         """
+
         super().__init__(board_instance)
         self.background_pic = assets_library['backgrounds']['instructions']
-        self.back_button = Button(0, 560, 190, 40, self.board_instance,
-                             'BACK TO MENU', self.back_button_handler)
+        self.back_button = Button(
+            0, 560, 190, 40, self.board_instance,
+            'BACK TO MENU', self.back_button_handler)
         self.instructions = True
 
     def draw(self):
@@ -43,7 +46,10 @@ class InstructionsMenu(Menu):
         pygame.display.update()
 
     def back_button_handler(self):
+
         """
-        Handles the event when the back button is pressed, setting the instructions flag to False.
+        Handles the event when the back button is pressed, setting the
+        instructions flag to False.
         """
+
         self.instructions = False
