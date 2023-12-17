@@ -66,7 +66,7 @@ data = {
 
 
 
-## Authors
+## Authors, activity logs, and JIra agile board
 
 - [@KerriTanya](https://github.com/KerriTanya)
 - [@KseniiaEfremova](https://github.com/KseniiaEfremova)
@@ -74,5 +74,6 @@ data = {
 - [@Sadafh12](https://github.com/Sadafh12)
 - [@sandyintxch](https://github.com/sandyintxch)
 - [@k-stopczynska](https://github.com/k-stopczynska)
-
+- [Jira](https://docs.google.com/spreadsheets/d/1ykk4cfDl5eZ4_qaTTDKOeW0Db-O5YZWjdCLoPnbx2FA/edit#gid=0)
+- [Activity log](https://docs.google.com/spreadsheets/d/1ykk4cfDl5eZ4_qaTTDKOeW0Db-O5YZWjdCLoPnbx2FA/edit#gid=2121606848)
 
