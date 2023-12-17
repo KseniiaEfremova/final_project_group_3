@@ -12,7 +12,8 @@ class TextDrawer:
     Handles drawing text on the game board in Code Quest.
 
     Attributes:
-        board_instance (Board): An instance of the game board where text is to be drawn.
+        board_instance (Board): An instance of the game board where text is to
+        be drawn.
     """
 
     def __init__(self, board_instance: Board):

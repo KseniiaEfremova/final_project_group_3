@@ -5,6 +5,7 @@ from models.falling_items.abstract_falling_item import FallingItem
 
 
 class DamageFallingItem(FallingItem, ABC):
+
     """
     A falling item that causes damage when colliding with the player in Code Quest.
 
@@ -19,11 +20,13 @@ class DamageFallingItem(FallingItem, ABC):
         x (int): The x-coordinate of the falling item's current position.
         y (int): The y-coordinate of the falling item's current position.
         board_instance (Board): An instance of the game board.
-        disappear_start_time (datetime.datetime): The time at which the falling item starts disappearing.
+        disappear_start_time (datetime.datetime): The time at which the falling
+        item starts disappearing.
     """
     
     def __init__(self, name, image,  speed, damage, points, width, height, x, y,
                  board_instance):
+
         """
         Initialise a DamageFallingItem object.
 
@@ -39,6 +42,7 @@ class DamageFallingItem(FallingItem, ABC):
             y (int): The y-coordinate of the falling item's initial position.
             board_instance (Board): An instance of the game board.
         """
+
         super().__init__(name, image, speed, damage, points, width, height, x,
                          y, board_instance)
         self.image = pygame.transform.scale(image, (50, 50))
