@@ -59,9 +59,10 @@ data = {
 - if user's stats are changing, it is also visible in stats bar at the top of the screen
 - user can play a round which takes 60 seconds, there are 3 levels ready to play
 - during gameplay there is soundtrack playing in the ground as well as different sounds when colliding with items
-- upon siccessfull completing a level, user can see distinctive picture for 3 secs and he's or her's position is resetted, as well as timer
+- upon successfull completing a level, user can see distinctive picture for 3 secs and he's or her's position is resetted, as well as timer
 - upon successfull completion of a game, user can see winning menu and choose to play again or quit the game
 - upon loosing, user can see game over menu and choose to play again or quit the game
+- player can pause a game play using space bar
 
 
 
