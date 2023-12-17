@@ -9,7 +9,7 @@ font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 34)
 class Button:
     def __init__(
             self, x, y, width, height, board_instance: Board,
-            buttonText='Button', onclickFunction=None, onePress=False):
+            button_text='Button', onclick_function=None, one_press=False):
 
         """
         Initialise a Button object.
@@ -32,30 +32,29 @@ class Button:
         self.y = y
         self.width = width
         self.height = height
-        self.buttonText = buttonText
-        self.onclickFunction = onclickFunction
-        self.onePress = onePress
+        self.button_text = button_text
+        self.onclick_function = onclick_function
+        self.one_press = one_press
         self.board_instance = board_instance
 
-        self.fillColors = {
+        self.fill_colors = {
             'normal': '#9867c5',
             'hover': '#be93d4',
             'pressed': '#7a4988',
         }
-        self.buttonSurface = pygame.Surface((self.width, self.height))
-        self.buttonRect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.alreadyPressed = False
+        self.button_surface = pygame.Surface((self.width, self.height))
+        self.button_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.already_pressed = False
 
     def draw(self):
-        print("failed from draw")
-        buttonSurf = font.render(
-            self.buttonText, True, (255, 255, 255))
-        self.buttonSurface.fill(self.fillColors['normal'])
-        self.buttonSurface.blit(buttonSurf, [
-            self.buttonRect.width / 2 - buttonSurf.get_rect().width / 2,
-            self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2
+        button_surf = font.render(
+            self.button_text, True, (255, 255, 255))
+        self.button_surface.fill(self.fill_colors['normal'])
+        self.button_surface.blit(button_surf, [
+            self.button_rect.width / 2 - button_surf.get_rect().width / 2,
+            self.button_rect.height / 2 - button_surf.get_rect().height / 2
         ])
-        self.board_instance.board.blit(self.buttonSurface, self.buttonRect)
+        self.board_instance.board.blit(self.button_surface, self.button_rect)
 
     def process(self):
 
@@ -64,37 +63,50 @@ class Button:
         and rendering.
         """
 
-        buttonSurf = font.render(
-            self.buttonText, True, (255, 255, 255))
+        button_surf = font.render(
+            self.button_text, True, (255, 255, 255))
 
-        mousePos = pygame.mouse.get_pos()
+        mouse_pos = pygame.mouse.get_pos()
 
-        self.buttonSurface.fill(self.fillColors['normal'])
+        self.button_surface.fill(self.fill_colors['normal'])
 
-        if self.buttonRect.collidepoint(mousePos):
-            self.buttonSurface.fill(self.fillColors['hover'])
+        if self.button_rect.collidepoint(mouse_pos):
+            self.button_surface.fill(self.fill_colors['hover'])
 
             if pygame.mouse.get_pressed(num_buttons=3)[0]:
-                self.buttonSurface.fill(self.fillColors['pressed'])
-                if self.onePress:
-                    self.onclickFunction()
-                elif not self.alreadyPressed:
-                    self.onclickFunction()
-                    self.alreadyPressed = True
+                self.button_surface.fill(self.fill_colors['pressed'])
+                if self.one_press:
+                    self.onclick_function()
+                elif not self.already_pressed:
+                    self.onclick_function()
+                    self.already_pressed = True
             else:
-                self.alreadyPressed = False
+                self.already_pressed = False
 
-        self.buttonSurface.blit(buttonSurf, [
-            self.buttonRect.width / 2 - buttonSurf.get_rect().width / 2,
-            self.buttonRect.height / 2 - buttonSurf.get_rect().height / 2
+        self.button_surface.blit(button_surf, [
+            self.button_rect.width / 2 - button_surf.get_rect().width / 2,
+            self.button_rect.height / 2 - button_surf.get_rect().height / 2
         ])
-        self.board_instance.board.blit(self.buttonSurface, self.buttonRect)
+        self.board_instance.board.blit(self.button_surface, self.button_rect)
 
     def get_attributes(self):
+
+        """
+        Gets the attributes of an instance.
+
+        Returns:
+            dict:
+                x: int,
+                y: int,
+                width: int,
+                height: int,
+                text: str
+        """
+
         return {
             'x': self.x,
             'y': self.y,
             'width': self.width,
             'height': self.height,
-            'text': self.buttonText
+            'text': self.button_text
         }

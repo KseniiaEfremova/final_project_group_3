@@ -1,6 +1,6 @@
 import pygame
-from db.user import (check_username_and_password, is_user_exist_in_db,
-                     DB_NAME, users_table, check_passwords, get_password_by_username)
+from pygame.locals import *
+from db.user import *
 from board import Board
 from models.components.button import Button
 from models.components.input_box import InputBox
@@ -8,13 +8,13 @@ from models.components.popup import PopupWindow
 from models.components.text_drawer import TextDrawer
 from menus.menu import Menu
 from utils import assets_library
-from pygame.locals import *
 
 pygame.font.init()
 font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
 
 
 class LoginMenu(Menu):
+
     """
     Represents the login menu for user sign-up.
 
@@ -36,17 +36,21 @@ class LoginMenu(Menu):
         self.login = login
         self.background_pic = assets_library['backgrounds']['registration_page']
         self.username_box = InputBox(
-            250, 250, 140, 32, "", self.board_instance)
+            250, 250, 140, 32, "",
+            self.board_instance)
         self.password_box = InputBox(
-            250, 350, 140, 32, "", self.board_instance, is_password=True)
+            250, 350, 140, 32, "",
+            self.board_instance, is_password=True)
         self.text_drawer = TextDrawer(self.board_instance)
         self.submit_btn = Button(
-            300, 450, 200, 40, self.board_instance, 'SUBMIT',
+            300, 450, 200, 40, self.board_instance,
+            'SUBMIT',
             lambda: check_username_and_password(
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
         self.back_btn = Button(
-            0, 560, 190, 40, self.board_instance, 'BACK TO MENU',
+            0, 560, 240, 40, self.board_instance,
+            'BACK TO MENU',
             self.handle_back_to_menu)
         self.popup_window_incorrect = PopupWindow(
             800, 40, "Incorrect Username or Password!")
@@ -82,10 +86,12 @@ class LoginMenu(Menu):
         pygame.display.update()
 
     def handle_user_input(self):
+
         """
         Handle user input events.
 
-        Capture and handle events like quitting, input box handling, and button presses.
+        Capture and handle events like quitting, input box handling, and button
+        presses.
         """
 
         for event in pygame.event.get():
@@ -95,12 +101,13 @@ class LoginMenu(Menu):
             self.password_box.handle_event(event)
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 return self.process_submit()
-            if self.submit_btn.alreadyPressed:
+            if self.submit_btn.already_pressed:
                 return self.process_submit()
-            elif event.type == self.back_btn.alreadyPressed:
+            elif event.type == self.back_btn.already_pressed:
                 self.handle_back_to_menu()
 
     def process_submit(self):
+
         """
         Process the submission of login or sign-up credentials.
 
@@ -109,6 +116,7 @@ class LoginMenu(Menu):
         Returns:
             str: username.
         """
+
         username, password = (self.username_box.get_user_text(),
                               self.password_box.get_user_text())
         if (is_user_exist_in_db(DB_NAME, users_table, username)
@@ -169,9 +177,11 @@ class LoginMenu(Menu):
         pygame.display.update()
 
     def handle_back_to_menu(self):
+
         """
         Handle going back to the main menu.
         """
+
         self.login = False
 
     def process_login(self):

@@ -12,7 +12,8 @@ class Life(Stats, ABC):
     Class representing the player's remaining lives in Code Quest.
 
     Attributes:
-        player_instance (Player): An instance of the player associated with the lives.
+        player_instance (Player): An instance of the player associated with the
+        lives.
         board_instance (Board): An instance of the game board.
         sprites (list): A list of life sprites.
         lives (int): The current number of lives of the player.
@@ -31,19 +32,26 @@ class Life(Stats, ABC):
         Initialise a Life object.
 
         Parameters:
-            player_instance (Player): An instance of the player associated with the lives.
+            player_instance (Player): An instance of the player associated with
+            the lives.
             board_instance (Board): An instance of the game board.
         """
 
         super().__init__(player_instance, board_instance)
         self.sprites = []
         self.lives = self.player_instance.life
-        self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart1']))
-        self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart2']))
-        self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart3']))
-        self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart4']))
-        self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart5']))
-        self.sprites.append(pygame.image.load(assets_library['sprites']['heart']['heart6']))
+        self.sprites.append(
+            pygame.image.load(assets_library['sprites']['heart']['heart1']))
+        self.sprites.append(
+            pygame.image.load(assets_library['sprites']['heart']['heart2']))
+        self.sprites.append(
+            pygame.image.load(assets_library['sprites']['heart']['heart3']))
+        self.sprites.append(
+            pygame.image.load(assets_library['sprites']['heart']['heart4']))
+        self.sprites.append(
+            pygame.image.load(assets_library['sprites']['heart']['heart5']))
+        self.sprites.append(
+            pygame.image.load(assets_library['sprites']['heart']['heart6']))
         self.current_sprite = 0
         self.x_positions = [775, 705, 635]
         self.images = []
@@ -64,7 +72,7 @@ class Life(Stats, ABC):
             int: The index of the life sprite.
         """
 
-        if 30 >= remainder > 25:
+        if 29 >= remainder > 25:
             self.current_sprite = 1
         elif 25 >= remainder > 17:
             self.current_sprite = 2
@@ -81,7 +89,8 @@ class Life(Stats, ABC):
     def update(self):
 
         """
-        Update the list of scaled life images based on the current number of lives.
+        Update the list of scaled life images based on the current number of
+        lives.
 
         Returns:
             list: A list of scaled life images.
@@ -108,11 +117,11 @@ class Life(Stats, ABC):
             third_sprite = 5
         
         first_image = pygame.transform.scale(self.sprites[first_sprite],
-										   (self.width, self.height))
+                                            (self.width, self.height))
         second_image = pygame.transform.scale(self.sprites[second_sprite],
-									   (self.width, self.height))
+                                                (self.width, self.height))
         third_image = pygame.transform.scale(self.sprites[third_sprite],
-									   (self.width, self.height))
+                                            (self.width, self.height))
         self.images.append(first_image)
         self.images.append(second_image)
         self.images.append(third_image)
@@ -132,5 +141,4 @@ class Life(Stats, ABC):
         for index, image in enumerate(self.images):
             x = self.x_positions[index]
             board_instance.board.blit(
-				image, (x - self.height, self.y - self.height))
-
+                image, (x - self.height, self.y - self.height))

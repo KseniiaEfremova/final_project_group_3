@@ -18,13 +18,19 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         bug_image (pygame.Surface): The image for Bug falling items.
         error_image (pygame.Surface): The image for Error falling items.
         warning_image (pygame.Surface): The image for Warning falling items.
-        falling_items (pygame.sprite.Group): A group containing all falling items.
+        falling_items (pygame.sprite.Group): A group containing all falling
+        items.
         game_board (Board): An instance of the game board.
-        python (PythonItem): An instance of PythonItem for creating Python falling items.
-        tick (TickItem): An instance of TickItem for creating Tick falling items.
-        duck (RubberDuckItem): An instance of RubberDuckItem for creating Rubber Duck falling items.
-        warning (WarningItem): An instance of WarningItem for creating Warning falling items.
-        error (ErrorItem): An instance of ErrorItem for creating Error falling items.
+        python (PythonItem): An instance of PythonItem for creating Python
+        falling items.
+        tick (TickItem): An instance of TickItem for creating Tick falling
+        items.
+        duck (RubberDuckItem): An instance of RubberDuckItem for creating Rubber
+        Duck falling items.
+        warning (WarningItem): An instance of WarningItem for creating Warning
+        falling items.
+        error (ErrorItem): An instance of ErrorItem for creating Error falling
+        items.
         bug (BugItem): An instance of BugItem for creating Bug falling items.
         item_list (list): A list containing all types of falling items.
     """
@@ -42,12 +48,12 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         self.timer_seconds = 60
         self.start_time = time.time()
         self.python_image = pygame.image.load(
-            assets_library['sprites']['python']['python1'])
+            assets_library['sprites']['python'])
         self.tick_image = pygame.image.load(assets_library['sprites']['tick'])
         self.duck_image = pygame.image.load(
-            assets_library['sprites']['duck']['duck5'])
+            assets_library['sprites']['duck'])
         self.bug_image = pygame.image.load(
-            assets_library['sprites']['bug']['bug1'])
+            assets_library['sprites']['bug'])
         self.error_image = pygame.image.load(assets_library['sprites']['error'])
         self.warning_image = pygame.image.load(
             assets_library['sprites']['warning'])

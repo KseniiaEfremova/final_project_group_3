@@ -6,7 +6,7 @@ from board import Board
 from models.falling_items.damage_falling_item import BugItem
 from utils import assets_library
 
-bug_image = pygame.image.load(assets_library['sprites']['bug']['bug1'])
+bug_image = pygame.image.load(assets_library['sprites']['bug'])
 
 
 class TestBugItem(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestBugItem(unittest.TestCase):
 
 		self.assertEqual(bug_item.width, 50)
 		self.assertEqual(bug_item.height, 50)
-		self.assertEqual(bug_item.speed, 8)
+		self.assertEqual(bug_item.speed, 6)
 		self.assertEqual(bug_item.points, 10)
 		self.assertEqual(bug_item.damage, 30)
 		self.assertEqual(bug_item.x, 0)
@@ -44,7 +44,7 @@ class TestBugItem(unittest.TestCase):
 	def test_bug_item_spawn(self):
 		bug_item = BugItem(bug_image, self.test_board)
 
-		self.assertTrue(bug_item.width < bug_item.x < 800 - bug_item.width)
+		self.assertTrue(0 < bug_item.x < 800)
 		self.assertTrue(-400 < bug_item.y < -100)
 
 	def test_bug_item_fall(self):

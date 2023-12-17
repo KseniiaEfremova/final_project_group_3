@@ -1,5 +1,7 @@
 import pygame
-from db.user import check_username_and_password, is_user_exist_in_db, add_valid_user_data_to_db, DB_NAME, users_table
+from pygame.locals import *
+from db.user import (check_username_and_password, is_user_exist_in_db,
+                     add_valid_user_data_to_db, DB_NAME, users_table)
 from board import Board
 from menus.menu import Menu
 from models.components.button import Button
@@ -7,7 +9,6 @@ from models.components.input_box import InputBox
 from models.components.text_drawer import TextDrawer
 from models.components.popup import PopupWindow
 from utils import assets_library
-from pygame.locals import *
 
 pygame.font.init()
 font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
@@ -21,7 +22,8 @@ class RegistrationMenu(Menu):
 
         Args:
             board_instance (Board): The instance of the game board.
-            registration (bool, optional): Flag indicating whether it's a registration or login menu.
+            registration (bool, optional): Flag indicating whether it's a
+            registration or login menu.
         """
 
         super().__init__(board_instance)
@@ -31,7 +33,8 @@ class RegistrationMenu(Menu):
             250, 250, 140, 32, "",
             self.board_instance)
         self.password_box = InputBox(
-            250, 350, 140, 32, "", self.board_instance, is_password=True)
+            250, 350, 140, 32, "",
+            self.board_instance, is_password=True)
         self.text_drawer = TextDrawer(self.board_instance)
         self.submit_btn = Button(
             300, 420, 200, 40, self.board_instance,
@@ -39,7 +42,7 @@ class RegistrationMenu(Menu):
                 self.username_box.get_user_text(),
                 self.password_box.get_user_text()))
         self.back_btn = Button(
-            0, 560, 190, 40, self.board_instance,
+            0, 560, 240, 40, self.board_instance,
             'BACK TO MENU', self.handle_back_to_menu)
         self.popup_window_invalid = PopupWindow(
             800, 40, "Invalid Username or Password!")
@@ -70,21 +73,22 @@ class RegistrationMenu(Menu):
             "Enter your password: ", (255, 255, 255),
             100, 320, font)
         self.password_box.draw_box()
+        self.submit_btn.process()
+        self.back_btn.process()
         if self.popup_window_invalid.opened:
             self.popup_window_invalid.draw_window(self.board_instance.board)
         if self.popup_window_exist.opened:
             self.popup_window_exist.draw_window(self.board_instance.board)
-        self.submit_btn.process()
-        self.back_btn.process()
         pygame.display.update()
 
     def process_registration(self):
 
         """
-        Process the registration input and perform necessary actions.
+        Starts the registration process.
 
         Returns:
-            str: The username entered by the user during the registration process.
+            str: The username entered by the user during the registration
+            process.
         """
 
         self.draw()
@@ -93,6 +97,15 @@ class RegistrationMenu(Menu):
         return username
 
     def handle_user_input(self):
+
+        """
+        Handles user input and mouse events
+
+        Returns:
+            str: The username entered by the user during the registration
+            process.
+        """
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -101,11 +114,21 @@ class RegistrationMenu(Menu):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 username = self.process_submit()
                 return username
-            if self.submit_btn.alreadyPressed:
+            if self.submit_btn.already_pressed:
                 username = self.process_submit()
                 return username
 
     def process_submit(self):
+
+        """
+        Submits user credentials if valid, if not -> starts a process of
+        handling invalid credentials
+
+        Returns:
+            str: The username entered by the user during the registration
+            process.
+        """
+
         user_credentials = check_username_and_password(
             self.username_box.get_user_text(),
             self.password_box.get_user_text()
@@ -118,13 +141,29 @@ class RegistrationMenu(Menu):
             return username
 
     def handle_invalid_credentials(self):
+
+        """
+        Handles correct popup with info to the user
+        """
+        self.popup_window_invalid.opened = True
         self.popup_window_invalid.draw_window(self.board_instance.board)
         self.popup_window_exist.opened = False
         pygame.display.update()
 
     def handle_valid_credentials(self, user_credentials):
+
+        """
+        Handles correct credentials process by envoking adding it to db and
+        finishing registration
+
+        Returns:
+            str: The username entered by the user during the registration
+            process.
+        """
+
         username, password = user_credentials
         if is_user_exist_in_db(DB_NAME, users_table, username):
+            self.popup_window_exist.opened = True
             self.popup_window_exist.draw_window(self.board_instance.board)
             self.popup_window_invalid.opened = False
             pygame.display.update()
@@ -134,12 +173,26 @@ class RegistrationMenu(Menu):
             return username
 
     def add_user_to_db(self, username, password):
+
+        """
+        Envokes db.user query to add correct username and password to db.
+
+        Returns:
+            str: The username entered by the user during the registration
+            process.
+        """
+
         add_valid_user_data_to_db(username, password)
         return username
 
     def finish_registration(self):
+
+        """
+        Changes the state of menu and button.
+        """
+
         self.registration = False
-        self.submit_btn.onePress = False
+        self.submit_btn.one_press = False
         self.popup_window_invalid.opened = (
             False if self.popup_window_invalid.opened else
             self.popup_window_exist.opened
@@ -147,6 +200,11 @@ class RegistrationMenu(Menu):
         self.switch_to_main_background()
 
     def switch_to_main_background(self):
+
+        """
+        changes the background image.
+        """
+
         background_image = pygame.image.load(
             assets_library['backgrounds']['main_background'])
         self.board_instance.image = pygame.transform.scale(background_image,
@@ -154,4 +212,9 @@ class RegistrationMenu(Menu):
         pygame.display.update()
 
     def handle_back_to_menu(self):
+
+        """
+        Changes the state responsible for opening and closing menu.
+        """
+
         self.registration = False

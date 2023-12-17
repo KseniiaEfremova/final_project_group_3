@@ -7,13 +7,8 @@ from board import Board
 from menus.registration_menu import RegistrationMenu
 from models.components.button import Button
 from models.components.input_box import InputBox
-from models.components.text_drawer import TextDrawer
 from models.components.popup import PopupWindow
-from utils import assets_library
-
-
-def compare_instances(actual, expected):
-	return actual.get_attributes() == expected.get_attributes()
+from utils import *
 
 
 class TestRegistrationMenu(unittest.TestCase):
@@ -61,59 +56,6 @@ class TestRegistrationMenu(unittest.TestCase):
 			800, 40,
 				"This username already exist, try another")))
 
-	# @patch('menus.registration_menu.pygame.image.load')
-	# @patch('menus.registration_menu.pygame.transform.scale')
-	# def test_draw(self, mock_scale, mock_load):
-	# 	mock_surface = pygame.Surface((800, 600))
-	# 	mock_scale.return_value = mock_surface
-	#
-	# 	mock_font = pygame.font.Font(assets_library['fonts']['kiddy_play'], 30)
-	# 	mock_font.render.return_value = pygame.Surface((200, 100))
-	# 	self.registration_menu.text_drawer = MagicMock()
-	# 	self.registration_menu.popup_window_invalid = MagicMock()
-	# 	self.registration_menu.popup_window_exist = MagicMock()
-	# 	self.registration_menu.password_box = MagicMock()
-	# 	self.registration_menu.username_box = MagicMock()
-	# 	self.registration_menu.submit_btn = MagicMock()
-	# 	self.registration_menu.submit_btn.process.return_value = None
-	#
-	# 	self.registration_menu.draw()
-	#
-	# 	mock_load.assert_called_once_with(
-	# 		assets_library['backgrounds']['registration_page'])
-	# 	mock_scale.assert_called_once_with(mock_load.return_value, (800, 600))
-	#
-	# 	self.registration_menu.submit_btn.process.assert_called_once()
-	#
-	# 	self.assertEqual(self.registration_menu.text_drawer.draw_text.call_count, 3)
-	# 	self.registration_menu.text_drawer.draw_text.assert_called_with(
-	# 		"Enter your password: ", (255, 255, 255), 100, 320, mock_font)
-	#
-	# 	self.registration_menu.popup_window_invalid.draw_window.assert_called_once()
-	# 	self.registration_menu.popup_window_exist.draw_window.assert_called_once()
-	#
-	# 	self.registration_menu.username_box.draw_box.assert_called_once()
-	# 	self.registration_menu.password_box.draw_box.assert_called_once()
-
-	# @patch('pygame.image.load')
-	# @patch('pygame.transform.scale')
-	# @patch('pygame.display.update')
-	# def test_process_registration(
-	# 		self, mock_update, mock_scale, mock_load):
-	# 	mock_surface = pygame.Surface((800, 600))
-	# 	mock_scale.return_value = mock_surface
-	# 	self.registration_menu.submit_btn = MagicMock()
-	# 	self.registration_menu.submit_btn.process.return_value = None
-	# 	mock_font = pygame.font.Font(None, 36)
-	# 	mock_font.render.return_value = pygame.Surface((200, 100))
-	# 	self.registration_menu.handle_user_input = MagicMock()
-	# 	self.registration_menu.handle_user_input.return_value = "Test User"
-	#
-	# 	returned_username = self.registration_menu.process_registration()
-	#
-	# 	self.assertEqual(mock_update.call_count, 2)
-	# 	self.assertEqual(returned_username, "Test User")
-
 	@patch('menus.registration_menu.Button')
 	def test_handle_user_input(self, mock_button):
 		mock_event_quit = pygame.event.Event(QUIT)
@@ -123,8 +65,9 @@ class TestRegistrationMenu(unittest.TestCase):
 		pygame.event.post(mock_event_quit)
 		pygame.event.post(mock_event_keydown)
 
-		mock_button.return_value.alreadyPressed = True
-		self.registration_menu.submit_btn.alreadyPressed = mock_button.return_value.alreadyPressed
+		mock_button.return_value.already_pressed = True
+		self.registration_menu.submit_btn.already_pressed = (
+			mock_button.return_value.already_pressed)
 		self.registration_menu.process_submit = MagicMock()
 		self.registration_menu.process_submit.return_value = "Test User"
 
@@ -137,7 +80,8 @@ class TestRegistrationMenu(unittest.TestCase):
 	@patch('menus.registration_menu.is_user_exist_in_db')
 	def test_process_submit(self, mock_exist_in_db, mock_check_credentials):
 		mock_check_credentials.return_value = ("Test User", "Test123!")
-		self.registration_menu.check_username_and_password = mock_check_credentials.return_value
+		self.registration_menu.check_username_and_password = (
+			mock_check_credentials.return_value)
 		mock_exist_in_db.return_value = False
 		self.registration_menu.is_user_exist_in_db = mock_exist_in_db
 		actual_username = self.registration_menu.process_submit()
@@ -145,7 +89,8 @@ class TestRegistrationMenu(unittest.TestCase):
 		self.assertEqual(actual_username, "Test User")
 
 		mock_check_credentials.return_value = None
-		self.registration_menu.check_username_and_password = mock_check_credentials.return_value
+		self.registration_menu.check_username_and_password = (
+			mock_check_credentials.return_value)
 		actual_username = self.registration_menu.process_submit()
 
 		self.assertEqual(actual_username, None)
@@ -191,8 +136,8 @@ class TestRegistrationMenu(unittest.TestCase):
 	def test_add_user_to_db(self, mock_add_user):
 		mock_add_user.return_value = "Test User", "Test123!"
 
-		actual_username = self.registration_menu.add_user_to_db("Test User",
-																"Test123!")
+		actual_username = self.registration_menu.add_user_to_db(
+			"Test User", "Test123!")
 		expected_username, _ = mock_add_user.return_value
 
 		self.assertEqual(actual_username, expected_username)
@@ -202,16 +147,19 @@ class TestRegistrationMenu(unittest.TestCase):
 		self.registration_menu.finish_registration()
 
 		self.assertFalse(self.registration_menu.registration)
-		self.assertFalse(self.registration_menu.submit_btn.onePress)
+		self.assertFalse(self.registration_menu.submit_btn.one_press)
 
 	@patch('pygame.display.update')
 	def test_switch_to_main_background(self, mock_update):
 
 		self.registration_menu.switch_to_main_background()
 
-		actual_image = pygame.image.tostring(self.registration_menu.board_instance.image, "RGBA")
-		expected_image = pygame.image.tostring(pygame.transform.scale(pygame.image.load(
-			assets_library['backgrounds']['main_background']), (800, 600)), "RGBA")
+		actual_image = pygame.image.tostring(
+			self.registration_menu.board_instance.image, "RGBA")
+		expected_image = pygame.image.tostring(
+			pygame.transform.scale(pygame.image.load(
+			assets_library['backgrounds']['main_background']),
+				(800, 600)), "RGBA")
 
 		mock_update.assert_called_once()
 		self.assertEqual(actual_image, expected_image)

@@ -22,7 +22,9 @@ class PointsFallingItem(FallingItem, ABC):
         stop_time (datetime.datetime): The time when the item should disappear.
     """
     
-    def __init__(self, name, image, speed, damage, points, width, height, x, y, board_instance):
+    def __init__(
+            self, name, image, speed, damage, points, width, height, x, y,
+            board_instance):
 
         """
         Initialise a PointsFallingItem object.
@@ -106,7 +108,7 @@ class PythonItem(PointsFallingItem, ABC):
         """
 
         super().__init__(
-            "Python", image, 8, 0, 5, 50, 50, 0, 0, board_instance
+            "Python", image, 6, 0, 5, 50, 50, 0, 0, board_instance
         )
 
 
@@ -131,5 +133,5 @@ class RubberDuckItem(PointsFallingItem, ABC):
         """
 
         super().__init__(
-            "Rubber duck", image, 12, 0, 10, 50, 50, 0, 0, board_instance
+            "Rubber duck", image, 8, 0, 10, 50, 50, 0, 0, board_instance
         )

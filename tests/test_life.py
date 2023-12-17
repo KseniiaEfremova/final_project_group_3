@@ -15,7 +15,9 @@ class TestLife(unittest.TestCase):
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
         self.test_falling_items = FallingItemsFactory(self.test_board)
-        self.test_player = Player(100, 100, self.test_board, self.test_falling_items, "Test Player")
+        self.test_player = Player(
+            100, 100, self.test_board, self.test_falling_items,
+            "Test Player")
         self.life = Life(self.test_player, self.test_board)
 
     def test_life_initialization(self):
@@ -56,15 +58,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = 90
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(
+                pygame.image.load(assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 
@@ -72,15 +78,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = 80
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart3']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(
+                pygame.image.load(assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart3']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 
@@ -88,15 +98,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = 70
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart5']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(
+                pygame.image.load(assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart5']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 
@@ -104,15 +118,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = 50
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart3']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(pygame.image.load(
+                assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart3']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 
@@ -120,15 +138,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = 30
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart1']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(
+                pygame.image.load(assets_library['sprites']['heart']['heart1']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 
@@ -136,15 +158,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = -5
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(pygame.image.load(
+                assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 
@@ -152,15 +178,19 @@ class TestLife(unittest.TestCase):
                           'get_lives') as mock_get_lives:
             mock_get_lives.return_value = 0
             current_images = self.life.update()
-            current_images_str = [pygame.image.tostring(image, "RGBA") for image in current_images]
-            expected_images = [pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height)),
-                           pygame.transform.scale(pygame.image.load(assets_library['sprites']['heart']['heart6']),
-                                                  (self.life.width, self.life.height))]
-            expected_images_str = [pygame.image.tostring(image, "RGBA") for image in
-                              expected_images]
+            current_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in current_images]
+            expected_images = [pygame.transform.scale(
+                pygame.image.load(assets_library['sprites']['heart']['heart6']),
+                (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height)),
+                pygame.transform.scale(pygame.image.load(
+                    assets_library['sprites']['heart']['heart6']),
+                    (self.life.width, self.life.height))]
+            expected_images_str = [pygame.image.tostring(
+                image, "RGBA") for image in expected_images]
 
             self.assertEqual(current_images_str, expected_images_str)
 

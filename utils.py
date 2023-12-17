@@ -16,19 +16,12 @@ assets_library = {
     'sounds': {
         'soundtrack': 'assets/sounds/soundtrack.mp3',
         'bonus': 'assets/sounds/bonus_points_2.wav',
-        'intro': 'assets/sounds/intro.wav',
         'level': 'assets/sounds/level_complete.wav',
         'damage': 'assets/sounds/small_damage.wav',
-        'win': 'assets/sounds/win.mp3',
-        'game_over': 'assets/sounds/game_over.wav'
     },
     'sprites': {
-        'bug': {
-            'bug1': 'assets/sprites/bug1.png'
-        },
-        'duck': {
-            'duck5': 'assets/sprites/duck5.png',
-        },
+        'bug': 'assets/sprites/bug.png',
+        'duck': 'assets/sprites/duck.png',
         'error': 'assets/sprites/error.png',
         'heart': {
             'heart1': 'assets/sprites/heart_full.png',
@@ -67,10 +60,43 @@ assets_library = {
                 'player_right9': 'assets/sprites/player8.png',
             }
         },
-        'python': {
-            'python1': 'assets/sprites/python1.png',
-        },
+        'python': 'assets/sprites/python.png',
+
         'tick': 'assets/sprites/tick.png',
         'warning': 'assets/sprites/warning.png'
     }
 }
+
+
+def compare_instances(actual, expected):
+
+    """
+    Compares x, y, width, height and text on two instances of one class.
+
+    Args:
+        actual (dict): dimensions of rendered instance.
+        expected (dict): dimensions of expected instance.
+    """
+
+    return actual.get_attributes() == expected.get_attributes()
+
+
+def reset_game(player, falling, end_game_menu, is_winner, is_loser):
+    """
+    Resets the game state.
+
+    Args:
+        player (Player): The player object.
+        falling (FallingItemsFactory): The falling items factory object.
+        end_game_menu (EndGameMenu): The end game menu object.
+        is_winner (bool): True if the player won, False otherwise.
+        is_loser (bool): True if the player lost, False otherwise.
+    """
+    player.reset_player()
+    player.reset_player_stats()
+    falling.falling_items.empty()
+    end_game_menu.play_again = False
+    if is_winner:
+        player.toggle_is_winner()
+    if is_loser:
+        player.toggle_is_loser()

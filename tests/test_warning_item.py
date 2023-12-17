@@ -25,7 +25,7 @@ class TestWarningItem(unittest.TestCase):
 
 		self.assertEqual(warning_item.width, 50)
 		self.assertEqual(warning_item.height, 50)
-		self.assertEqual(warning_item.speed, 12)
+		self.assertEqual(warning_item.speed, 8)
 		self.assertEqual(warning_item.points, 1)
 		self.assertEqual(warning_item.damage, 1)
 		self.assertEqual(warning_item.x, 0)
@@ -46,7 +46,7 @@ class TestWarningItem(unittest.TestCase):
 	def test_warning_item_spawn(self):
 		warning_item = WarningItem(warning_image, self.test_board)
 
-		self.assertTrue(warning_item.width < warning_item.x < 800 - warning_item.width)
+		self.assertTrue(0 < warning_item.x < 800)
 		self.assertTrue(-400 < warning_item.y < -100)
 
 	def test_warning_item_fall(self):

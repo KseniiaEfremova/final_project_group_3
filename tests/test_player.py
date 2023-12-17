@@ -27,7 +27,8 @@ class TestPlayer(unittest.TestCase):
 	def test_draw_player(self):
 		self.player.draw_player()
 		self.player = pygame.surfarray.array3d(self.player.image)
-		loaded_player = pygame.image.load(assets_library['sprites']['player']['player_right']['player_right1'])
+		loaded_player = pygame.image.load(
+			assets_library['sprites']['player']['player_right']['player_right1'])
 		loaded_player = pygame.transform.scale(loaded_player, (100, 238))
 		player_content = pygame.surfarray.array3d(loaded_player)
 		diff = np.abs(player_content - self.player)
@@ -35,14 +36,6 @@ class TestPlayer(unittest.TestCase):
 		allowable_diff = 0
 
 		self.assertLessEqual(total_diff, allowable_diff)
-
-	# TODO: check out how to test movement to the left and right
-	# @patch('models.player.pygame.key.get_pressed')
-	# def test_player_movement(self, mock_get_pressed):
-	# 	initial_x = self.player.rect.x
-	# 	self.player.move()
-	# 	self.assertEqual(self.player.rect.x, initial_x - 10)
-	# 	self.player.animate.assert_called_once_with('left')
 
 	@patch('models.player.pygame.key.get_pressed')
 	def test_boundary_checking(self, mock_get_pressed):
@@ -131,11 +124,6 @@ class TestPlayer(unittest.TestCase):
 		self.assertEqual(self.player.points, initial_points - bug.points)
 		self.assertEqual(self.player.life, initial_life - bug.damage)
 
-	# TODO: test if the player is colliding and return proper points and life
-	# def test_check_falling_item_collision(self):
-	# 	with patch(
-	# 			'models.player.pygame.sprite.spritecollide') as mock_spritecollide:
-
 	def test_get_lives(self):
 		self.assertEqual(self.player.life, 90)
 
@@ -206,10 +194,11 @@ class TestPlayer(unittest.TestCase):
 	def test_update_db(self, mock_update_user_stats, mock_get_user_id):
 		mock_get_user_id.return_value = 123
 		self.player.update_db()
-		mock_get_user_id.assert_called_once_with('game_users_db', 'users', 'Test Player')
+		mock_get_user_id.assert_called_once_with(
+			'game_users_db', 'users', 'Test Player')
 		mock_update_user_stats.assert_called_once_with(
-			'game_users_db', 'game_statistics', self.player.points, self.player.life,
-			self.player.level, mock_get_user_id.return_value)
+			'game_users_db', 'game_statistics', self.player.points,
+			self.player.life, self.player.level, mock_get_user_id.return_value)
 
 	def tearDown(self):
 		pygame.quit()

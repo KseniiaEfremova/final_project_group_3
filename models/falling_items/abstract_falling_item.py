@@ -6,7 +6,6 @@ from board import Board
 
 
 class FallingItem(ABC, pygame.sprite.Sprite):
-
     """
     Abstract base class for falling items in Code Quest.
 
@@ -22,11 +21,12 @@ class FallingItem(ABC, pygame.sprite.Sprite):
         y (int): The y-coordinate of the falling item's current position.
         rect (pygame.Rect): The rectangular area occupied by the falling item.
         board_instance (Board): An instance of the game board.
-        stop_time (datetime.datetime): The time at which the falling item stops spawning.
+        stop_time (datetime.datetime): The time at which the falling item stops
+        spawning.
     """
-    
+
     def __init__(self, name, image, speed, damage, points, width, height, x, y,
-				board_instance: Board):
+                    board_instance: Board):
 
         """
         Initialise a FallingItem object.
@@ -58,11 +58,11 @@ class FallingItem(ABC, pygame.sprite.Sprite):
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (x, y)
         self.board_instance = board_instance
-        self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(seconds=3)
+        self.stop_time = datetime.datetime.utcnow() + datetime.timedelta(
+            seconds=3)
         self.spawn()
-        
-    def spawn(self):
 
+    def spawn(self):
         """
         Spawn the falling item at a random position.
 
@@ -75,7 +75,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
         return self.x, self.y
-    
+
     @abstractmethod
     def disappear(self):
 
@@ -84,7 +84,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
         """
 
         pass
-    
+
     def fall(self):
 
         """
@@ -95,7 +95,7 @@ class FallingItem(ABC, pygame.sprite.Sprite):
         self.rect.y = self.y
         if self.y > 500:
             self.disappear()
-    
+
     def draw(self, board_instance):
 
         """
@@ -106,5 +106,3 @@ class FallingItem(ABC, pygame.sprite.Sprite):
         """
 
         board_instance.board.blit(self.image, (self.x, self.y))
-
-

@@ -30,8 +30,8 @@ class TestPointsFallingItem(unittest.TestCase):
 	@patch('pygame.image.load')
 	@patch('pygame.transform.scale')
 	@patch('pygame.surface.Surface')
-	def test_disappear_progress_two_third_left(self, mock_scale, mock_load,
-											   mock_surface):
+	def test_disappear_progress_two_third_left(
+			self, mock_scale, mock_load, mock_surface):
 		item = DamageFallingItem("Test", mock_surface, 8,
 								 5, 10, 30, 30,
 								 0,0, self.test_board)
@@ -46,8 +46,8 @@ class TestPointsFallingItem(unittest.TestCase):
 	@patch('pygame.image.load')
 	@patch('pygame.transform.scale')
 	@patch('pygame.surface.Surface')
-	def test_disappear_progress_one_third_left(self, mock_scale, mock_load,
-											   mock_surface):
+	def test_disappear_progress_one_third_left(
+			self, mock_scale, mock_load, mock_surface):
 		item = DamageFallingItem("Test", mock_surface, 8,
 								 5, 10, 30, 30,
 								 0,0, self.test_board)

@@ -3,16 +3,11 @@ from unittest.mock import patch, MagicMock
 import pygame
 from board import Board
 from menus.starting_menu import StartingMenu
-from menus.registration_menu import RegistrationMenu
 from menus.credits_menu import CreditsMenu
 from menus.history_menu import HistoryMenu
 from menus.instructions_menu import InstructionsMenu
 from models.components.button import Button
-from utils import assets_library
-
-
-def compare_instances(actual, expected):
-	return actual.get_attributes() == expected.get_attributes()
+from utils import *
 
 
 class TestStartingMenu(unittest.TestCase):
@@ -74,7 +69,6 @@ class TestStartingMenu(unittest.TestCase):
 		self.assertFalse(self.starting_menu.is_open)
 		self.assertTrue(self.starting_menu.registration)
 
-
 	def test_login_handler(self):
 		self.assertTrue(self.starting_menu.is_open)
 		self.assertFalse(self.starting_menu.login)
@@ -84,8 +78,6 @@ class TestStartingMenu(unittest.TestCase):
 		self.assertFalse(self.starting_menu.is_open)
 		self.assertTrue(self.starting_menu.login)
 
-
-
 	def test_history_handler(self):
 		self.assertTrue(self.starting_menu.is_open)
 		self.assertFalse(self.starting_menu.history)
@@ -94,8 +86,6 @@ class TestStartingMenu(unittest.TestCase):
 
 		self.assertFalse(self.starting_menu.is_open)
 		self.assertTrue(self.starting_menu.history)
-
-
 
 	def test_instructions_handler(self):
 		self.assertTrue(self.starting_menu.is_open)

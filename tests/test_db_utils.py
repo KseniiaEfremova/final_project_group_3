@@ -1,9 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 import mysql.connector
-import logging
-from mysql.connector import errorcode
-from db.db_utils import connect_to_mysql_database, get_cursor_and_connection, create_database, connect_to_database_or_create_if_not_exists
+from db.db_utils import *
 
 
 class TestDatabaseConnection(unittest.TestCase):
@@ -24,7 +22,8 @@ class TestDatabaseConnection(unittest.TestCase):
     @patch('db.db_utils.mysql.connector.connect')
     def test_connect_to_mysql_database_exception(self, mock_connect):
 
-        mock_connect.side_effect = mysql.connector.Error('Error connecting to the database')
+        mock_connect.side_effect = mysql.connector.Error(
+            'Error connecting to the database')
 
         with self.assertRaises(mysql.connector.Error):
             connect_to_mysql_database('test_db')
@@ -48,7 +47,6 @@ class TestDatabaseConnection(unittest.TestCase):
             self.assertIsNotNone(db_connection)
 
 
-
     def test_create_database_success(self):
         with unittest.mock.patch(
             'db.db_utils.mysql.connector.connect',
@@ -58,14 +56,16 @@ class TestDatabaseConnection(unittest.TestCase):
 
             create_database(db_name)
 
-            expected_sql = "CREATE DATABASE {} DEFAULT CHARACTER SET 'utf8'".format(db_name)
+            expected_sql = ("CREATE DATABASE {} DEFAULT "
+                            "CHARACTER SET 'utf8'").format(db_name)
 
             self.mock_cursor.execute.assert_called_once_with(expected_sql)
 
     @patch('db.db_utils.mysql.connector.connect')
     def test_create_database_exception(self, mock_connect):
 
-        mock_connect.side_effect = mysql.connector.Error('Failed creating database')
+        mock_connect.side_effect = mysql.connector.Error(
+            'Failed creating database')
 
         with self.assertRaises(mysql.connector.Error):
             connect_to_mysql_database('test_db')
@@ -84,12 +84,11 @@ class TestDatabaseConnection(unittest.TestCase):
             self.mock_cursor.execute.assert_called_once_with(expected_sql)
 
     @patch('db.db_utils.get_cursor_and_connection')
-    def test_connect_to_database_or_create_if_not_exists_exception(self,
-
-                                                         mock_get_cursor_and_connection):
+    def test_connect_to_database_or_create_if_not_exists_exception(
+            self, mock_get_cursor_and_connection):
         mock_cursor = MagicMock()
-        mock_cursor.execute.side_effect = mysql.connector.Error(errno=1146,
-                                                                msg='Database does not exist')
+        mock_cursor.execute.side_effect = mysql.connector.Error(
+            errno=1146, msg='Database does not exist')
         mock_get_cursor_and_connection.return_value = (mock_cursor, MagicMock())
 
         with patch('builtins.print') as mock_print:

@@ -23,10 +23,10 @@ class TestButton(unittest.TestCase):
         self.assertEqual(button.y, 0)
         self.assertEqual(button.width, 100)
         self.assertEqual(button.height, 50)
-        self.assertEqual(button.onclickFunction, None)
-        self.assertEqual(button.onePress, False)
+        self.assertEqual(button.onclick_function, None)
+        self.assertEqual(button.one_press, False)
         self.assertEqual(button.board_instance, self.test_board)
-        self.assertFalse(button.alreadyPressed)
+        self.assertFalse(button.already_pressed)
 
     def test_get_attributes(self):
         button = Button(
@@ -41,24 +41,6 @@ class TestButton(unittest.TestCase):
             'text': "This is button"
         }
         self.assertEqual(actual, expected)
-
-    # def test_process_button_behavior(self):
-    #     mock_onclick_function = MagicMock()
-    #     button = Button(
-    #         0, 0, 100, 50, self.test_board,
-    #         onclickFunction=mock_onclick_function)
-    #     f = pygame.font.Font(None, 40)
-    #     f.render.return_value = pygame.surface.Surface((200, 200))
-    #     button.process()
-        # pygame.mouse.get_pos = MagicMock(return_value=(25, 25))
-        #
-
-        # button.process()
-        # self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['hover'])
-        # pygame.mouse.get_pressed = MagicMock(return_value=(True, False, False))
-        # button.process()
-        # self.assertEqual(button.buttonSurface.fill.call_args[0][0], button.fillColors['pressed'])
-        # mock_onclick_function.assert_called_once()
 
     def tearDown(self):
         pygame.quit()

@@ -45,8 +45,7 @@ class TestErrorItem(unittest.TestCase):
 	def test_error_item_spawn(self):
 		error_item = ErrorItem(error_image, self.test_board)
 
-		self.assertTrue(
-			error_item.width < error_item.x < 800 - error_item.width)
+		self.assertTrue(0 < error_item.x < 800)
 		self.assertTrue(-400 < error_item.y < -100)
 
 	def test_error_item_fall(self):

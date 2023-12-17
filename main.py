@@ -1,5 +1,3 @@
-import sys
-from board import Board
 from models.player import Player
 from models.falling_items.falling_items_factory import *
 from models.stats.life import Life
@@ -11,47 +9,31 @@ from menus.login_menu import LoginMenu
 from menus.history_menu import HistoryMenu
 from menus.pause_menu import PauseMenu
 from menus.end_game_menu import EndGameMenu
-from menus.starting_menu import *
+from menus.starting_menu import StartingMenu
 from menus.credits_menu import CreditsMenu
 from menus.instructions_menu import InstructionsMenu
 from decorators.sounds import Sounds
-from utils import assets_library
-
-
-def reset_game(player, falling, end_game_menu, is_winner, is_loser):
-    """
-    Resets the game state.
-
-    Args:
-        player (Player): The player object.
-        falling (FallingItemsFactory): The falling items factory object.
-        end_game_menu (EndGameMenu): The end game menu object.
-        is_winner (bool): True if the player won, False otherwise.
-        is_loser (bool): True if the player lost, False otherwise.
-    """
-    player.reset_player()
-    player.reset_player_stats()
-    falling.falling_items.empty()
-    end_game_menu.play_again = False
-    if is_winner:
-        player.toggle_is_winner()
-    if is_loser:
-        player.toggle_is_loser()
+from utils import assets_library, reset_game
 
 
 @Sounds(assets_library['sounds']['soundtrack'], loop=True)
 def run():
+
     """
     The main function to run the Code Quest game.
 
-    This function initializes the game components, handles user registration and login,
-    and manages the game loop with different states such as playing, winning, and losing.
+    This function initializes the game components, handles user registration
+    and login,
+    and manages the game loop with different states such as playing, winning,
+    and losing.
     """
+
     pygame.init()
     game_board = Board('Code Quest', (800, 600), 60)
     pause_menu = PauseMenu(game_board)
     winning_menu = EndGameMenu(game_board, assets_library['backgrounds']['win'])
-    game_over_menu = EndGameMenu(game_board, assets_library['backgrounds']['game_over'])
+    game_over_menu = EndGameMenu(
+        game_board, assets_library['backgrounds']['game_over'])
     falling = FallingItemsFactory(game_board)
     registration_menu = RegistrationMenu(game_board)
     login_menu = LoginMenu(game_board)
@@ -96,7 +78,7 @@ def run():
 
         game_board.update_display()
 
-    player = Player(800 - 725, 600 - 200, game_board, falling, "test")
+    player = Player(800 - 725, 600 - 200, game_board, falling, username)
     game_board.display_board(player)
     game_board.draw_background()
 
@@ -104,7 +86,7 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 30
+    timer_seconds = 60
     paused_time = 0
     start_time = time.time()
     
@@ -153,13 +135,15 @@ def run():
 
         elif is_winner and restart_from_win:
             player.update_db()
-            reset_game(player, falling, winning_menu, True, False)
+            reset_game(
+                player, falling, winning_menu, True, False)
             start_time = time.time()
             game_board.update_display()
 
         elif is_loser and restart_from_loss:
             player.update_db()
-            reset_game(player, falling, game_over_menu, False, True)
+            reset_game(
+                player, falling, game_over_menu, False, True)
             start_time = time.time()
             game_board.update_display()
 

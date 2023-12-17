@@ -15,7 +15,9 @@ class TestPoints(unittest.TestCase):
         self.board = pygame.display.set_mode((800, 600))
         self.test_board = Board("Test Board", (800, 600), 60)
         self.test_falling_items = FallingItemsFactory(self.test_board)
-        self.test_player = Player(100, 100, self.test_board, self.test_falling_items, "Test Player")
+        self.test_player = Player(
+            100, 100, self.test_board, self.test_falling_items,
+            "Test Player")
         self.points = Points(self.test_player, self.test_board)
 
     def test_level_initialization(self):
@@ -47,7 +49,8 @@ class TestPoints(unittest.TestCase):
         self.points.points = 100
         self.points.draw(self.test_board)
 
-        mock_font.render.assert_called_with(f"Points: {self.points.points}", True, mock_color)
+        mock_font.render.assert_called_with(
+            f"Points: {self.points.points}", True, mock_color)
 
     def tearDown(self):
         pygame.quit()
