@@ -8,11 +8,7 @@ from menus.login_menu import LoginMenu
 from models.components.button import Button
 from models.components.input_box import InputBox
 from models.components.popup import PopupWindow
-from utils import assets_library
-
-
-def compare_instances(actual, expected):
-	return actual.get_attributes() == expected.get_attributes()
+from utils import *
 
 
 class TestLoginMenu(unittest.TestCase):

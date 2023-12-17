@@ -7,11 +7,7 @@ from menus.credits_menu import CreditsMenu
 from menus.history_menu import HistoryMenu
 from menus.instructions_menu import InstructionsMenu
 from models.components.button import Button
-from utils import assets_library
-
-
-def compare_instances(actual, expected):
-	return actual.get_attributes() == expected.get_attributes()
+from utils import *
 
 
 class TestStartingMenu(unittest.TestCase):

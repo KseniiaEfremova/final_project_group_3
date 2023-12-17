@@ -48,6 +48,14 @@ class Menu(ABC):
 
 		pass
 
+	def back_button_handler(self):
+
+		"""
+		Handles state changes in opening menus.
+		"""
+
+		pass
+
 	def event_handler(self):
 
 		"""
