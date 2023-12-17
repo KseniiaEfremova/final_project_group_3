@@ -23,7 +23,7 @@ class TestPythonItem(unittest.TestCase):
 
 		self.assertEqual(python_item.width, 50)
 		self.assertEqual(python_item.height, 50)
-		self.assertEqual(python_item.speed, 8)
+		self.assertEqual(python_item.speed, 6)
 		self.assertEqual(python_item.points, 5)
 		self.assertEqual(python_item.damage, 0)
 		self.assertEqual(python_item.x, 0)

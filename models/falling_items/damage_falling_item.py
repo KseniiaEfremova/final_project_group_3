@@ -130,7 +130,7 @@ class BugItem(DamageFallingItem):
             board_instance (Board): An instance of the game board.
         """
 
-        super().__init__('Bug', image,  8, 30, 10,
+        super().__init__('Bug', image,  6, 30, 10,
                          50, 50, 0, 0, board_instance)
 
 
@@ -154,5 +154,5 @@ class WarningItem(DamageFallingItem):
             board_instance (Board): An instance of the game board.
         """
 
-        super().__init__('Warning', image, 12, 1, 1,
+        super().__init__('Warning', image, 8, 1, 1,
                          50, 50, 0, 0, board_instance)

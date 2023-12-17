@@ -25,7 +25,7 @@ class TestWarningItem(unittest.TestCase):
 
 		self.assertEqual(warning_item.width, 50)
 		self.assertEqual(warning_item.height, 50)
-		self.assertEqual(warning_item.speed, 12)
+		self.assertEqual(warning_item.speed, 8)
 		self.assertEqual(warning_item.points, 1)
 		self.assertEqual(warning_item.damage, 1)
 		self.assertEqual(warning_item.x, 0)

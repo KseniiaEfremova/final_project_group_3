@@ -23,7 +23,7 @@ class TestDuckItem(unittest.TestCase):
 
 		self.assertEqual(duck_item.width, 50)
 		self.assertEqual(duck_item.height, 50)
-		self.assertEqual(duck_item.speed, 12)
+		self.assertEqual(duck_item.speed, 8)
 		self.assertEqual(duck_item.points, 10)
 		self.assertEqual(duck_item.damage, 0)
 		self.assertEqual(duck_item.x, 0)
