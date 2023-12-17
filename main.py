@@ -86,7 +86,7 @@ def run():
     level = Level(player, game_board)
     timer = Timer(player, game_board)
     points = Points(player, game_board)
-    timer_seconds = 60
+    timer_seconds = 15
     paused_time = 0
     start_time = time.time()
     

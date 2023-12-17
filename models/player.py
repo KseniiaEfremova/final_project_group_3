@@ -350,7 +350,7 @@ class Player(pygame.sprite.Sprite):
         if self.life > 0:
             self.leveled_up = True
             return self.leveled_up
-        
+    @Sounds(assets_library['sounds']['level'], False)
     def level_up_player(self):
 
         """

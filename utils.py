@@ -16,11 +16,8 @@ assets_library = {
     'sounds': {
         'soundtrack': 'assets/sounds/soundtrack.mp3',
         'bonus': 'assets/sounds/bonus_points_2.wav',
-        'intro': 'assets/sounds/intro.wav',
         'level': 'assets/sounds/level_complete.wav',
         'damage': 'assets/sounds/small_damage.wav',
-        'win': 'assets/sounds/win.mp3',
-        'game_over': 'assets/sounds/game_over.wav'
     },
     'sprites': {
         'bug': 'assets/sprites/bug.png',
