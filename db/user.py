@@ -1,6 +1,6 @@
-from db.db_utils import get_cursor_and_connection
 import re
 import hashlib
+from db.db_utils import get_cursor_and_connection
 
 DB_NAME = "game_users_db"
 users_table = "users"
@@ -19,9 +19,10 @@ def insert_new_user(db_name, table_name, username, password):
         password (str): The hashed password of the new user.
 
     Returns:
-        list: A list of tuples representing the result of the insertion.
+        list: A list of tuples representing the result of the insertion or
+        message if it catches an error.
 
-    Raises:
+    Catches:
         Exception: If there is an error during the user insertion process.
     """
 
@@ -63,9 +64,10 @@ def initial_user_statistics(db_name, table_name, user_id, points=0, life=90, lev
         level (int): The initial level for the user.
 
     Returns:
-        list: A list of tuples representing the result of the insertion.
+        list: A list of tuples representing the result of the insertion or
+        message if it catches an error.
 
-    Raises:
+    Catches:
         Exception: If there is an error during the statistics insertion process.
     """
 
@@ -106,7 +108,10 @@ def update_user_statistics(db_name, table_name, points, life, level, user_id):
         level (int): The updated level for the user.
         user_id (int): The user ID for which the statistics are updated.
 
-    Raises:
+    Returns:
+        a message if it catches an error.
+
+    Catches:
         Exception: If there is an error during the statistics update process.
     """
 
@@ -143,9 +148,10 @@ def get_user_data(db_name, table_name, username):
         username (str): The username for which the data is retrieved.
 
     Returns:
-        list: A list of tuples containing user data (user_id, username, points, life, level).
+        list: A list of tuples containing user data (user_id, username, points,
+        life, level) or message if it catches an error.
 
-    Raises:
+    Catches:
         Exception: If there is an error during the user data retrieval process.
     """
 
@@ -185,9 +191,10 @@ def get_user_id(db_name, table_name, username):
         username (str): The username for which the user ID is retrieved.
 
     Returns:
-        int or None: The user ID if the username is found; otherwise, None.
+        int or None: The user ID if the username is found; otherwise, None or
+        message if it catches an error.
 
-    Raises:
+    Catches:
         Exception: If there is an error during the user ID retrieval process.
     """
 
@@ -268,6 +275,7 @@ def hash_password(password):
     Returns:
         str: The hashed password.
     """
+
     salt = "weqcrh378451#&*$3i4ycn24utyvn6y34y!(@*74"
 
     hashed_password = hashlib.sha256((
@@ -327,8 +335,6 @@ def add_valid_user_data_to_db(username, password):
         None: If the user already exists.
         list: A list of tuples representing the result of the insertion.
 
-    Raises:
-        Exception: If there is an error during the user data addition process.
     """
 
     if is_user_exist_in_db(DB_NAME, users_table, username):
@@ -349,9 +355,10 @@ def get_password_by_username(db_name, table_name, username):
         username (str): The username for which the password is retrieved.
 
     Returns:
-        Optional[str]: The hashed password if the username is found; otherwise, None.
+        Optional[str]: The hashed password if the username is found; otherwise,
+        None or message if it catches an error.
 
-    Raises:
+    Catches:
         Exception: If there is an error during the password retrieval process.
     """
 
