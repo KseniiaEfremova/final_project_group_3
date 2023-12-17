@@ -42,12 +42,12 @@ class FallingItemsFactory(pygame.sprite.Sprite):
         self.timer_seconds = 60
         self.start_time = time.time()
         self.python_image = pygame.image.load(
-            assets_library['sprites']['python']['python1'])
+            assets_library['sprites']['python'])
         self.tick_image = pygame.image.load(assets_library['sprites']['tick'])
         self.duck_image = pygame.image.load(
-            assets_library['sprites']['duck']['duck5'])
+            assets_library['sprites']['duck'])
         self.bug_image = pygame.image.load(
-            assets_library['sprites']['bug']['bug1'])
+            assets_library['sprites']['bug'])
         self.error_image = pygame.image.load(assets_library['sprites']['error'])
         self.warning_image = pygame.image.load(
             assets_library['sprites']['warning'])
