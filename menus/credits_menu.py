@@ -31,7 +31,7 @@ class CreditsMenu(Menu):
         self.background_pic = assets_library['backgrounds']['credits']
         self.credits = True
         self.back_btn = Button(
-            0, 560, 190, 40, self.board_instance,
+            0, 560, 240, 40, self.board_instance,
             'BACK TO MENU', self.back_button_handler)
 
     def draw(self):

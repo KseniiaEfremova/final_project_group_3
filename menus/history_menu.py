@@ -102,7 +102,7 @@ class HistoryMenu(Menu):
         self.draw_rows(self.board_instance.board)
 
         back_btn = Button(
-            20, 550, 200, 40, self.board_instance,
+            0, 560, 240, 40, self.board_instance,
             'BACK TO MENU', self.back_button_handler)
         back_btn.process()
 

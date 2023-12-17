@@ -29,7 +29,7 @@ class InstructionsMenu(Menu):
         super().__init__(board_instance)
         self.background_pic = assets_library['backgrounds']['instructions']
         self.back_button = Button(
-            0, 560, 190, 40, self.board_instance,
+            0, 560, 240, 40, self.board_instance,
             'BACK TO MENU', self.back_button_handler)
         self.instructions = True
 
