@@ -23,12 +23,8 @@ assets_library = {
         'game_over': 'assets/sounds/game_over.wav'
     },
     'sprites': {
-        'bug': {
-            'bug1': 'assets/sprites/bug1.png'
-        },
-        'duck': {
-            'duck5': 'assets/sprites/duck5.png',
-        },
+        'bug': 'assets/sprites/bug.png',
+        'duck': 'assets/sprites/duck.png',
         'error': 'assets/sprites/error.png',
         'heart': {
             'heart1': 'assets/sprites/heart_full.png',
@@ -67,9 +63,8 @@ assets_library = {
                 'player_right9': 'assets/sprites/player8.png',
             }
         },
-        'python': {
-            'python1': 'assets/sprites/python1.png',
-        },
+        'python': 'assets/sprites/python.png',
+
         'tick': 'assets/sprites/tick.png',
         'warning': 'assets/sprites/warning.png'
     }
